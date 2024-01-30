@@ -1,6 +1,6 @@
 --
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/example/public_html/
+    - export DEPLOYPATH=/home3/fbcalum1/public_html/slie/members-dev
     - /bin/cp * $DEPLOYPATH
   
