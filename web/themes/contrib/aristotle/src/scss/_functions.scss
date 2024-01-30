@@ -1,0 +1,42 @@
+// Color contrast
+@function color-yiq($color, $dark: $clr-black, $light: $clr-white) {
+  $r: red($color);
+  $g: green($color);
+  $b: blue($color);
+
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+  @if ($yiq >= 150) {
+    @return $dark;
+  } @else {
+    @return $light;
+  }
+}
+
+// Strips the unit from a number.
+@function strip-unit($value) {
+  @return ($value / ($value * 0 + 1));
+}
+
+// Convert pixels to rems
+@function rem($pxval) {
+  @if not unitless($pxval) {
+    $pxval: strip-unit($pxval);
+  }
+
+  $base: $rem-base;
+  @if not unitless($base) {
+    $base: strip-unit($base);
+  }
+
+  @return ($pxval / $base) * 1rem;
+}
+
+// Retrieve color Sass maps
+@function theme-color($key: primary) {
+  @return map-get($theme-colors, $key);
+}
+
+@function z-index($element) {
+  @return map-get($z-index, $element);
+}

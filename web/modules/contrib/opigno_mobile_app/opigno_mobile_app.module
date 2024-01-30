@@ -1,0 +1,97 @@
+<?php
+
+/**
+ * @file
+ * Contains opigno_mobile_app.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\file\Entity\File;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_help().
+ */
+function opigno_mobile_app_help($route_name, RouteMatchInterface $route_match) {
+  // Main module help for the opigno_mobile_app module.
+  if ($route_name === 'help.page.opigno_mobile_app') {
+    $output = '';
+    $output .= '<h3>' . t('About') . '</h3>';
+    $output .= '<p>' . t('My Awesome Module') . '</p>';
+    return $output;
+  }
+}
+
+/**
+ * Get user's picture url.
+ *
+ * @param \Drupal\user\UserInterface $user
+ *   A user to a picture url for.
+ *
+ * @return string
+ *   Return url with user's picture.
+ */
+function opigno_mobile_app_get_user_picture(UserInterface $user): string {
+  $user_picture = $user->get('user_picture')->target_id;
+  if ($user_picture) {
+    $file = File::load($user_picture);
+    $uri = $file->getFileUri();
+    $url = \Drupal::service('file_url_generator')->generateAbsoluteString($uri);
+  }
+
+  return $url ?? '';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function opigno_mobile_app_preprocess_page(&$variables) {
+
+  if (opigno_mobile_app_is_mobile_app_request() && opigno_mobile_app_is_mobile_mode_route()) {
+    // Unset page contents for trainings steps pages.
+    unset($variables['page']['branding']);
+    unset($variables['page']['menu']);
+    unset($variables['page']['admin_opigno']);
+    unset($variables['page']['sidebar_first']);
+    unset($variables['page']['help']);
+    unset($variables['page']['footer']);
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function opigno_mobile_app_page_attachments(array &$attachments) {
+
+  if (opigno_mobile_app_is_mobile_app_request() && opigno_mobile_app_is_mobile_mode_route()) {
+    // Hide hardcoded header for trainings steps pages.
+    $attachments['#attached']['library'][] = 'opigno_mobile_app/mobile_mode';
+  }
+}
+
+/**
+ * Check if user is on mobile_mode route.
+ */
+function opigno_mobile_app_is_mobile_mode_route() {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $allowed_routes = [
+    'entity.group.canonical',
+    'opigno_module.take_module',
+    'opigno_learning_path.steps.next',
+    'opigno_module.group.answer_form',
+    'opigno_module.module_result',
+    'tft.group',
+  ];
+  return in_array($route_name, $allowed_routes);
+}
+
+/**
+ * Check if app request.
+ */
+function opigno_mobile_app_is_mobile_app_request() {
+  $headers = \Drupal::request()->headers->get('user-agent');
+  if (!empty($headers) && strpos($headers, 'OpignoApp-2') !== FALSE) {
+    return TRUE;
+  }
+  return FALSE;
+}

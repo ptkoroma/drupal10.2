@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: post_short_date
+label: 'Post short date'
+locked: false
+pattern: 'd F Y'

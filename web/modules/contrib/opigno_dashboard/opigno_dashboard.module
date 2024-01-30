@@ -1,0 +1,513 @@
+<?php
+
+/**
+ * @file
+ * Contains opigno_dashboard.module.
+ */
+
+use Drupal\block\Entity\Block;
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\opigno_dashboard\BlockServiceInterface;
+use Drupal\opigno_social\Services\OpignoPostsManager;
+use Drupal\opigno_tour\OpignoTourFunctions;
+
+/**
+ * Implements hook_help().
+ */
+function opigno_dashboard_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the opigno_dashboard module.
+    case 'help.page.opigno_dashboard':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Opigno dashboard') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function opigno_dashboard_theme() {
+  return [
+    'opigno_dashboard' => [
+      'base hook' => 'region',
+      'variables' => [
+        'base_path' => '',
+        'base_href' => '',
+        'route_name' => '',
+        'default_config' => NULL,
+        'blocks_content_url' => '',
+        'get_positioning_url' => '',
+        'get_default_positioning_url' => '',
+        'set_positioning_url' => '',
+      ],
+    ],
+    'opigno_dashboard_default' => [
+      'base hook' => 'region',
+      'variables' => [
+        'base_path' => '',
+        'base_href' => '',
+        'route_name' => '',
+        'default_config' => NULL,
+        'blocks_content_url' => '',
+        'get_positioning_url' => '',
+        'get_default_positioning_url' => '',
+        'set_positioning_url' => '',
+        'set_default_positioning_url' => '',
+        'restore_default_url' => '',
+      ],
+    ],
+    'opigno_dashboard_user_statistics_block' => [
+      'variables' => [
+        'user_name' => NULL,
+        'uid' => NULL,
+        'user_picture' => NULL,
+        'role' => NULL,
+        'stats' => [],
+      ],
+    ],
+    'opigno_site_header' => [
+      'variables' => [
+        'logo' => NULL,
+        'menu' => NULL,
+        'is_anonymous' => NULL,
+        'is_user_page' => NULL,
+        'user_name' => NULL,
+        'user_url' => NULL,
+        'user_picture' => NULL,
+        'notifications_count' => NULL,
+        'notifications' => NULL,
+        'messages_count' => NULL,
+        'dropdown_menu' => NULL,
+      ],
+    ],
+    'opigno_about_block' => [
+      'variables' => [
+        'logo' => NULL,
+        'texts' => [],
+        'version' => NULL,
+      ],
+    ],
+    'opigno_user_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_region().
+ */
+function opigno_dashboard_preprocess_region(&$variables) {
+  $request = \Drupal::request();
+  $dashboard_routes = [
+    'view.frontpage.page_1',
+    'opigno_dashboard.dashboard_admin_default_settings',
+  ];
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  if (in_array($route_name, $dashboard_routes) && $variables['region'] === 'content') {
+    $variables['base_path'] = $request->getBasePath();
+    $variables['base_href'] = $request->getPathInfo();
+    $variables['route_name'] = $route_name;
+    $variables['blocks_content_url'] = Url::fromRoute('opigno_dashboard.get_blocks')->toString();
+    $variables['get_positioning_url'] = Url::fromRoute('opigno_dashboard.get_positioning')->toString();
+    $variables['get_default_positioning_url'] = Url::fromRoute('opigno_dashboard.get_default_positioning')->toString();
+    $variables['set_positioning_url'] = Url::fromRoute('opigno_dashboard.set_positioning')->toString();
+
+    $block_service = \Drupal::service('opigno_dashboard.block');
+    if (!$block_service instanceof BlockServiceInterface) {
+      return;
+    }
+
+    // Get default config for dashboard blocks.
+    if ($route_name === 'opigno_dashboard.dashboard_admin_default_settings') {
+      $variables['default_config'] = '{}';
+      $variables['set_default_positioning_url'] = Url::fromRoute('opigno_dashboard.set_default_positioning')->toString();
+      $variables['restore_default_url'] = Url::fromRoute('opigno_dashboard.restore_to_default_all')->toString();
+    }
+    else {
+      $default_dashboard = $block_service->getPositioning(NULL, TRUE, TRUE);
+
+      // Set the default dashboard settings.
+      $positions = json_encode($default_dashboard['positions']);
+      $columns = $default_dashboard['columns'];
+      $variables['default_config'] = $positions ?? $block_service->getDefaultDashboardConfig();
+      $variables['default_columns'] = $columns ?? $block_service->getDefaultLayoutId();
+    }
+
+    // Add the mobile social feed.
+    if ($block_service->isSocialFeatureEnabled()) {
+      $posts_manager = \Drupal::service('opigno_posts.manager');
+      if ($posts_manager instanceof OpignoPostsManager) {
+        $img_path = theme_get_setting('logo.url');
+        $new_posts = count($posts_manager->getNewPosts());
+        $variables['social_feed_mobile'] = [
+          'img' => $img_path,
+          'new_posts_amount' => $new_posts ? \Drupal::translation()->formatPlural($new_posts, '1 new post', '@count new posts') : '',
+        ];
+      }
+    }
+
+    /** @var \Drupal\Core\Menu\LocalTaskManagerInterface $manager */
+    $manager = \Drupal::service('plugin.manager.menu.local_task');
+
+    /** @var \Drupal\Core\Cache\CacheableMetadata $cacheability */
+    $cacheability = new CacheableMetadata();
+    $cacheability->addCacheableDependency($manager);
+
+    $tabs = [
+      '#theme' => 'menu_local_tasks',
+    ];
+
+    $primary = $manager->getLocalTasks(\Drupal::routeMatch()
+      ->getRouteName(), 0);
+    $cacheability = $cacheability->merge($primary['cacheability']);
+    $tabs += [
+      '#primary' => count(Element::getVisibleChildren($primary['tabs'])) > 1 ? $primary['tabs'] : [],
+    ];
+
+    $secondary = $manager->getLocalTasks(\Drupal::routeMatch()
+      ->getRouteName(), 1);
+    $cacheability = $cacheability->merge($secondary['cacheability']);
+    $tabs += [
+      '#secondary' => count(Element::getVisibleChildren($secondary['tabs'])) > 1 ? $secondary['tabs'] : [],
+    ];
+
+    $variables['tabs'] = $tabs;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_alter().
+ */
+function opigno_dashboard_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
+  // Override default frontpage content region.
+  if (\Drupal::routeMatch()->getRouteName() == 'view.frontpage.page_1'
+      && in_array('region__content', $suggestions)
+    ) {
+    $suggestions[] = 'opigno_dashboard';
+  }
+  if (\Drupal::routeMatch()->getRouteName() == 'opigno_dashboard.dashboard_admin_default_settings'
+    && in_array('region__content', $suggestions)
+  ) {
+    $suggestions[] = 'opigno_dashboard_default';
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function opigno_dashboard_page_attachments(array &$page) {
+  if (Drupal::currentUser()->isAnonymous()) {
+    return;
+  }
+
+  // Add dashboard libraries.
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $dashboard_routes = [
+    'view.frontpage.page_1',
+    'opigno_dashboard.dashboard_admin_default_settings',
+  ];
+
+  if (!in_array($route_name, $dashboard_routes)) {
+    return;
+  }
+
+  $manage_dashboard_access = Drupal::currentUser()->hasPermission('opigno dashboard layout access');
+  $page['#attached']['library'][] = 'opigno_dashboard/ng_app';
+  $page['#attached']['drupalSettings']['manageDashboardAccess'] = $manage_dashboard_access;
+
+  // @todo Libraries are not attached to dashboard if the sub-theme is used.
+  // Need to re-check when the dashboard is reworked without angular.
+  $block_service = \Drupal::service('opigno_dashboard.block');
+  if (!$block_service instanceof BlockServiceInterface) {
+    return;
+  }
+
+  $blocks = $block_service->getDashboardBlocksContents(FALSE);
+  $block_attachments = $blocks['attachments'] ?? [];
+  if ($block_attachments) {
+    $page['#attached'] = array_merge_recursive($page['#attached'], $block_attachments);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function opigno_dashboard_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $route = \Drupal::routeMatch();
+
+  if (strpos($route->getRouteName(), 'rest.') !== FALSE) {
+    return;
+  }
+
+  // Restrict by route for avoid issues with REST ect.
+  if ($route->getRouteName() == 'user.login') {
+    // Redirect user to the previous page.
+    $previous_url = \Drupal::request()->query->get('prev_path');
+    if (!empty($previous_url)) {
+      // Save redirect url to user private_tempstore in the first form loading.
+      $tempstore = \Drupal::service('tempstore.private')->get('opigno_dashboard');
+      $tempstore->set('prev_path', $previous_url);
+    }
+    else {
+      // Drupal will redirect to user/login page before submit and rebuild form.
+      $tempstore = \Drupal::service('tempstore.private')->get('opigno_dashboard');
+      $previous_url = $tempstore->get('prev_path');
+      if (!empty($previous_url)) {
+        $form_state->set('prev_path', $previous_url);
+      }
+    }
+    $form['prev_path'] = [
+      '#type' => 'value',
+      '#default_value' => $previous_url,
+    ];
+    $form["#submit"][] = 'opigno_dashboard_user_login_submit';
+  }
+}
+
+/**
+ * User login submit callback.
+ */
+function opigno_dashboard_user_login_submit(&$form, FormStateInterface $form_state) {
+
+  if (empty($uid = $form_state->get('uid'))) {
+    return;
+  }
+  $user_storage = \Drupal::entityTypeManager()->getStorage('user');
+  $account = $user_storage->load($uid);
+
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  // Skip on user reset routed and reset pass.
+  if ((strpos($route_name, 'rest.') !== FALSE) ||
+    ($route_name === 'user.reset.login')) {
+    return;
+  }
+
+  if (!empty($_GET['profile']) && !empty($_POST['form_id']) && $_POST['form_id'] == 'install_configure_form') {
+    // Do not use this during installation.
+    return;
+  }
+  // Redirect to the previous page (if exists), otherwise - or to the homepage
+  // after the login.
+  $previous = $form_state->get('prev_path') ?? NULL;
+
+  // Add the "tour" parameter to the url to avoid the unneeded page reload in
+  // the next case: if the tour module exists and enabled and if the route is in
+  // the list of tour-enabled and hasn't been already viewed.
+  $params = [];
+  $default_path = \Drupal::config('system.site')->get('page.front') ?? '<front>';
+  $default_url = \Drupal::pathValidator()->getUrlIfValid($default_path);
+  if ($default_url) {
+    $default_route = $default_url->getRouteName();
+    if (\Drupal::moduleHandler()->moduleExists('opigno_tour')
+      && OpignoTourFunctions::checkRouteTour($default_route)
+      && !OpignoTourFunctions::isPageUserViewed($default_route, $account->id())
+    ) {
+      $params = ['query' => ['tour' => 1]];
+    }
+  }
+
+  $url = $previous ?
+    Url::fromUri('internal:' . $previous) :
+    Url::fromRoute('<front>', [], $params);
+  if ($url) {
+    $form_state->setRedirectUrl($url);
+  }
+}
+
+/**
+ * Updates dashboard blocks with Drupal way machine names.
+ */
+function opigno_dashboard_blocks_update() {
+  $blocks_ids = [
+    'views_block:opigno_group_members-block_pending',
+    'views_block:comments_recent-block_1',
+    'views_block:content_recent-block_1',
+    'views_block:latest_active_trainings-block',
+    'views_block:opigno_calendar-month_block',
+    'views_block:opigno_notifications-block_unread_dashboard',
+    'views_block:opigno_score_modules-dashboard_notavaluated_modules',
+    'views_block:private_message-block_dashboard',
+    'views_block:who_s_new-block_1',
+    'views_block:who_s_online-who_s_online_block',
+  ];
+
+  $config = \Drupal::configFactory();
+  $block_service = \Drupal::service('opigno_dashboard.block');
+  if (!$block_service instanceof BlockServiceInterface) {
+    return;
+  }
+  $blocks = $block_service->getAllBlocks();
+
+  foreach ($blocks_ids as $id) {
+    $old_id = $block_service->sanitizeIdOld($id);
+    $new_id = str_replace('-', '_', $old_id);
+    if ($block_old = Block::load($old_id)) {
+      try {
+        $block_old->delete();
+      }
+      catch (Exception $e) {
+        \Drupal::logger('opigno_dashboard')->error($e->getMessage());
+      }
+    }
+
+    if (!Block::load($new_id)) {
+      $admin_label = $blocks[$id]['admin_label'];
+      if (is_object($admin_label)) {
+        $admin_label = $admin_label->render();
+      }
+
+      $settings = [
+        'plugin' => $id,
+        'region' => 'content',
+        'id' => $new_id,
+        'theme' => $config->get('system.theme')->get('default'),
+        'label' => t('Dashboard:') . ' ' . $admin_label,
+        'visibility' => [
+          'request_path' => [
+            'id' => 'request_path',
+            'pages' => '<front>',
+            'negate' => FALSE,
+            'context_mapping' => [],
+          ],
+        ],
+        'weight' => 0,
+      ];
+
+      $values = [];
+      foreach (['region', 'id', 'theme', 'plugin', 'weight', 'visibility'] as $key) {
+        $values[$key] = $settings[$key];
+        // Remove extra values that do not belong in the settings array.
+        unset($settings[$key]);
+      }
+      foreach ($values['visibility'] as $id => $visibility) {
+        $values['visibility'][$id]['id'] = $id;
+      }
+      $values['settings'] = $settings;
+      $block_new = Block::create($values);
+      try {
+        $block_new->save();
+      }
+      catch (Exception $e) {
+        \Drupal::logger('opigno_dashboard')->error($e->getMessage());
+      }
+    }
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Implements hook_preprocess_page_title().
+ */
+function opigno_dashboard_preprocess_page_title(&$variables) {
+  if (\Drupal::routeMatch()->getRouteName() == 'view.frontpage.page_1') {
+    $variables['title']['#allowed_tags'][] = 'span';
+    $variables['title']['#markup'] = '<span class="sr-only">' . $variables['title']['#markup'] . '</span>';
+  }
+}
+
+/**
+ * Remove a block from dashboard config after the block deletion.
+ *
+ * Implements hook_entity_delete().
+ */
+function opigno_dashboard_entity_delete(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'block') {
+    // The block was deleted, need to remove it from dashboard config.
+    $config = \Drupal::configFactory()->getEditable('opigno_dashboard.settings');
+    if ($blocks = $config->get('blocks')) {
+      $key = $entity->getPluginId();
+      if (array_key_exists($key, $blocks)) {
+        unset($blocks[$key]);
+        $config->set('blocks', $blocks);
+        try {
+          $config->save();
+        }
+        catch (\Exception $e) {
+          \Drupal::logger('opigno_dashboard')->error($e->getMessage());
+          \Drupal::messenger()->addMessage($e->getMessage(), 'error');
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function opigno_dashboard_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ('user_login_form' == $form_id) {
+    $link = Link::createFromRoute(t('Request new password'), 'user.pass', [])->toRenderable();
+    $form['pass'] = [
+      '#type' => 'container',
+      'pass' => $form['pass'],
+      'reset' => $link,
+      '#attributes' => ['class' => 'switch-link'],
+    ];
+    unset($form['name']['#description'], $form['pass']['pass']['#description']);
+  }
+  if (in_array($form_id, ['user_form', 'user_register_form'])) {
+    $form['#theme'] = 'opigno_user_form';
+    $form["language"]["#type"] = 'container';
+    $form["contact"]["#type"] = 'container';
+    $form["timezone"]["#type"] = 'container';
+    $form["account"]["notify"] = [
+      '#type' => 'container',
+      'label' => [
+        '#theme' => 'form_element_label',
+        '#title' => t('Notification'),
+        '#title_display' => 'before',
+      ],
+      'notify' => $form["account"]["notify"],
+    ];
+    $form["field_private_profile"] = [
+      '#type' => 'container',
+      'label' => [
+        '#theme' => 'form_element_label',
+        '#title' => t('Profile settings'),
+        '#title_display' => 'before',
+      ],
+      'content' => $form["field_private_profile"],
+    ];
+    $form["contact"]['label'] = [
+      '#theme' => 'form_element_label',
+      '#title' => t('Contact settings'),
+      '#title_display' => 'before',
+    ];
+    unset(
+      $form["language"]["preferred_admin_langcode"]["#description"],
+      $form["language"]["preferred_langcode"]["#description"],
+      $form["contact"]["contact"]["#description"],
+      $form["field_private_profile"]["widget"]["#description"],
+      $form["field_private_profile"]["widget"]["value"]["#description"],
+      $form["timezone"]["timezone"]["#description"],
+    );
+  }
+}
+
+/**
+ * Implements hook_link_alter().
+ */
+function opigno_dashboard_link_alter(&$variables) {
+  try {
+    if (
+      isset($variables["url"]) &&
+      ($url = $variables["url"]) instanceof Url &&
+      ($url->isRouted() && 'contact.site_page' == $url->getRouteName())
+    ) {
+      $variables["text"] = t('Contact Us');
+    }
+  } catch (Exception $e) {
+  }
+}

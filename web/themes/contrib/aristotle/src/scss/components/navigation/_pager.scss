@@ -1,0 +1,60 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: rem(40) 0;
+
+  .page-item {
+    margin: rem(4) rem(8);
+
+    &.active {
+      .page-link {
+        color: $clr-theme-primary;
+      }
+    }
+  }
+
+  .page-link {
+   font-size: rem(18);
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: $clr-content-link-active;
+    }
+  }
+
+  .io {
+    font-size: rem(22);
+    line-height: 1;
+  }
+}
+
+.pager {
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+  }
+
+  &__item {
+    padding: 4px;
+  }
+}
+
+.js-pager__items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+
+  li {
+    font-weight: $font-weight-semibold;
+    margin: 0 rem(10) rem(5);
+  }
+}

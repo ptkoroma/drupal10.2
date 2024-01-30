@@ -1,0 +1,26 @@
+uuid: ccf60c2d-ff37-49eb-80f7-9dc5401c6dd4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_video_embed_code
+    - node.type.resoures
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.resoures.field_video_embed_code
+field_name: field_video_embed_code
+entity_type: node
+bundle: resoures
+label: 'Video embed Code'
+description: "To display embed code video correctly. Please make sure :\r\n<br>\r\n1. Select Text Format \"Certificate WYSIWYG\" Text Editor.\r\n<br>\r\n2. Scroll up to Text Editor then click in \"source\" tool icon.\r\n<br>\r\n3. Paste embed code on editor.\r\n<br>\r\nIf you would like to embed more than 1 video, you can do so by post each embedded video code one under the other. \r\n<br>\r\nVideo's will appear consecutively one under the other depending on the order of each video's respective embedded code.\r\n<br>\r\nRemember to take breaks regularly to stand up, breath deep and stretch. Improves circulation and work performance. Yay!"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

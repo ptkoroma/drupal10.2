@@ -1,0 +1,41 @@
+uuid: e8aa8374-9ba4-4967-ae0a-e70a8aa6e23f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.resoures.body
+    - field.field.node.resoures.field_activity_category_resoures
+    - field.field.node.resoures.field_field_of_engineering_resou
+    - field.field.node.resoures.field_resource_type
+    - field.field.node.resoures.field_tags_resource
+    - field.field.node.resoures.field_thumb_square_image
+    - field.field.node.resoures.field_upload_docs
+    - field.field.node.resoures.field_upload_links
+    - field.field.node.resoures.field_video_embed_code
+    - field.field.node.resoures.field_video_source_link
+    - node.type.resoures
+  module:
+    - user
+id: node.resoures.default
+targetEntityType: node
+bundle: resoures
+mode: default
+content: {  }
+hidden:
+  body: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_activity_category_resoures: true
+  field_field_of_engineering_resou: true
+  field_resource_type: true
+  field_tags_resource: true
+  field_thumb_square_image: true
+  field_upload_docs: true
+  field_upload_links: true
+  field_video_embed_code: true
+  field_video_source_link: true
+  langcode: true
+  links: true
+  private_message_link: true
+  search_api_excerpt: true

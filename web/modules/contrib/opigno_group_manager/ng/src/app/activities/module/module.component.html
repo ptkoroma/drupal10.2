@@ -1,0 +1,39 @@
+<table *ngIf="activities" class="activities">
+  <thead>
+    <tr>
+      <th></th>
+      <th>{{ text_activity_id_table }}</th>
+      <th>{{ text_max_score_table }}</th>
+      <th *ngIf="editable">{{ text_edit_table }}</th>
+      <th *ngIf="editable">{{ text_remove_table }}</th>
+    </tr>
+  </thead>
+  <tbody [dragula]="'nested-bag'">
+    <ng-container *ngFor="let activity of activities">
+      <activity [module]="module"
+                [activity]="activity"
+                [attr.data-omr-id]="activity.omr_id"
+                [attr.data-weight]="activity.weight"
+                (updateActivityEvent)="updateActivity($event)"
+                (showDeleteEvent)="showDelete($event)"></activity>
+    </ng-container>
+  </tbody>
+</table>
+
+<div class="delete-activity" *ngIf="showDeleteModal && module.editable">
+  <div id="delete-panel-content" class="content-box" (clickOutside)="closeDelete()" [exclude]="'.delete-link'">
+    <h2 class="content-box__title">{{ text_confirm_delete }}</h2>
+    <div class="mat-button-actions">
+      <button mat-button (click)="closeDelete()">{{ text_cancel }}</button>
+      <button mat-raised-button color="warn" (click)="deleteActivity()">{{ text_confirm }}</button>
+    </div>
+  </div>
+</div>
+
+<activities-bank [module]="module"
+                 (closeEvent)="module.showAddModal=false;updateActivities($event)"
+                 *ngIf="module.showAddModal && module.editable"></activities-bank>
+
+<add-activity [activities]="activities"
+              (closeEvent)="showAddModal=false" (updateEvent)="updateActivities($event)"
+              *ngIf="showAddModal && module.editable"></add-activity>

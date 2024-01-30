@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: user_list_item
+label: 'User list item (60x60)'
+effects:
+  62256d27-b0f6-449c-80aa-8aaa46142393:
+    uuid: 62256d27-b0f6-449c-80aa-8aaa46142393
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 60
+      height: 60
+      anchor: center-center

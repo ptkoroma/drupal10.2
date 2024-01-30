@@ -1,0 +1,57 @@
+uuid: 2970cd99-cef8-43be-8958-6fbce64c0849
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.comment_forum.default
+    - field.field.node.members_forum.field_members_forum_body
+    - field.field.node.members_forum.field_members_forum_comments
+    - field.field.node.members_forum.field_members_forum_tags
+    - node.type.members_forum
+  module:
+    - comment
+    - empty_fields
+    - text
+    - user
+id: node.members_forum.default
+targetEntityType: node
+bundle: members_forum
+mode: default
+content:
+  field_members_forum_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_members_forum_comments:
+    type: comment_default
+    label: hidden
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings:
+      empty_fields:
+        handler: ''
+    weight: 2
+    region: content
+  field_members_forum_tags:
+    type: basic_string
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

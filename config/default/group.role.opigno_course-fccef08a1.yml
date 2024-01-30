@@ -1,0 +1,17 @@
+uuid: db9b6ff3-8d5e-4e81-bfa9-362f812c9851
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.opigno_course
+  enforced:
+    config:
+      - user.role.engineer_sub_permission_1
+id: opigno_course-fccef08a1
+label: 'Engineer Sub Permission 1'
+weight: 5
+internal: true
+audience: outsider
+group_type: opigno_course
+permissions_ui: false
+permissions: {  }

@@ -1,0 +1,36 @@
+uuid: 5fb68297-1a28-4908-bd76-88ae99c4f04e
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.learning_path_product
+  module:
+    - commerce_product
+label: 'Import variations'
+id: import_variations
+description: ''
+help: ''
+import_period: 3600
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: syndication
+parser_configuration: {  }
+processor: 'entity:commerce_product_variation'
+processor_configuration:
+  values:
+    type: learning_path_product
+  langcode: en
+  update_existing: 0
+  update_non_existent: _keep
+  skip_hash_check: false
+  authorize: true
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources: {  }
+mappings: {  }

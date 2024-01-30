@@ -1,0 +1,11 @@
+login_redirection:
+  anonymous: null
+  authenticated: /get-profile
+  collaborative_features: /get-profile
+  statistics_reader: /get-profile
+  user_manager: /get-profile
+  content_manager: /get-profile
+  administrator: /get-profile
+  engineer: /get-profile
+  auditor: /get-profile
+exclude_urls: ''

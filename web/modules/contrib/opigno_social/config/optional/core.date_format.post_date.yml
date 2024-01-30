@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: post_date
+label: 'Post date'
+locked: false
+pattern: 'd F Y - H\h i'

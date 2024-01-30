@@ -1,0 +1,26 @@
+uuid: 8cbcf0a8-4f53-46aa-afff-e1a3964b3c1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_activity_status
+    - node.type.non_catalogued_activity
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.non_catalogued_activity.field_activity_status
+field_name: field_activity_status
+entity_type: node
+bundle: non_catalogued_activity
+label: 'Activity Status'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

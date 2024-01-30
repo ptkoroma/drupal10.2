@@ -1,0 +1,14 @@
+uuid: 11d04672-2fc5-4249-9f2b-41d1e8b6e887
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.mentor
+  module:
+    - user
+id: user_add_role_action.mentor
+label: 'Add the Mentor role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: mentor

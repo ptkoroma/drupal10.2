@@ -1,0 +1,226 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Opigno Messaging module.
+ */
+
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Core\Cache\MemoryCache\MemoryCache;
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\private_message\Entity\PrivateMessageInterface;
+use Drupal\private_message\Entity\PrivateMessageThreadInterface;
+
+/**
+ * Implements hook_install().
+ */
+function opigno_messaging_install($is_syncing) {
+  if ($is_syncing) {
+    return;
+  }
+
+  // Alter private_messages module configuration..
+  $config = \Drupal::configFactory()->getEditable('core.entity_view_display.private_message_thread.private_message_thread.default');
+  $cfg = $config->get();
+  $cfg['content']['field_pm_subject'] = [
+    'label' => 'above',
+    'region' => 'content',
+    'weight' => -99,
+    'type' => 'string',
+    'third_party_settings' => [],
+    'settings' => [
+      'link_to_entity' => FALSE,
+    ],
+  ];
+  unset($cfg['hidden']['field_pm_subject']);
+  $cfg['content']['delete_link']['weight'] = -100;
+  $cfg['content']['members']['label'] = 'hidden';
+  $cfg['content']['private_messages']['label'] = 'hidden';
+  $config->setData($cfg)->save();
+
+  // private_message.
+  $config = \Drupal::configFactory()->getEditable('core.entity_view_display.private_message.private_message.default');
+  $cfg = $config->get();
+  $cfg['content']['owner']['label'] = 'hidden';
+  $cfg['hidden']['created'] = TRUE;
+  unset($cfg['content']['created']);
+  $config->setData($cfg)->save();
+}
+
+/**
+ * Import configs.
+ */
+function opigno_messaging_update_9001() {
+  $path = \Drupal::service('extension.list.module')->getPath('opigno_messaging') . '/config/optional/';
+  $source = new FileStorage($path);
+
+  // Import new fields configs.
+  $field_configs = [
+    'field.storage.private_message_thread.field_author' => 'field.field.private_message_thread.private_message_thread.field_author',
+    'field.storage.private_message_thread.field_create_group' => 'field.field.private_message_thread.private_message_thread.field_create_group',
+    'field.storage.private_message_thread.field_image' => 'field.field.private_message_thread.private_message_thread.field_image',
+  ];
+
+  try {
+    $field_storage = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $config_storage = \Drupal::entityTypeManager()->getStorage('field_config');
+    foreach ($field_configs as $storage => $field) {
+      $storage_data = $source->read($storage);
+      $field_storage->create($storage_data)->save();
+      $field_data = $source->read($field);
+      $config_storage->create($field_data)->save();
+    }
+  }
+  catch (PluginNotFoundException | InvalidPluginDefinitionException | EntityStorageException $e) {
+    watchdog_exception('opigno_messaging_exception', $e);
+  }
+
+  // Update/import other configs.
+  $storage = \Drupal::service('config.storage');
+
+  $configs = [
+    'core.date_format.date_short_with_time',
+    'core.date_format.hour_minute',
+    'core.entity_form_display.private_message_thread.private_message_thread.default',
+    'core.entity_view_display.private_message.private_message.default',
+    'core.entity_view_display.private_message.private_message.inbox',
+    'core.entity_view_display.private_message.private_message.thread_preview',
+    'core.entity_view_display.private_message_thread.private_message_thread.default',
+    'core.entity_view_display.private_message_thread.private_message_thread.inbox',
+    'core.entity_view_display.private_message_thread.private_message_thread.preview',
+    'core.entity_view_mode.private_message.thread_preview',
+    'core.entity_view_mode.private_message_thread.preview',
+    'core.entity_view_display.user.user.pm_thread_preview',
+    'image.style.private_message_group_upload',
+    'views.view.private_message',
+  ];
+
+  foreach ($configs as $config) {
+    $storage->write($config, $source->read($config));
+  }
+
+  // Update the block config from the profile.
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('block.block.views_block__private_message_block_all');
+  $config->set('theme', 'aristotle')->save(TRUE);
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Set the author and the group checkbox to old PM threads.
+ */
+function opigno_messaging_update_9002(&$sandbox) {
+  // Prepare the batch data.
+  if (empty($sandbox['entity_list'])) {
+    try {
+      $entity_list = \Drupal::entityTypeManager()->getStorage('private_message_thread')->loadMultiple();
+    }
+    catch (PluginNotFoundException | InvalidPluginDefinitionException $e) {
+      watchdog_exception('opigno_messaging_exception', $e);
+      return t('Something went wrong, update failed.');
+    }
+
+    if (!$entity_list) {
+      return t('No private message threads to update, finish.');
+    }
+
+    $sandbox['total'] = count($entity_list);
+    $sandbox['entity_list'] = array_chunk($entity_list, 50);
+    $sandbox['succeeded'] = $sandbox['errored'] = $sandbox['processed_chunks'] = 0;
+  }
+
+  // Clear the memory cache to avoid the update failing because of the memory
+  // lack.
+  $cache = \Drupal::service('entity.memory_cache');
+  if ($cache instanceof MemoryCache) {
+    $cache->deleteAll();
+  }
+
+  // Here is where we process all of the items.
+  $current_chunk = $sandbox['entity_list'][$sandbox['processed_chunks']];
+  foreach ($current_chunk as $thread) {
+    if (!$thread instanceof PrivateMessageThreadInterface
+      || count($thread->getMembers()) <= 2
+      || !$thread->hasField('field_author')
+      || !$thread->hasField('field_create_group')
+    ) {
+      continue;
+    }
+
+    // Get the 1st message to set the thread author.
+    $messages = $thread->getMessages();
+    foreach ($messages as $message) {
+      if ($message instanceof PrivateMessageInterface) {
+        $thread->set('field_author', $message->getOwnerId());
+        break;
+      }
+    }
+
+    // Set the group checkbox.
+    $thread->set('field_create_group', TRUE);
+    try {
+      $thread->save();
+      $sandbox['succeeded']++;
+    }
+    catch (EntityStorageException $e) {
+      $sandbox['errored']++;
+      watchdog_exception('opigno_messaging_exception', $e);
+    }
+  }
+
+  $sandbox['processed_chunks']++;
+  $sandbox['#finished'] = $sandbox['processed_chunks'] / count($sandbox['entity_list']);
+
+  // Display the batch result.
+  if ($sandbox['#finished'] === 1) {
+    return t('@succeeded private message threads were processed correctly. @errored entities failed.', [
+      '@succeeded' => $sandbox['succeeded'],
+      '@errored' => $sandbox['errored'],
+    ]);
+  }
+}
+
+/**
+ * Update the private messages view.
+ */
+function opigno_messaging_update_9003() {
+  module_load_include('install', 'opigno_module');
+  _opigno_module_apply_update('opigno_messaging', 'config/optional', ['views.view.private_message']);
+}
+
+/**
+ * Import honeypot configs.
+ */
+function opigno_messaging_update_9004() {
+  if (!\Drupal::moduleHandler()->moduleExists('honeypot')) {
+    \Drupal::service('module_installer')->install(['honeypot']);
+  }
+  _opigno_messaging_apply_update('profile', 'opigno_lms', 'config/optional', ['honeypot.settings']);
+}
+
+/**
+ * Configs update helper function.
+ */
+function _opigno_messaging_apply_update($type, $name, $path, $ymls) {
+  $theme_path = sprintf("%s/%s/", \Drupal::service('extension.list.' . $type)->getPath($name), $path);
+  $config_factory = \Drupal::configFactory();
+  $config_storage = \Drupal::service('config.storage');
+  $configs = [];
+  foreach ($ymls as $yml) {
+    $configs[$yml] = $theme_path;
+  }
+  foreach ($configs as $config => $config_path) {
+    $source = new FileStorage($config_path);
+    $data = $source->read($config);
+    if (is_array($data)) {
+      $config_factory->getEditable($config)->setData($data)->save(TRUE);
+      $config_storage->write($config, $data);
+    }
+    else {
+      \Drupal::messenger()->addWarning(t('Incorrect data of @config', ['@config' => $config]));
+    }
+  }
+}

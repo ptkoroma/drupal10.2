@@ -1,0 +1,17 @@
+uuid: 0af7c723-15b1-4d1d-aa30-0e2b3005420d
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Members Forum'
+type: members_forum
+description: 'Enables the creation of Forum Topics'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

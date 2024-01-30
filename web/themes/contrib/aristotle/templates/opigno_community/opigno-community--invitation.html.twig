@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Theme implementation for Opigno community entity (invitation display mode).
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div id="opigno-community-invitation-{{ id }}" class="community-invitation-item person-item">
+  <div class="community-invitation-item__image">{{ picture }}</div>
+
+  <div class="community-invitation-item__content">
+    <h2 class="content-box__title">{{ content.title }}</h2>
+    <div class="community-invitation-item__action">{{ content.extra_field_community_invitation_user_actions }}</div>
+  </div>
+</div>

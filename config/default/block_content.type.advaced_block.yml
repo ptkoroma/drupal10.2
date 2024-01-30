@@ -1,0 +1,8 @@
+uuid: c4fe1866-1d82-4ec4-9fa1-b9140c796fdc
+langcode: en
+status: true
+dependencies: {  }
+id: advaced_block
+label: 'Advanced block'
+revision: 0
+description: ''

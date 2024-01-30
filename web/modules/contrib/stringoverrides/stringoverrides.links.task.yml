@@ -1,0 +1,2 @@
+string_override.default:
+  deriver: 'Drupal\stringoverrides\Plugin\Derivative\DynamicLocalTasks'

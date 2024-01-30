@@ -1,0 +1,71 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display learnign path module.
+ *
+ * - status
+ * - group_id
+ * - step
+ * - approved
+ * - completed
+ * - badges
+ * - time_spent
+ */
+#}
+
+{% set process = (100 * step.progress)|round %}
+<div class="module">
+  <div class="module__container">
+    <h3 class="module__title">
+      {% if step.mandatory %}
+        <i class="fi fi-rr-star"></i>
+      {% endif %}
+      {{ 'Module - @label'|t({'@label': step.name}) }}
+    </h3>
+    <div class="module__content">
+      <div class="module__status">
+        <div class="module__status-content">
+          <div class="label">{{ 'Status' }}</div>
+          <div class="status">
+            {% include 'lp-status.html.twig' with {state_class: status.class} %}
+            {{ status.class | title }}
+          </div>
+        </div>
+      </div>
+      <div class="module__progress">
+        <div class="inner">
+          <div class="label">{{ 'Completion' | t }}</div>
+          <span class="value">{{ process }}%</span></div>
+      </div>
+      <div class="module__completed-on">
+        <div class="inner">
+          <div class="label">{{ 'Completed on' | t }}</div>
+          <span class="value">{{ completed ?: 'not finished' }}</span></div>
+      </div>
+      <div class="module__time-spent">
+        <div class="inner">
+          <div class="label">{{ 'Time spent' | t }}</div>
+          <time class="value">{{ time_spent }}</time>
+        </div>
+      </div>
+      <div class="module__badges-earned">
+        <div class="inner">
+          <div class="label">{{ 'Badges earned' | t }}</div>
+          <span class="value">{{ badges }}</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="activity-container">
+  <div class="activity-table">
+    <div class="views-responsive-table-wrapper">
+      {{ activities.activities }}
+    </div>
+  </div>
+  <div class="activity-info">
+    {{ activities.info_items }}
+    <div class="activity-info__link">
+      {{ activities.link }}
+    </div>
+  </div>
+</div>

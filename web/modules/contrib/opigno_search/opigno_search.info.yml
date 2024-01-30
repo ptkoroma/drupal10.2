@@ -1,0 +1,14 @@
+name: Opigno Search
+type: module
+description: Opigno Search based on Search API.
+core_version_requirement: ^9 || ^10
+package: Opigno
+dependencies:
+  - search_api:search_api
+  - search_api:search_api_db
+  - config_rewrite
+
+# Information added by Drupal.org packaging script on 2023-06-01
+version: '3.1.0'
+project: 'opigno_search'
+datestamp: 1685622956

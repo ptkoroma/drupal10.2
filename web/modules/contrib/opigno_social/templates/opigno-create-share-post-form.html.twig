@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ *
+ * Template implementation for the newsletter form.
+ */
+#}
+
+{{ form.form_build_id }}
+{{ form.form_token }}
+{{ form.form_id }}
+
+{{ form.status_messages_container }}
+{{ form.text }}
+{{ form.attachment }}
+{% if form.hint_text %}
+  <p class="post-hint">{{ form.hint_text }}</p>
+{% endif %}
+
+{{ form.actions }}

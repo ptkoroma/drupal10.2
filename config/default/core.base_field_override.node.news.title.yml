@@ -1,0 +1,18 @@
+uuid: f0f7c8ca-0c9a-43d9-99d5-0e591598a146
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.news
+id: node.news.title
+field_name: title
+entity_type: node
+bundle: news
+label: 'CPD News'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

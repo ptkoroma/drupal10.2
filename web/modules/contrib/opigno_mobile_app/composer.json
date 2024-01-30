@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_mobile_app",
+    "type": "drupal-module",
+    "description": "Opigno mobile app.",
+    "homepage": "http://drupal.org/project/opigno_mobile_app",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

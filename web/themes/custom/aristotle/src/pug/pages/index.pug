@@ -1,0 +1,141 @@
+extends ../layout/main
+
+block variables
+  - var title = 'Home';
+  - var description = '';
+  - var pageClass = 'page-front';
+  - var pageID = 'page-front';
+
+block content
+  .block-page-title-block
+    h1= title
+
+  .row.three-col-layout
+    .col-left.col-xl-3.col-md-6
+      .content-box.profile-info
+        .edit-link
+          a(href="#")
+            i.fi.fi-rr-edit
+
+        .profile-info__body
+          .profile-info__pic
+            img(src="images/content/profil.svg" alt="profile")
+
+          h2.profile-info__name Simon Contreras
+
+          .profile-info__type Student
+
+        .profile-info__statistics
+          .filter
+            .filter__label Trends
+
+            select.form-select.selectpicker(name="filterRange" id="filterRange")
+              option(value="lastweek") Last 7 days
+              option(value="lastmonth") Last 30 days
+
+          ul.statistics-list
+            li.statistics-list__item
+              span.title Training(s) completed
+              span.number 10
+              span.progress.up +2
+                i.fi.fi-rr-arrow-right
+            li.statistics-list__item
+              span.title Current training(s)
+              span.number 3
+              span.progress.up +1
+                i.fi.fi-rr-arrow-right
+            li.statistics-list__item
+              span.title Badge(s) earned
+              span.number 15
+              span.progress.up +3
+                i.fi.fi-rr-arrow-right
+            li.statistics-list__item
+              span.title Certificate(s) received
+              span.number 9
+              span.progress.down -1
+                i.fi.fi-rr-arrow-right
+            li.statistics-list__item
+              span.title Time spent on Training
+              span.number 12 h
+              span.progress.down -1
+                i.fi.fi-rr-arrow-right
+
+
+      .content-box.p-0.d-md-none
+        .link-box.feed-link
+          .link-box__type
+            img(src="images/design/feed.svg" alt="img")
+
+          .link-box__content
+            .link-box__title Your feed
+
+            .link-box__subtext 5 new posts
+
+      .content-box.p-0
+        .link-box
+          .link-box__type
+            img(src="images/design/connections.svg" alt="img")
+
+          .link-box__content
+            a.link-box__link(href="manage-connections.html")
+            .link-box__number 20
+            .link-box__title Connections
+            .link-box__subtext Manage connections
+
+      .content-box.d-xl-none
+        .calendar(style="height: 400px;")
+          h2.content-box__title Calendar
+
+      .content-box.last-training.d-md-none.d-xl-block
+        include ../includes/modules/last-trainings
+
+      .content-box.who-is.who-is__new.d-md-none.d-xl-block
+        include ../includes/modules/who-is-new
+
+    .col-center.col-xl-5.col-md-12
+      .feed-section-title.d-xl-none
+        a.close-btn(href="#")
+          i.fi.fi-rr-angle-small-left
+          | Back
+
+        h2 Feed
+
+      .feed-section
+        include ../includes/modules/social/comment-form
+        .btn-new-post__wrapper
+          a.use-ajax.btn.btn-rounded.btn-new-post(href="#") New post available
+        include ../includes/modules/social/comment-item-pinned
+        include ../includes/modules/social/comment-item
+        .new-comment-devider
+          span you are up to date
+        include ../includes/modules/social/comment-item
+        include ../includes/modules/social/comment-item-post
+
+        ul.js-pager__items.pager.actions-wrapper
+          li.pager__item
+            a.btn.btn-rounded.btn-load-more(href="#") Load more
+
+
+    .col-right.col-xl-4.col-md-6
+      .content-box.p-0.d-none.d-md-block.d-xl-none
+        .link-box.feed-link
+          .link-box__type
+            img(src="images/design/feed.svg" alt="img")
+
+          .link-box__content
+            .link-box__title Your feed
+
+            .link-box__subtext 5 new posts
+
+      .content-box.d-none.d-xl-block
+        .calendar(style="height: 400px;")
+          h2.content-box__title Calendar
+
+      .content-box.last-training.d-none.d-md-block.d-xl-none
+        include ../includes/modules/last-trainings
+
+      .content-box.who-is.who-is__new.d-none.d-md-block.d-xl-none
+        include ../includes/modules/who-is-new
+
+      .content-box.who-is.who-is__online
+        include ../includes/modules/who-is-online

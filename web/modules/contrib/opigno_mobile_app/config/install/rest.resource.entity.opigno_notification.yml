@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - hal
+    - opigno_mobile_app
+    - opigno_notification
+    - serialization
+id: entity.opigno_notification
+plugin_id: 'entity:opigno_notification'
+granularity: resource
+configuration:
+  methods:
+    - GET
+    - POST
+    - PATCH
+  formats:
+    - hal_json
+    - json
+  authentication:
+    - jwt_auth

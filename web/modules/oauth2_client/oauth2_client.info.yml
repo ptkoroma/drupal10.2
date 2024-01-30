@@ -1,0 +1,11 @@
+name: OAuth2 Client
+description: Provides OAuth2 client functionality.
+package: OAuth2
+core_version_requirement: ^9.4 || ^10
+type: module
+configure: entity.oauth2_client.collection
+
+# Information added by Drupal.org packaging script on 2023-08-07
+version: '4.1.0'
+project: 'oauth2_client'
+datestamp: 1691415951

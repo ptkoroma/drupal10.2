@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Contains opigno_user_selection.module.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Element\RenderElement;
+
+/**
+ * Implements hook_theme().
+ */
+function opigno_user_selection_theme() {
+  return [
+    'entity_selector' => [
+      'render element' => 'element',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for entity_selector template.
+ *
+ * Default template: entity_selector.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - foo: Foo variable description.
+ */
+function template_preprocess_entity_selector(array &$variables) {
+  $element = $variables['element'];
+  Element::setAttributes($element, ['id', 'name', 'size']);
+  RenderElement::setAttributes($element, ['form-select']);
+
+  $variables['attributes'] = $element['#attributes'];
+  $variables['options'] = form_select_options($element);
+}

@@ -1,0 +1,25 @@
+services:
+  opigno_dashboard.block:
+    class: Drupal\opigno_dashboard\BlockService
+    arguments: ['@plugin.manager.block', '@renderer', '@current_user', '@config.factory', '@module_handler', '@database']
+
+  opigno_dashboard.redirect_on_access_denied:
+    class: Drupal\opigno_dashboard\EventSubscriber\RedirectOnAccessDeniedSubscriber
+    arguments:
+      - '@current_user'
+      - '@current_route_match'
+      - '@path.current'
+      - '@request_stack'
+    tags:
+      - { name: event_subscriber }
+
+  cache_context.url.path.is_current_user_page:
+    class: Drupal\opigno_dashboard\Cache\Context\IsCurrentUserPageCacheContext
+    arguments: ['@current_route_match', '@current_user']
+    tags:
+      - { name: cache.context }
+
+#  opigno_dashboard.redirect_after_login:
+#    class: Drupal\opigno_dashboard\RedirectMiddleware
+#    tags:
+#      - { name: http_middleware}

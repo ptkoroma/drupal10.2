@@ -1,0 +1,48 @@
+services:
+  opigno_social_community.manager:
+    class: Drupal\opigno_social_community\Services\CommunityManagerService
+    arguments:
+      - '@current_user'
+      - '@entity_type.manager'
+      - '@current_route_match'
+      - '@config.factory'
+      - '@database'
+
+  # Community statistics manager service.
+  opigno_social_community.statistics:
+    class: Drupal\opigno_social_community\Services\CommunityStatistics
+    arguments:
+      - '@database'
+      - '@entity_type.manager'
+      - '@current_user'
+
+  # Community members access manager service.
+  opigno_social_community.member_access_check:
+    class: Drupal\opigno_social_community\Access\CommunityMemberAccessCheck
+    arguments:
+      - '@entity_type.manager'
+      - '@current_route_match'
+      - '@router'
+      - '@request_stack'
+      - '@config.factory'
+    tags:
+      - { name: access_check, applies_to: _opigno_community_member }
+
+  # Community owner access manager service.
+  opigno_social_community.owner_access_check:
+    class: Drupal\opigno_social_community\Access\CommunityOwnerAccessCheck
+    parent: opigno_social_community.member_access_check
+    tags:
+      - { name: access_check, applies_to: _opigno_community_owner }
+
+  # Overrides the OpignoPostsManager.
+  opigno_social_community.posts_manager:
+    class: Drupal\opigno_social_community\Services\CommunityPostsManager
+    parent: opigno_posts.manager
+
+  # Access check based on the "Enable communities" checkbox.
+  opigno_social_community.enabled_access_check:
+    class: Drupal\opigno_social_community\Access\CommunityEnabledAccessCheck
+    arguments: [ '@config.factory' ]
+    tags:
+      - { name: access_check, applies_to: _opigno_social_community_enabled }

@@ -1,0 +1,95 @@
+<?php
+
+/**
+ * @file
+ * Contains opigno_notification.module.
+ */
+
+use Drupal\opigno_notification\Entity\OpignoNotification;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function opigno_notification_theme() {
+  return [
+    'opigno_notifications_header_dropdown' => [
+      'variables' => [
+        'notifications' => [],
+        'notifications_count' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Adds notification.
+ *
+ * @param int $uid
+ *   Notification receiver user id.
+ * @param string $message
+ *   Notification message.
+ * @param string $url
+ *   Url to object mentioned in notification.
+ *
+ * @return \Drupal\opigno_notification\OpignoNotificationInterface
+ *   Created notification.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function opigno_set_message($uid, $message, $url = '/notifications') {
+  $user = \Drupal::currentUser();
+
+  if ($user->isAnonymous()) {
+    \Drupal::messenger()->addMessage($message);
+    return NULL;
+  }
+  else {
+    $notification = OpignoNotification::create();
+    $notification->setUser($uid);
+    $notification->setMessage($message);
+    $notification->setUrl($url);
+    $notification->save();
+    return $notification;
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function opigno_notification_preprocess_views_view(&$vars) {
+  // Attach js & css to view.
+  if (isset($vars['view_array']['#name'])
+    && $vars['view_array']['#name'] === 'opigno_notification') {
+    $vars['#attached']['library'][] = 'opigno_notification/view';
+  }
+}
+
+/**
+ * Removes notifications for deleted user.
+ *
+ * Implements hook_user_delete().
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function opigno_notification_user_delete(EntityInterface $entity) {
+  /** @var \Drupal\opigno_notification\OpignoNotificationInterface[] $list */
+  $list = \Drupal::entityTypeManager()
+    ->getStorage('opigno_notification')
+    ->loadByProperties([
+      'uid' => $entity->id(),
+    ]);
+
+  if ($list) {
+    foreach ($list as $notification) {
+      try {
+        $notification->delete();
+      }
+      catch (\Exception $e) {
+        \Drupal::logger('opigno_notification')->error($e->getMessage());
+        \Drupal::messenger()->addMessage($e->getMessage(), 'error');
+      }
+    }
+  }
+}

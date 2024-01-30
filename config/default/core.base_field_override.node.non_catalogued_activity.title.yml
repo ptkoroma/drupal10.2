@@ -1,0 +1,18 @@
+uuid: f0917569-bfff-4019-baa8-905ee3e2b7bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.non_catalogued_activity
+id: node.non_catalogued_activity.title
+field_name: title
+entity_type: node
+bundle: non_catalogued_activity
+label: 'Activity Title'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

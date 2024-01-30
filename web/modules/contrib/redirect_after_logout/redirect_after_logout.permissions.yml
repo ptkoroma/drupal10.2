@@ -1,0 +1,3 @@
+redirect user after logout:
+  title: 'Redirect user after logout'
+  description: 'Users with selected roles will be redirected after logout.'

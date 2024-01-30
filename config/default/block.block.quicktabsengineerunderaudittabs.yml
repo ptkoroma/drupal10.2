@@ -1,0 +1,25 @@
+uuid: 32a215ac-8992-4915-800a-6e7763d57911
+langcode: en
+status: true
+dependencies:
+  module:
+    - quicktabs
+    - system
+  theme:
+    - aristotle
+id: quicktabsengineerunderaudittabs
+theme: aristotle
+region: content
+weight: -3
+provider: null
+plugin: 'quicktabs_block:engineer_under_audit_tabs'
+settings:
+  id: 'quicktabs_block:engineer_under_audit_tabs'
+  label: 'QuickTabs - ENGINEER UNDER AUDIT Tabs'
+  label_display: '0'
+  provider: quicktabs
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/engineer-activities/*'

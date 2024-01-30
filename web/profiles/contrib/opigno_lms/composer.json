@@ -1,0 +1,152 @@
+{
+    "name": "opigno/opigno_lms",
+    "description": "Opigno LMS profile",
+    "type": "drupal-profile",
+    "license": "GPL-2.0-or-later",
+    "authors": [],
+    "require": {
+        "drupal/core-recommended": "~9.5.0",
+        "dompdf/dompdf": "~2.0.0",
+        "opigno/tincan": "^1.1",
+        "drupal/calendar": "^1.0@alpha",
+        "drupal/media_entity_browser": "^2.0@alpha",
+        "drupal/pdf": "^1.0@dev",
+        "drupal/commerce": "~2.27.0",
+        "drupal/better_exposed_filters": "^5.0@beta",
+        "drupal/ckeditor_bgimage": "2.0.0",
+        "drupal/config_rewrite": "~1.4.0",
+        "drupal/entity": "^1.3",
+        "drupal/extra_field": "^2.3",
+        "drupal/field_group": "~3.2.0",
+        "drupal/h5p": "^2.0@alpha",
+        "drupal/token": "^1.10",
+        "drupal/token_filter": "^1.3.0",
+        "drupal/views_templates": "~1.1.0",
+        "drupal/entity_print": "~2.6.0",
+        "drupal/group": "1.2.0",
+        "drupal/popup_field_group": "^1.7",
+        "drupal/video": "^1.5.0@alpha",
+        "drupal/embed": "^1.5",
+        "drupal/entity_embed": "~1.2.0",
+        "drupal/entity_browser": "^2.8",
+        "drupal/ctools": "^4.0",
+        "drupal/entity_reference_revisions": "~1.9.0",
+        "drupal/inline_entity_form": "^1.0@rc",
+        "drupal/mailsystem": "^4.4",
+        "drupal/mimemail": "^1.0.0@alpha",
+        "drupal/address": "~1.9.0",
+        "commerceguys/addressing": "~1.0.7",
+        "drupal/key": "~1.14.0",
+        "drupal/state_machine": "~1.5.0",
+        "kenwheeler/slick": "~1.8.1",
+        "drupal/search_api": "^1.25",
+        "drupal/dropzonejs": "^2.6",
+        "enyo/dropzone": "v5.5.0",
+        "drupal/message": "~1.2.0",
+        "drupal/message_notify": "~1.2.0",
+        "mozilla/pdf.js": "v2.4.456",
+        "furf/jquery-ui-touch-punch": "master",
+        "drupal/jwt": "^1.0@rc",
+        "drupal/restui": "~1.20.0",
+        "drupal/ckeditor_font": "^1.0@dev",
+        "drupal/userprotect": "~1.1.0",
+        "drupal/role_delegation": "^1.2",
+        "drupal/profile": "~1.3.0",
+        "drupal/ultimate_cron": "^2.0@alpha",
+        "drupal/queue_ui": "~3.1",
+        "drupal/views_infinite_scroll": "^2.0",
+        "drupal/private_message": "^2.0@beta",
+        "drupal/twig_field_value": "~2.0.0",
+        "drupal/simple_gmap": "~3.0.1",
+        "drupal/honeypot": "^2.0",
+        "drupal/css_editor": "^2.0",
+        "drupal/color": "2.x-dev",
+        "drupal/queue_mail": "^1.4",
+        "opis/json-schema": "^2.2",
+        "drupal/opigno_calendar": "^3.0",
+        "drupal/opigno_calendar_event": "^3.0",
+        "drupal/opigno_catalog": "^3.0",
+        "drupal/opigno_certificate": "^3.0",
+        "drupal/opigno_class": "^3.0",
+        "drupal/opigno_commerce": "^3.0",
+        "drupal/opigno_course": "^3.0",
+        "drupal/opigno_cron": "^3.0",
+        "drupal/opigno_dashboard": "^3.0",
+        "drupal/opigno_forum": "^3.0",
+        "drupal/opigno_group_manager": "^3.0",
+        "drupal/opigno_ilt": "^3.0",
+        "drupal/opigno_learning_path": "^3.0",
+        "drupal/opigno_like": "^3.0",
+        "drupal/opigno_messaging": "^3.0",
+        "drupal/opigno_mobile_app": "^3.0",
+        "drupal/opigno_module": "^3.0",
+        "drupal/opigno_moxtra": "^3.0",
+        "drupal/opigno_notification": "^3.0",
+        "drupal/opigno_scorm": "^3.0",
+        "drupal/opigno_search": "^3.0",
+        "drupal/opigno_social": "^3.0",
+        "drupal/opigno_statistics": "^3.0",
+        "drupal/opigno_tincan_api": "^3.0",
+        "drupal/opigno_tour": "^3.0",
+        "drupal/tft": "^3.0",
+        "drupal/aristotle": "^3.0"
+    },
+    "extra": {
+        "patches": {
+            "drupal/core": {
+                "#2924061: Create views plugins for date range fields": "https://www.drupal.org/files/issues/2019-04-15/2924061-14.patch",
+                "#2898635: [PP-1] bundleFieldDefinitions() are not added in EntityViewsData": "https://www.drupal.org/files/issues/2020-01-16/2898635-28.patch",
+                "#3218230: Decorate config entity storage errors": "https://www.drupal.org/files/issues/2022-01-10/3218230-decorate-config-entity-storage-errors-7.patch",
+                "#3302838: Querying with NULL values results in warning mb_strtolower(): Passing null to parameter is deprecated": "https://www.drupal.org/files/issues/2022-08-23/3302838-13.patch"
+            },
+            "drupal/video": {
+                "#2986682: Add source and destination module for migrate plugin": "https://www.drupal.org/files/issues/2018-07-18/2986682-2.patch"
+            },
+            "drupal/ckeditor_bgimage": {
+                "Ckeditor_bgimage Opigno certificate background image": "https://www.drupal.org/files/issues/2021-09-10/ckeditor_bgimage-opigno_certificate-3107667-9.patch"
+            },
+            "drupal/entity_print": {
+                "#3295355-4 Absolute paths support": "https://www.drupal.org/files/issues/2022-07-13/3295355-4-entity-print-abs-paths.patch"
+            },
+            "dompdf/dompdf": {
+                "#3295355-6 Absolute paths support": "https://www.drupal.org/files/issues/2022-07-14/3295355-6-dompdf-abs-paths.patch"
+            },
+            "drupal/group": {
+                "Fix access to the courses group": "https://www.drupal.org/files/issues/2020-08-14/group-course-3165140-4.patch"
+            },
+            "drupal/config_rewrite": {
+                "#3143747: Avoid error on installation": "https://www.drupal.org/files/issues/2020-05-29/config_rewrite-avoid-error-on-installation-3143747.patch"
+            },
+            "drupal/private_message": {
+                "Missing text format: basic_html": "https://www.drupal.org/files/issues/2020-03-23/basic_html_to_plain_text-3121606-2.patch",
+                "Inbox not updated when empty": "https://www.drupal.org/files/issues/2019-11-25/private-message-inbox-when-empty-3095676-5.patch"
+            },
+            "drupal/field_group": {
+                "Undefined property: stdClass::$region in field_group_form_process()": "https://www.drupal.org/files/issues/2020-06-15/3059614-37.patch"
+            },
+            "drupal/calendar": {
+                "Ajax pager": "https://www.drupal.org/files/issues/2021-07-20/calendar-block-ajax-pager-3224497-2.patch",
+                "Opigno adoptation": "https://www.drupal.org/files/issues/2021-09-10/calendar_opigno_adoptation-3232403-1.patch",
+                "3249885: Error: Call to a member function getGranularity() on bool": "https://www.drupal.org/files/issues/2021-12-24/3249885-member-function-get-granularity.patch",
+                "Fix Notice: Undefined index: calendar_colors_None": "https://www.drupal.org/files/issues/2021-10-20/3244809-2.patch"
+            },
+            "drupal/views_infinite_scroll": {
+                "Headers in table format repeat on load more instead of adding rows": "https://www.drupal.org/files/issues/2021-02-11/2899705-35.patch"
+            },
+            "drupal/entity_browser": {
+                "Notice: Undefined index: entity_browser_select": "https://www.drupal.org/files/issues/2021-01-15/undefined_index__entity_browser_select-3086783-008.patch"
+            },
+            "drupal/better_exposed_filters": {
+                "Textfield in auto-submit filter with Ajax should retain focus submitted": "https://www.drupal.org/files/issues/2020-09-16/3103626-12.patch"
+            },
+            "drupal/h5p": {
+                "H5P saving missing title not saving changes": "https://www.drupal.org/files/issues/2022-05-19/h5p-3281356-2.patch",
+                "3260094 - PHP 8.0 deprecated syntax warnings for h5p-editor": "https://www.drupal.org/files/issues/2023-02-06/h5p-php8-deprecation-warnings-3260094-27.patch",
+                "#3295255: H5P widget settings unclickable checkboxes": "https://www.drupal.org/files/issues/2022-07-11/3295255_2.patch"
+            },
+            "drupal/color": {
+                "#2995825 - Color css files are not regenerated when deploying through configuration management": "https://www.drupal.org/files/issues/2022-06-21/2995825-68.patch"
+            }
+        }
+    }
+}

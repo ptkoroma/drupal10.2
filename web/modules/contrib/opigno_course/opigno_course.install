@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Opigno Course module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+
+function opigno_course_update_9001() {
+  module_load_include('install', 'opigno_module');
+  _opigno_module_apply_update('opigno_course', 'config/optional', [
+    'entity_browser.browser.media_entity_browser_badge_images'
+  ]);
+  _opigno_module_apply_update('opigno_module', 'config/optional', [
+    'entity_browser.browser.media_entity_browser_file_pdf'
+  ]);
+}

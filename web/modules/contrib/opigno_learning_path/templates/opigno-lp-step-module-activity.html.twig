@@ -1,0 +1,19 @@
+{#
+/**
+ * #state -
+ * #current -
+ * title -
+ */
+#}
+
+{% set state = elements['#state'] ?? 'pending' %}
+{% set current = elements['#current'] == true ? 'current' : '' %}
+
+<div {{ attributes.addClass('opigno-lp-step-module-activity', state, current) }}>
+  {{ elements['#current'] == true ? '<i class="fi fi-rr-caret-right"></i>' : '' }}
+  {% if elements['#link'] %}
+    <a href="{{ elements['#link'] }}">{{ elements.title }}</a>
+  {% else %}
+    {{ elements.title }}
+  {% endif %}
+</div>

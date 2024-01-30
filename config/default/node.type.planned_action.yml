@@ -1,0 +1,18 @@
+uuid: 6d179471-c612-4d66-90cf-d1c8944eba76
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'CPD Planned Action'
+type: planned_action
+description: ''
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

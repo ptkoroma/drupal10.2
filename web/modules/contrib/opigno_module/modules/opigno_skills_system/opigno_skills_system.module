@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Contains opigno_skills_system.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function opigno_skills_system_taxonomy_term_update(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->bundle() == 'skills') {
+    $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+    $field_storage_definition = $entity_definition_update_manager->getFieldStorageDefinition('skills_active', 'opigno_module');
+    $entity_definition_update_manager->updateFieldStorageDefinition($field_storage_definition);
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function opigno_skills_system_taxonomy_term_insert(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->bundle() == 'skills') {
+    $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+    $field_storage_definition = $entity_definition_update_manager->getFieldStorageDefinition('skills_active', 'opigno_module');
+    $entity_definition_update_manager->updateFieldStorageDefinition($field_storage_definition);
+  }
+}

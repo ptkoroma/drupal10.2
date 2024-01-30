@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Opigno group manager install/update functionality.
+ */
+
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+
+/**
+ * Implements hook_install().
+ */
+function opigno_group_manager_install() {
+  \Drupal::service('module_installer')->install(['serialization']);
+
+  try {
+    $definition = \Drupal::entityTypeManager()->getDefinition('opigno_group_link');
+  }
+  catch (PluginNotFoundException $e) {
+    watchdog_exception('opigno_group_manager_exception', $e);
+    return;
+  }
+
+  // Make field "required_activities" value to be null.
+  // @todo: add this settings to BaseFieldDefinition::create() for this field.
+  $schema = \Drupal::database()->schema();
+  if ($schema->fieldExists($definition->getBaseTable(), 'required_activities')) {
+    $schema->changeField($definition->getBaseTable(), 'required_activities', 'required_activities', [
+      'type' => 'varchar',
+      'length' => 8191,
+      'not null' => FALSE,
+    ]);
+  }
+}
+

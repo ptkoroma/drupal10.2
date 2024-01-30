@@ -1,0 +1,13 @@
+name: 'RoleAssign with User CSV Import'
+type: module
+description: 'RoleAssign module correctly limits role assignments on user edit/create. Even with User CSV Import module. However User CSV Import form still shows ALL the roles. This modules shows a correct visual on the User CSV Import form and helps the two modules work better with each other.'
+core_version_requirement: ^8 || ^9 || ^10
+package: 'User'
+dependencies:
+  - user_csv_import
+  - roleassign
+
+# Information added by Drupal.org packaging script on 2023-04-07
+version: '2.0.3'
+project: 'user_csv_import'
+datestamp: 1680894735

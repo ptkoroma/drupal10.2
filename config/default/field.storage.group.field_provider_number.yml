@@ -1,0 +1,21 @@
+uuid: e7a6331f-39c1-4dfa-8cb2-9f3c6d314f3f
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.field_provider_number
+field_name: field_provider_number
+entity_type: group
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

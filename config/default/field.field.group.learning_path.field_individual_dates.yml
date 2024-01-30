@@ -1,0 +1,26 @@
+uuid: 623aabeb-fe76-4e3f-8278-c24a337b1d95
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_individual_dates
+    - group.type.learning_path
+  module:
+    - custom_add_another
+    - datetime
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: group.learning_path.field_individual_dates
+field_name: field_individual_dates
+entity_type: group
+bundle: learning_path
+label: 'Individual Dates'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

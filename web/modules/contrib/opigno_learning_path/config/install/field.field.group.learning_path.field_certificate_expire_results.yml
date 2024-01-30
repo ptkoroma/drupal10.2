@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_certificate_expire_results
+    - group.type.learning_path
+  module:
+    - options
+id: group.learning_path.field_certificate_expire_results
+field_name: field_certificate_expire_results
+entity_type: group
+bundle: learning_path
+label: 'Expire results after:'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: '1'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

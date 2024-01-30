@@ -1,0 +1,706 @@
+.modal-open {
+  .dialog-off-canvas-main-canvas {
+    filter: blur(20px);
+  }
+}
+
+.modal-dialog {
+  max-width: rem(428);
+}
+
+.modal-header {
+  border: none;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 0;
+  position: relative;
+
+  .close {
+    color: $clr-desktop-text;
+    margin: 0;
+    opacity: 1;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    text-decoration: none;
+
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
+
+  .close-x {
+    font-size: rem(30);
+    left: auto;
+    right: rem(-8);
+  }
+
+  h2 {
+    font-weight: $font-weight-extrabold;
+    text-transform: uppercase;
+  }
+}
+
+.modal-title {
+  font-weight: $font-weight-semibold;
+  text-transform: none;
+}
+
+.modal-content {
+  border: none;
+  border-radius: rem(10);
+  box-shadow: 0 0 6px rgba($clr-black, .3);
+  padding: rem(20);
+
+  .ajax-progress {
+    display: none;
+  }
+}
+
+.modal-body {
+  font-size: rem($font-size-sm);
+  padding: 0;
+
+  .views-exposed-form {
+    margin-bottom: rem(20);
+
+    .form-actions {
+      justify-content: center;
+    }
+  }
+
+  .opigno-create-share-post-form {
+    .form-text {
+      margin-bottom: rem(20);
+    }
+  }
+
+  .form-select {
+    &.bootstrap-select {
+      > .dropdown-toggle {
+        font-size: rem(9);
+        font-weight: $font-weight-bold;
+        min-width: rem(158);
+        padding: rem(0) rem(5) rem(0) rem(10);
+
+        &:after {
+          font-size: rem(23);
+          margin: 0;
+        }
+      }
+
+      .dropdown-menu {
+        padding: 0;
+
+        .dropdown-item {
+          font-size: rem(9);
+          font-weight: $font-weight-bold;
+          padding: rem(5) rem(10);
+        }
+      }
+
+      .active {
+        display: none;
+      }
+    }
+  }
+
+  .trainings-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &__item {
+      &:not(:last-child) {
+        margin-bottom: rem(20);
+      }
+    }
+
+    a {
+      align-items: center;
+      background: $clr-gray-light;
+      border-radius: rem(10);
+      color: $clr-desktop-text;
+      display: flex;
+      font-size: rem($font-size-sm);
+      padding: rem(6) rem(16) rem(6) rem(20);
+      text-decoration: none;
+      transition: background .3s ease-out;
+
+      &:hover {
+        background: $clr-gray-light-D5;
+      }
+    }
+
+    .image {
+      border-radius: rem(5);
+      margin-right: rem(20);
+      max-width: rem(42);
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .date {
+      font-size: rem($font-size-xs);
+      font-style: italic;
+      margin-left: auto;
+    }
+  }
+
+  .post {
+    .post__body {
+      align-items: center;
+      border: 1px solid $clr-desktop-text;
+      border-radius: rem(20);
+      display: flex;
+      margin: rem(20) 0;
+      padding: rem(20);
+    }
+
+    &__body-badge-certificate {
+      align-items: flex-start;
+      flex-direction: column;
+
+      .post__info {
+        margin: auto;
+      }
+    }
+
+    &__pretext {
+      margin-bottom: rem(20);
+    }
+
+    &__image {
+      flex: 1 0 rem(143);
+      max-width: rem(143);
+      padding-right: rem(23);
+
+      img {
+        border-radius: rem(10);
+      }
+    }
+
+    p:not([class]) {
+      margin: 0;
+    }
+  }
+
+  .post-hint {
+    font-weight: $font-weight-semibold;
+  }
+
+  #createPost {
+    .post__body {
+      display: block;
+      margin: 0 0 rem(30);
+    }
+  }
+
+  .opigno-logo {
+    margin: 0 auto rem(20);
+    max-width: rem(195);
+  }
+
+  .confirmation {
+    text-align: center;
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: rem(20);
+    }
+  }
+}
+
+.modal-backdrop {
+  background: none;
+}
+
+#createPost {
+  .post {
+    &__info {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    &__icon {
+      display: inline-flex;
+      height: rem(95);
+      margin-right: rem(20);
+      width: rem(95);
+    }
+
+    .badge {
+      background: url(../images/design/badges.svg) center/cover no-repeat;
+    }
+
+    .certificate {
+      background: url(../images/design/certificate.svg) center/cover no-repeat;
+    }
+
+    &__info-content {
+      h2 {
+        font-weight: $font-weight-extrabold;
+        margin-bottom: rem(7);
+      }
+
+      p {
+        font-weight: $font-weight-semibold;
+        margin-bottom: rem(9);
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.edit-discussion-modal {
+  max-width: rem(590);
+
+  .modal-content {
+    @include media-breakpoint-up(md) {
+      padding: rem(50) rem(50) rem(20);
+    }
+  }
+
+  .modal-header {
+    justify-content: flex-start;
+  }
+
+  .form-item {
+    display: flex;
+    margin-bottom: rem(20) !important;
+
+    > .label,
+    > legend {
+      font-size: rem(14);
+      flex: 0 0 20%;
+      font-weight: $font-weight-semibold;
+      text-align: left;
+      text-transform: none;
+      width: auto;
+    }
+
+    > .field,
+    > .fieldset-wrapper {
+      flex: 1 1 auto;
+    }
+
+    .description {
+      font-size: rem(12);
+      font-style: italic;
+    }
+  }
+
+  .form-no-label {
+    .label {
+      display: none;
+    }
+  }
+
+  .form-item-subject {
+    align-items: center;
+
+    label {
+      margin: 0;
+    }
+  }
+
+  .form-item-users-to-send {
+    display: block;
+  }
+
+  .form-managed-file {
+    @include media-breakpoint-up(md) {
+      display: flex;
+
+      > div {
+        flex: 1 0 50%;
+        max-width: 50%;
+      }
+    }
+
+    img {
+      max-width: rem(133);
+    }
+
+    .upload-field {
+      @include media-breakpoint-down(sm) {
+        margin-bottom: rem(20);
+      }
+    }
+  }
+
+  .ajax-progress {
+    display: block;
+    padding: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    .throbber {
+      animation: scale 3s ease infinite;
+      background: url(../images/design/Logo_opigno_circle.svg) center no-repeat;
+      display: block;
+      height: rem(30);
+      padding: 0;
+      width: rem(30);
+    }
+
+    .message {
+      display: none;
+    }
+  }
+
+  .form-file {
+    max-width: 100%;
+  }
+
+  .form-text,
+  .form-email {
+    background: $clr-gray-light;
+    border: 1px solid $clr-gray-light-D5;
+    border-radius: rem(10);
+    color: $clr-desktop-text;
+    outline: none;
+    padding: rem(5) rem(20);
+    width: 100%;
+
+    &.error {
+      border-color: $clr-red !important;
+      color: $clr-red;
+    }
+
+    &:focus {
+      border-color: $clr-desktop-button-color;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    @include media-breakpoint-up(md) {
+      transform: translate(30px);
+    }
+
+    .form-submit {
+      ~ .form-submit {
+        margin-left: rem(50);
+      }
+    }
+  }
+
+  .opigno-pm-thread-form {
+    &__add {
+      .form-item-message-value {
+        border: 1px solid $clr-desktop-link;
+        border-radius: rem(10);
+        flex: 0 0 calc(100% - 55px);
+        margin-bottom: 0 !important;
+        overflow: hidden;
+      }
+
+      .form-actions {
+        position: absolute;
+        right: 0;
+        bottom: rem(20);
+        transform: none;
+      }
+    }
+  }
+}
+
+.modal-dialog-sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  width: 100% !important;
+  max-width: rem(390) !important;
+  height: 100% !important;
+  overflow-y: auto;
+
+  .toolbar-horizontal.toolbar-tray-open & {
+    height: calc(100% - 79px) !important;
+    top: rem(79) !important;
+  }
+
+  .toolbar-fixed & {
+    height: calc(100% - 39px) !important;
+    top: rem(39) !important;
+  }
+
+  .ui-dialog-content {
+    color: $clr-desktop-text;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    width: auto !important;
+  }
+
+  .ui-dialog-titlebar {
+    padding: rem(20) !important;
+  }
+
+  .ui-dialog-title {
+    color: $clr-desktop-text;
+    font-size: rem(22);
+    padding-right: rem(20);
+  }
+
+  .learning-path-create-class-form,
+  .learning-path-create-user-form {
+    .btn_create {
+      font-family: $font-family-sans-serif;
+      font-weight: $font-weight-semibold;
+      position: static;
+    }
+  }
+}
+
+.ui-dialog-titlebar-close {
+  background: none;
+  border: none;
+  color: $clr-desktop-text;
+  font-size: rem(20);
+  padding: 0;
+  position: absolute;
+  top: rem(32);
+  right: rem(20);
+
+  &:after {
+    content: '\002715';
+  }
+}
+
+.views-ui-dialog {
+  .scroll.form-wrapper {
+    .bootstrap-select {
+      .form-select {
+        position: static !important;
+        height: auto !important;
+        opacity: 1 !important;
+
+        background: $clr-gray-light;
+        border: 1px solid $clr-gray-light-D5;
+        border-radius: rem(10);
+        font-weight: $font-weight-normal;
+        line-height: 1.3;
+        min-height: rem(40);
+        padding: rem(7) rem(5) rem(7) rem(20) !important;
+        width: 100% !important;
+      }
+
+      .dropdown-toggle,
+      .dropdown-menu {
+        display: none !important;
+      }
+    }
+
+    .js-form-type-checkbox {
+      display: block;
+    }
+  }
+}
+
+.community-modal {
+  max-width: rem(689);
+  width: calc(100% - 16px);
+
+  .modal-content {
+    @include media-breakpoint-up(sm) {
+      padding: rem(50);
+    }
+  }
+
+  .modal-header {
+    justify-content: flex-start;
+  }
+
+  .modal-title {
+    font-size: rem(21);
+  }
+
+  .form-item {
+    flex: 1 1 100%;
+
+    @include media-breakpoint-up(sm) {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .label {
+      flex: 0 0 rem(100);
+      font-weight: $font-weight-semibold;
+    }
+
+    .field {
+      flex: 0 0 calc(100% - 100px);
+    }
+
+    .form-text,
+    .cke {
+      border-radius: rem(10);
+      overflow: hidden;
+    }
+  }
+
+  .js-filter-wrapper {
+    margin-left: rem(100);
+  }
+
+  .field--name-visibility {
+    [id^=edit-visibility] {
+      display: flex;
+    }
+
+    .form-item {
+      margin-right: rem(10);
+      margin-bottom: rem(20) !important;
+    }
+
+    .field {
+      display: flex;
+
+      label {
+        cursor: pointer;
+        margin: 0 0 0 rem(5);
+      }
+    }
+
+    .form-select {
+      &.bootstrap-select {
+        > .dropdown-toggle {
+          background: $clr-gray-light;
+          border-color: $clr-gray-light-D5;
+          color: $clr-navy;
+          font-size: rem(14);
+          font-weight: $font-weight-normal;
+          min-height: rem(30);
+          padding-left: rem(20);
+
+          &:after {
+            content: '\f13f' !important;
+            font-size: rem(18);
+          }
+        }
+
+        > .dropdown-menu {
+          border-color: $clr-gray-light-D5;
+        }
+
+        .dropdown-menu {
+          .dropdown-item {
+            font-size: rem(14);
+            font-weight: $font-weight-normal;
+            padding-inline: rem(20);
+          }
+        }
+      }
+    }
+  }
+
+  .fieldgroup {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+
+    legend {
+      font-size: rem(14);
+      font-weight: $font-weight-semibold;
+      margin-bottom: rem(10);
+      text-align: left;
+      text-transform: none;
+      width: rem(100);
+    }
+
+    .fieldset-wrapper {
+      > p {
+        display: none;
+      }
+    }
+  }
+
+  .entity-browser-iframe-container {
+    iframe {
+      height: rem(90) !important;
+      width: rem(260) !important;
+    }
+  }
+
+  .form-actions {
+    text-align: right;
+  }
+
+  .form-submit {
+    background: none;
+    color: $clr-desktop-button-text-secondary;
+
+    &:hover {
+      background: $clr-desktop-button-color-hover-secondary;
+      color: $clr-desktop-button-text-secondary;
+    }
+  }
+}
+
+.community-modal-actions {
+  .community-modal {
+    max-width: rem(569);
+    width: calc(100% - 16px);
+    text-align: left;
+  }
+
+  .modal-content {
+    @include media-breakpoint-up(sm) {
+      padding: rem(50);
+    }
+  }
+
+  .modal-header {
+    justify-content: flex-start;
+  }
+
+  .modal-title {
+    font-size: rem(21);
+    line-height: 1.2;
+  }
+
+  .close-x {
+    display: none;
+  }
+
+  i {
+    font-size: rem(12);
+  }
+
+  .modal-body {
+    .actions,
+    .form-actions {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: rem(20);
+      justify-content: center;
+
+      @include media-breakpoint-down(xs) {
+        grid-template-columns: auto;
+      }
+
+      .btn {
+        min-width: 0;
+        padding-inline: rem(20);
+      }
+    }
+  }
+}

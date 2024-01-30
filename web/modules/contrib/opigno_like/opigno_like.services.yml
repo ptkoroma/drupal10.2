@@ -1,0 +1,4 @@
+services:
+  opigno_like.manager:
+    class: Drupal\opigno_like\Services\OpignoLikeManager
+    arguments: ['@entity_type.manager', '@database', '@current_user', '@cache.data']

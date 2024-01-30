@@ -1,0 +1,38 @@
+uuid: 13aecdbe-3377-4702-b869-06bfde5c40ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_effort
+    - node.type.planned_action
+  module:
+    - comment
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.planned_action.field_effort
+field_name: field_effort
+entity_type: node
+bundle: planned_action
+label: Effort
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    status: 2
+    cid: 0
+    last_comment_timestamp: 0
+    last_comment_name: null
+    last_comment_uid: 0
+    comment_count: 0
+default_value_callback: ''
+settings:
+  default_mode: 1
+  per_page: 50
+  anonymous: 0
+  form_location: true
+  preview: 0
+field_type: comment

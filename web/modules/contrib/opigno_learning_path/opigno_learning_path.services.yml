@@ -1,0 +1,80 @@
+services:
+  opigno_learning_path.content_types.manager:
+    class: Drupal\opigno_learning_path\LearningPathContentTypesManager
+    parent: default_plugin_manager
+  opigno_learning_path.members.manager:
+    class: Drupal\opigno_learning_path\LearningPathMembersManager
+    parent: default_plugin_manager
+
+#  opigno_learning_path.lp_tools_database:
+#    class: Drupal\opigno_learning_path\Database\LearningPathContentsDatabase
+#    arguments: ['@database']
+#    tags:
+#      - { name: backend_overridable }
+
+  opigno_learning_path.event_subscriber:
+    class: Drupal\opigno_learning_path\EventSubscriber\LearningPathEventSubscriber
+    arguments: ['@opigno_learning_path.content_types.manager']
+    tags:
+      - { name: event_subscriber }
+
+  opigno_learning_path.group_operations:
+    class: Drupal\opigno_learning_path\LearningPathGroupOperationsLinks
+    arguments: ['@config.factory', '@module_handler', '@current_user']
+
+  opigno_learning_path.route_subscriber:
+    class: Drupal\opigno_learning_path\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  opigno_learning_path.twig.extension:
+    class: Drupal\opigno_learning_path\TwigExtension\DefaultTwigExtension
+    arguments:
+      - '@current_route_match'
+      - '@current_user'
+      - '@module_handler'
+      - '@renderer'
+      - '@opigno_learning_path.progress'
+      - '@opigno_learning_path.content_service'
+    tags:
+      - { name: twig.extension }
+
+  opigno_learning_path.join_form:
+    class: Drupal\opigno_learning_path\JoinService
+    arguments: ['@current_user', '@entity.form_builder']
+  opigno_learning_path.progress:
+    class: Drupal\opigno_learning_path\Progress
+    arguments:
+      - '@current_user'
+      - '@database'
+      - '@request_stack'
+      - '@date.formatter'
+      - '@entity_type.manager'
+  opigno_lps:
+    class: Drupal\opigno_learning_path\LpSteps
+    arguments:
+      - '@current_user'
+      - '@database'
+      - '@module_handler'
+      - '@entity.repository'
+      - '@entity_type.manager'
+
+  cache_context.opigno_current:
+    class: Drupal\opigno_learning_path\Cache\Context\OpignoCurrentCacheContext
+    arguments: ['@current_user']
+    tags:
+      - { name: cache.context }
+
+  # The access manager service.
+  opigno_learning_path.user_access_manager:
+    class: Drupal\opigno_learning_path\Services\UserAccessManager
+    arguments: [ '@current_user', '@group.membership_loader' ]
+
+  opigno_learning_path.content_service:
+    class: Drupal\opigno_learning_path\Services\LearningPathContentService
+    arguments:
+      - '@current_user'
+      - '@language_manager'
+      - '@opigno_group_manager.content_types.manager'
+      - '@current_route_match'
+      - '@plugin.manager.block'
+      - '@entity_type.manager'

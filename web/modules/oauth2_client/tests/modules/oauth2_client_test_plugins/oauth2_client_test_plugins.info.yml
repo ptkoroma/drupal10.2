@@ -1,0 +1,13 @@
+name: 'Oauth2 Client Test Plugins'
+type: module
+description: 'Provides client plugins for testing.'
+package: Testing
+# version: VERSION
+core_version_requirement: ^9.4 || ^10
+dependencies:
+  - oauth2_client:oauth2_client
+
+# Information added by Drupal.org packaging script on 2023-08-07
+version: '4.1.0'
+project: 'oauth2_client'
+datestamp: 1691415951

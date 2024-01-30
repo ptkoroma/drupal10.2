@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Contains redirect_after_logout.module.
+ */
+
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+/**
+ * Implements hook_help().
+ */
+function redirect_after_logout_help($route_name, RouteMatchInterface $route_match) {
+
+  switch ($route_name) {
+    // Main module help for the redirect_after_logout module.
+    case 'help.page.redirect_after_logout':
+      return check_markup(file_get_contents(\Drupal::service('extension.list.module')->getPath('redirect_after_logout') . "/README.txt"));
+  }
+}
+
+/**
+ * Implements hook_user_logout().
+ */
+function redirect_after_logout_user_logout($account) {
+  $session = \Drupal::service('session');
+  if (isset($session) && $session->has('masquerading')) {
+    return;
+  }
+
+  if ($account->hasPermission('redirect user after logout')) {
+    $config = \Drupal::config('redirect_after_logout.settings');
+    $logout_destination = $config->get('destination');
+    $token_service = \Drupal::token();
+    $destination = &drupal_static(__FUNCTION__);
+    $destination = $token_service->replace($logout_destination);
+  }
+}

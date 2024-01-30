@@ -1,0 +1,333 @@
+<?php
+
+/**
+ * @file
+ * Main file for the "Calendar event" module.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\opigno_calendar_event\CalendarEventEmbeddedDisplay;
+use Drupal\opigno_calendar_event\CalendarEventInterface;
+use Drupal\opigno_calendar_event\CalendarEventManager;
+use Drupal\opigno_calendar_event\Entity\CalendarEvent;
+use Drupal\opigno_calendar_event\CalendarEventEmbeddedWidget;
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
+use Drupal\Core\Entity\ContentEntityFormInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\user\Entity\User;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\views\ViewExecutable;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\Component\Serialization\Json;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\CloseModalDialogCommand;
+use Drupal\Core\Ajax\RedirectCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
+
+/**
+ * Implements hook_entity_field_storage_info().
+ *
+ * {@inheritdoc}
+ */
+function opigno_calendar_event_entity_field_storage_info(EntityTypeInterface $entity_type) {
+  return $entity_type->id() === CalendarEvent::ENTITY_TYPE_ID ? CalendarEvent::storageFieldDefinitions($entity_type) : [];
+}
+
+/**
+ * Implements hook_entity_bundle_create().
+ *
+ * {@inheritdoc}
+ *
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function opigno_calendar_event_opigno_calendar_event_type_insert(ConfigEntityInterface $type) {
+  // @todo Clean up this once
+  //   https://www.drupal.org/project/drupal/issues/2346013 is fixed.
+  $bundle = $type->id();
+  $entity_type_id = CalendarEventInterface::ENTITY_TYPE_ID;
+  $entity_type = \Drupal::entityTypeManager()->getDefinition($entity_type_id);
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface $storage_definition */
+  foreach (CalendarEvent::bundleFieldDefinitions($entity_type, $bundle, []) as $storage_definition) {
+    $update_manager->installFieldStorageDefinition($storage_definition->getName(), $entity_type_id, 'opigno_calendar_event', $storage_definition);
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ *
+ * {@inheritdoc}
+ *
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function opigno_calendar_event_opigno_calendar_event_type_delete(ConfigEntityInterface $type) {
+  // @todo Clean up this once
+  //   https://www.drupal.org/project/drupal/issues/2346013 is fixed.
+  $entity_type_id = CalendarEventInterface::ENTITY_TYPE_ID;
+  $entity_type = \Drupal::entityTypeManager()->getDefinition($entity_type_id);
+  $all_bundle_storage_definitions = CalendarEvent::storageFieldDefinitions($entity_type);
+  $field_name = CalendarEvent::getDateFieldName($type);
+  if (!isset($all_bundle_storage_definitions[$field_name])) {
+    /** @var \Drupal\Core\Entity\EntityLastInstalledSchemaRepositoryInterface $last_installed */
+    $last_installed = \Drupal::service('entity.last_installed_schema.repository');
+    $storage_definitions = $last_installed->getLastInstalledFieldStorageDefinitions($entity_type_id);
+    if (isset($storage_definitions[$field_name])) {
+      \Drupal::entityDefinitionUpdateManager()->uninstallFieldStorageDefinition($storage_definitions[$field_name]);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * {@inheritdoc}
+ */
+function opigno_calendar_event_form_field_config_edit_form_alter(array &$form, FormStateInterface $form_state) {
+  $calendar_event_manager = CalendarEventManager::get();
+  if ($calendar_event_manager->isSettingsForm($form_state)) {
+    $calendar_event_manager->addEmbeddedWidgetSettings($form, $form_state);
+  }
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function opigno_calendar_event_entity_extra_field_info() {
+  $extra = [];
+  $calendar_event_manager = CalendarEventManager::get();
+  $bundle_info_service = \Drupal::service('entity_type.bundle.info');
+
+  foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
+    if (!$entity_type->entityClassImplements(ContentEntityInterface::class)) {
+      continue;
+    }
+    foreach ($bundle_info_service->getBundleInfo($entity_type_id) as $bundle => $bundle_info) {
+      $field_definition = $calendar_event_manager->getReferencingFieldDefinition($entity_type_id, $bundle);
+      if ($field_definition) {
+        $extra[$entity_type_id][$bundle]['display'][CalendarEventEmbeddedDisplay::ELEMENT_NAME] = [
+          'label' => t('Calendar event'),
+          'description' => t('Embedded calendar event display'),
+          'weight' => 0,
+        ];
+        $extra[$entity_type_id][$bundle]['form'][CalendarEventEmbeddedWidget::ELEMENT_NAME] = [
+          'label' => t('Calendar event widget'),
+          'description' => t('Embedded calendar event form'),
+          'weight' => 0,
+        ];
+      }
+    }
+  }
+
+  return $extra;
+}
+
+function opigno_calendar_event_form_opigno_calendar_event_opigno_calendar_event_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $form['date_daterange']['widget'][0]['value_wrapper']['date']['#attributes']['autocomplete'] = 'off';
+  $form['date_daterange']['widget'][0]['end_value_wrapper']['date']['#attributes']['autocomplete'] = 'off';
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * {@inheritdoc}
+ */
+function opigno_calendar_event_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $form_object = $form_state->getFormObject();
+  if ($form_object instanceof ContentEntityFormInterface && in_array($form_object->getOperation(), ['default', 'edit'])) {
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+    $entity = $form_object->getEntity();
+    $calendar_event_manager = CalendarEventManager::get();
+    $calendar_events = $calendar_event_manager->getReferencingCalendarEvents($entity);
+    if ($calendar_events) {
+      $field_definition = $calendar_event_manager->getReferencingFieldDefinition($entity->getEntityTypeId(), $entity->bundle());
+      $calendar_event_manager->getEmbeddedWidget()
+        ->alterForm($form, $form_state, $field_definition, $calendar_events);
+    }
+  }
+
+  if ($form_id == 'user_admin_permissions') {
+    // Alter permissions titles.
+    $form["permissions"]["view opigno_calendar_event"]["description"]["#context"]["title"] = t('View any calendar event entities');
+    $form["permissions"]["update opigno_calendar_event"]["description"]["#context"]["title"] = t('Update any calendar event entities');
+    $form["permissions"]["delete opigno_calendar_event"]["description"]["#context"]["title"] = t('Delete any calendar event entities');
+  }
+}
+
+/**
+ * Implements hook_entity_view().
+ *
+ * {@inheritdoc}
+ */
+function opigno_calendar_event_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if ($entity instanceof ContentEntityInterface && $display->getComponent(CalendarEventEmbeddedDisplay::ELEMENT_NAME)) {
+    $calendar_event_manager = CalendarEventManager::get();
+    $calendar_events = $calendar_event_manager->getReferencingCalendarEvents($entity);
+    if ($calendar_events) {
+      $field_definition = $calendar_event_manager->getReferencingFieldDefinition($entity->getEntityTypeId(), $entity->bundle());
+      $build += $calendar_event_manager->getEmbeddedDisplay()
+        ->build($field_definition, $calendar_events);
+    }
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ *
+ * @param \Drupal\views\ViewExecutable $view
+ *   View object.
+ * @param \Drupal\views\Plugin\views\query\QueryPluginBase $query
+ *   Query object.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function opigno_calendar_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  if ($view->id() === 'opigno_calendar') {
+    $current_user = \Drupal::currentUser()->id();
+    $table_mapping = \Drupal::entityTypeManager()->getStorage('opigno_calendar_event')->getTableMapping();
+    $table = $table_mapping->getFieldTableName('field_calendar_event_members');
+
+    $definition = [
+      'table' => $table,
+      'field' => 'entity_id',
+      'left_table' => 'opigno_calendar_event_field_data',
+      'left_field' => 'id',
+    ];
+    $join = Drupal::service('plugin.manager.views.join')
+      ->createInstance('standard', $definition);
+    $query->addRelationship($table, $join, $table);
+    // Events of a current user OR without members.
+    // Authenticated user will see only own.
+    // But roles that has access "View any calendar event entities"
+    // will see own and without members.
+    $query->where[] = [
+      'conditions' => [
+        [
+          'field' => $table . '.field_calendar_event_members_target_id',
+          'value' => NULL,
+          'operator' => 'IS NULL',
+        ],
+        [
+          'field' => $table . '.field_calendar_event_members_target_id',
+          'value' => $current_user,
+          'operator' => '=',
+        ]
+      ],
+      'type' => 'OR',
+    ];
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function opigno_calendar_event_theme() {
+  $theme = [];
+  $theme['opigno_calendar_event'] = [
+    'render element' => 'elements',
+  ];
+
+  return $theme;
+}
+
+function template_preprocess_opigno_calendar_event(&$variables) {
+  // Helpful $content variable for templates.
+  $variables['content'] = [];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+
+  $event = $variables['elements']['#opigno_calendar_event'];
+
+  $variables['event_type'] = t('Event');
+
+  $user = User::load(\Drupal::currentUser()->id());
+  $check = $event->access('update', $user);
+
+  if ($check && !$event->isnew()) {
+    $edit_url = URL::fromRoute(
+      'entity.opigno_calendar_event.edit_form', ['opigno_calendar_event' => $event->id()]
+    );
+
+    // TODO. Make edit in modal.
+    $edit_url->setOptions([
+      'attributes' => [
+        'target' => '_blank',
+      ]
+    ]);
+
+    $variables['edit_link'] = Link::fromTextAndUrl(t('Edit'), $edit_url)->toString();
+  }
+
+  if (!empty($event->field_meeting)) {
+    $variables['event_type'] = t('Live meeting');
+
+    $link = Link::createFromRoute(
+      t('Join the meeting'),
+      'opigno_moxtra.meeting', ['opigno_moxtra_meeting' => $event->field_meeting->target_id]);
+
+    $variables['event_link'] = $link->toRenderable();
+
+    $link = Link::createFromRoute(
+      t('Join'),
+      'opigno_moxtra.meeting', ['opigno_moxtra_meeting' => $event->field_meeting->target_id]);
+
+    $variables['mobile_link'] = $link->toRenderable();
+
+    $entity = \Drupal::entityTypeManager()->getStorage('opigno_moxtra_meeting')->load($event->field_meeting->target_id);
+
+    if ($entity->getTrainingId()) {
+      $link = Link::createFromRoute(
+        t('See the training'),
+        'entity.group.canonical', ['group' => $entity->getTrainingId()]);
+
+      $variables['training_link'] = $link->toRenderable();
+    }
+    else {
+      $variables['training_link'] = '';
+    }
+
+  }
+
+  if (!empty($event->field_ilt)) {
+    $variables['event_type'] = t('ILT');
+    $link = Link::createFromRoute(
+      t('Some address'),
+      'entity.opigno_ilt.canonical', ['opigno_ilt' => $event->field_ilt->target_id]);
+
+    $variables['event_link'] = $link->toRenderable();
+    $ilt_id = $event->field_ilt->target_id;
+
+    $entity = \Drupal::entityTypeManager()->getStorage('opigno_ilt')->load($ilt_id);
+
+    $place = $entity->place;
+
+    $prepared_view = $place->view([
+      'type' => 'simple_gmap',
+      'settings' => [
+        'include_map' => FALSE,
+        'include_link' => TRUE,
+        'link_text' => 'use_address',
+      ]
+    ]);
+    $prepared_view['#label_display'] = 0;
+
+    $variables['event_link'] = \Drupal::service('renderer')->render($prepared_view);
+
+    if ($entity->getTrainingId()) {
+      $link = Link::createFromRoute(
+        t('See the training'),
+        'entity.group.canonical', ['group' => $entity->getTrainingId()]);
+
+      $variables['training_link'] = $link->toRenderable();
+    }
+    else {
+      $variables['training_link'] = '';
+    }
+  }
+}

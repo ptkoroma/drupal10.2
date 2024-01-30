@@ -1,0 +1,65 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the summary of traning.
+ *
+ * Available variables:
+ * - progress: The percent of the process.
+ * - score: The percent of the score.
+ * - group_id: group/training id.
+ * - has_certificate: The certificate mark.
+ * - is_passed: The passed mark.
+ * - state_class: The extended class for status
+ * - registration_date: Registration date.
+ * - validation_message: Validation masssage with date.
+ * - time_spend: Time spends in training.
+ */
+#}
+<div class="training__content">
+  <div class="training__status">
+    <div class="label">{{ 'Status' | t }}</div>
+    <div class="state">{{ state_class | title }}</div>
+    <div class="status">
+      {% include 'lp-status.html.twig' with {state_class: state_class} %}
+    </div>
+  </div>
+  <div class="training__progress">
+    <div class="label">Progress</div>
+    {% include 'lp-circle-progress.html.twig' with {radius: 40, progress: progress} %}
+  </div>
+  <div class="training__score">
+    <div class="label">Score</div>
+    {% include 'lp-circle-progress.html.twig' with {radius: 40, progress: score} %}
+  </div>
+  <div class="training__dates">
+    {% if validation_date and valid_until %}
+      <div class="training__dates--valid-date">
+        {% if validation_date %}
+          <div class="label">{{ 'Validation date' | t }}</div>
+          <time class="value">{{ validation_date }}</time>
+        {% endif %}
+        {% if valid_until %}
+          <div class="label">{{ 'Valid until' | t }}</div>
+          <time class="value">{{ valid_until }}</time>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="training__dates--register-date">
+      <div class="label">{{ 'Register date' | t }}</div>
+      <time class="value">{{ registration_date }}</time>
+    </div>
+    <div class="training__dates--time-spent">
+      <div class="label">{{ 'Time spent' | t }}</div>
+      <time class="value">{{ time_spend }}</time>
+    </div>
+  </div>
+  {% if certificate_url %}
+    <div class="training__certificate {{ certificate_class }}">
+        {% set certificate_image = opigno_catalog_get_default_image('certificate_image', label) %}
+        <a href="{{ certificate_url }}">
+          {{ certificate_image }}
+          {{ 'Download certificate' | t | striptags | replace({' ':'<br/>'}) | raw }}
+        </a>
+    </div>
+  {% endif %}
+</div>

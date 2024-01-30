@@ -1,0 +1,15 @@
+// scss-lint:disable all
+// stylelint-disable declaration-no-important
+
+//
+// Visibility utilities
+//
+
+.visible {
+  visibility: visible !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+// scss-lint:enable all

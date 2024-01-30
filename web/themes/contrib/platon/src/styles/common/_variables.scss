@@ -1,0 +1,199 @@
+/** General colors */
+
+$very-light-gray: #f2f2f0;
+$light-gray: #f8f7f5;
+$medium-gray: #ececeb;
+$medium-gray-100: #DADADA;
+$medium-gray-200: #c7c7c7;
+$medium-gray-600: #9d9d9c;
+$medium-gray-800: #767674;
+$medium-gray-900: #71716a;
+$dark-gray: #58585a;
+$darken-gray: #3c3c3b;
+$light-blue: #88c1e6;
+$dark-blue: #009ee0;
+$deep-blue: #0a71b4;
+$deeper-blue: #1f3b71;
+$leaf-green: #5aa449;
+$blood-red: #ea645b;
+$blood-red-600: #E22F22;
+$blue: #2f9fca;
+$light-blue: #95d5f4;
+$green: #c2e76b;
+$red: #ef7971;
+$orange-800: #CF4320;
+
+/** Icons */
+$icons: (
+  upload: "\e936",
+  a: "\e934",
+  ok-fill: "\e935",
+  help-circle:"\e933",
+  play-circle: "\e916",
+  play: "\e922",
+  checked-circle: "\e923",
+  category: "\e924",
+  chevron-double-left: "\e925",
+  chevron-double-right: "\e926",
+  chevron-double-up: "\e927",
+  chevron-double-down: "\e928",
+  info: "\e929",
+  document-new: "\e92a",
+  chevron-left: "\e92b",
+  chevron-right1: "\e92c",
+  chevron-up: "\e92d",
+  chevron-down: "\e92e",
+  answer-fullscreen: "\e945",
+  answer-home : "\e946",
+  baseline-add-circle-24px : "\e948",
+  baseline-folder-open-24px-green : "\e949",
+  baseline-settings-20px : "\e94a",
+  close : "\e94d",
+  collaborative : "\e94e",
+  dashboard-notifications : "\e94f",
+  dashboard-trainings : "\e950",
+  duration : "\e952",
+  edit : "\e953",
+  handle : "\e961",
+  layout-1 : "\e965",
+  layout-2 : "\e966",
+  layout-3 : "\e967",
+  layout-4 : "\e968",
+  link : "\e969",
+  live-meeting1 : "\e96a",
+  menu : "\e96d",
+  module-open : "\e96e",
+  more : "\e96f",
+  moxtra-view : "\e971",
+  ok : "\e93b",
+  pencil : "\e93c",
+  plus : "\e93d",
+  required-step : "\e93e",
+  trainings : "\e940",
+  trash : "\e941",
+  tree-view-close : "\e942",
+  trobbler : "\e943",
+  user-status : "\e944",
+  user-notifications : "\e92f",
+  user-messages : "\e930",
+  live-meeting : "\e931",
+  ilt : "\e932",
+  achievements : "\e900",
+  blocks : "\e901",
+  calendar : "\e902",
+  catalog : "\e903",
+  chevron-right : "\e904",
+  home : "\e905",
+  lines : "\e906",
+  messages : "\e907",
+  statistics : "\e908",
+  achievements-2 : "\e909",
+  calendar-2 : "\e90a",
+  catalog-2 : "\e90b",
+  help : "\e90c",
+  home-2 : "\e90d",
+  logout : "\e90e",
+  arrow-down : "\e90f",
+  arrow-left : "\e910",
+  arrow-right : "\e911",
+  arrow-up : "\e912",
+  odp-file : "\e913",
+  ods-file : "\e914",
+  search : "\e915",
+  settings : "\2600",
+  user : "\e917",
+  odt-file : "\e918",
+  pps-file : "\e919",
+  pptx-file : "\e91a",
+  ppt-file : "\e91b",
+  pdf-file : "\e91c",
+  xlsx-file : "\e91d",
+  xls-file : "\e91e",
+  docx-file : "\e91f",
+  doc-file : "\e920",
+  txt-file : "\e921",
+);
+
+/** Grid */
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+/** Header */
+$header-background-color: $darken-gray;
+$header-height: 115px;
+$header-font-color: #9d9d9c;
+$header-font-color-hover: #dadada;
+$header-picto-size: 25px;
+$header-user-picto-size: 38px;
+$header-search-height: 60px;
+$header-search-width: 500px;
+$header-search-color: #b3b3b2;
+$header-mobile-breakpoint: sm;
+$header-margin-bottom: 1.75rem;
+
+/** Navigation */
+$menu-margin-bottom: 3rem;
+$menu-pictos: (
+  '<front>': '\e905',
+  'catalog': '\e903',
+  'catalogue': '\e903',
+  'private-messages': '\e907',
+  'opigno/calendar': '\e902',
+  'achievements': '\e900',
+  'statistics/dashboard': '\e908'
+);
+
+/** Footer */
+$footer-background-color: #1f3b71;
+$footer-border-color: $light-blue;
+$footer-height: 100px;
+$footer-font-color: #fff;
+$footer-margin-top: 3rem;
+
+/** Content */
+$content-mobile-breakpoint: sm;
+
+/** Frontpage */
+$frontpage-block-gap: 20px;
+$frontpage-block-x-offset: -20%;
+$frontpage-block-y-offset: 80px;
+$dashboard-panel-width: 400px;
+
+/** Table */
+$table-spacing: 0;
+
+/** Bootstrap overrides */
+$enable-rounded: false;
+$btn-transition: 0;
+$input-border-color: $medium-gray;
+$form-text-margin-top: 0;
+$headings-font-weight: 600;
+$h1-font-size: 40px;
+$font-family-base: 'Source Sans Pro', sans-serif;
+$table-border-width: 1px;
+$body-bg: #fff;
+$pagination-border-width: 0;
+$dropdown-bg: #fff;
+$link-color: $dark-blue;
+$input-btn-border-width: 0;
+$input-bg: darken($light-gray, 5%);
+$dropdown-padding-y: 0;
+$dropdown-item-padding-x: 1rem;
+$modal-content-border-width: 0;
+$modal-backdrop-bg: transparent;
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3),
+  6: ($spacer * 5),
+  7: ($spacer * 7)
+);

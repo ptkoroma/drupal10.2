@@ -1,0 +1,19 @@
+uuid: dc9aa89b-eb0b-4134-81e0-9fa3284ff884
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_payment_example
+id: test_payment_
+label: 'Test Payment '
+weight: null
+plugin: example_onsite
+configuration:
+  display_label: Example
+  mode: test
+  payment_method_types:
+    - credit_card
+  collect_billing_information: true
+  api_key: test
+conditions: {  }
+conditionOperator: AND

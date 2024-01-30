@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_certificate",
+    "type": "drupal-module",
+    "description": "Opigno certificate.",
+    "homepage": "http://drupal.org/project/opigno_certificate",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

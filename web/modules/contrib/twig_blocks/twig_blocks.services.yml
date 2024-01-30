@@ -1,0 +1,10 @@
+services:
+  twig_blocks.twig.render_block:
+    class: Drupal\twig_blocks\Twig\RenderBlock
+    arguments: [ '@renderer', '@entity_type.manager', '@twig_blocks.block_view_builder' ]
+    tags:
+      - { name: twig.extension }
+
+  twig_blocks.block_view_builder:
+    class: Drupal\twig_blocks\View\BlockViewBuilder
+    arguments: [ '@plugin.manager.block', '@context.repository', '@context.handler', '@current_user', '@request_stack', '@current_route_match', '@title_resolver' ]

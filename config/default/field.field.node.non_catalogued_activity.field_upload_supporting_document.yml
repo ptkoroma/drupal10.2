@@ -1,0 +1,32 @@
+uuid: 6a5ffc48-13f2-4826-a315-944cc134ac86
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_upload_supporting_document
+    - node.type.non_catalogued_activity
+  module:
+    - custom_add_another
+    - file
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.non_catalogued_activity.field_upload_supporting_document
+field_name: field_upload_supporting_document
+entity_type: node
+bundle: non_catalogued_activity
+label: 'Upload supporting documents or proof of completion'
+description: "Maximum 10 files.\r\n100 MB limit.\r\nAllowed types: txt, pdf, docx, dotx, dot, xlsx, png, jpeg, jpg"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'txt pdf docx dotx dot xlsx png jpeg jpg'
+  max_filesize: '100 MB'
+  description_field: true
+field_type: file

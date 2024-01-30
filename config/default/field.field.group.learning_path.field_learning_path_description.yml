@@ -1,0 +1,28 @@
+uuid: 89b03387-2f18-4da4-a6e9-1dbfe6576299
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_learning_path_description
+    - group.type.learning_path
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: brB3kiHJEgsgL0TdbRQ-pPqHtjEtYVzY0tVaWhFq2xE
+id: group.learning_path.field_learning_path_description
+field_name: field_learning_path_description
+entity_type: group
+bundle: learning_path
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,11 @@
+uuid: da99e7a2-fdc8-484b-90b9-f87f707849a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.mentee_registartion
+id: node.mentee_registartion
+target_entity_type_id: node
+target_bundle: mentee_registartion
+default_langcode: site_default
+language_alterable: false

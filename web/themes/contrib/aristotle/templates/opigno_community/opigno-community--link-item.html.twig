@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Theme implementation for Opigno community entity ("Link item" display mode).
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    'community-link-item',
+    'btn',
+    is_current ? 'active',
+  ]
+%}
+<a href="{{ url }}" id="opigno-community-link-item-{{ id }}" class="{{ classes|join(' ') }}">
+  {{ picture }}
+  {{ content.title }}
+</a>

@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Contains the hooks and functions for the likes functionality.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function opigno_like_theme($existing, $type, $theme, $path) {
+  return [
+    'opigno_entity_likers_popup' => [
+      'variables' => [
+        'title' => NULL,
+        'likers' => [],
+        'close_link' => NULL,
+      ],
+    ],
+  ];
+}

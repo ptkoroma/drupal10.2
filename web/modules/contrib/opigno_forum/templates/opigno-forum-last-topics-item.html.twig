@@ -1,0 +1,14 @@
+<a href="{{ link }}" class="btn">
+  <span class="label">{{ name }}</span>
+
+  <span class="new-posts">
+    {% if new_posts %}
+      {% trans %}
+        1 new post
+      {% plural new_posts %}
+        {{ new_posts }} new posts
+      {% endtrans %}
+    {% endif %}
+  </span>
+  <i class="fi fi-rr-angle-right"></i>
+</a>

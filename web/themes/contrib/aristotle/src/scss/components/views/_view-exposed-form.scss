@@ -1,0 +1,131 @@
+.views-exposed-form {
+  .form-group {
+    padding: 0;
+
+    legend {
+      font-size: rem($font-size-base);
+      color: $clr-block-title;
+    }
+
+    .form-item {
+      margin: 0;
+    }
+  }
+
+  .form-item {
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .label {
+      > label:empty {
+        display: none;
+      }
+    }
+
+    // scss-lint:disable QualifyingElement
+    input[type="checkbox"],
+    input[type="radio"] {
+      @include sr-only();
+
+      &:checked {
+        ~ label.option {
+          background-color: $clr-desktop-button-color;
+          color: $clr-desktop-button-text-primary;
+
+          &:before {
+            opacity: 1;
+          }
+        }
+      }
+
+      &:disabled {
+        ~ label.option {
+          color: $gray-dark;
+        }
+
+        &:hover {
+          ~ label.option {
+            background-color: $clr-gray-light;
+            cursor: default;
+          }
+        }
+      }
+    }
+    // scss-lint:enable QualifyingElement
+
+    label.option {
+      background-color: $clr-gray-light;
+      border-radius: rem(10);
+      display: block;
+      cursor: pointer;
+      font-weight: $font-weight-bold;
+      margin-bottom: 0;
+      padding: rem(6) rem(25) rem(6) rem(20);
+      position: relative;
+      transition: background-color .3s ease-out;
+
+      &:hover {
+        background-color: $clr-gray-light-D5;
+      }
+
+      &:before {
+        content: '\f15c';
+        display: block;
+        font-family: uicons-regular-rounded;
+        font-size: rem(22);
+        opacity: 0;
+        position: absolute;
+        right: rem(12);
+        top: 50%;
+        transform: translateY(-50%);
+        transition: opacity .3s ease-out;
+      }
+    }
+  }
+
+  .form-items-group {
+    display: flex;
+    margin-bottom: rem(20);
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: rem(10);
+    }
+
+    > .form-item {
+      flex: 1 1 auto;
+      margin-right: rem(10);
+      margin-bottom: 0 !important;
+    }
+
+    .form-search {
+      margin-top: 0;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+
+    .btn {
+      max-width: calc(50% - 5px);
+      min-width: 0;
+      width: 100%;
+    }
+  }
+
+  .btn-reset-filter {
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+
+    + .form-submit {
+      margin-left: rem(10);
+    }
+  }
+
+  .show-filter {
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+  }
+}

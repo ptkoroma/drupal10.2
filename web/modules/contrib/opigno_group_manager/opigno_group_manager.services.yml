@@ -1,0 +1,4 @@
+services:
+  opigno_group_manager.content_types.manager:
+    class: Drupal\opigno_group_manager\OpignoGroupContentTypesManager
+    parent: default_plugin_manager

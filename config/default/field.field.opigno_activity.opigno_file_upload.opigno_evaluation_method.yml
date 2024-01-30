@@ -1,0 +1,30 @@
+uuid: 789de63b-9da3-4d0a-922c-fbb58c9d702c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.opigno_activity.opigno_evaluation_method
+    - opigno_module.opigno_activity_type.opigno_file_upload
+  module:
+    - custom_add_another
+    - opigno_file_upload
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: 94TzTqrCJrOIC4KrtGQTZvmk9Coj423uBKXoLm1KQg8
+id: opigno_activity.opigno_file_upload.opigno_evaluation_method
+field_name: opigno_evaluation_method
+entity_type: opigno_activity
+bundle: opigno_file_upload
+label: 'Evaluation method'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '0'
+default_value_callback: ''
+settings: {  }
+field_type: opigno_evaluation_method

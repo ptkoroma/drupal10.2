@@ -1,0 +1,24 @@
+uuid: 33c0796f-2e6d-4272-bc2a-e3faee6516f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.audit
+  module:
+    - node
+    - node_view_permissions
+id: auditor
+label: Auditor
+weight: 4
+is_admin: null
+permissions:
+  - 'create audit content'
+  - 'edit own audit content'
+  - 'view any about content'
+  - 'view any audit content'
+  - 'view own catalogued_activities_status content'
+  - 'view own members_forum content'
+  - 'view own news content'
+  - 'view own non_catalogued_activity content'
+  - 'view own resoures content'
+  - 'view own support content'

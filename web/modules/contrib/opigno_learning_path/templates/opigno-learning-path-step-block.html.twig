@@ -1,0 +1,53 @@
+<div>
+  <div class="lp_steps_block_summary">
+    <span class="{{ state_summary.class }}"></span>
+    <h3 class="lp_steps_block_summary_title">{{ state_summary.title }}</h3>
+    <p class="lp_steps_block_summary_score">{{ state_summary.score }}</p>
+    <p class="lp_steps_block_summary_progress">{{ state_summary.progress }}</p>
+  </div>
+
+  <h3 class="lp_steps_block_title">{{ title }}</h3>
+
+  <div class="tableresponsive-toggle-columns">
+    <button type="button" class="link tableresponsive-toggle"
+            title="Show table cells that were hidden to make the table fit within a small screen."
+            style="display: none;">
+      {{ 'Hide lower priority columns'|t }}
+    </button>
+  </div>
+
+  {{ table_summary }}
+
+  <table class="lp_steps_block_table responsive-enabled table table-hover" data-striping="1">
+
+    <thead>
+    <tr>
+      {% for header in table_summary.headers %}
+        <th>{{ header }}</th>
+      {% endfor %}
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for row in table_summary.data %}
+      <tr>
+        <td>{{ row.name }}</td>
+        <td>
+          {% if row.score %}
+            <span class="lp_steps_block_score">{{ row.score }}</span>
+          {% else %}
+            -
+          {% endif %}
+        </td>
+        <td>
+          {% if row.state %}
+            <span class="{{ row.state }}"></span>
+          {% else %}
+            -
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>

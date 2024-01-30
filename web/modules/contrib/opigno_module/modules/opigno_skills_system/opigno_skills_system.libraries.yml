@@ -1,0 +1,5 @@
+opigno_skills_entity:
+  version: 1.0
+  css:
+    theme:
+      css/skill-entity.css: {}

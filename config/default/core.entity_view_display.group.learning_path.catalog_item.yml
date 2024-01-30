@@ -1,0 +1,127 @@
+uuid: 4aea3c9f-fd0b-4895-90ea-99e53d505ea7
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.group.catalog_item
+    - field.field.group.learning_path.feeds_item
+    - field.field.group.learning_path.field_activity_type
+    - field.field.group.learning_path.field_additional_duration_detail
+    - field.field.group.learning_path.field_anonymous_visibility
+    - field.field.group.learning_path.field_certificate
+    - field.field.group.learning_path.field_certificate_expire
+    - field.field.group.learning_path.field_certificate_expire_results
+    - field.field.group.learning_path.field_course_chargeable
+    - field.field.group.learning_path.field_date
+    - field.field.group.learning_path.field_delivery_address_if_known
+    - field.field.group.learning_path.field_guided_navigation
+    - field.field.group.learning_path.field_individual_dates
+    - field.field.group.learning_path.field_learning_path_category
+    - field.field.group.learning_path.field_learning_path_description
+    - field.field.group.learning_path.field_learning_path_duration
+    - field.field.group.learning_path.field_learning_path_enable_forum
+    - field.field.group.learning_path.field_learning_path_folder
+    - field.field.group.learning_path.field_learning_path_forum
+    - field.field.group.learning_path.field_learning_path_media_image
+    - field.field.group.learning_path.field_learning_path_published
+    - field.field.group.learning_path.field_learning_path_visibility
+    - field.field.group.learning_path.field_lp_price
+    - field.field.group.learning_path.field_mode_of_deliverys
+    - field.field.group.learning_path.field_pd_units
+    - field.field.group.learning_path.field_povider_contact_telehone_n
+    - field.field.group.learning_path.field_provider_business_address
+    - field.field.group.learning_path.field_provider_email
+    - field.field.group.learning_path.field_provider_name
+    - field.field.group.learning_path.field_provider_number
+    - field.field.group.learning_path.field_required_trainings
+    - field.field.group.learning_path.field_requires_validation
+    - field.field.group.learning_path.field_url
+    - field.field.group.learning_path.field_workspace
+    - group.type.learning_path
+  module:
+    - media
+    - text
+_core:
+  default_config_hash: PLp2-r3MkgXVRevfNWt62_-EOb02Cq7N9d6TSSQStSk
+id: group.learning_path.catalog_item
+targetEntityType: group
+bundle: learning_path
+mode: catalog_item
+content:
+  actions_dropdown:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_learning_path_category:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_learning_path_description:
+    type: text_trimmed
+    label: hidden
+    settings:
+      trim_length: 200
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_learning_path_media_image:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: catalog_image
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  label:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  changed: true
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  feeds_item: true
+  field_activity_type: true
+  field_additional_duration_detail: true
+  field_anonymous_visibility: true
+  field_certificate: true
+  field_certificate_expire: true
+  field_certificate_expire_results: true
+  field_course_chargeable: true
+  field_date: true
+  field_delivery_address_if_known: true
+  field_guided_navigation: true
+  field_individual_dates: true
+  field_learning_path_duration: true
+  field_learning_path_enable_forum: true
+  field_learning_path_folder: true
+  field_learning_path_forum: true
+  field_learning_path_published: true
+  field_learning_path_visibility: true
+  field_lp_price: true
+  field_mode_of_deliverys: true
+  field_pd_units: true
+  field_povider_contact_telehone_n: true
+  field_provider_business_address: true
+  field_provider_email: true
+  field_provider_name: true
+  field_provider_number: true
+  field_required_trainings: true
+  field_requires_validation: true
+  field_url: true
+  field_workspace: true
+  langcode: true
+  search_api_excerpt: true
+  uid: true

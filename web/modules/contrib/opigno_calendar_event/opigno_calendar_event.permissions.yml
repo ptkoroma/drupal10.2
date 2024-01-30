@@ -1,0 +1,14 @@
+view own opigno calendar event:
+  title: 'View own calendar event entities'
+
+update own opigno calendar event:
+  title: 'Update own calendar event entities'
+
+delete own opigno calendar event:
+  title: 'Delete own calendar event entities'
+
+add members to calendar event:
+  title: 'Add members to calendar event entities'
+
+add any members to calendar event:
+  title: 'Add any members to calendar event entities'

@@ -1,0 +1,55 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.private_message_thread.preview
+    - field.field.private_message_thread.private_message_thread.field_author
+    - field.field.private_message_thread.private_message_thread.field_create_group
+    - field.field.private_message_thread.private_message_thread.field_image
+    - field.field.private_message_thread.private_message_thread.field_pm_subject
+  module:
+    - private_message
+id: private_message_thread.private_message_thread.preview
+targetEntityType: private_message_thread
+bundle: private_message_thread
+mode: preview
+content:
+  last_message_thread_preview:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  thread_formatted_date:
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  thread_picture:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  thread_text:
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  thread_title:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  delete_link: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_author: true
+  field_create_group: true
+  field_image: true
+  field_pm_subject: true
+  last_message: true
+  members: true
+  private_message_form: true
+  private_messages: true
+  search_api_excerpt: true

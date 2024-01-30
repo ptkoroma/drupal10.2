@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the training elements.
+ *
+ * Available variables:
+ * - #label: Training name.
+ * - elements: The training elements.
+ */
+#}
+<div class="content-box p-0">
+  <div class="training">
+    <div class="training__image">
+      {% if elements.image[0] %}
+        {{ elements.image }}
+      {% else %}
+        {{ opigno_catalog_get_default_image('learning_path', label) }}
+      {% endif %}
+    </div>
+    <div class="training__container"><h2 class="training__title">{{ 'Training - @label'|t({'@label': elements['#label']}) }}</h2>
+      {{ elements|without('details', 'image') }}
+    </div>
+  </div>
+</div>
+{{ elements.details }}

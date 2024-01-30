@@ -1,0 +1,238 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_schema().
+ */
+function opigno_social_community_schema() {
+  // Add the table to store the community comments statistics.
+  $schema['opigno_community_statistics'] = [
+    'description' => 'Maintains statistics of Opigno communities to simplify sorting entities by the post date, number of comments etc.',
+    'fields' => [
+      'community_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The ID of the community to compile the statistics for.',
+      ],
+      'last_post_id' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The ID of the last community post/comment.',
+      ],
+      'last_post_timestamp' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The Unix timestamp of the last post/comment that was posted within the community.',
+      ],
+      'post_count' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The total number of posts/comments on the community.',
+      ],
+    ],
+    'primary key' => ['community_id'],
+    'indexes' => [
+      'last_post_timestamp' => ['last_post_timestamp'],
+      'post_count' => ['post_count'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function opigno_social_community_install() {
+  // Update the back link configurations.
+  opigno_social_community_update_back_link();
+
+  $role = Role::load(RoleInterface::AUTHENTICATED_ID);
+  if (!$role instanceof RoleInterface) {
+    return;
+  }
+
+  // Grant base set of community-related permissions.
+  $permissions = [
+    'create opigno_community',
+    'update own opigno_community',
+    'delete own opigno_community',
+    'invite to own opigno_community',
+    'invite to membership public opigno_community',
+    'delete own opigno_community_invitation',
+    'delete any invitation to own opigno_community',
+    'access community_images_media_entity_browser entity browser pages',
+    'view opigno_community',
+  ];
+  foreach ($permissions as $permission) {
+    $role->grantPermission($permission);
+  }
+
+  try {
+    $role->save();
+  }
+  catch (EntityStorageException $e) {
+    watchdog_exception('opigno_social_community_exception', $e);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function opigno_social_community_uninstall() {
+  // Remove module configs.
+  $configs = [
+    'core.entity_view_display.media.image.community',
+    'core.entity_view_display.media.image.community_invitation',
+    'core.entity_view_display.media.image.community_link_image',
+    'core.entity_view_display.media.image.community_listing',
+    'core.entity_view_display.opigno_community.opigno_community.default',
+    'core.entity_view_display.opigno_community.opigno_community.info_block',
+    'core.entity_view_display.opigno_community.opigno_community.invitation',
+    'core.entity_view_display.opigno_community.opigno_community.link_item',
+    'core.entity_view_display.opigno_community.opigno_community.teaser',
+    'core.entity_view_display.user.user.community_invitation',
+    'core.entity_view_mode.media.community',
+    'core.entity_view_mode.media.community_invitation',
+    'core.entity_view_mode.media.community_link_image',
+    'core.entity_view_mode.media.community_listing',
+    'core.entity_view_mode.opigno_community.info_block',
+    'core.entity_view_mode.opigno_community.invitation',
+    'core.entity_view_mode.opigno_community.link_item',
+    'core.entity_view_mode.opigno_community.teaser',
+    'core.entity_view_mode.user.community_invitation',
+    'entity_browser.browser.community_images_media_entity_browser',
+    'image.style.community_invitation',
+    'image.style.community_link_image',
+    'image.style.community_listing_image',
+    'image.style.community_main_image',
+    'views.view.communities',
+    'views.view.community_invitations',
+    'views.view.community_posts',
+  ];
+  foreach ($configs as $config) {
+    try {
+      \Drupal::configFactory()->getEditable($config)->delete();
+    }
+    catch (Exception $e) {
+      \Drupal::logger('opigno_social_community')->error($e->getMessage());
+    }
+  }
+
+  // Remove the community statistics table.
+  $schema = \Drupal::database()->schema();
+  if ($schema->tableExists('opigno_community_statistics')) {
+    $schema->dropTable('opigno_community_statistics');
+  }
+}
+
+/**
+ * Import the updated configurations.
+ *
+ * @param array $configs
+ *   The list of config names.
+ */
+function opigno_social_community_apply_update(array $configs) {
+  $config_path = \Drupal::service('extension.list.module')->getPath('opigno_social_community') . '/config/install';
+  $config_factory = \Drupal::configFactory();
+  $config_storage = \Drupal::service('config.storage');
+
+  foreach ($configs as $config) {
+    $source = new FileStorage($config_path);
+    $data = $source->read($config);
+    if (is_array($data)) {
+      $config_factory->getEditable($config)->setData($data)->save(TRUE);
+      $config_storage->write($config, $data);
+    }
+    else {
+      \Drupal::messenger()->addWarning(t('Incorrect data of @config', ['@config' => $config]));
+    }
+  }
+}
+
+/**
+ * Add a "is_join_request" field to the community invitation entity.
+ */
+function opigno_social_community_update_9001() {
+  $definition = BaseFieldDefinition::create('boolean')
+    ->setLabel(t('Is join request'))
+    ->setDefaultValue(0);
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition(
+      'is_join_request',
+      'opigno_community_invitation',
+      'opigno_social_community',
+      $definition
+    );
+
+  // Set the "is_join_request" field value.
+  \Drupal::database()->update('opigno_community_invitation')
+    ->fields(['is_join_request' => 0])
+    ->execute();
+
+  // Add the permission to invite to restricted communities and update configs.
+  $role = Role::load(RoleInterface::AUTHENTICATED_ID);
+  if ($role instanceof RoleInterface) {
+    $role->grantPermission('invite to membership restricted opigno_community')->save();
+  }
+
+  opigno_social_community_apply_update([
+    'views.view.community_invitations',
+    'views.view.communities',
+  ]);
+}
+
+/**
+ * Update the back link configs with the new routes.
+ */
+function opigno_social_community_update_9002() {
+  opigno_social_community_update_back_link();
+}
+
+/**
+ * Delete all accepted community invitations.
+ */
+function opigno_social_community_update_9003() {
+  $invitation_storage = \Drupal::entityTypeManager()->getStorage('opigno_community_invitation');
+  $invitations = $invitation_storage->loadByProperties(['status' => 1]);
+
+  if ($invitations) {
+    $invitation_storage->delete($invitations);
+  }
+}
+
+/**
+ * Update the back link configuration with the community routes.
+ *
+ * The back link in community sidebar routes should lead to the community page.
+ */
+function opigno_social_community_update_back_link() {
+  $config = \Drupal::configFactory()->getEditable('block.block.backlinkblock');
+  $name = 'settings.js_button';
+  $routes = implode(PHP_EOL, [
+    'view.communities.members',
+    'view.community_invitations.community_sent',
+    'view.community_invitations.pending_approval',
+  ]);
+
+  $current = $config->get($name);
+  $updated = $current ? $current . PHP_EOL . $routes : $routes;
+  $config->set($name, $updated)->save(TRUE);
+}

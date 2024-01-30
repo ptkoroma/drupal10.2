@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: hour_minute
+label: Hour and minute
+locked: false
+pattern: H\h:i

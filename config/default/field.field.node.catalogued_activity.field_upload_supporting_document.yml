@@ -1,0 +1,32 @@
+uuid: dfd9a025-fe46-499b-9814-c3a9753440be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_upload_supporting_document
+    - node.type.catalogued_activity
+  module:
+    - custom_add_another
+    - file
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.catalogued_activity.field_upload_supporting_document
+field_name: field_upload_supporting_document
+entity_type: node
+bundle: catalogued_activity
+label: 'Upload Supporting Documents Or Verification'
+description: 'Make sure files uploaded are not bigger than 10 MB and are in either of the following format; txt, pdf, docx, dotx, dot, eml'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'txt pdf docx dotx dot eml'
+  max_filesize: 10MB
+  description_field: false
+field_type: file

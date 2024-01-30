@@ -1,0 +1,69 @@
+uuid: 2f9efb84-7fe0-4ff6-a6bd-871d065516b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.mentee_registration_form
+    - field.field.contact_message.mentee_registration_form.field_email
+    - field.field.contact_message.mentee_registration_form.field_first_name
+    - field.field.contact_message.mentee_registration_form.field_last_name
+    - field.field.contact_message.mentee_registration_form.field_other
+    - field.field.contact_message.mentee_registration_form.field_phone_number
+id: contact_message.mentee_registration_form.default
+targetEntityType: contact_message
+bundle: mentee_registration_form
+mode: default
+content:
+  field_email:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_first_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_last_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_other:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_phone_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  message:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  search_api_excerpt: true

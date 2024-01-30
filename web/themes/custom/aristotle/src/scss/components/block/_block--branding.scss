@@ -1,0 +1,16 @@
+.block-system-branding-block {
+  margin-right: rem(52);
+
+  @include media-breakpoint-down(lg) {
+    margin-right: rem(20);
+  }
+
+  .logo,
+  .home-link {
+    display: block;
+  }
+
+  .logo {
+    max-width: rem(155);
+  }
+}

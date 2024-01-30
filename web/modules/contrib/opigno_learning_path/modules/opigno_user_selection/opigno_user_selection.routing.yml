@@ -1,0 +1,17 @@
+user_selection_list:
+  path: '/user_selection/users'
+  methods: [POST]
+  defaults:
+    _title: 'OpignoUserSelectionController'
+    _controller: 'opigno_user_selection.controller:post'
+  requirements:
+    _custom_access: 'opigno_user_selection.controller:checkAccess'
+
+training_selection_list:
+  path: '/user_selection/training'
+  methods: [POST]
+  defaults:
+    _title: 'OpignoUserSelectionController'
+    _controller: 'opigno_user_selection.controller:training'
+  requirements:
+    _custom_access: 'opigno_user_selection.controller:checkAccess'

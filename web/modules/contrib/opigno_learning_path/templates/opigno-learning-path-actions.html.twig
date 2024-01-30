@@ -1,0 +1,23 @@
+{#
+/*
+ * @file
+ * Default theme implementation for the LP actions dropdown.
+ *
+ * Avalable variables:
+ * - actions: the list of action links.
+ */
+#}
+
+{% if actions is not empty %}
+  <div class="dropdown">
+    <button class="dropdown-toggle" data-toggle="dropdown">
+      <i class="fi fi-rr-menu-dots"></i>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-right">
+      {% for action in actions %}
+        <li class="dropdown-item">{{ action }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

@@ -1,0 +1,192 @@
+#private-message-page {
+  .private-message-thread-full {
+    .private-message-recipients {
+      align-items: center;
+      background: $clr-white;
+      box-shadow: 0 0 6px rgba($clr-black, .3);
+      border-radius: rem(10) rem(10) 0 0;
+      display: flex;
+      margin: 0;
+      padding: rem(20);
+      position: relative;
+
+      .profile-pic {
+        margin-right: rem(30);
+      }
+
+      h2 {
+        margin: 0;
+      }
+
+      .dropdown {
+        position: absolute;
+        right: rem(10);
+        top: 0;
+      }
+
+      .dropdown-item {
+        position: relative;
+      }
+
+      .ajax-progress {
+        padding: 0;
+        position: absolute;
+        left: rem(20);
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+
+        .throbber {
+          animation: scale 3s ease infinite;
+          background: url(../images/design/Logo_opigno_circle.svg) center no-repeat;
+          display: block;
+          height: rem(15);
+          padding: 0;
+          width: rem(15);
+        }
+      }
+    }
+
+    .private-message-thread-messages {
+      box-shadow: 0 0 6px rgba($clr-black, .3);
+      height: 48vh;
+      overflow-y: auto;
+      padding: rem(20);
+
+      @include media-breakpoint-down(sm) {
+        height: calc(100vh - 540px);
+      }
+    }
+
+    .load-previous-position-before {
+      display: flex;
+      justify-content: center;
+      margin-bottom: rem(20);
+    }
+  }
+
+  .private-message-wrapper {
+    display: flex;
+    margin-bottom: rem(50);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .private-message {
+      border-radius: rem(10);
+      box-shadow: 0 3px 6px rgba($clr-black, .3);
+      min-width: 13%;
+      max-width: 66%;
+      position: relative;
+      word-break: break-word;
+    }
+
+    .private-message-author-other {
+      background: $clr-gray-light;
+      border-top-left-radius: 0;
+      margin-left: rem(12);
+      padding: 0 rem(20) rem(10);
+
+      &:before {
+        border-style: solid;
+        border-width: 0 rem(12) rem(24) 0;
+        border-color: transparent $clr-gray-light transparent transparent;
+        content: '';
+        filter: drop-shadow(-1px 1px 1px rgba($clr-black, .1));
+        position: absolute;
+        right: 100%;
+        top: 0;
+      }
+    }
+
+    .private-message-author-self {
+      background: $clr-green-light;
+      border-top-right-radius: 0;
+      margin-left: auto;
+      margin-right: rem(12);
+      padding: rem(8) rem(10) rem(5) rem(20);
+
+      &:after {
+        border-style: solid;
+        border-width: rem(24) rem(12) 0 0;
+        border-color: $clr-green-light transparent transparent transparent;
+        content: '';
+        filter: drop-shadow(1px 1px 1px rgba($clr-black, .1));
+        position: absolute;
+        left: 100%;
+        top: 0;
+      }
+    }
+
+    .username {
+      font-weight: $font-weight-semibold;
+      margin-bottom: rem(8);
+      word-break: break-word;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    .created {
+      font-size: rem(12);
+      text-align: right;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+
+  .private-message-form {
+    align-items: flex-end;
+    background: $clr-white;
+    border-radius: 0 0 rem(10) rem(10);
+    box-shadow: 0 0 6px rgba($clr-black, .3);
+    display: flex;
+    margin-bottom: rem(20);
+    min-height: rem(225);
+    padding: rem(20);
+    position: relative;
+
+    &:before {
+      background: $clr-white;
+      content: '';
+      height: rem(10);
+      position: absolute;
+      left: 0;
+      top: rem(-10);
+      width: 100%;
+    }
+
+    .field--name-message {
+      border: 1px solid $clr-desktop-button-color;
+      border-radius: rem(10);
+      flex: 1 1 auto;
+      overflow: hidden;
+      margin-right: rem(20);
+
+      .form-item {
+        margin: 0;
+      }
+
+      label {
+        @include sr-only;
+      }
+
+      .cke {
+        width: 100% !important;
+      }
+
+      .cke_contents {
+        max-height: rem(110);
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+uuid: 0d96b045-36b6-463d-9355-9fb3cfeb1e29
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.learning_path
+  enforced:
+    config:
+      - user.role.engineer
+id: learning_path-b7c012e4f
+label: Engineer
+weight: 3
+internal: true
+audience: outsider
+group_type: learning_path
+permissions_ui: false
+permissions: {  }

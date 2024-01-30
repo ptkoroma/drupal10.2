@@ -1,0 +1,30 @@
+uuid: 3886a049-f6f0-4d3f-95dd-e79c48662a09
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.engineer_audit_search
+  module:
+    - system
+    - views
+  theme:
+    - aristotle
+id: views_block__engineer_audit_search_block_4
+theme: aristotle
+region: top
+weight: -19
+provider: null
+plugin: 'views_block:engineer_audit_search-block_4'
+settings:
+  id: 'views_block:engineer_audit_search-block_4'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/node/*/edit'

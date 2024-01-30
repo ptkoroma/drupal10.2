@@ -1,0 +1,26 @@
+uuid: 431fd9e6-f23e-40be-a119-5a090e2ddddb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_mode_of_deliverys
+    - group.type.learning_path
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: group.learning_path.field_mode_of_deliverys
+field_name: field_mode_of_deliverys
+entity_type: group
+bundle: learning_path
+label: 'Mode of Delivery'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

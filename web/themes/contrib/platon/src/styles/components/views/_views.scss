@@ -1,0 +1,123 @@
+.views-admin {
+  .unit-title {
+    display: none;
+  }
+
+  .dropbutton-wrapper {
+    background-color: #fff;
+  }
+
+  .dropbutton {
+    .dropbutton-toggle {
+      text-indent: 0;
+      background-color: #fff;
+
+      button[type="button"] {
+        background-color: inherit !important;
+      }
+    }
+
+    .dropbutton-action > * {
+      font-size: 12px !important;
+    }
+
+    a,
+    input {
+      padding: 0.25rem 0.5rem;
+      display: block;
+      background: none;
+      border: 0;
+      overflow: visible;
+      text-indent: 0;
+      width: auto;
+      height: auto;
+    }
+  }
+
+  .views-live-preview .section-title {
+    border: 0;
+    text-transform: none;
+  }
+
+  .messages--warning {
+    @extend .alert;
+    @extend .alert-warning;
+    margin-bottom: 1rem;
+  }
+
+  form .form-actions {
+    margin: 0;
+  }
+
+  .form-item-live-preview,
+  .view-preview-form .form-actions {
+    padding: 12px;
+  }
+
+  form .form-actions input[type="submit"],
+  form .form-actions a.button {
+    padding: 0.5rem 1rem;
+  }
+
+  .views-ui-display-tab-bucket__title {
+    font-size: 1rem;
+    padding: 1rem 6px 0.75rem;
+  }
+
+  .btn-group.actions {
+    position: absolute;
+    right: 12px;
+    top: 0;
+
+    > a {
+      border: 1px solid #cbcbcb;
+      background-color: #fff;
+      padding: 0.5rem;
+      font-size: small;
+      line-height: 1.3333;
+      text-indent: 0;
+      overflow: visible;
+      height: auto;
+      width: auto;
+      background-image: none;
+      border-radius: 0;
+      white-space: nowrap;
+    }
+
+    #dropdownMenuButton {
+      border: 1px solid #cbcbcb;
+      background-color: #fff;
+      padding: 0.5rem;
+      font-size: small;
+      line-height: 1.3333;
+      border-left: 0;
+    }
+
+    .dropdown-menu {
+      border: 1px solid #cbcbcb;
+      min-width: 100%;
+      font-size: small;
+      line-height: 1.3333;
+
+      > div a {
+        padding: 0.5rem;
+        display: block;
+        background: none;
+        border: 0;
+        overflow: visible;
+        text-indent: 0;
+        width: auto;
+        height: auto;
+      }
+    }
+  }
+
+  .views-displays .tabs.secondary li a {
+    border-radius: 0;
+    padding: 0.5rem 1rem;
+  }
+
+  .views-displays .tabs.secondary {
+    list-style: none;
+  }
+}

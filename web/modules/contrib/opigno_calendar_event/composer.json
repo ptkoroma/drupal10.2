@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_calendar_event",
+    "type": "drupal-module",
+    "description": "Opigno calendar event.",
+    "homepage": "http://drupal.org/project/opigno_calendar_event",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

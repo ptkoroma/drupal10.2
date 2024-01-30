@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_notification",
+    "type": "drupal-module",
+    "description": "Opigno notification.",
+    "homepage": "http://drupal.org/project/opigno_notification",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

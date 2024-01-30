@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_forum",
+    "type": "drupal-module",
+    "description": "Opigno forum.",
+    "homepage": "http://drupal.org/project/opigno_forum",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

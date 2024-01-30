@@ -1,0 +1,165 @@
+uuid: 435ec3a9-286e-4712-88a4-b33e068bc621
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.cpd_reflection.field_activity
+    - field.field.node.cpd_reflection.field_completed
+    - field.field.node.cpd_reflection.field_discussion_outcome_if_any_
+    - field.field.node.cpd_reflection.field_how_does_this_learning_act
+    - field.field.node.cpd_reflection.field_i_am_able_to_apply_this_le
+    - field.field.node.cpd_reflection.field_i_have_disucussed_this_lea
+    - field.field.node.cpd_reflection.field_i_will_need_the_following_
+    - field.field.node.cpd_reflection.field_reasons_i_am_unable_to_app
+    - field.field.node.cpd_reflection.field_upload_supporting_document
+    - field.field.node.cpd_reflection.field_user_id
+    - field.field.node.cpd_reflection.field_what_did_i_learn_from_this
+    - node.type.cpd_reflection
+  module:
+    - file
+    - path
+    - text
+id: node.cpd_reflection.default
+targetEntityType: node
+bundle: cpd_reflection
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_activity:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_discussion_outcome_if_any_:
+    type: text_textarea
+    weight: 9
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_how_does_this_learning_act:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_i_am_able_to_apply_this_le:
+    type: text_textarea
+    weight: 5
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_i_have_disucussed_this_lea:
+    type: options_buttons
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_i_will_need_the_following_:
+    type: text_textarea
+    weight: 6
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_reasons_i_am_unable_to_app:
+    type: text_textarea
+    weight: 7
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_upload_supporting_document:
+    type: file_generic
+    weight: 10
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+  field_user_id:
+    type: string_textfield
+    weight: 17
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_what_did_i_learn_from_this:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 13
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 16
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 14
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 11
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  field_completed: true

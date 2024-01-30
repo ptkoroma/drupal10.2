@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: community_link_image
+label: 'Community link image (29x29)'
+effects:
+  a110c268-f016-4ed7-bc5b-82599cf75b27:
+    uuid: a110c268-f016-4ed7-bc5b-82599cf75b27
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 29
+      height: 29
+      anchor: center-center

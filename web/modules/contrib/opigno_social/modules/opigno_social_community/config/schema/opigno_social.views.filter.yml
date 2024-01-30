@@ -1,0 +1,29 @@
+views.filter.opigno_community_visibility:
+  type: views_filter
+  label: 'Community visibility'
+  mapping:
+    operator:
+      type: string
+      label: 'Operator'
+    value:
+      type: sequence
+      label: 'Values'
+      sequence:
+        type: string
+        label: 'Value'
+
+views.filter.opigno_joined_communities:
+  type: views_filter
+  label: 'Joined communities'
+  mapping:
+    operator:
+      type: string
+      label: 'Operator'
+
+views.filter.opigno_invited_to_communities:
+  type: views_filter
+  label: 'Invited to communities'
+  mapping:
+    operator:
+      type: string
+      label: 'Operator'

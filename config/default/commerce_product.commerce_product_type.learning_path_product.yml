@@ -1,0 +1,14 @@
+uuid: 958eef73-6947-46ce-90f2-3e6d3b691e07
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: vuOaHVIKhUm-fc-jsezmTFvRZxspieZL9H2Zo20DsEw
+id: learning_path_product
+label: 'Learning Path product'
+traits: {  }
+locked: false
+description: ''
+variationType: learning_path_product
+multipleVariations: true
+injectVariationFields: true

@@ -1,0 +1,8 @@
+<div class="anonymous-slider list-unstyled d-flex" style="height: 100%;">
+  {{ branding }}
+  {% for item in items %}
+    <div class="slider-item" style="flex-basis: 100%;background-image: url({{ item.img_path }})">
+      <div class="slider-markup"></div>
+    </div>
+  {% endfor %}
+</div>

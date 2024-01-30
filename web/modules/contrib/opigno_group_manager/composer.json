@@ -1,0 +1,10 @@
+{
+    "name": "drupal/opigno_group_manager",
+    "type": "drupal-module",
+    "description": "Opigno group manager.",
+    "homepage": "http://drupal.org/project/opigno_group_manager",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}

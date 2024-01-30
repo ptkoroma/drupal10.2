@@ -1,0 +1,65 @@
+block content
+  .module
+    .module__container
+      h3.module__title
+        i.fi.fi-rr-star
+        | Module - Module name
+
+      .module__content
+        .module__status
+          .module__status-content
+            .label Status
+            if module_status === 'passed'
+              .status
+                .status__icon.passed
+                  i.fi.fi-rr-check
+                | Passed
+            else if module_status === 'in-progress'
+              .status
+                .status__icon.in-progress
+                  i.fi.fi-rr-rotate-right
+                | In progress
+            else if module_status === 'pending'
+              .status
+                .status__icon.pending
+                  i.fi.fi-rr-menu-dots
+                | Pending
+            else if module_status === 'failed'
+              .status
+                .status__icon.failed
+                  i.fi.fi-rr-cross-small
+                | Failed
+
+        .module__progress
+          .inner
+            .label Completion
+            if module_status === 'passed'
+              span.value 100%
+            else if module_status === 'in-progress'
+              span.value 50%
+            else if module_status === 'pending'
+              span.value 0%
+            else if module_status === 'failed'
+              span.value 0%
+
+        .module__completed-on
+          .inner
+            .label Completed on
+            if module_status === 'passed'
+              time.value 01/04/2021
+            else if module_status === 'in-progress'
+              span.value not finished
+            else if module_status === 'pending'
+              span.value not started
+            else if module_status === 'failed'
+              span.value failed
+
+        .module__time-spent
+          .inner
+            .label Time spent
+            time.value 00:02:00
+
+        .module__badges-earned
+          .inner
+            .label Badges earned
+            span.value 2

@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the notifications dropdown block.
+ *
+ * Available variables:
+ * - notifications: the list of notifiations (ILT + LM + standard ones);
+ * - notifications_count: the amount of unread notifications.
+ */
+#}
+
+<div class="notifications-block">
+  {% if notifications_count != 0 %}
+    <a class="all-read use-ajax" href="{{ path('opigno_notification.mark_read_all') }}">
+      {{ 'mark all as read'|t }}
+    </a>
+  {% endif %}
+
+  {% if notifications is not empty %}
+    <ul class="notification-list">
+      {% for notification in notifications %}
+        <li class="notification-item">{{ notification }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <div class="view-notifications">
+    <a class="btn btn-rounded" href="{{ path('view.opigno_notifications.page_all') }}">
+      {{ 'view all notifications'|t }}
+    </a>
+  </div>
+</div>

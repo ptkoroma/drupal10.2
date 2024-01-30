@@ -1,0 +1,114 @@
+<div *ngIf="initPopup" class="content-box" id="link-panel-content" (clickOutside)="close()" [exclude]="'.link-path'">
+  <div [hidden]="confirmCreateOrphan">
+    <h2 class="content-box__title">{{ text_conditions }}</h2>
+    <ng-container *ngIf="hasActivities">
+      <div class="condition score clearfix" [ngClass]="{'hidden': !isScoreConditionExists()}">
+        <div class="condition-content" i18n><span class="label" i18n>Score:</span> {{selectedLink.score}}%</div>
+        <div class="condition-actions">
+          <button class="btn btn-rounded" (click)="addConditionInput('score')" i18n>edit</button>
+          <button class="btn btn-rounded btn-border-red delete-link" (click)="deleteScoreCondition()" i18n>delete</button>
+        </div>
+      </div>
+
+      <div class="condition activities clearfix" [ngClass]="{'hidden': !isActivitiesConditionExists()}">
+        <div class="condition-content">
+          <div class="label">{{ text_last_step }}</div>
+          <ng-container *ngFor="let activity of requiredActivitiesNames">
+            <div class="activity clearfix">
+              <div class="parent-wrapper">
+                <div>{{activity.name}}</div>
+              </div>
+              <div class="children" *ngIf="!!activity.answers">
+                <ng-container *ngFor="let answer of activity.answers">
+                  <div class="child-wrapper">
+                    {{answer}}
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="condition-actions">
+          <button class="btn btn-rounded" (click)="addConditionInput('activities')" >{{ text_edit }}</button>
+          <button class="btn btn-rounded btn-border-red delete-link" (click)="deleteActivitiesCondition()" >{{ text_delete }}</button>
+        </div>
+      </div>
+
+      <hr *ngIf="conditionExists">
+
+      <div class="top-block clearfix" *ngIf="!conditionsExist">
+        <select class="condition-type form-control left" [attr.disabled] = "addCondition ? 'disabled' : null" [(ngModel)]="condition">
+          <ng-container *ngFor="let condition of conditionTypes">
+            <option value="{{condition.id}}" >{{condition.name}}</option>
+          </ng-container>
+        </select>
+        <div class="mat-button-actions">
+          <button mat-raised-button color="basic" class="btn btn-add right" [ngClass]="{'hidden': addCondition }" (click)="addConditionInput()">{{ text_add }}</button>
+        </div>
+      </div>
+
+      <div class="conditions-edit clearfix">
+        <mat-form-field *ngIf="showScoreField" class="score left">
+          <input matInput [(ngModel)]="minScore">
+        </mat-form-field>
+
+        <div class="activities" *ngIf="showActivitiesField">
+          <ng-container *ngFor="let activity of activities">
+            <div class="activity clearfix">
+              <div class="parent-wrapper">
+                <input type="checkbox"
+                       class="parent"
+                       value="{{activity.id}}"
+                       id="activity-{{activity.id}}"
+                       [checked]="getChecked(activity.id)"
+                       (change)="checkboxChanged($event)">
+                <label for="activity-{{activity.id}}">{{activity.name}}</label>
+              </div>
+              <div class="children" *ngIf="!!activity.answers">
+                <ng-container *ngFor="let answer of activity.answers">
+                  <div class="child-wrapper">
+                    <input type="checkbox"
+                           class="child"
+                           value="{{answer.id}}"
+                           id="{{answer.id}}"
+                           [checked]="getChecked(answer.id)"
+                           (change)="checkboxChanged($event)">
+                    <label for="{{answer.id}}">{{answer.text}}</label>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+          <script>
+
+          </script>
+        </div>
+
+        <div class="mat-button-actions">
+          <button mat-raised-button color="primary" class="btn btn-validate right" [ngClass]="{'hidden': !addCondition }" (click)="validateCondition()">{{ text_validate }}</button>
+        </div>
+      </div>
+    </ng-container>
+    <div class="no-activities" *ngIf="!hasActivities">{{ text_before_need_to_add }}
+      <a href="{{activitiesPageUrl}}">{{ text_activities }}</a>
+    </div>
+    <div [hidden]="!errorMessage&&!scoreMessage" class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div [hidden]="!errorMessage" [class.mb-2]="errorMessage&&scoreMessage">{{errorMessage}}</div>
+      <div [hidden]="!scoreMessage">{{scoreMessage}}</div>
+    </div>
+    <div class="mat-button-actions">
+      <button mat-button class="btn btn-close left" (click)="cancel()" >{{ text_cancel }}</button>
+      <button *ngIf="hasActivities" mat-raised-button color="warn" class="btn btn-delete right" (click)="delete()" i18n>{{ text_delete_link }}</button>
+    </div>
+  </div>
+  <div [hidden]="!confirmCreateOrphan" *ngIf="hasActivities">
+    <h5>{{ text_this_action_create_an_orphan }}</h5>
+    <div>
+      <button mat-button (click)="close()" i18n>{{ text_cancel }}</button>
+      <button mat-raised-button color="warn" (click)="delete()">{{ text_confirm }}</button>
+    </div>
+  </div>
+</div>

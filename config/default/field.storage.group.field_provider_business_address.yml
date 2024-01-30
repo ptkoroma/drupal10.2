@@ -1,0 +1,21 @@
+uuid: 7f784d51-a46a-4afc-922e-4abe949a708c
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.field_provider_business_address
+field_name: field_provider_business_address
+entity_type: group
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

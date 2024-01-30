@@ -1,0 +1,18 @@
+uuid: 0d70d986-ca66-4900-b16b-b3ad49ba41d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.resoures
+id: node.resoures.title
+field_name: title
+entity_type: node
+bundle: resoures
+label: Topic
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

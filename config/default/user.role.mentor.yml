@@ -1,0 +1,58 @@
+uuid: ff63463e-f68c-4ef5-9a00-6dfda9249cc9
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - filter.format.opigno_certificate_wysiwyg
+  module:
+    - comment
+    - commerce_product
+    - contact
+    - field_ui
+    - filter
+    - group
+    - node
+    - opigno_certificate
+    - opigno_moxtra
+    - opigno_notification
+id: mentor
+label: Mentor
+weight: 6
+is_admin: null
+permissions:
+  - 'access comments'
+  - 'add meeting entities'
+  - 'add meeting result entities'
+  - 'add opigno notification'
+  - 'add workspace entities'
+  - 'administer comment form display'
+  - 'administer comment types'
+  - 'administer contact_message form display'
+  - 'administer meeting entities'
+  - 'administer meeting result entities'
+  - 'administer node form display'
+  - 'administer opigno notification'
+  - 'administer opigno_certificate form display'
+  - 'administer workspace entities'
+  - 'configure moxtra'
+  - 'create learning_path group'
+  - 'create opigno_class group'
+  - 'create opigno_course group'
+  - 'delete meeting entities'
+  - 'delete meeting result entities'
+  - 'delete own learning_path_product commerce_product'
+  - 'delete workspace entities'
+  - 'edit meeting result entities'
+  - 'edit opigno notification'
+  - 'edit own comments'
+  - 'post comments'
+  - 'update commerce_product_attribute'
+  - 'update own learning_path_product commerce_product'
+  - 'use text format full_html'
+  - 'use text format opigno_certificate_wysiwyg'
+  - 'view commerce_product'
+  - 'view commerce_product_attribute'
+  - 'view learning_path_product commerce_product'
+  - 'view opigno notification'
+  - 'view own unpublished commerce_product'

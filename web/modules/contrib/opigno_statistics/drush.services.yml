@@ -1,0 +1,11 @@
+services:
+  opigno_statistics.update:
+    class: Drupal\opigno_statistics\Commands\StatisticsCommands
+    arguments: [ '@opigno_statistics.user_achievement_manager' ]
+    tags:
+      - { name: drush.command }
+
+  opigno_statistics.module_result_update:
+    class: Drupal\opigno_statistics\Commands\OpignoModuleResultsCommands
+    tags:
+      - { name: drush.command }

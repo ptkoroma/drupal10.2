@@ -1,0 +1,7 @@
+services:
+  asset.css.collection_optimizer_legacy:
+    class: Drupal\Core\Asset\CssCollectionOptimizer
+    arguments: [ '@asset.css.collection_grouper', '@asset.css.optimizer', '@asset.css.dumper', '@state', '@file_system' ]
+  asset.js.collection_optimizer_legacy:
+    class: Drupal\Core\Asset\JsCollectionOptimizer
+    arguments: [ '@asset.js.collection_grouper', '@asset.js.optimizer', '@asset.js.dumper', '@state', '@file_system' ]

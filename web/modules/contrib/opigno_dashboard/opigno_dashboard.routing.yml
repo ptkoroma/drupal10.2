@@ -1,0 +1,67 @@
+opigno_dashboard.dashboard_admin_settings_form:
+  path: '/admin/config/opigno/dashboard'
+  defaults:
+    _form: '\Drupal\opigno_dashboard\Form\SettingsForm'
+    _title: 'Dashboard settings'
+  requirements:
+    _permission: 'opigno dashboard manage settings'
+  options:
+    _admin_route: TRUE
+
+opigno_dashboard.dashboard_admin_default_settings:
+  path: '/admin/config/opigno/dashboard/default'
+  defaults:
+    _title: 'Dashboard default settings'
+    _controller: '\Drupal\opigno_dashboard\Controller\DashboardController::dashboardDefaultBlocks'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+
+opigno_dashboard.get_positioning:
+  path: '/opigno_dashboard/get-positioning'
+  methods: [GET]
+  defaults:
+    _controller: '\Drupal\opigno_dashboard\Controller\DashboardController::getPositioning'
+  requirements:
+    _permission: 'access content'
+
+opigno_dashboard.get_default_positioning:
+  path: '/opigno_dashboard/get-default-positioning'
+  methods: [GET]
+  defaults:
+    _controller: '\Drupal\opigno_dashboard\Controller\DashboardController::getDefaultPositioning'
+  requirements:
+    _permission: 'access content'
+
+opigno_dashboard.set_positioning:
+  path: '/opigno_dashboard/set-positioning'
+  methods: [POST]
+  defaults:
+    _controller: '\Drupal\opigno_dashboard\Controller\DashboardController::setPositioning'
+  requirements:
+    _permission: 'access content'
+
+opigno_dashboard.set_default_positioning:
+  path: '/opigno_dashboard/set-default-positioning'
+  methods: [POST]
+  defaults:
+    _controller: '\Drupal\opigno_dashboard\Controller\DashboardController::setDefaultPositioning'
+  requirements:
+    _permission: 'access content'
+
+opigno_dashboard.restore_to_default_all:
+  path: '/opigno_dashboard/restore-to-default-all'
+  methods: [POST]
+  defaults:
+    _controller: '\Drupal\opigno_dashboard\Controller\DashboardController::restoreToDefaultAll'
+  requirements:
+    _permission: 'opigno dashboard manage settings'
+
+opigno_dashboard.get_blocks:
+  path: '/opigno_dashboard/get-blocks'
+  methods: [GET]
+  defaults:
+    _controller: '\Drupal\opigno_dashboard\Controller\DashboardController::getBlocksContents'
+  requirements:
+    _permission: 'access content'

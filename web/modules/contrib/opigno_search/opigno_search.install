@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Module install/update functionality.
+ */
+
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\search_api\Entity\Index;
+use Drupal\search_api\IndexInterface;
+
+/**
+ * Implements hook_install().
+ */
+function opigno_search_install() {
+  // Rebuild Index search after install module.
+  $index = Index::load('default_index');
+  if ($index instanceof IndexInterface) {
+    try {
+      $index->disable();
+      $index->save();
+      $index->enable();
+      $index->save();
+    }
+    catch (EntityStorageException $e) {
+      watchdog_exception('opigno_search_exception', $e);
+    }
+  }
+
+  // Uninstall core module 'Search'.
+  if (\Drupal::moduleHandler()->moduleExists('search')) {
+    \Drupal::service('module_installer')->uninstall(['search']);
+  }
+}

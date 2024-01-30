@@ -1,0 +1,12 @@
+#skill-level-names .tabledrag-toggle-weight-wrapper,
+#skill-level-names .field--name-field-level-names thead {
+  display: none;
+}
+
+body.section-module .form-module-results-message {
+  font-weight: bold;
+}
+
+.statistics-table.statistics-graph {
+  margin-bottom: 0;
+}

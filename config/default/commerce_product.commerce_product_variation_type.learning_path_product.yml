@@ -1,0 +1,12 @@
+uuid: e31feb1e-e9c3-476d-a2e6-e20a587cd1ce
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: DpiHXlhtPYL2W9bqc489IUWyQvVbnHdvnKpgVMgC21Q
+id: learning_path_product
+label: 'Learning Path product'
+traits: {  }
+locked: false
+orderItemType: default
+generateTitle: null

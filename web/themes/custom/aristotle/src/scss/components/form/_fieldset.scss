@@ -1,0 +1,24 @@
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  legend {
+    float: left;
+    padding: 0;
+    margin-bottom: rem(30);
+    width: 100%;
+  }
+
+  .fieldset-wrapper {
+    clear: both;
+  }
+}
+
+.fieldgroup {
+  @extend .content-box;
+
+  > legend {
+    @extend .content-box__title;
+  }
+}

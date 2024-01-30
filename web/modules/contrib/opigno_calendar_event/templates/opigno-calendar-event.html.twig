@@ -1,0 +1,60 @@
+{#
+/**
+ * @file opigno-calendar-event.html.twig
+ * Default theme implementation to present Opigno calendar event.
+ *
+ * This template is used when viewing Opigno calendar events.
+ *
+ *
+ * Available variables:
+ * - content
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_opigno_calendar_event()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('opigno_calendar_event') }}>
+  <div class="heading">
+    <div class="type">
+      {{ event_type }}
+    </div>
+
+    {% if mobile_link %}
+      <div class="join-link">
+        {{ mobile_link }}
+      </div>
+    {% endif %}
+
+    {% if edit_link %}
+      {{ edit_link }}
+    {% endif %}
+  </div>
+
+  <div class="content">
+    <div class="event-info">
+      <div class="title">
+        {{ content.title|field_value }}
+      </div>
+      <div class="daterange">
+        {{ content.date_daterange|field_value }}
+      </div>
+      {% if event_link %}
+        <div class="event-link">
+          {{ event_link }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="description">
+      {{ content.description|field_value }}
+    </div>
+
+    {% if training_link %}
+      <div class="training-link">
+        {{ training_link }}
+      </div>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,447 @@
+header.page-header {
+  background-color: $clr-desktop-header-bg;
+  padding: rem(32) 0 rem(31);
+  position: relative;
+
+  @include media-breakpoint-down(md) {
+    min-height: 0;
+    padding: rem(32) 0 rem(10);
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: min-height .3s ease;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .row {
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
+  }
+
+  .col-left,
+  .col-right {
+    @include media-breakpoint-down(xs) {
+      padding-left: rem(30);
+      padding-right: rem(30);
+    }
+
+    @include media-breakpoint-up(lg) {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  .col-left {
+    position: static;
+
+    @include media-breakpoint-down(md) {
+      position: relative;
+    }
+  }
+
+  .col-right {
+    justify-content: space-between;
+
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+
+  .region-main-menu {
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+
+  .mobile-header-wrapper {
+    display: none;
+    max-height: calc(100vh - 130px);
+    overflow-y: auto;
+  }
+
+  .mobile-header {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: rem(30) 0 rem(90);
+    text-align: center;
+
+    @include media-breakpoint-up(lg) {
+      display: none !important;
+    }
+
+    .block-profile__link {
+      flex-direction: row;
+
+      .profile-pic {
+        margin-left: rem(20);
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .block-profile {
+    &__link {
+      align-items: center;
+      display: flex;
+      color: $clr-desktop-header-link;
+      text-decoration: none;
+
+      @include media-breakpoint-down(xl) {
+        flex-direction: column-reverse;
+      }
+
+      @include media-breakpoint-down(md) {
+        font-size: rem(20);
+      }
+
+      &:hover {
+        color: $clr-desktop-header-link-active;
+        text-decoration: none;
+      }
+
+      &.active {
+        color: $clr-desktop-header-link-active;
+        font-weight: $font-weight-semibold;
+      }
+    }
+
+    .profile-pic {
+      height: 51px;
+      margin-left: 21px;
+      width: 51px;
+
+      @include media-breakpoint-down(xl) {
+        margin-left: 0;
+        margin-bottom: rem(5);
+      }
+    }
+  }
+
+  // Temporary icon styles
+  .block-notifications {
+    align-items: center;
+    display: flex;
+
+    @include media-breakpoint-down(md) {
+      margin-bottom: rem(50);
+    }
+
+    &__item {
+      margin-left: 18px;
+      position: relative;
+
+      @include media-breakpoint-down(md) {
+        margin: 0 rem(23);
+      }
+
+      &.block-notifications__item--notifications {
+        .dropdown-menu {
+          margin-right: rem(-50);
+          transform: perspective(1px) translate3d(0, -100%, 0) !important;
+          transition: .3s ease;
+
+          &.show {
+            transition: .3s ease;
+          }
+        }
+      }
+
+      &.block-notifications__item--user-menu {
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+
+        .dropdown-menu {
+          min-width: rem(218);
+          padding: rem(20) rem(30);
+        }
+      }
+    }
+
+    .dropdown {
+      > a {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .fi {
+      color: $clr-desktop-header-link;
+      font-size: rem(24);
+    }
+
+    .fi-rr-angle-small-down {
+      align-items: center;
+      border: 2px solid $clr-desktop-header-link;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      height: rem(35);
+      width: rem(35);
+
+      &:before {
+        margin-top: 2px;
+      }
+    }
+
+    .dropdown-toggle {
+      &:hover {
+        color: $clr-desktop-header-link;
+      }
+
+      &:after {
+        content: none;
+      }
+    }
+
+    .dropdown-menu {
+      display: block;
+      font-size: rem(14);
+      padding: rem(7) rem(15) rem(20);
+      margin-top: rem(20);
+      min-width: rem(317);
+      text-align: left;
+      visibility: hidden;
+      right: 0;
+      left: auto !important;
+      opacity: 0;
+      transform: perspective(1px) translate3d(0, 0, 0) !important;
+      transition: opacity .3s ease;
+
+      &.show {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        transform: perspective(1px) translate3d(0, 20px, 0) !important;
+        transition: opacity .3s ease;
+        z-index: 11;
+      }
+
+      .all-read {
+        color: $clr-desktop-link;
+        display: inline-flex;
+        margin-bottom: rem(10);
+      }
+    }
+
+    .notifications-block {
+      position: relative;
+
+      .ajax-progress {
+        padding: 0;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+
+        .throbber {
+          animation: scale 3s ease infinite;
+          background: url(../images/design/Logo_opigno_circle.svg) center no-repeat;
+          display: block;
+          height: rem(30);
+          padding: 0;
+          width: rem(30);
+        }
+      }
+    }
+
+    .notification-list {
+      display: flex;
+      flex-direction: column;
+      font-size: rem(12);
+      list-style: none;
+      margin: 0 0 rem(17);
+      padding: 0;
+    }
+
+    .notification-item {
+      &:not(:last-child) {
+        &:after {
+          background: $clr-desktop-text;
+          content: '';
+          display: block;
+          height: 1px;
+          margin: rem(6) auto;
+          width: calc(100% - 10px);
+        }
+      }
+    }
+
+    .notification-item-text {
+      background: $clr-gray-light;
+      border-radius: rem(10);
+      color: $clr-desktop-text;
+      display: block;
+      padding: rem(8);
+    }
+
+    .view-notifications {
+      display: flex;
+      justify-content: center;
+    }
+
+    .marker {
+      background: $clr-desktop-header-link-active;
+      border-radius: 50%;
+      height: rem(7);
+      position: absolute;
+      right: rem(-6);
+      top: rem(-7);
+      width: rem(7);
+    }
+  }
+
+  // ELEMENT: Navbar
+  .navbar-toggler {
+    @include reset-button-style;
+    display: block;
+    margin: 0 auto;
+    color: $clr-header-link;
+
+    &[aria-expanded="true"],
+    &:hover {
+      color: $clr-header-link-active;
+    }
+
+    .io {
+      font-size: rem(36);
+    }
+  }
+
+  .navbar-collapse {
+    @include media-breakpoint-down(md) {
+      display: none;
+      overflow: hidden;
+      position: absolute;
+      top: calc(100% + #{rem(10)});
+      width: 100vw;
+      max-width: rem(375);
+      left: 50%;
+      transform: translateX(-50%);
+      border-top: 1px solid;
+      background-color: $clr-header-background;
+      z-index: z-index(navbar);
+    }
+
+
+    &.show {
+      @include media-breakpoint-down(md) {
+        display: block;
+      }
+    }
+
+    .nav {
+      overflow: hidden;
+
+      @include media-breakpoint-down(md) {
+        @include header-dropdown('.nav-item');
+        display: block;
+      }
+    }
+  }
+
+  // ELEMENT: Dropdown
+  .dropdown-center {
+    > .menu-level-0 {
+      position: static;
+      top: 100% !important;
+      right: auto;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      margin-top: rem(11);
+
+      @include media-breakpoint-up(lg) {
+        margin-top: rem(20);
+      }
+    }
+
+    &.dropdown-right {
+      > .menu-level-0 {
+        right: 0;
+        left: auto !important;
+        transform: none !important;
+      }
+    }
+  }
+
+  .dropdown {
+    &.show > .dropdown-toggle {
+      color: $clr-header-link-active;
+    }
+  }
+
+  .dropdown-toggle {
+   font-size: rem($nav-font-size);
+    cursor: pointer;
+    display: inline-block;
+
+    &:hover {
+      color: $clr-header-link-active;
+    }
+  }
+
+  .dropdown-menu {
+    @include header-dropdown('.dropdown-item');
+  }
+
+  .menu-level-0 {
+    .dropdown-toggle:hover,
+    .dropdown.show > .dropdown-toggle {
+      @include icon-opigno(chevron-left, before);
+
+      &:before {
+       font-size: rem($font-size-sm);
+        position: absolute;
+        top: 50%;
+        left: rem(6);
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .menu-level-1 {
+    left: -100%;
+    top: -1px;
+    width: 100%;
+
+    .dropdown-item .nav-link {
+      &:after {
+        opacity: 0;
+        width: calc(100% - #{rem(40)});
+        bottom: rem(-2);
+      }
+
+      &:hover,
+      &.active {
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+$pages: (
+  menu-catalogue: 'catalogue',
+  menu-messages: 'private-messages',
+  menu-calendar: 'opigno-calendar',
+  menu-achievements: 'achievements',
+  menu-statistics: 'statistics-dashboard'
+);
+
+@each $icon, $page in $pages {
+  .path-#{$page} {
+    .navbar-toggler > .io:before {
+      content: map-get($icomoon, $icon);
+    }
+  }
+}

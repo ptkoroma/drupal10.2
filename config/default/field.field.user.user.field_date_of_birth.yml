@@ -1,0 +1,29 @@
+uuid: c7c4120e-2f31-452e-9f6a-c2cd5264354e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_date_of_birth
+  module:
+    - custom_add_another
+    - datetime
+    - user
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: user.user.field_date_of_birth
+field_name: field_date_of_birth
+entity_type: user
+bundle: user
+label: 'Date of Birth'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime

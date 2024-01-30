@@ -1,0 +1,11 @@
+uuid: afbb51ea-0d92-4458-8b55-362ab8550c37
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.advaced_block
+id: block_content.advaced_block
+target_entity_type_id: block_content
+target_bundle: advaced_block
+default_langcode: site_default
+language_alterable: false

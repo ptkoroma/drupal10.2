@@ -1,0 +1,12 @@
+services:
+  commerce_stripe.order_events_subscriber:
+    class: Drupal\commerce_stripe\EventSubscriber\OrderPaymentIntentSubscriber
+    arguments: ['@entity_type.manager', '@commerce_price.minor_units_converter']
+    tags:
+      - { name: needs_destruction }
+      - { name: event_subscriber }
+
+  logger.channel.commerce_stripe:
+    class: Drupal\Core\Logger\LoggerChannel
+    factory: logger.factory:get
+    arguments: ['commerce_stripe']

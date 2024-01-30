@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * Contains install/update/uninstall hooks.
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_install().
+ */
+function opigno_module_restart_install() {
+  // Add the field to count the number of activities that had been restarted in
+  // the module attempt.
+  $schema = \Drupal::database()->schema();
+  $table = 'user_module_status';
+  $field = 'restarted_activities_number';
+  if ($schema->fieldExists($table, $field)) {
+    return;
+  }
+
+  $schema->addField($table, $field, [
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+    'default' => 0,
+    'description' => 'The number of times the activities inside the module had been restarted',
+  ]);
+
+  $definition = BaseFieldDefinition::create('integer')
+    ->setLabel(t('Restarted activities count'))
+    ->setDescription(t('The number of times the activities inside the module had been restarted'))
+    ->setDefaultValue(0);
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $update_manager->installFieldStorageDefinition('restarted_activities_number', 'user_module_status', 'opigno_module_restart', $definition);
+}
+
+/**
+ * Update the back link configs with the new routes.
+ */
+function opigno_module_restart_update_9001() {
+  $config = \Drupal::configFactory()->getEditable('block.block.backlinkblock');
+  $name = 'settings.js_button';
+  $current = $config->get($name);
+  $updated = $current ? $current . PHP_EOL . 'opigno_module_restart.restart_activity' : 'opigno_module_restart.restart_activity';
+  $config->set($name, $updated)->save(TRUE);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function opigno_module_restart_uninstall() {
+  $field = 'restarted_activities_number';
+  $entity_type = 'user_module_status';
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  /** @var \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager */
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+
+  // Remove the added field.
+  foreach ($entity_field_manager->getFieldStorageDefinitions($entity_type) as $storage_definition) {
+    if ($storage_definition->getName() === $field) {
+      $update_manager->uninstallFieldStorageDefinition($storage_definition);
+    }
+  }
+
+  // Clean up the database.
+  $schema = \Drupal::database()->schema();
+  if ($schema->fieldExists($entity_type, $field)) {
+    $schema->dropField($entity_type, $field);
+  }
+}

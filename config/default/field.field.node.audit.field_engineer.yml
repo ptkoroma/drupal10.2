@@ -1,0 +1,42 @@
+uuid: 9f5a21f3-ea0a-460d-ad43-5988aef7e044
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_engineer
+    - node.type.audit
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.audit.field_engineer
+field_name: field_engineer
+entity_type: node
+bundle: audit
+label: Engineer
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+    filter:
+      type: role
+      role:
+        engineer: engineer
+        collaborative_features: '0'
+        statistics_reader: '0'
+        user_manager: '0'
+        content_manager: '0'
+        administrator: '0'
+        auditor: '0'
+    include_anonymous: true
+field_type: entity_reference

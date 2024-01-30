@@ -1,0 +1,22 @@
+uuid: 766518d3-bf9c-4401-9c5c-6c81897b8bd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.cpd_reflection_non_catalogued_
+id: node.cpd_reflection_non_catalogued_.promote
+field_name: promote
+entity_type: node
+bundle: cpd_reflection_non_catalogued_
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

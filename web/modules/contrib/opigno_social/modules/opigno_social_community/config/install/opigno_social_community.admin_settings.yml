@@ -1,0 +1,7 @@
+enable_communities: true
+allow_view: {  }
+allow_create: {  }
+allow_update: {  }
+allow_delete: {  }
+allow_invite_member: {  }
+allow_cancel_invitation: {  }

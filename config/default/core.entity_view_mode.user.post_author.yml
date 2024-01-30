@@ -1,0 +1,12 @@
+uuid: 6f5186b1-816f-4b42-8d44-8232b59507c7
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: 0h8mWe9QxN-m6rjvdCnf3n4zBy9v3q2LHilHvXLiR7A
+id: user.post_author
+label: 'Post author'
+targetEntityType: user
+cache: true

@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the Learning path progress.
+ */
+#}
+
+{% if not show_bar %}
+  <span class="score">
+    {{ value ~ '%' }}
+  </span>
+{% else %}
+  <div class="learning-path-progress d-flex flex-column progress-bar-mini">
+    <div class="progress-bar">
+      <div class="progress-progress" style="width: {{ value }}%"></div>
+    </div>
+    <div class="progress-content">
+      <div class="progress-value">{{ value ~ '%'}}</div>
+    </div>
+  </div>
+{% endif %}

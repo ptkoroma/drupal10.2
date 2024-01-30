@@ -1,0 +1,111 @@
+// Text truncate
+// Requires inline-block or block for proper styling
+@mixin text-truncate() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin icon-opigno-base($position: before) {
+  &:#{$position} {
+    // use !important to prevent issues with browser extensions that change fonts
+    font-family: 'icon-opigno' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    text-indent: 0;
+
+    // Better Font Rendering
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@mixin icon-opigno($icon, $position: before) {
+  @include icon-opigno-base($position);
+  &:#{$position} {
+    content: map-get($icomoon, $icon);
+  }
+}
+
+@mixin reset-button-style() {
+  border: 0 none;
+  box-shadow: none;
+  background: transparent;
+  outline: none;
+}
+
+@mixin header-dropdown($item-selector) {
+  padding: rem(8) 0 0;
+  text-align: center;
+
+  #{$item-selector} {
+   font-size: rem($font-size-sm);
+    margin-bottom: rem(14);
+    padding: rem(10) 0;
+    position: relative;
+    text-align: center;
+
+    .nav-link {
+      padding: 0 rem(20);
+    }
+  }
+
+  &.menu-level-0 {
+    .nav-link {
+      position: relative;
+
+      &:after {
+        //@todo: Added mixins or class for decoration element.
+        content: '';
+        display: block;
+        width: rem(48);
+        position: absolute;
+        bottom: rem(-18);
+        left: 50%;
+        transform: translateX(-50%);
+        border-top: 1px solid;
+      }
+    }
+
+    #{$item-selector}:last-child {
+      .nav-link:after {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+@mixin block-layout {
+  width: 100%;
+  background-color: $clr-block-background;
+  padding: rem($dashboard-block-p-x-sm) rem($dashboard-block-p-y-sm);
+  margin-bottom: rem($block-space-between-y);
+
+  .block-title {
+    @include icon-opigno-base(before);
+   font-size: rem($block-title-font-size);
+    margin: 0 0 rem($block-title-m-y);
+    color: $clr-block-title;
+    font-weight: $block-title-font-weight;
+    text-align: center;
+
+    &:before {
+      font-size: rem($block-icon-font-size);
+      vertical-align: middle;
+      margin-right: rem(20);
+    }
+  }
+}
+
+// Mixin itself
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+}

@@ -1,0 +1,11 @@
+uuid: f43ce74f-8a06-4a83-8702-121e602ad4d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.form
+id: node.form
+target_entity_type_id: node
+target_bundle: form
+default_langcode: site_default
+language_alterable: false

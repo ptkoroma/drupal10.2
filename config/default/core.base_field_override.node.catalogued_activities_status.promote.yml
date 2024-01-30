@@ -1,0 +1,22 @@
+uuid: 8b3c7266-53eb-497f-a715-2164f42dfe72
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.catalogued_activities_status
+id: node.catalogued_activities_status.promote
+field_name: promote
+entity_type: node
+bundle: catalogued_activities_status
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,12 @@
+uuid: 967d6b27-6257-48bc-8376-9faf4341ec57
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 3vA4FKQ1Qu8B1R8UdGPnmMfJrYO6Y6uMqeNgDgXxods
+id: default
+label: Master
+traits: {  }
+locked: false
+orderItemType: default
+generateTitle: true

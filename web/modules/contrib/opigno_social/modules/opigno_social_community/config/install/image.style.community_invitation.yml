@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: community_invitation
+label: 'Community invitation (59x59)'
+effects:
+  2ec579a0-4633-403a-a045-2c6c8cc06e61:
+    uuid: 2ec579a0-4633-403a-a045-2c6c8cc06e61
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 59
+      height: 59
+      anchor: center-center

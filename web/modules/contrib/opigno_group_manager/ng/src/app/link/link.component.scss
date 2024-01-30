@@ -1,0 +1,91 @@
+div#link-panel-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 0 5px 2px #ddd;
+  width: 600px;
+  max-width: calc(100% - 30px);
+  h2 {
+    margin-bottom: 1rem;
+  }
+  .hidden {
+    visibility: hidden;
+    height: 0;
+  }
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
+  select.condition-type {
+    width: 70%;
+  }
+  button.btn {
+    width: 25%;
+  }
+  .clearfix {
+    clear: both;
+    width: 100%;
+  }
+  hr {
+    height: 3px;
+    border: none;
+    color: #b8b8b8;
+    background-color: #b8b8b8;
+  }
+  .parent-wrapper,
+  .children {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .children {
+    margin-left: 20px;
+  }
+  .condition {
+    margin: 10px 0;
+    padding: 10px 0;
+    border-top: 1px solid #dadada;
+    .label {
+      font-weight: bold;
+    }
+    .condition-content {
+      width: 70%;
+      float: left;
+      overflow: hidden;
+    }
+    .condition-actions {
+      float: right;
+      .btn {
+        display: inline;
+        width: auto;
+      }
+    }
+  }
+  .conditions-edit {
+    margin: 20px 0;
+    padding-bottom: 15px;
+    .score {
+      width: 70%;
+    }
+  }
+  .alert {
+    margin-bottom: 1rem;
+    button.close {
+      padding: 0 0.75rem !important;
+    }
+  }
+}
+
+svg {
+  position: absolute;
+  overflow: visible;
+}
+
+.mat-form-field {
+  display: block;
+  width: 100%;
+}

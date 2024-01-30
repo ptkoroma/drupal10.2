@@ -1,0 +1,19 @@
+uuid: 2154faba-1299-4daf-a060-28aa9d7d8a7c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_answer_
+field_name: field_answer_
+entity_type: node
+type: text_with_summary
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

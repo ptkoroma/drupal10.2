@@ -1,0 +1,3 @@
+<div class="stripe-subscribe-plan stripe-subscribe-plan-{{ plan.price_id|clean_class }} stripe-subscribe-status-{{ current_user_is_subscribed ? 'subscribed' : 'unsubscribed'}}">
+  <button class="stripe-subscribe-button stripe-button" data-price_id="{{ plan.price_id }}">Subscribe to {{ plan.name }}</button>
+</div>

@@ -1,0 +1,30 @@
+uuid: 22ca0a44-9507-4642-9c82-270a1b82a00a
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - options
+id: group.field_activity_type
+field_name: field_activity_type
+entity_type: group
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Development Activity'
+      label: 'Development Activity'
+    -
+      value: 'Work Based Activity'
+      label: 'Work Based Activity'
+    -
+      value: 'Individual Activity'
+      label: 'Individual Activity'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

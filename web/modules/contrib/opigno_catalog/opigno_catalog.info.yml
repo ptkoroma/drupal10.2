@@ -1,0 +1,16 @@
+name: Opigno Catalogue
+type: module
+description: Add features to opigno catalogue.
+core_version_requirement: ^9 || ^10
+package: Opigno
+
+dependencies:
+  - drupal:views_infinite_scroll
+  - opigno_learning_path:opigno_learning_path
+  - group:group
+
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '3.1.1'
+project: 'opigno_catalog'
+datestamp: 1685711893

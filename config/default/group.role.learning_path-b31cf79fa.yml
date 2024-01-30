@@ -1,0 +1,17 @@
+uuid: d802578b-8a9b-4c1e-af1f-29822f63e623
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.learning_path
+  enforced:
+    config:
+      - user.role.mentor
+id: learning_path-b31cf79fa
+label: Mentor
+weight: 6
+internal: true
+audience: outsider
+group_type: learning_path
+permissions_ui: false
+permissions: {  }

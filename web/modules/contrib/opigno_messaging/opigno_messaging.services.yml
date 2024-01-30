@@ -1,0 +1,17 @@
+services:
+  # Opigno messages management service.
+  opigno_messaging.manager:
+    class: Drupal\opigno_messaging\Services\OpignoMessageThread
+    arguments: ['@current_user', '@date.formatter', '@entity_type.manager', '@plugin.manager.mail', '@config.factory', '@user.data', '@database']
+
+  # Access check for the thread edit form.
+  opigno_messaging.update_thread_access_check:
+    class: Drupal\opigno_messaging\Access\UpdateThreadAccess
+    tags:
+      - { name: access_check, applies_to: _opigno_messaging_update_thread_access }
+
+  # Route subscriber.
+  opigno_messaging.route_subscriber:
+    class: Drupal\opigno_messaging\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

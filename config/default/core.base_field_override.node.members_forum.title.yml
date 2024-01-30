@@ -1,0 +1,18 @@
+uuid: cd8342b7-8092-4346-9865-0a39c6e16363
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.members_forum
+id: node.members_forum.title
+field_name: title
+entity_type: node
+bundle: members_forum
+label: 'Members Forum Topic'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

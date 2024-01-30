@@ -1,0 +1,28 @@
+{#
+/*
+ * Default theme implementation for the charts section on the user profile.
+ */
+#}
+
+<div id="opigno-user-stats-charts" class="charts-section user-charts charts-loading">
+  <div class="loader"></div>
+  <div class="user-charts__item">
+    <div class="user-charts__item-container">
+      <h5 class="user-charts__item-title">{{ 'Training(s) completed'|t }}</h5>
+
+      <div class="canvas-container">
+        <canvas id="user-completed-trainings-chart" class="completed-progress-chart bar-chart bar-chart__md"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-charts__item">
+    <div class="user-charts__item-container">
+      <h5 class="user-charts__item-title">{{ 'Current training(s)'|t }}</h5>
+
+      <div class="canvas-container">
+        <canvas id="user-current-trainings-chart" class="current-progress-chart bar-chart bar-chart__md"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

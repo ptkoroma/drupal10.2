@@ -1,0 +1,20 @@
+uuid: 2aec665c-00ab-4370-b469-97e5bee072c1
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - node
+id: node.field_effort
+field_name: field_effort
+entity_type: node
+type: comment
+settings:
+  comment_type: comment_forum
+module: comment
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

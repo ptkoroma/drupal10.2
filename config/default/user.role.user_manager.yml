@@ -1,0 +1,43 @@
+uuid: 4ddec73e-8e3e-4ba2-b56d-141e53381b5d
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.image
+  module:
+    - dropzonejs
+    - entity_browser
+    - group
+    - media
+    - opigno_dashboard
+    - opigno_ilt
+    - opigno_learning_path
+    - opigno_messaging
+    - opigno_moxtra
+    - opigno_statistics
+    - role_delegation
+_core:
+  default_config_hash: 17mvvYHzi951RCysnpzC6RUAWnjZnnEClxtrKgh5wNw
+id: user_manager
+label: 'User manager'
+weight: -6
+is_admin: null
+permissions:
+  - 'access media_entity_browser_groups entity browser pages'
+  - 'administer ilt entities'
+  - 'administer meeting entities'
+  - 'administer users'
+  - 'assign collaborative_features role'
+  - 'create opigno_class group'
+  - 'delete any image media'
+  - 'delete own image media'
+  - 'dropzone upload files'
+  - 'edit any image media'
+  - 'edit own image media'
+  - 'manage group members in any group'
+  - 'message all groups'
+  - 'message anyone regardless of groups'
+  - 'opigno dashboard layout access'
+  - 'score ilt entities'
+  - 'score meeting'
+  - 'view any private profile'

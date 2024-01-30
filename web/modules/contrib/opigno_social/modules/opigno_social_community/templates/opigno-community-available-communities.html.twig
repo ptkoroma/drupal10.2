@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the uses's available communitites list.
+ */
+#}
+
+{{ join_btn }}
+
+<div class="content-box">
+  <h3 class="content-box__title">
+    {{ 'Your communities'|t }}
+
+    <i class="fi fi-rr-angle-down d-xl-none"></i>
+  </h3>
+
+  <div class="communities-list">
+    {% if managed %}
+      <h5>{{ 'Communities you manage'|t }}</h5>
+      {% for community in managed %}
+        {{ community }}
+      {% endfor %}
+    {% endif %}
+
+    {% if followed %}
+      <h5>{{ 'Communities you follow'|t }}</h5>
+      {% for community in followed %}
+        {{ community }}
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>

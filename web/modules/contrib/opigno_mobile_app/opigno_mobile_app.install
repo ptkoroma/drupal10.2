@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Opigno Mobile App module.
+ */
+
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ */
+function opigno_mobile_app_install() {
+  $restful_permissions = [
+    RoleInterface::AUTHENTICATED_ID => [
+      'restful post token_rest_resource',
+      'restful get opigno_notification_resource',
+      'restful patch opigno_notification_resource',
+      'restful get private_messages_resource',
+      'restful get opigno_calendar_events_resource',
+      'restful get private_message_threads_resource',
+      'restful get private_message_resource',
+      'restful patch private_message_thread_update_resource',
+      'restful get trainings_catalogue_resource',
+      'restful get private_message_last_for_threads_resource',
+      'restful get achievements_resource',
+      'restful post color_rest_resource',
+      'restful get color_rest_resource',
+    ],
+    RoleInterface::ANONYMOUS_ID => [
+      'restful post token_rest_resource',
+      'restful post color_rest_resource',
+      'restful get color_rest_resource',
+    ],
+  ];
+
+  foreach ($restful_permissions as $role_id => $permissions) {
+    $role = Role::load($role_id);
+    if (!$role instanceof RoleInterface) {
+      continue;
+    }
+    foreach ($permissions as $permission) {
+      $role->grantPermission($permission);
+    }
+
+    try {
+      $role->save();
+    }
+    catch (EntityStorageException $e) {
+      watchdog_exception('opigno_mobile_app_exception', $e);
+    }
+  }
+}

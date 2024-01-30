@@ -1,0 +1,29 @@
+uuid: 4b2bae0c-6cd7-4ed7-9653-faffed8fcc39
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.engineer-menu
+  module:
+    - system
+  theme:
+    - aristotle
+id: cpd
+theme: aristotle
+region: sidebar_first
+weight: -15
+provider: null
+plugin: 'system_menu_block:engineer-menu'
+settings:
+  id: 'system_menu_block:engineer-menu'
+  label: CPD
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "/admin\r\n/admin/*"

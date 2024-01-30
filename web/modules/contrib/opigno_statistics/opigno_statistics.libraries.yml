@@ -1,0 +1,47 @@
+user:
+  version: VERSION
+  js:
+    js/user.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupalSettings
+    - core/drupal.ajax
+
+user_statistics:
+  version: 1.x
+  js:
+    js/user_statistics.js: {}
+  dependencies:
+    - core/drupal.ajax
+    - core/jquery
+    - core/once
+    - core/drupalSettings
+
+# External Charts.js library.
+chartjs:
+  remote: https://github.com/chartjs/Chart.js
+  version: 3.5.0
+  license:
+    name: MIT
+    url: https://github.com/chartjs/Chart.js/blob/master/LICENSE.md
+    gpl-compatible: true
+  js:
+    https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js: { type: external, minified: true }
+
+# Internal library to build charts.
+opigno_charts:
+  version: 1.x
+  js:
+    js/opigno_charts.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - opigno_statistics/chartjs
+
+admin_ui:
+  version: 1.x
+  js:
+    js/admin_ui.js: {}
+  dependencies:
+    - core/jquery

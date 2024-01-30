@@ -1,0 +1,29 @@
+uuid: 04c28ad3-4ae0-4ba4-b5e7-65ac38c534f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.auditor-menu
+  module:
+    - system
+  theme:
+    - aristotle
+id: auditormenu
+theme: aristotle
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:auditor-menu'
+settings:
+  id: 'system_menu_block:auditor-menu'
+  label: 'Auditor Menu'
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "/admin\r\n/admin/*"

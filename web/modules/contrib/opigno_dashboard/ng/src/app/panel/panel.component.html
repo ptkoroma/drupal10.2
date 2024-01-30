@@ -1,0 +1,18 @@
+<div>
+  <button type="button" class="close-dashboard" (click)="appService.closeManageDashboard()"><i class="fi fi-rr-cross-small"></i></button>
+  <h2>{{locales.manageYourDashboard}}</h2>
+</div>
+
+<section class="layout">
+  <div class="content-box">
+    <p>{{locales.layout}}</p>
+    <button class="radio" id="layout-1" name="layout" (click)="appService.columns=1" [class.active]="appService.columns==1">{{locales.oneColumn}}</button>
+    <button class="radio" id="layout-2" name="layout" (click)="appService.columns=2" [class.active]="appService.columns==2">{{locales.twoColumns}}</button>
+    <button class="radio" id="layout-3" name="layout" (click)="appService.columns=3" [class.active]="appService.columns==3">{{locales.asymColumns}}</button>
+    <button class="radio" id="layout-4" name="layout" (click)="appService.columns=4" [class.active]="appService.columns==4">{{locales.threeColumns}}</button>
+    <button class="radio" id="layout-5" name="layout" (click)="appService.columns=5" [class.active]="appService.columns==5">{{locales.threeAsymColumns}}</button>
+    <ng-container *ngIf="appService.displayRestoreToDefaultButton()">
+      <button type="button" name="button" class="btn btn-rounded" (click)="appService.reinit()">{{locales.restoreToDefault}}</button>
+    </ng-container>
+  </div>
+</section>

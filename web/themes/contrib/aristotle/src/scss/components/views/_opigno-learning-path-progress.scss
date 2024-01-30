@@ -1,0 +1,148 @@
+.learning-path-progress {
+  min-width: rem(80);
+
+  .progress-bar {
+    background-color: $clr-gray-light-D5;
+    border-radius: rem(6);
+    height: rem(5);
+    width: 100%;
+  }
+
+  .progress-progress {
+    background-color: $clr-desktop-link;
+    border-radius: inherit;
+    height: 100%;
+  }
+
+  .progress-value {
+    color: $clr-desktop-text;
+    font-size: rem(20);
+    font-weight: $font-weight-extrabold;
+    margin-bottom: rem(6);
+    text-align: right;
+  }
+}
+
+.lp-global-progress {
+  align-items: center;
+  display: flex;
+
+  @include media-breakpoint-down(lg) {
+    flex-wrap: wrap;
+  }
+
+  .learning-path-progress {
+    align-items: center;
+    flex-direction: row !important;
+  }
+
+  .lp-global-progress-title {
+    margin-right: rem(30);
+
+    @include media-breakpoint-down(lg) {
+      font-size: rem(18);
+      font-weight: $font-weight-extrabold;
+      flex: 1 0 100%;
+      max-width: 100%;
+      margin-right: 0;
+      text-transform: uppercase;
+    }
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: rem(10);
+    }
+  }
+
+  .progress-wrapper {
+    flex: 1 0 auto;
+
+    + .icon_state {
+      margin-left: rem(60);
+
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+
+      .fi {
+        font-size: rem(18);
+        height: rem(36);
+        margin-right: rem(20);
+        width: rem(36);
+      }
+
+      .date {
+        font-size: rem(12);
+        font-style: italic;
+      }
+    }
+  }
+
+  .progress-bar {
+    background-color: $clr-gray-light-D5;
+    border-radius: rem(6);
+    height: rem(17);
+    overflow: hidden;
+
+    @include media-breakpoint-down(sm) {
+      height: rem(5);
+    }
+  }
+
+  .progress-value {
+    font-size: rem(14);
+    font-weight: $font-weight-semibold;
+    margin: 0 0 0 rem(10);
+
+    @include media-breakpoint-down(sm) {
+      font-size: rem(20);
+      font-weight: $font-weight-extrabold;
+      margin-left: rem(20);
+    }
+  }
+}
+
+.circle-progress {
+  svg {
+    height: rem(72);
+    width: rem(72);
+  }
+
+  circle {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: $clr-gray;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: translate(5px,5px);
+
+    /* Formula
+     * L=2πR
+     * L - (L * percent) / 100
+     */
+    &:nth-child(2) {
+      stroke: $clr-desktop-link;
+      transform: rotate(-90deg) translate(5px, 5px);
+      transform-origin: center;
+    }
+  }
+
+  text {
+    fill: $clr-desktop-text;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.skill-stage {
+  background: $clr-gray;
+  border-radius: 50%;
+  display: inline-block;
+  height: rem(15);
+  margin-right: rem(5);
+  vertical-align: top;
+  width: rem(15);
+
+  &__completed {
+    background: $clr-desktop-link;
+  }
+}

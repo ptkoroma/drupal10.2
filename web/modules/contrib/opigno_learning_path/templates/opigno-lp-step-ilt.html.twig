@@ -1,0 +1,19 @@
+{#
+/**
+ * #state -
+ * #link -
+ * #locked -
+ */
+#}
+{% set locked = elements['#locked'] %}
+{% set state = elements['#state'] ?? 'pending' %}
+<div {{ attributes.addClass('opigno-lp-step-ilt', state) }}>
+  <h4 class="module-title">{{ elements.step.name }}</h4>
+  <div>
+    {%  if elements["#link"] %}
+      <a href="{{ elements["#link"] }}">{{ 'See on calendar'|t }}</a>
+    {% else %}
+      {{ 'See on calendar' }}
+    {%  endif %}
+  </div>
+</div>

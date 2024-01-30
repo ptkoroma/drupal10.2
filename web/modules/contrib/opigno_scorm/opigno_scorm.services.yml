@@ -1,0 +1,12 @@
+services:
+  opigno_scorm.scorm:
+    class: Drupal\opigno_scorm\OpignoScorm
+    arguments: ['@database', '@file_system', '@logger.factory', '@messenger']
+  opigno_scorm.scorm_player:
+    class: Drupal\opigno_scorm\OpignoScormPlayer
+    arguments:
+      - '@database'
+      - '@opigno_scorm.scorm'
+      - '@current_user'
+      - '@messenger'
+      - '@logger.factory'

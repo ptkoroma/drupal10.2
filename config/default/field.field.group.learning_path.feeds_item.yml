@@ -1,0 +1,28 @@
+uuid: ddd475e3-4978-4d02-9f17-7a0c0b9cd6c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.feeds_item
+    - group.type.learning_path
+  module:
+    - custom_add_another
+    - feeds
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: group.learning_path.feeds_item
+field_name: feeds_item
+entity_type: group
+bundle: learning_path
+label: 'Feeds item'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:feeds_feed'
+  handler_settings: {  }
+field_type: feeds_item

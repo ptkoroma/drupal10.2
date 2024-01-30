@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - queue_mail
+title: 'Queue: Queue mail worker'
+id: ultimate_cron_queue_queue_mail
+weight: 10
+module: queue_mail
+callback: 'ultimate_cron.queue_worker:queueCallback'
+scheduler:
+  id: simple
+  configuration:
+    rules:
+      - '* * * * *'
+launcher:
+  id: serial
+logger:
+  id: database

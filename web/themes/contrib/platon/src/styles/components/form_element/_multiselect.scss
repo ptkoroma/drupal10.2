@@ -1,0 +1,151 @@
+/**
+ * @file
+ * Styles for the multiselect module.
+ */
+
+.multiselect-wrapper {
+  display: flex;
+  flex-direction: column;
+  clear: both;
+
+  @include media-breakpoint-up(sm) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  // Force change width.
+  // @see: modules/contrib/multiselect/js/multiselect.js
+  .form-multiselect {
+    width: 100% !important;
+
+    @include media-breakpoint-up(md) {
+      // 66px - with button wrapper.
+      width: calc(50% - #{(66/2)}) !important;
+    }
+  }
+
+  .multiselect-available,
+  .multiselect-selected {
+    width: 100% !important;
+    max-width: 250px;
+  }
+
+  label {
+    color: $dark-gray;
+  }
+
+  select.form-control {
+    background-image: none;
+    padding: 0;
+    margin: 0;
+    // Show min 5 options. Force rewrite size attribute. @see hook_preprocess_multiselect().
+    min-height: 6rem;
+
+    option {
+      padding: 0 12px;
+    }
+  }
+
+  .multiselect-btns {
+    @include font-size(36px);
+    line-height: 36px;
+    max-width: 250px;
+
+    .icon-arrow-up {
+      &:before {
+        @include media-breakpoint-up(sm) {
+          content: icon(arrow-left);
+
+          [dir="rtl"] & {
+            content: icon(arrow-right);
+          }
+        }
+      }
+    }
+
+    .icon-arrow-down {
+      &:before {
+        @include media-breakpoint-up(sm) {
+          content: icon(arrow-right);
+
+          [dir="rtl"] & {
+            content: icon(arrow-left);
+          }
+        }
+      }
+    }
+
+    ul {
+      padding: 0 15px;
+      margin: 15px 0 0;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+
+      @include media-breakpoint-up(sm) {
+        display: block;
+        margin: 34px 0 0;
+      }
+    }
+
+    li {
+      cursor: pointer;
+      margin: 0 15px;
+      color: $dark-gray;
+
+      @include media-breakpoint-up(sm) {
+        margin: 0;
+      }
+
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+}
+
+// Extend multiselect with vertical display.
+.multiselect-wrapper {
+  &.vertical {
+    flex-direction: column;
+
+    .multiselect-btns {
+      ul {
+        display: flex;
+        margin: 15px 0 0;
+      }
+
+      .icon-arrow-up {
+        &:before {
+          content: icon(arrow-up);
+        }
+      }
+
+      .icon-arrow-down {
+        &:before {
+          content: icon(arrow-down);
+        }
+      }
+    }
+
+    // Force change width.
+    // @see: modules/contrib/multiselect/js/multiselect.js
+    .multiselect-available,
+    .multiselect-selected,
+    .form-multiselect {
+      width: 100% !important;
+    }
+  }
+}
+
+// Add space when multi select is child of form.
+form {
+  & > .form-group {
+   & > .multiselect-wrapper {
+      // @todo: need check behaviors with element label.
+      @include media-breakpoint-up(md) {
+        margin-left: $form-label-width;
+      }
+    }
+  }
+}

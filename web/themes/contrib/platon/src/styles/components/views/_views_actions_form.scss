@@ -1,0 +1,38 @@
+.views-form {
+
+  #edit-header {
+    margin: 0 0 15px;
+
+    .form-wrapper {
+      display: flex;
+      flex-flow: row wrap;
+      align-content: flex-end;
+      align-items: center;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin: 5px;
+
+      label {
+        margin: 0;
+        width: auto;
+      }
+    }
+
+    .form-element-wrapper,
+    .form-control {
+      width: 100%;
+    }
+
+    .form-actions {
+      margin: 5px;
+
+      input[type=submit] {
+        padding: 6px 20px;
+        text-transform: none;
+      }
+    }
+  }
+}

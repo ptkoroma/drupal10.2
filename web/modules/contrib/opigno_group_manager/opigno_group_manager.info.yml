@@ -1,0 +1,13 @@
+name: Opigno Group Manager
+type: module
+description: Add the group manager feature to the opigno instance.
+core_version_requirement: ^9 || ^10
+package: Opigno
+dependencies:
+  - group:group
+  - drupal:serialization
+
+# Information added by Drupal.org packaging script on 2023-06-01
+version: '3.1.0'
+project: 'opigno_group_manager'
+datestamp: 1685622429

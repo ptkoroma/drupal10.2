@@ -1,0 +1,17 @@
+uuid: 54c07681-b247-4649-9d96-0ce89ea63683
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.learning_path
+  enforced:
+    config:
+      - user.role.collaborative_features
+id: learning_path-68b45153a
+label: 'Live meeting manager'
+weight: -8
+internal: true
+audience: outsider
+group_type: learning_path
+permissions_ui: false
+permissions: {  }

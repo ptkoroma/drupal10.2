@@ -1,0 +1,18 @@
+<td class="move">
+  <span class="handle fi fi-rr-apps-sort"></span>
+</td>
+<td class="name"><a href="javascript:void(0);" (click)="activity.showPreview=true" title="{{ text_preview }}">{{activity.name}}</a></td>
+<td class="max-score"><input class="form-text" type="text" placeholder="{{ text_max_score }}" [(ngModel)]="activity.max_score" (ngModelChange)="updateActivity($event)"></td>
+<td *ngIf="module.editable" class="edit"><button class="btn btn-rounded" (click)="activity.showUpdate=true">{{ text_edit }}</button></td>
+<td *ngIf="module.editable" class="delete"><button class="btn btn-rounded btn-border-red delete-link" (click)="showDelete()">{{ text_delete }}</button></td>
+
+<update-activity class="activity-update lateral-panel"
+                 [module]="module"
+                 [activity]="activity"
+                 (closeEvent)="activity.showUpdate=false"
+                 *ngIf="activity.showUpdate && module.editable"></update-activity>
+
+<preview-activity class="activity-preview lateral-panel"
+                 [activity]="activity"
+                 (closeEvent)="activity.showPreview=false"
+                 *ngIf="activity.showPreview && module.editable"></preview-activity>

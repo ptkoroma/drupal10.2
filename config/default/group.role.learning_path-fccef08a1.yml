@@ -1,0 +1,17 @@
+uuid: 3bcecffa-8aa6-4fc9-88c9-405062a92190
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.learning_path
+  enforced:
+    config:
+      - user.role.engineer_sub_permission_1
+id: learning_path-fccef08a1
+label: 'Engineer Sub Permission 1'
+weight: 5
+internal: true
+audience: outsider
+group_type: learning_path
+permissions_ui: false
+permissions: {  }

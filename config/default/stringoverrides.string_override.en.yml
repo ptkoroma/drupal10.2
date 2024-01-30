@@ -1,0 +1,13 @@
+contexts:
+  -
+    context: ''
+    translations:
+      -
+        source: 'SIGN IN TO OPIGNO'
+        translation: ''
+  -
+    context: test
+    translations:
+      -
+        source: 'LATEST ACTIVITY'
+        translation: ACTIVITY

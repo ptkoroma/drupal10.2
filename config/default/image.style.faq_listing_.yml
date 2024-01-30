@@ -1,0 +1,15 @@
+uuid: 9759b695-3a11-4892-ba8e-d6bfd4867d55
+langcode: en
+status: true
+dependencies: {  }
+name: faq_listing_
+label: 'FAQ listing '
+effects:
+  273688cd-a2a5-4f67-97b5-fe7e672c98ab:
+    uuid: 273688cd-a2a5-4f67-97b5-fe7e672c98ab
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 180
+      height: 200
+      anchor: center-center

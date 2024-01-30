@@ -1,0 +1,6 @@
+{% set value = state_class %}
+{% set classes = { passed: 'passed', 'not started':'pending', 'in progress': 'in-progress', progress: 'in-progress', pending: 'pending', failed: 'failed' } %}
+{% set icons = { passed: 'check', 'not started':'hourglass-end', 'in progress': 'rotate-right', progress: 'rotate-right', pending: 'menu-dots', failed: 'cross-small' } %}
+<div class="{{ ['status__icon',classes[value]]|join(' ') }}">
+  <i class="{{ ['fi','fi-rr-' ~ icons[value]]|join(' ') }}"></i>
+</div>

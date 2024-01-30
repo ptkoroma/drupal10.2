@@ -1,0 +1,66 @@
+{
+  "name": "vue-component-library",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve --mode development",
+    "build": "vue-cli-service build --help",
+    "build-lib": "vue-cli-service build  --mode production --target lib --name userselect src/components/App/index.vue",
+    "json-server": "json-server --watch db.json",
+    "lodash": "lodash strict category=seq include=each,xor,includes,filter,map,union,pick,pickBy,groupBy,upperFirst,startsWith,mapValues,mapKeys,intersection,difference,capitalize,concat",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "lodash": "^4.17.21",
+    "vue": "^2.6.11",
+    "vue-observe-visibility": "^1.0.0",
+    "vuex": "^3.6.2",
+    "vuex-map-fields": "^1.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@vue/cli-plugin-babel": "^4.5.0",
+    "@vue/cli-plugin-eslint": "^4.5.0",
+    "@vue/cli-service": "^4.5.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "babel-preset-vue": "^2.0.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-you-dont-need-lodash-underscore": "^6.12.0",
+    "faker": "^5.5.3",
+    "json-server": "^0.16.3",
+    "pug": "^3.0.0",
+    "pug-lint-vue": "^0.4.0",
+    "pug-plain-loader": "^1.0.0",
+    "sass": "^1.36.0",
+    "sass-loader": "^10",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "no-unused-vars": ["warn"],
+      "no-unreachable": ["warn"]
+    },
+    "ignorePatterns": [
+      "lodash.custom.js"
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

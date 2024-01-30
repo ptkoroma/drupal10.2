@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.community_invitation
+label: 'Community invitation'
+targetEntityType: media
+cache: true

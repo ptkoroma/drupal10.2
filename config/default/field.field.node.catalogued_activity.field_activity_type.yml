@@ -1,0 +1,26 @@
+uuid: 177a1508-008a-49f7-8d7e-b603d240ed83
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_activity_type
+    - node.type.catalogued_activity
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.catalogued_activity.field_activity_type
+field_name: field_activity_type
+entity_type: node
+bundle: catalogued_activity
+label: 'Activity Type'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

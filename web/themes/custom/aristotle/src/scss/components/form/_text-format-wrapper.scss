@@ -1,0 +1,25 @@
+.text-format-wrapper {
+  .js-filter-wrapper {
+   font-size: rem($font-size-sm);
+    @include make-row();
+
+    .form-wrapper:not(.js-filter-guidelines),
+    .js-form-type-select {
+      @include make-col-ready;
+      @include make-col-auto;
+    }
+
+    .js-form-type-select {
+      margin-left: auto;
+    }
+  }
+
+  .js-filter-guidelines {
+    @include make-col-ready;
+    @include make-col(12);
+  }
+
+  .bootstrap-select .dropdown-toggle {
+    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm);
+  }
+}

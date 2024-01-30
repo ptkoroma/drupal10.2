@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display Opigno comment entity.
+ *
+ * Available varaibles:
+ * - post: the full Opigno post/comment entity;
+ * - id: the comment ID;
+ * - author: the rendered author entity;
+ * - author_link: the url of the author entity;
+ * - author_name: the author displayed name;
+ * - text: the comment text;
+ * - created: the comment creation timestamp;
+ * - like_link: the link to like/dislike the comment;
+ * - like_count_link: the link to display the list of people who liked the
+ *   comment.
+ */
+#}
+
+<div {{ attributes.addClass(['opigno-comment', 'comment-item__comment--list']).setAttribute('id', 'opigno-post-' ~ id) }}>
+  <div class="comment-item__comment--list__item">
+    {{ author }}
+      <div class="content-wrapper">
+        <div class="content">
+          <div class="body">
+            {{ post_actions }}
+            <div class="name">
+              <a href="{{ author_link }}">{{ author_name }}</a>
+            </div>
+            {{ text }}
+          </div>
+          {{ like_count_link }}
+        </div>
+
+        <div class="content__bottom">
+          {{ like_link }}
+          <time class="comment-item__date">{{ created|format_date('post_date') }}</time>
+        </div>
+      </div>
+
+  </div>
+</div>

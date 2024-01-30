@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a region.
+ *
+ * Available variables:
+ * - content: The content for this region, typically blocks.
+ * - attributes: HTML attributes for the region <div>.
+ * - region: The name of the region variable as defined in the theme's
+ *   .info.yml file.
+ *
+ * @see template_preprocess_region()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if content %}
+  {{ get_progress(false, 'module-page') }}
+  <div{{ attributes.addClass('content-box', 'opigno_activity__wrapper') }}>
+    <div class="module-title-wrapper">
+      <h2 class="module-title">
+        {{ content.activity_title }}
+      </h2>
+      <div class="fullscreen-link bg-faded d-flex ml-md-3">
+        <a href="#"><i class="fi fi-rr-expand"></i><i class="fi fi-rr-compress"></i></a>
+      </div>
+    </div>
+    {{ content|without('activity_title') }}
+  </div>
+{% endif %}

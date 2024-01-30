@@ -1,0 +1,29 @@
+uuid: b5318629-29c0-4367-bba3-e31b7e1ff36f
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.global-panel-navigation
+  module:
+    - system
+  theme:
+    - aristotle
+id: globalmenu
+theme: aristotle
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:global-panel-navigation'
+settings:
+  id: 'system_menu_block:global-panel-navigation'
+  label: 'Global Menu'
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "/admin\r\n/admin/*"

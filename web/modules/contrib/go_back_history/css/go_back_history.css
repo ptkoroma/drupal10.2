@@ -1,0 +1,17 @@
+.block-go-back-history {
+  height: 48px;
+  width: 48px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  position: relative;
+}
+
+.block-go-back-history .go-back-history-btn {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: url("../images/left-arrow.svg") no-repeat center center;
+  color: transparent;
+}

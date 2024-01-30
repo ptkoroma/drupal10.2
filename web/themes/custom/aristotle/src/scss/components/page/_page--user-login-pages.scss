@@ -1,0 +1,44 @@
+.login-pages {
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+
+  .site-logo {
+    display: block;
+    margin: 0 auto rem(20);
+
+    @include media-breakpoint-up(sm) {
+      margin-bottom: rem(30);
+    }
+  }
+
+  .block-title {
+   font-size: rem($font-size-sm);
+    font-weight: $font-weight-normal;
+    text-transform: uppercase;
+    text-align: center;
+    margin: rem(10) 0 rem(20);
+  }
+
+  .login-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .page-main {
+    display: flex;
+    align-items: center;
+  }
+
+  .page-footer {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+  }
+}

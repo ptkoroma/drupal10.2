@@ -1,0 +1,17 @@
+.background-image span.cke_widget_wrapper.cke_widget_inline.cke_widget_image.cke_image_nocaption {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.text-align-left {
+  text-align: left;
+}
+.text-align-right {
+  text-align: right;
+}
+.text-align-center {
+  text-align: center;
+}
+.text-align-justify {
+  text-align: justify;
+}

@@ -1,0 +1,40 @@
+html.inIframe footer#site-footer,
+html.inIframe header#site-header,
+html.inIframe #menu-wrapper,
+html.inIframe [id*="block-"][id*="-breadcrumbs"],
+html.inIframe h1,
+html.inIframe #toolbar-administration,
+html.inIframe .alert {
+  display: none !important;
+}
+
+html.inIframe .lp-content-item-errors .alert,
+html.inIframe .opigno-alert-danger {
+  display: block !important;
+}
+
+html.inIframe body {
+  padding-top: 0 !important;
+}
+
+html.inIframe .container {
+  max-width: none;
+  /* padding-right: 0;
+  padding-left: 0; */
+}
+
+html.inIframe,
+html.inIframe body,
+html.inIframe .dialog-off-canvas-main-canvas {
+  min-height: 1px !important;
+  display: block !important;
+}
+
+html.inIframe #main {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+html.inIframe body #main #main-content {
+  flex: 0 0 auto;
+}

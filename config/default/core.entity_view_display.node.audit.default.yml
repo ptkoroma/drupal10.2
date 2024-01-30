@@ -1,0 +1,54 @@
+uuid: e4354ad0-1f08-4744-bc78-41d9caa0b9ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.audit.field_audit_conclusion
+    - field.field.node.audit.field_comment
+    - field.field.node.audit.field_engineer
+    - node.type.audit
+  module:
+    - empty_fields
+    - options
+    - text
+    - user
+id: node.audit.default
+targetEntityType: node
+bundle: audit
+mode: default
+content:
+  field_audit_conclusion:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: text
+        settings:
+          empty_text: ''
+    weight: 1
+    region: content
+  field_comment:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: text
+        settings:
+          empty_text: ''
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_engineer: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

@@ -1,0 +1,13 @@
+name: 'One Signal Push Notifications'
+type: module
+description: 'Integration Opigno LMS with One signal'
+core_version_requirement: ^9 || ^10
+package: Opigno
+dependencies:
+  - opigno_mobile_app:opigno_mobile_app
+  - opigno_notification:opigno_notification
+
+# Information added by Drupal.org packaging script on 2023-06-01
+version: '3.1.0'
+project: 'opigno_mobile_app'
+datestamp: 1685622491

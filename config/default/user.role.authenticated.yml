@@ -1,0 +1,101 @@
+uuid: 0ab3160e-d2cd-4dcf-aac6-52dfc28367f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - media.type.audio
+    - media.type.image
+    - media.type.image_png
+    - media.type.pdf_file
+    - media.type.tft_file
+    - media.type.video
+    - node.type.catalogued_activity
+    - node.type.cpd_reflection
+    - node.type.cpd_reflection_non_catalogued_
+    - node.type.forum
+    - node.type.members_forum
+    - node.type.non_catalogued_activity
+    - node.type.planned_action
+  module:
+    - comment
+    - commerce_checkout
+    - commerce_order
+    - commerce_payment
+    - commerce_product
+    - contact
+    - filter
+    - h5peditor
+    - media
+    - node
+    - node_view_permissions
+    - opigno_ilt
+    - opigno_module
+    - private_message
+    - shortcut
+    - system
+    - userprotect
+_core:
+  default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
+id: authenticated
+label: 'Authenticated user'
+weight: -9
+is_admin: false
+permissions:
+  - 'access checkout'
+  - 'access comments'
+  - 'access content'
+  - 'access editor'
+  - 'access shortcuts'
+  - 'access site-wide contact form'
+  - 'access user profiles'
+  - 'create forum content'
+  - 'create media'
+  - 'create members_forum content'
+  - 'delete catalogued_activity revisions'
+  - 'delete cpd_reflection revisions'
+  - 'delete cpd_reflection_non_catalogued_ revisions'
+  - 'delete media'
+  - 'delete non_catalogued_activity revisions'
+  - 'delete own audio media'
+  - 'delete own cpd_reflection content'
+  - 'delete own cpd_reflection_non_catalogued_ content'
+  - 'delete own image media'
+  - 'delete own image_png media'
+  - 'delete own non_catalogued_activity content'
+  - 'delete own pdf_file media'
+  - 'delete own planned_action content'
+  - 'delete own tft_file media'
+  - 'delete own video media'
+  - 'delete planned_action revisions'
+  - 'edit own audio media'
+  - 'edit own forum content'
+  - 'edit own image media'
+  - 'edit own image_png media'
+  - 'edit own pdf_file media'
+  - 'edit own tft_file media'
+  - 'edit own video media'
+  - 'manage own commerce_payment_method'
+  - 'post comments'
+  - 'skip comment approval'
+  - 'take modules'
+  - 'update media'
+  - 'use private messaging system'
+  - 'use text format basic_html'
+  - userprotect.account.edit
+  - userprotect.mail.edit
+  - userprotect.pass.edit
+  - 'view any faq_content content'
+  - 'view any forum content'
+  - 'view any members_forum content'
+  - 'view any news content'
+  - 'view any page content'
+  - 'view any resoures content'
+  - 'view any support content'
+  - 'view commerce_product'
+  - 'view ilt entities'
+  - 'view media'
+  - 'view own commerce_order'
+  - 'view own module results'
+  - 'view own unpublished media'
+  - 'view published module entities'

@@ -1,0 +1,10 @@
+services:
+  opigno_notification.manager:
+    class: Drupal\opigno_notification\Services\OpignoNotificationManager
+    arguments: ['@current_user', '@entity_type.manager']
+
+  # Route subscriber.
+  opigno_notification.route_subscriber:
+    class: Drupal\opigno_notification\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

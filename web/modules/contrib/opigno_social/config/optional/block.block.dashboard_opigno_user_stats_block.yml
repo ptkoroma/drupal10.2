@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - opigno_dashboard
+    - system
+    - user
+  theme:
+    - aristotle
+id: dashboard_opigno_user_stats_block
+theme: aristotle
+region: content
+weight: -1
+provider: null
+plugin: opigno_user_stats_block
+settings:
+  id: opigno_user_stats_block
+  label: 'Dashboard: Opigno User statistics block'
+  provider: opigno_dashboard
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }
+  user_role:
+    id: user_role
+    roles:
+      authenticated: authenticated
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

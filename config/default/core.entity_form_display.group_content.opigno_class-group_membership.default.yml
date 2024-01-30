@@ -1,0 +1,40 @@
+uuid: b0773313-99da-4b69-aa65-de2f02940a30
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group_content.opigno_class-group_membership.group_roles
+    - group.content_type.opigno_class-group_membership
+_core:
+  default_config_hash: iVESXlPi4TRhyrZVIInjMbha_0BanLBRTZirByCzK_Y
+id: group_content.opigno_class-group_membership.default
+targetEntityType: group_content
+bundle: opigno_class-group_membership
+mode: default
+content:
+  entity_id:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  group_roles:
+    type: options_buttons
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden:
+  path: true
+  uid: true

@@ -1,0 +1,14 @@
+uuid: e72a2a62-3558-47df-b261-f89e527f6c29
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.statistics_reader
+  module:
+    - user
+id: user_add_role_action.statistics_reader
+label: 'Add the Statistics manager role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: statistics_reader

@@ -1,0 +1,8 @@
+uuid: f0f515bf-ec4d-4da5-8b00-d17b85b95956
+langcode: en
+status: true
+dependencies: {  }
+id: engineer-menu
+label: CPD
+description: 'Allows ENGINEER ROLE to navigate through their content.'
+locked: false

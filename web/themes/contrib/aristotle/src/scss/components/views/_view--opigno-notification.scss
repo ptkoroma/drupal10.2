@@ -1,0 +1,50 @@
+.view-opigno-notifications {
+  &.view-display-id-block_unread_dashboard {
+    .item-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: rem(25);
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .notification {
+      a {
+        background: $clr-gray-light;
+        border-radius: rem(10);
+        display: block;
+        font-size: rem($font-size-sm);
+        color: inherit;
+        padding: rem(13) rem(10);
+        text-decoration: none;
+        transition: .3s ease;
+
+        &:hover {
+          background-color: $clr-green;
+          box-shadow: 0 3px 6px rgba($clr-black, .3);
+          text-decoration: none;
+        }
+      }
+    }
+
+    .view-footer {
+      margin-top: rem(20);
+      text-align: right;
+
+      a {
+        font-size: rem(14);
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: $link-hover-decoration;
+        }
+      }
+    }
+  }
+}

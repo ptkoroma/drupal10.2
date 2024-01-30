@@ -1,0 +1,27 @@
+.content-box.comment-form__container
+  .profile-pic
+    img(src="images/content/profil.svg" alt="profile")
+
+  form.comment-form(action="#")
+    .form-item
+      input.form-text(type="text" placeholder="write something")
+
+    .form-actions
+      input.form-submit(type="submit" value="Submit")
+
+  .awards-list
+    .awards-list__item.awards-list__training(data-toggle="modal" data-target="#postTraining")
+      a(href="#")
+        i.fi.fi-rr-book-alt
+        | Training
+
+    .awards-list__item.awards-list__badges(data-toggle="modal" data-target="#createPost")
+      a(href="#")
+        i.fi.fi-rr-badge
+        | Badges
+
+    .awards-list__item.awards-list__certificates(data-toggle="modal" data-target="#postCertificate")
+      a(href="#")
+        i.fi.fi-rr-diploma
+        | Certificates
+

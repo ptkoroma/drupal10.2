@@ -1,0 +1,11 @@
+uuid: e1bb5eae-1994-47fa-870a-eb3ee92222c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.field_of_engineering
+id: taxonomy_term.field_of_engineering
+target_entity_type_id: taxonomy_term
+target_bundle: field_of_engineering
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,14 @@
+name: H5P
+type: module
+description: 'Upload and view interactive HTML5 Packages to your site.'
+package: H5P
+core: 8.x
+core_version_requirement: ^8 || ^9 || ^10
+dependencies:
+  - drupal:field
+  - drupal:file
+
+# Information added by Drupal.org packaging script on 2023-11-14
+version: '2.0.0-alpha4'
+project: 'h5p'
+datestamp: 1699965287

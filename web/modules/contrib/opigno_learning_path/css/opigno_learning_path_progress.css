@@ -1,0 +1,124 @@
+/* Progress bar. */
+.learning-path-progress .progress-value {
+  text-align: right;
+  margin-left: auto;
+}
+
+.learning-path-progress .progress-bar {
+  position: relative;
+  background-color: #dadada;
+  margin-left: auto;
+  overflow: hidden;
+}
+
+.learning-path-progress .progress-progress {
+  height: inherit;
+  background-color: #CF4320;
+}
+
+.learning-path-progress.progress-bar-mini .progress-bar {
+  height: 2px;
+  width: 65px;
+}
+
+.learning-path-progress.progress-bar-full .progress-bar {
+  height: 5px;
+  width: 100%;
+}
+
+/* Progress trobbler */
+.learning-path-progress .progress-progress.process-trobbler {
+  width: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: #4ad3b0;
+  animation: growandshrink 1s linear infinite;
+}
+
+@-webkit-keyframes growandshrink {
+  0% {
+    left: -20%;
+    right: 100%;
+    animation-timing-function: ease-in;
+  }
+  33% {
+    left: 10%;
+    right: 25%;
+  }
+  66% {
+    left: 75%;
+    right: 10%;
+  }
+  100% {
+    left: 100%;
+    right: -20%;
+    animation-timing-function: ease-out;
+  }
+}
+
+@-moz-keyframes growandshrink {
+  0% {
+    left: -20%;
+    right: 100%;
+    animation-timing-function: ease-in;
+  }
+  33% {
+    left: 10%;
+    right: 25%;
+  }
+  66% {
+    left: 75%;
+    right: 10%;
+  }
+  100% {
+    left: 100%;
+    right: -20%;
+    animation-timing-function: ease-out;
+  }
+}
+
+@keyframes growandshrink {
+  0% {
+    left: -20%;
+    right: 100%;
+    animation-timing-function: ease-in;
+  }
+  33% {
+    left: 10%;
+    right: 25%;
+  }
+  66% {
+    left: 75%;
+    right: 10%;
+  }
+  100% {
+    left: 100%;
+    right: -20%;
+    animation-timing-function: ease-out;
+  }
+}
+
+/* @todo: Need to review. */
+/* Fallback for group-page class. */
+.learning-path-progress.progress-bar-achievements-page,
+.learning-path-progress.progress-bar-module-page,
+.learning-path-progress.progress-bar-group-page {
+  width: 100%;
+  justify-content: center;
+}
+
+.learning-path-progress.progress-bar-achievements-page .progress-value,
+.learning-path-progress.progress-bar-module-page .progress-value,
+.learning-path-progress.progress-bar-group-page .progress-value {
+  text-align: left;
+  margin-left: 0;
+}
+
+.learning-path-progress.progress-bar-achievements-page .progress-bar,
+.learning-path-progress.progress-bar-module-page .progress-bar,
+.learning-path-progress.progress-bar-group-page .progress-bar {
+  height: 5px;
+  width: 100%;
+}

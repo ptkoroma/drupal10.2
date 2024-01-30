@@ -1,0 +1,279 @@
+uuid: 8550b263-7832-485e-80d8-bf8a794b8233
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.base_field_override.group.learning_path.label
+    - field.field.group.learning_path.field_activity_type
+    - field.field.group.learning_path.field_date
+    - field.field.group.learning_path.field_delivery_address_if_known
+    - field.field.group.learning_path.field_individual_dates
+    - field.field.group.learning_path.field_learning_path_category
+    - field.field.group.learning_path.field_lp_price
+    - field.field.group.learning_path.field_mode_of_deliverys
+    - field.field.group.learning_path.field_pd_units
+    - field.field.group.learning_path.field_povider_contact_telehone_n
+    - field.field.group.learning_path.field_provider_business_address
+    - field.field.group.learning_path.field_provider_email
+    - field.field.group.learning_path.field_provider_name
+    - field.field.group.learning_path.field_provider_number
+    - field.field.group.learning_path.field_url
+    - group.type.learning_path
+  module:
+    - group
+label: 'Import Activities'
+id: import_activities
+description: ''
+help: ''
+import_period: 3600
+fetcher: upload
+fetcher_configuration:
+  allowed_extensions: 'txt csv tsv xml opml xlsx'
+  directory: 'private://feeds'
+parser: csv
+parser_configuration:
+  delimiter: ','
+  no_headers: false
+  line_limit: 100
+processor: 'entity:group'
+processor_configuration:
+  values:
+    type: learning_path
+  langcode: en
+  insert_new: 1
+  update_existing: 0
+  update_non_existent: _keep
+  skip_hash_check: false
+  authorize: true
+  revision: false
+  expire: -1
+  owner_feed_author: false
+  owner_id: 1
+custom_sources:
+  '':
+    value: ''
+    label: ''
+    machine_name: ''
+    type: csv
+  hours_duration:
+    value: 'Hours Duration'
+    label: 'Hours Duration'
+    machine_name: hours_duration
+    type: csv
+  individual_dates:
+    value: 'Individual Dates'
+    label: 'Individual Dates'
+    machine_name: individual_dates
+    type: csv
+  course_cost:
+    value: 'Course Cost'
+    label: 'Course Cost'
+    machine_name: course_cost
+    type: csv
+  mode_of_delivery:
+    value: 'Mode of Delivery'
+    label: 'Mode of Delivery'
+    machine_name: mode_of_delivery
+    type: csv
+  pd_units:
+    value: 'PD Units'
+    label: 'PD Units'
+    machine_name: pd_units
+    type: csv
+  povider_contact_telehone_number:
+    value: 'Povider Contact Telehone Number'
+    label: 'Povider Contact Telehone Number'
+    machine_name: povider_contact_telehone_number
+    type: csv
+  provider_business_address:
+    value: 'Provider Business Address'
+    label: 'Provider Business Address'
+    machine_name: provider_business_address
+    type: csv
+  provider_name:
+    value: 'Provider Name'
+    label: 'Provider Name'
+    machine_name: provider_name
+    type: csv
+  provider_number:
+    value: 'Provider Number'
+    label: 'Provider Number'
+    machine_name: provider_number
+    type: csv
+  provider_email:
+    value: 'Provider email'
+    label: 'Provider email'
+    machine_name: provider_email
+    type: csv
+  activity_title:
+    value: 'Activity Title'
+    label: 'Activity Title'
+    machine_name: activity_title
+    type: csv
+  url:
+    value: URL
+    label: URL
+    machine_name: url
+    type: csv
+  activity_type:
+    value: 'Activity Type'
+    label: 'Activity Type'
+    machine_name: activity_type
+    type: csv
+  catalogued_status:
+    value: 'Catalogued Status'
+    label: 'Catalogued Status'
+    machine_name: catalogued_status
+    type: csv
+  category:
+    value: Category
+    label: Category
+    machine_name: category
+    type: csv
+  course_chargeable:
+    value: 'Course Chargeable'
+    label: 'Course Chargeable'
+    machine_name: course_chargeable
+    type: csv
+  start_date:
+    value: 'Start Date'
+    label: 'Start Date'
+    machine_name: start_date
+    type: csv
+  end_date:
+    value: 'End Date'
+    label: 'End Date'
+    machine_name: end_date
+    type: csv
+  delivery_address_if_known:
+    value: 'Delivery Address if known'
+    label: 'Delivery Address if known'
+    machine_name: delivery_address_if_known
+    type: csv
+  link_text:
+    value: 'Link Text'
+    label: 'Link Text'
+    machine_name: link_text
+    type: csv
+  mode_of_deliverys:
+    value: 'Mode of Delivery'
+    label: 'Mode of Delivery'
+    machine_name: mode_of_deliverys
+    type: csv
+  published:
+    value: Published
+    label: Published
+    machine_name: published
+    type: csv
+mappings:
+  -
+    target: field_learning_path_category
+    map:
+      target_id: category
+    settings:
+      language: null
+      reference_by: name
+      autocreate: false
+      autocreate_bundle: false
+  -
+    target: field_date
+    map:
+      value: start_date
+      end_value: end_date
+    settings:
+      language: null
+      timezone: UTC
+  -
+    target: field_delivery_address_if_known
+    map:
+      value: delivery_address_if_known
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_individual_dates
+    map:
+      value: individual_dates
+    settings:
+      language: null
+      timezone: UTC
+  -
+    target: field_lp_price
+    map:
+      value: course_cost
+    settings:
+      language: null
+  -
+    target: field_pd_units
+    map:
+      value: pd_units
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_povider_contact_telehone_n
+    map:
+      value: povider_contact_telehone_number
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_provider_business_address
+    map:
+      value: provider_business_address
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_provider_name
+    map:
+      value: provider_name
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_provider_number
+    map:
+      value: provider_number
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_provider_email
+    map:
+      value: provider_email
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: label
+    map:
+      value: activity_title
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_url
+    map:
+      uri: url
+      title: link_text
+    settings:
+      language: null
+  -
+    target: field_mode_of_deliverys
+    map:
+      value: mode_of_deliverys
+    settings:
+      language: null
+  -
+    target: field_activity_type
+    map:
+      value: activity_type
+    settings:
+      language: null
+  -
+    target: field_learning_path_published
+    map:
+      value: published
+    settings:
+      language: null

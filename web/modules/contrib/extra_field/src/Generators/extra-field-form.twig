@@ -1,0 +1,89 @@
+{% import '/lib/di.twig' as di %}
+<?php
+
+namespace Drupal\{{ machine_name }}\Plugin\ExtraField\Form;
+
+{% if services %}
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+{{ di.use(services) }}{% endif %}
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\extra_field\Plugin\ExtraFieldFormBase;
+
+/**
+ * Extra field plugin {{ plugin_label }}.
+ *
+ * @ExtraFieldForm(
+ *   id = "{{ plugin_id }}",
+ *   label = @Translation("{{ plugin_label }}"),
+ *   bundles = {
+ *     "node.*",
+ *   }
+ *   visible = true
+ * )
+ */
+class {{ class }} extends ExtraFieldFormBase{% if services %} implements ContainerFactoryPluginInterface{% endif %} {
+
+  use StringTranslationTrait;
+
+  {% if services %}
+{{ di.properties(services) }}
+
+  /**
+   * Constructs a {{ plugin_label }} object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+{{ di.annotation(services) }}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, {{ di.signature(services) }}) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+{{ di.assignment(services) }}
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration, $plugin_id, $plugin_definition,
+{{ di.container(services) }}
+    );
+  }
+
+{% endif %}
+  /**
+   * {@inheritdoc}
+   */
+  public function formElement(array &$form, FormStateInterface $form_state) {
+    $form['example_field'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Example field'),
+      '#required' => TRUE,
+      '#size' => 30,
+    ];
+
+    $form['#validate'][] = [$this, 'customValidate'];
+  }
+
+  /**
+   * Custom field validation.
+   *
+   * @param array $form
+   *   The form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function customValidate(array $form, FormStateInterface $form_state) {
+    $value = $form_state->getValue('example_field');
+    if ($value === 'Error') {
+      $form_state->setErrorByName('example_field', $this->t('Hello Example'));
+    }
+  }
+
+}

@@ -1,0 +1,40 @@
+<base href="{{ base_path ~ base_href }}">
+
+<script type="text/javascript">
+  window.appConfig = {
+    columns: 3,
+    positions: [[], [], [], []],
+    apiBaseUrl: '{{ base_path }}',
+    apiRouteName: '{{ route_name }}',
+    getPositioningUrl: '{{ get_positioning_url }}',
+    getDefaultPositioningUrl: '{{ get_default_positioning_url }}',
+    setPositioningUrl: '{{ set_positioning_url }}',
+    getBlocksContentUrl: '{{ blocks_content_url }}',
+    defaultConfig: '{{ default_config|raw }}',
+    defaultColumns: '{{ default_columns|raw }}',
+    socialFeedMobile: {
+      title: '{{ 'Your feed'|t }}',
+      img: '{{ social_feed_mobile.img }}',
+      newPostsAmount: '{{ social_feed_mobile.new_posts_amount }}',
+    },
+    loading: true,
+    locales: {
+      title: '{{ 'Home'|t }}',
+      manageYourDashboard: '{{ 'Manage your dashboard'|t }}',
+      remove: '{{ 'remove'|t }}',
+      close: '{{ 'close'|t }}',
+      saveBtn: '{{ 'Save'|t }}',
+      layout: '{{ 'Layout'|t }}',
+      oneColumn: '{{ '1 column'|t }}',
+      twoColumns: '{{ '2 columns'|t }}',
+      asymColumns: '{{ '1/3-2/3 columns'|t }}',
+      threeColumns: '{{ '3 columns'|t }}',
+      threeAsymColumns: '{{ '3/12-5/12-4/12 columns'|t }}',
+      addBlocks: '{{ 'Add blocks by dragging them below into the canvas'|t }}',
+      restoreYourDashboard: '{{ 'Restore your dashboard to default:'|t }}',
+      restoreToDefault: '{{ 'Restore to default'|t }}'
+    }
+  };
+</script>
+
+<app-root class="d-block dashboard">{{ 'Loading dashboard...'|t }}</app-root>

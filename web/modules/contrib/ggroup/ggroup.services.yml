@@ -1,0 +1,11 @@
+services:
+  access_check.ggroup.add:
+    class: Drupal\ggroup\Access\SubgroupAddAccessCheck
+    tags:
+      - { name: access_check, applies_to: _subgroup_add_access }
+  ggroup.group_graph_storage:
+    class: Drupal\ggroup\Graph\SqlGroupGraphStorage
+    arguments: ['@database']
+  ggroup.group_hierarchy_manager:
+    class: Drupal\ggroup\GroupHierarchyManager
+    arguments: ['@ggroup.group_graph_storage', '@entity_type.manager', '@group.membership_loader']

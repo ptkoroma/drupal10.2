@@ -1,0 +1,244 @@
+<?php
+
+/**
+ * @file
+ * Contains entity_form_field_label.module.
+ */
+
+use Drupal\Core\Config\Entity\ThirdPartySettingsInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\WidgetInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Field\FormatterInterface;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+
+/**
+ * Implements hook_help().
+ */
+function entity_form_field_label_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the entity_form_field_label module.
+    case 'help.page.entity_form_field_label':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Add an ability to change a displayed label for a entity field.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Helper for building the third-party settings form.
+ *
+ * @param \Drupal\Core\Config\Entity\ThirdPartySettingsInterface $plugin
+ *   Plugin that supports third-party settings.
+ *
+ * @return array
+ *   Third-party settings form.
+ */
+function _entity_form_field_label_third_party_settings(ThirdPartySettingsInterface $plugin) {
+  $element['rewrite_label'] = [
+    '#type' => 'checkbox',
+    '#description' => t('If the field is composed then use "||" as separator. Example for the Date Range field: "Event Start Date||Event End Date"'),
+    '#title' => t('Rewrite label'),
+    '#default_value' => $plugin->getThirdPartySetting('entity_form_field_label', 'rewrite_label'),
+  ];
+  $element['new_label'] = [
+    '#type' => 'textfield',
+    '#description' => t("Leave empty if you don't want to display label at all"),
+    '#title' => t('New label'),
+    '#states' => [
+      'visible' => [
+        ':input[name$="[third_party_settings][entity_form_field_label][rewrite_label]"]' => ['checked' => TRUE],
+      ],
+    ],
+    '#default_value' => $plugin->getThirdPartySetting('entity_form_field_label', 'new_label'),
+  ];
+  return $element;
+}
+
+/**
+ * Helper for altering the field widget/formatter settings summary.
+ *
+ * @param array $summary
+ *   An array of summary messages.
+ * @param array $context
+ *   An associative array with the following elements:
+ *   - widget: The widget object.
+ *     OR
+ *   - formatter: The formatter plugin.
+ *   - field_definition: The field definition.
+ *   - form_mode: The form mode being configured.
+ */
+function _entity_form_field_label_settings_summary(array &$summary, array $context) {
+  $plugin = NULL;
+  if (!empty($context['widget'])) {
+    $plugin = $context['widget'];
+  }
+  elseif (!empty($context['formatter'])) {
+    $plugin = $context['formatter'];
+  }
+
+  if ($plugin instanceof ThirdPartySettingsInterface) {
+    $label_settings = $plugin->getThirdPartySettings('entity_form_field_label');
+    if ($label_settings && !empty($label_settings['rewrite_label'])) {
+      $additional_summary = t('Label alterations: "@new_label"', ['@new_label' => $label_settings['new_label']]);
+      if (is_array($summary)) {
+        $summary[] = $additional_summary;
+      }
+      else {
+        $summary = [$summary, $additional_summary];
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_widget_third_party_settings_form().
+ */
+function entity_form_field_label_field_widget_third_party_settings_form(WidgetInterface $plugin, FieldDefinitionInterface $field_definition, $form_mode, $form, FormStateInterface $form_state) {
+  return _entity_form_field_label_third_party_settings($plugin);
+}
+
+/**
+ * Implements hook_field_formatter_third_party_settings_form().
+ */
+function entity_form_field_label_field_formatter_third_party_settings_form(FormatterInterface $plugin, FieldDefinitionInterface $field_definition, $view_mode, $form, FormStateInterface $form_state) {
+  return _entity_form_field_label_third_party_settings($plugin);
+}
+
+/**
+ * Implements hook_field_widget_settings_summary_alter().
+ */
+function entity_form_field_label_field_widget_settings_summary_alter(&$summary, $context) {
+  _entity_form_field_label_settings_summary($summary, $context);
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary_alter().
+ */
+function entity_form_field_label_field_formatter_settings_summary_alter(array &$summary, array $context) {
+  _entity_form_field_label_settings_summary($summary, $context);
+}
+
+/**
+ * Implements hook_field_widget_complete_form_alter().
+ */
+function entity_form_field_label_field_widget_complete_form_alter(array &$elements, FormStateInterface $form_state, array $context) {
+  $label_settings = $context['widget']->getThirdPartySettings('entity_form_field_label');
+
+  if ($label_settings && !empty($label_settings['rewrite_label'])) {
+    /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface $field_storage_definition */
+    $field_storage_definition = $context['items']->getFieldDefinition()
+      ->getFieldStorageDefinition();
+    $main_property = $field_storage_definition->getMainPropertyName();
+    $is_multiple = $field_storage_definition->isMultiple();
+
+    switch ($field_storage_definition->getType()) {
+      case 'entity_reference':
+      case 'entity_reference_revisions':
+        $elements['#title'] = $label_settings['new_label'];
+        $elements['#field_title'] = $label_settings['new_label'];
+
+        foreach (Element::children($elements) as $index => $child) {
+          if (isset($elements[$child][$main_property]['#title'])) {
+            // Replace title for each element of multiple field.
+            // See \Drupal\Core\Field\WidgetBase::formMultipleElements() for
+            // more details.
+            if ($is_multiple && $elements[$child][$main_property]['#title'] instanceof TranslatableMarkup) {
+              $string_arguments = $elements[$child][$main_property]['#title']->getArguments();
+              if (array_key_exists('@title', $string_arguments)) {
+                $string_arguments['@title'] = $label_settings['new_label'];
+                $elements[$child][$main_property]['#title'] = t($elements[$child][$main_property]['#title']->getUntranslatedString(), $string_arguments);
+                continue;
+              }
+            }
+
+            $elements[$child][$main_property]['#title'] = $label_settings['new_label'];
+          }
+
+          // In a case of the inline entity form.
+          foreach (['#title', '#field_title'] as $title_key) {
+            if (isset($elements[$child][$title_key])) {
+              $elements[$child][$title_key] = $label_settings['new_label'];
+            }
+          }
+        }
+        break;
+
+      case 'color_field_type':
+        _entity_form_field_label_replace_title_recursive(
+          $elements,
+          $label_settings['new_label'],
+          ['color', 'opacity']
+        );
+        break;
+
+      default:
+        $rewritten_title_parts = explode('||', $label_settings['new_label']);
+
+        if (count($rewritten_title_parts) == 1) {
+          _entity_form_field_label_replace_title_recursive($elements, $label_settings['new_label']);
+        }
+
+        foreach (Element::children($elements) as $child) {
+          foreach (Element::children($elements[$child]) as $index => $child_component) {
+            if (!Element::children($elements) || count($rewritten_title_parts) == 1) {
+              $elements[$child]['#title'] = reset($rewritten_title_parts);
+              continue;
+            }
+
+            if (isset($elements[$child][$child_component]['#title']) && array_key_exists($index, $rewritten_title_parts)) {
+              $elements[$child][$child_component]['#title'] = $rewritten_title_parts[$index];
+            }
+          }
+        }
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function entity_form_field_label_preprocess_field(&$variables) {
+  $entity_display = EntityViewDisplay::collectRenderDisplay($variables['element']['#object'], $variables['element']['#view_mode']);
+  $label_settings = $variables['element']['#third_party_settings']['entity_form_field_label'] ?? [];
+
+  if (empty($label_settings)) {
+    $plugin = $entity_display->getRenderer($variables['element']['#field_name']);
+    if ($plugin instanceof ThirdPartySettingsInterface) {
+      $label_settings = $plugin->getThirdPartySettings('entity_form_field_label');
+    }
+  }
+  if ($label_settings && !empty($label_settings['rewrite_label'])) {
+    $variables['label'] = $label_settings['new_label'];
+  }
+}
+
+/**
+ * Helper function.
+ */
+function _entity_form_field_label_replace_title_recursive(&$elements, $new_label, array $ignore = []) {
+  if (empty($new_label)) {
+    $elements['#title_display'] = 'invisible';
+  }
+  else {
+    if (array_key_exists('#title', $elements)) {
+      $elements['#title'] = $new_label;
+    }
+    if (array_key_exists('#field_title', $elements)) {
+      $elements['#field_title'] = $new_label;
+    }
+  }
+  foreach (Element::children($elements) as $child) {
+    if (in_array($child, $ignore, TRUE)) {
+      continue;
+    }
+    _entity_form_field_label_replace_title_recursive($elements[$child], $new_label, $ignore);
+  }
+}

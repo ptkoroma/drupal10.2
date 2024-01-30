@@ -1,0 +1,747 @@
+body.lp-iframe {
+  .form-control {
+    background-color: $medium-gray;
+  }
+}
+
+body.admin-learning-path {
+  margin-left: 0 !important;
+
+  a#btn_member_add {
+    color: #fff;
+    position: relative;
+    z-index: 10;
+  }
+
+  table.user-has-info-card {
+    margin-top: 9rem !important;
+  }
+
+  .info-card-wrapper {
+    width: 300px;
+    box-shadow: none;
+    z-index: 10;
+    top: -0.75rem;
+    background-color: #efa693;
+    color: #fff;
+    border: 0;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      font-size: 0.8em;
+    }
+
+    $triangle-width: 0.5rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 1.75rem;
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: #{$triangle-width} #{$triangle-width} 0 #{$triangle-width};
+      border-color: #efa693 transparent transparent transparent;
+      transform: translateY(100%);
+    }
+
+    .info-icon {
+      margin: 0.25rem 0 0.75rem;
+
+      i {
+        margin-right: 0.5rem;
+        font-size: 30px;
+        vertical-align: middle;
+        position: relative;
+        top: -2px;
+      }
+    }
+
+    button.close-info-card {
+      font-size: 0;
+      background: none !important;
+      padding: 0;
+
+      i {
+        color: $white;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .activity-add {
+    .type-info,
+    .type-name,
+    button.type-add {
+      padding: 0.75rem 2rem;
+    }
+
+    .type-info {
+      .images {
+        img {
+          margin: 0 0.5rem 0.5rem;
+        }
+      }
+    }
+
+    button.type-add {
+      color: #fff;
+    }
+
+    button.type-name {
+      &:hover {
+        color: transparent;
+      }
+      @include make-button(#fff, lighten($blue, 8%));
+    }
+
+    button.type-help-close,
+    button.type-help-open {
+      width: 44px;
+    }
+
+    button.type-help-close {
+      font-size: 0;
+
+      i {
+        font-size: 16px;
+      }
+    }
+
+    button.type-help-open {
+      background-color: #fff !important;
+      font-size: 0;
+      color: $medium-gray-200 !important;
+
+      &:hover {
+        color: $black !important;
+      }
+
+      i {
+        font-size: 28px;
+      }
+    }
+  }
+
+  .form-control {
+    background-color: #fff;
+  }
+
+  .aside-col {
+    .btn-home {
+      color: #fff !important;
+      text-align: left;
+      text-transform: uppercase;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 20px;
+      line-height: 1.1;
+
+      i {
+        margin-right: 0.75rem;
+      }
+    }
+  }
+
+  .mat-radio-outer-circle {
+    border-radius: 0;
+    border-color: $light-gray;
+    background-color: $light-gray;
+  }
+
+  .mat-checkbox,
+  .mat-radio-button {
+    input[type=checkbox],
+    input[type=radio] {
+      display: none;
+    }
+
+    &.mat-radio-checked {
+      .mat-radio-outer-circle {
+        border-color: $green;
+        background-color: $green;
+      }
+
+      .mat-radio-inner-circle {
+        background-color: $green;
+        transform: scale(1);
+      }
+    }
+  }
+
+  .lateral-panel {
+    top: 0;
+  }
+
+  .mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+    border: 1px solid #3c3c3b;
+    border-radius: 0;
+  }
+
+  table.activities {
+    thead {
+      tr {
+        th {
+          background-color: transparent;
+          text-transform: uppercase;
+          color: #b8b8b8;
+          font-weight: 400;
+          text-align: center;
+        }
+      }
+    }
+
+    td.move {
+      vertical-align: middle;
+
+      span {
+        display: block;
+        cursor: move;
+        position: relative;
+        z-index: 1;
+
+        i {
+          font-size: 24px;
+          color: $medium-gray-200;
+          position: relative;
+          z-index: -1;
+        }
+      }
+    }
+
+    td.delete,
+    td.edit,
+    td.max-score {
+      padding: 0;
+
+      button,
+      input[type="text"] {
+        min-width: 100%;
+        height: 56px;
+        width: 95px;
+        border: 0;
+        text-align: center;
+      }
+    }
+
+    td.max-score {
+      input[type="text"] {}
+    }
+
+    td.delete,
+    td.edit {
+      button {
+        font-size: 0;
+
+        i {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .entity {
+    .bundle,
+    .nb-modules {
+      background-color: #fff;
+      margin-bottom: 5px;
+      width: max-content;
+      padding: 0.5rem 1rem;
+    }
+
+    button.action-button {
+      position: relative;
+      left: 0;
+      width: 100% !important;
+      height: 35px !important;
+
+      &:before {
+        @include icon-base();
+        content: icon(more);
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $medium-gray-600;
+        font-size: 40px;
+      }
+
+
+      mat-icon.mat-icon.material-icons {
+        font-size: 0;
+      }
+    }
+  }
+
+  &.toolbar-fixed {
+    .lateral-panel {
+      top: 39px;
+    }
+  }
+
+  &.toolbar-horizontal.toolbar-tray-open {
+    .lateral-panel {
+      top: 79px;
+    }
+  }
+
+  h2 {
+    font-family: $font-family-base;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+
+  select.form-control {
+    background-color: $medium-gray;
+  }
+
+  .group-content-learning-path-group-membership-add-form, .group-content-opigno-class-group-membership-add-form {
+    & > .form-group {
+      & > .multiselect-wrapper {
+        margin-left: 0;
+      }
+    }
+
+    #edit-submit {
+      margin-left: -3.75rem;
+      margin-right: -3.75rem;
+      width: calc(100% + 3.75rem * 2);
+    }
+  }
+}
+
+body[class*="page-node-"][class*="-learning-path-item-form-"] {
+  .sf-toolbar,
+  .block-system_breadcrumb_block,
+  div#toolbar-administration {
+    display: none !important;
+  }
+}
+
+body.admin-learning-path {
+  .title-wrapper {
+    button {
+      color: #fff !important;
+      text-transform: uppercase;
+    }
+  }
+
+  .modules-view .tree-view {
+    position: relative;
+    padding-top: 4rem;
+  }
+
+  .tree-view-toggler {
+    button {
+      background-color: #dadada !important;
+      color: #575756 !important;
+
+      i {
+        font-size: 18px;
+        vertical-align: middle;
+        margin-left: 0.5rem;
+      }
+
+      &.open {
+        background-color: $blue !important;
+        color: #fff !important;
+
+        i {
+          &:before {
+            content: icon(chevron-up);
+          }
+        }
+      }
+    }
+  }
+
+  mat-button-toggle label {
+    margin-bottom: 0;
+  }
+
+  mat-button-toggle.add-link,
+  mat-button-toggle.guided-navigation,
+  mat-button-toggle.switch-nodes {
+    position: absolute;
+  }
+
+  mat-button-toggle.add-link,
+  mat-button-toggle.guided-navigation {
+    background-color: $green;
+    border-radius: 0;
+    box-shadow: none;
+    color: #fff;
+    text-transform: uppercase;
+    left: 0;
+    right: auto;
+
+    input[type=checkbox],
+    input[type=radio] {
+      display: none;
+    }
+
+    &.disable {
+      background-color: #dadada;
+      color: #70706f;
+
+      &,
+      * {
+        cursor: not-allowed;
+      }
+    }
+
+    i {
+      vertical-align: text-bottom;
+      margin-right: 0.75rem;
+      font-size: 18px;
+    }
+  }
+
+  mat-button-toggle.guided-navigation {
+    left: 200px;
+    &::before {
+      display: none;
+    }
+  }
+
+  button#add-first-entity {
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    transform: none;
+    box-shadow: none;
+    color: $green;
+    font-weight: 400;
+    border: 5px dashed;
+    width: 300px;
+    height: 300px;
+    font-size: 1rem;
+    font-style: italic;
+
+    span.mat-button-wrapper {
+      i {
+        display: block;
+        font-size: 24px;
+        margin: 0 auto 0.25rem;
+      }
+    }
+  }
+
+  .activity-add,
+  .entity-add.add {
+    width: 390px;
+    left: auto;
+  }
+
+  .lateral-panel {
+    padding: 2rem;
+    box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.2);
+
+    .info {
+      padding: 0 2rem 2rem;
+      margin-left: -2rem;
+      margin-right: -2rem;
+      border-bottom: 1px solid;
+      margin-bottom: 47px;
+      position: relative;
+
+      button.close {
+        position: absolute;
+        top: 8px;
+        right: 2rem;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  // @todo: Need review. It look like unnecessary style.
+  //.activity-add {
+  //  button.create {
+  //    width: 100%;
+  //    text-align: left;
+  //    border-left: 2px solid $blue !important;
+  //    padding: 0.75rem 2rem;
+  //
+  //    &::before {
+  //      @include svg-picto(picto-new-course);
+  //
+  //      content: '';
+  //      width: 23px;
+  //      height: 27px;
+  //      display: inline-block;
+  //      margin-right: 0.75rem;
+  //      margin-left: -0.75rem;
+  //      vertical-align: middle;
+  //    }
+  //  }
+  //
+  //  input[type="text"] {
+  //    @extend .picto-trobbler;
+  //    background-color: $light-gray;
+  //    border: 0;
+  //    padding: 0.75rem 2rem;
+  //    width: 100%;
+  //    margin-top: 0.5rem;
+  //    margin-bottom: 2rem;
+  //    background-position: right 1rem center;
+  //    background-repeat: no-repeat;
+  //    background-size: 18px;
+  //  }
+  //}
+
+  .activity-add.add,
+  .entity-add.add {
+    .step-1 {
+      margin-left: -2rem;
+
+      .mat-radio-button {
+        border-left: 2px solid $blue;
+        background-color: $light-gray;
+        color: #585857;
+
+        input[type=checkbox],
+        input[type=radio] {
+          display: none;
+        }
+
+        + .mat-radio-button {
+          margin-top: 5px;
+        }
+
+        .mat-radio-label-content {
+          display: block;
+          padding: 0.75rem 2rem;
+        }
+
+        label.mat-radio-label {
+          margin-bottom: 0;
+          min-width: 100%;
+        }
+
+        .mat-radio-container {
+          display: none;
+        }
+      }
+    }
+
+    .step-2 {
+      .mat-radio-button {
+        input[type=checkbox],
+        input[type=radio] {
+          display: none;
+        }
+      }
+
+      button {
+        width: 100%;
+        text-align: left;
+        border-left: 2px solid $blue !important;
+        padding: 0.75rem 2rem;
+
+        i {
+          font-size: 24px;
+          vertical-align: text-top;
+          margin-right: 0.75rem;
+          margin-left: -0.75rem;
+        }
+      }
+
+      input[type="text"] {
+        @extend .picto-trobbler;
+        background-color: $light-gray;
+        border: 0;
+        padding: 0.75rem 2rem;
+        width: 100%;
+        margin-top: 0.5rem;
+        margin-bottom: 2rem;
+        background-position: right 1rem center;
+        background-repeat: no-repeat;
+        background-size: 18px;
+      }
+    }
+
+    .step-pager {
+      button {
+        font-size: 0;
+        width: 11px;
+        height: 11px;
+        border-radius: 100%;
+        padding: 0;
+        margin: 0 5px;
+        background-color: #ededed !important;
+
+        &.active {
+          background-color: #95d5f4 !important;
+        }
+      }
+    }
+  }
+
+  ul.step-list-top {
+    background-color: #3d3d3c;
+    padding: 28px 0;
+
+    li {
+      position: relative;
+
+      .number {
+        align-items: center;
+        border: 2px dashed;
+        border-radius: 100%;
+        color: $blue;
+        display: flex;
+        font-size: 70px;
+        font-weight: 700;
+        height: 100px;
+        justify-content: center;
+        line-height: 1;
+        width: 100px;
+      }
+
+      i {
+        display: block;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        position: absolute;
+        top: 6rem;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-left: 2.5rem;
+        border-radius: 50%;
+        font-size: 10px;
+        color: $white;
+      }
+
+      &.active {
+        .number {
+          background-color: $blue;
+          border-color: $blue;
+          border-style: solid;
+          color: #fff;
+        }
+      }
+
+      &.done {
+        i {
+          background-color: #c2e76b;
+        }
+      }
+
+      &.error {
+        i {
+          background-color: #ff5541;
+        }
+      }
+
+      .title {
+        color: #fff;
+        max-width: 120px;
+        margin: 1rem auto 0;
+      }
+    }
+  }
+
+  .step-list-aside-wrapper {
+    background-color: $light-gray;
+
+    h2 {
+      background-color: $blue;
+      color: #fff;
+      font-size: 20px;
+      text-transform: uppercase;
+      padding: 20px;
+      margin-bottom: 0;
+    }
+
+    ul.step-list-aside {
+      padding: 1rem 1.5rem 1rem 0;
+
+      li {
+        @include make-button(#fff, lighten($blue, 8%));
+
+        padding: 0;
+
+        + li {
+          margin-top: 4px;
+        }
+
+        a,
+        span {
+          display: block;
+          padding: 0.75rem 2rem;
+          color: inherit;
+          position: relative;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  form.group-form,
+  form.opigno-module-form {
+    $padding: 3.75rem;
+    background-color: $light-gray;
+    padding: $padding;
+
+    @include media-breakpoint-down($content-mobile-breakpoint) {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+}
+
+.lp_tabs {
+  @include media-breakpoint-down(sm) {
+    display: block;
+    padding-right: 0;
+  }
+
+  .lp_tabs_link {
+    @include media-breakpoint-down(sm) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    &.active {
+      @include media-breakpoint-down(sm) {
+        color: #70706f;
+        border-bottom: 0;
+      }
+    }
+  }
+}
+
+.lp_step_content {
+  @include media-breakpoint-down(sm) {
+    padding: 30px 15px;
+  }
+}
+
+.lp_step_summary {
+  @include media-breakpoint-down(sm) {
+    padding: 15px;
+  }
+}
+
+body[class*="page-opigno_module-"][class*="-activities-bank"] {
+  form#views-form-opigno-activities-bank-lp-interface-default {
+    background-color: #f8f7f5;
+    padding: 3.75rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.h5p-questionnaire-footer {
+  background: none;
+}
+
+.h5p-questionnaire-button.next:hover, .h5p-questionnaire-button.previous:hover {
+  background-color: $medium-gray-100;
+}

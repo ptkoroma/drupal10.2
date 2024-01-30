@@ -1,0 +1,6 @@
+opigno_onesignal.one_signal_config_form:
+  title: 'One Signal'
+  route_name: opigno_onesignal.one_signal_config_form
+  description: 'Configurations of OneSignal'
+  parent: system.admin_config_services
+  weight: 99

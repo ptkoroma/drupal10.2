@@ -1,0 +1,53 @@
+.group-opigno-course {
+  .content {
+    overflow: auto;
+  }
+
+  .lp-image {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .course-item {
+    .time {
+      flex: 1 0 65px;
+      max-width: 65px;
+    }
+  }
+
+  a.color-white {
+    font-weight: 700;
+    font-size: 19px;
+    text-decoration: none;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .bg-light {
+    background-color: #f7f6f6 !important;
+  }
+  .duration,
+  .category {
+    i {
+      margin-right: 0.5rem;
+      line-height: 1.2;
+      color: $medium-gray-200;
+    }
+  }
+
+  .duration {
+    i {
+      font-size: 20px;
+    }
+  }
+
+  .category {
+    i {
+      font-size: 24px;
+    }
+  }
+}

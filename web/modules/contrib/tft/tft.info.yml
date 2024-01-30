@@ -1,0 +1,16 @@
+name: Taxonomy File Tree
+type: module
+description: Taxonomy based file tree.
+core_version_requirement: ^9 || ^10
+package: Opigno
+dependencies:
+  - drupal:file
+  - group:group
+  - drupal:media
+  - drupal:path
+  - drupal:taxonomy
+
+# Information added by Drupal.org packaging script on 2022-11-13
+version: '3.0.3'
+project: 'tft'
+datestamp: 1668362316

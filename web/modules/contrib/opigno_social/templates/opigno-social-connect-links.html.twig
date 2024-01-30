@@ -1,0 +1,52 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the user connection links.
+ *
+ * Available variables:
+ * - actions: the list of available connection actions.
+ */
+#}
+
+{% if actions is not empty %}
+  {% for key, action in actions %}
+    {# Message link. #}
+    {% if key is same as('message') %}
+      <div class="person-item__actions person-item__actions-invitations">
+        <a href="{{ action }}">
+          <i class="fi fi-rr-envelope"></i>
+        </a>
+    {# Remove the connection from the network. #}
+    {% elseif key is same as('decline_accepted') %}
+      {% if not actions.message %}
+        <div class="person-item__actions">
+      {% endif %}
+      <div class="dropdown">
+        <button class="comment-item__edit-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <i class="fi fi-rr-menu-dots"></i>
+        </button>
+        <ul class="comment-item__edit-menu dropdown-menu dropdown-menu-right">
+          <li class="dropdown-item">{{ action }}</li>
+        </ul>
+      </div>
+      {# Close the wrapper that was opened on message link. #}
+      </div>
+    {# Decline the invitation from the user to invitee that hasn't been
+      accepted yet or invite the user. #}
+    {% elseif key in ['decline_sent', 'send'] %}
+      <div class="person-item__actions person-item__actions-invite">
+        {{ action }}
+      </div>
+    {# Wrap pending invitation links. #}
+    {% elseif key is same as('accept') %}
+      <div class="person-item__actions person-item__actions-pending">
+        {{ action }}
+      {# Close the wrapper for pending invitation actions. #}
+    {% elseif key is same as('decline_pending') %}
+      {{ action }}
+      </div>
+    {% else %}
+      {{ action }}
+    {% endif %}
+  {% endfor %}
+{% endif %}

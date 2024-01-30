@@ -1,0 +1,61 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a multiselect element.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the select tag.
+ * - options: The option element children.
+ *
+ * @see template_preprocess_multiselect()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div class="multiselect-wrapper {{ multiselect_type }}">
+  <div class="multiselect-available">
+    <label for="{{ multiselect.available.id }}">{{ multiselect.available.label }}</label>
+    <select{{ multiselect.available.attributes.addClass('form-control') }}>
+    {% for option in multiselect.available.options %}
+      {% if option.type == 'optgroup' %}
+        <optgroup label="{{ option.label }}">
+          {% for sub_option in option.options %}
+            <option value="{{ sub_option.value }}"{{ sub_option.selected ? ' selected="selected"' }}>{{ sub_option.label }}</option>
+          {% endfor %}
+        </optgroup>
+      {% elseif option.type == 'option' %}
+        <option value="{{ option.value }}"{{ option.selected ? ' selected="selected"' }}>{{ option.label }}</option>
+      {% endif %}
+    {% endfor %}
+    </select>
+  </div>
+  <div class="multiselect-btns">
+    <ul>
+      <li class="multiselect-add">
+        <i class="icon-arrow-down"></i>
+        <span class="sr-only">{{ multiselect.labels.add }}</span>
+      </li>
+      <li class="multiselect-remove">
+        <i class="icon-arrow-up"></i>
+        <span class="sr-only">{{ multiselect.labels.remove }}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="multiselect-selected">
+    <label for="{{ multiselect.selected.id }}">{{ multiselect.selected.label }}</label>
+    <select{{ multiselect.selected.attributes.addClass('form-control') }}>
+      {% for option in multiselect.selected.options %}
+        {% if option.type == 'optgroup' %}
+          <optgroup label="{{ option.label }}">
+            {% for sub_option in option.options %}
+              <option value="{{ sub_option.value }}"{{ sub_option.selected ? ' selected="selected"' }}>{{ sub_option.label }}</option>
+            {% endfor %}
+          </optgroup>
+        {% elseif option.type == 'option' %}
+          <option value="{{ option.value }}"{{ option.selected ? ' selected="selected"' }}>{{ option.label }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+</div>

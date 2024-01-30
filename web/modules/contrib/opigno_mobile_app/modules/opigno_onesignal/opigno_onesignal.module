@@ -1,0 +1,236 @@
+<?php
+
+/**
+ * @file
+ * Contains opigno_onesignal.module.
+ */
+
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Mail\MailFormatHelper;
+use Drupal\Core\Render\Markup;
+use Drupal\opigno_mobile_app\PrivateMessagesHandler;
+use Drupal\private_message\Entity\PrivateMessage;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_page_attachments().
+ */
+function opigno_onesignal_page_attachments(&$attachments) {
+  $account = \Drupal::currentUser();
+  $user = User::load($account->id());
+  // Disallow for anonymous to subscribe to One Signal.
+  if ($account->isAnonymous()) {
+    return;
+  }
+  /** @var \Drupal\opigno_onesignal\Config\ConfigManager $config_manager */
+  $config_manager = \Drupal::service('opigno_onesignal.config_manager');
+  if (!$config_manager->getAppId()) {
+    return;
+  }
+  // Add head link to site root uploaded manifest.json file.
+  $attachments['#attached']['html_head_link'][] = [
+    [
+      'rel' => "manifest",
+      'href' => "/manifest.json",
+    ],
+    TRUE,
+  ];
+  // Attach the external library defined in the opigno_onesignal.libraries.yml file.
+  $attachments['#attached']['library'][] = 'opigno_onesignal/global-scripts';
+  $attachments['#attached']['library'][] = 'opigno_onesignal/opigno-onesignal';
+  $attachments['#attached']['drupalSettings']['opigno_onesignal']['uuid'] = $user->uuid();
+  /**
+   * Here we build the OneSignal JS code using the variables set by the admin.
+   * We if variables are configured before setting them up.
+   * The objective is to reproduce OnSignal's code, more or less like this:
+   *
+   * @code
+   * var OneSignal = window.OneSignal || [];
+   * OneSignal.push(function() {
+   *   OneSignal.init({
+   *     appId: "111111111111111111111111",
+   *     autoRegister: false,
+   *     notifyButton: {
+   *       enable: true,
+   *     },
+   *   });
+   * });
+   * @endcode
+   */
+  $onesignal_javascript_header = '
+  var OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "' . $config_manager->getAppId() . '",';
+
+  // Close the Onsignal initialization code.
+  $onesignal_javascript_header .= '
+      });
+    });
+   ';
+
+  $attachments['#attached']['html_head'][] = [
+    // The data.
+    [
+      // Add a <script> tag.
+      '#tag' => 'script',
+      // Add the JavaScript code to the <script> tag.
+      '#value' => Markup::create($onesignal_javascript_header),
+      // Set a weight so this code appears after meta tags, etc.
+      '#weight' => -1,
+    ],
+    // A key, to recognize this HTML <HEAD> element when altering.
+    'onesignal-js',
+  ];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function opigno_onesignal_opigno_notification_insert(Drupal\Core\Entity\EntityInterface $notification) {
+  /* @var \Drupal\opigno_notification\Entity\OpignoNotification $notification */
+  $params = [];
+  $params['title'] = 'New notification:';
+  $params['langcode'] = $notification->language()->getId();
+  $params['content'] = $notification->getMessage();
+  $params['data'] = [
+    'notification_type' => 'NOTIFICATION',
+    'data' => [
+      'id' => $notification->id(),
+      'message' => $notification->getMessage(),
+      'created' => $notification->getCreatedTime(),
+    ],
+  ];
+  $params['users'][] = $notification->get('uid')->target_id;
+  /* @var \Drupal\opigno_onesignal\OneSignalManager $opigno_onesignal_manager */
+  $opigno_onesignal_manager = \Drupal::service('opigno_onesignal.manager');
+  $opigno_onesignal_manager->sendNotificationForUsers($params);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function opigno_onesignal_private_message_thread_presave(Drupal\Core\Entity\EntityInterface $private_message_thread) {
+  // Skip threads that are created/updated from the command line.
+  if (PHP_SAPI === 'cli') {
+    return;
+  }
+
+  /* @var \Drupal\private_message\Entity\PrivateMessageThread $private_message_thread */
+  if ($private_message_thread->isNew()) {
+    // Build data for One Signal notification.
+    $params = [];
+    $params['title'] = 'You was added to a thread: ' . $private_message_thread->get('field_pm_subject')->value;
+    $params['langcode'] = $private_message_thread->language()->getId();
+    $params['data'] = [
+      'notification_type' => 'THREAD',
+      'data' => [
+        'id' => $private_message_thread->id(),
+        'title' => $private_message_thread->get('field_pm_subject')->value,
+      ],
+    ];
+    $params['users'] = array_map(function ($user) {
+      return $user->id();
+    }, $private_message_thread->getMembers());
+
+    //    // Delete author id from recipients array.
+    //    if (in_array($message->getOwnerId(), $params['users'])) {
+    //      array_splice($params['users'], array_search($private_message_thread->owner, $params['users']), 1);
+    //    }
+    /* @var \Drupal\opigno_onesignal\OneSignalManager $opigno_onesignal_manager */
+    $opigno_onesignal_manager = \Drupal::service('opigno_onesignal.manager');
+    $opigno_onesignal_manager->sendNotificationForUsers($params);
+
+  }
+  else {
+    if ($private_message_thread->original->get('private_messages')->getValue()
+      != $private_message_thread->get('private_messages')->getValue()) {
+      $origin_mids = array_map(function ($message) {
+        return $message->id();
+      }, $private_message_thread->original->get('private_messages')
+        ->referencedEntities());
+      $mids = array_map(function ($message) {
+        return $message->id();
+      }, $private_message_thread->get('private_messages')->referencedEntities());
+
+      $new_messages = array_diff($mids, $origin_mids);
+      if (!empty($new_messages)) {
+        $messages = PrivateMessage::loadMultiple($new_messages);
+        foreach ($messages as $message) {
+          /* @var \Drupal\private_message\Entity\PrivateMessage $message */
+          $params = [];
+          $params['title'] = $private_message_thread->get('field_pm_subject')->value ?: 'new message:';
+          $params['langcode'] = $message->language()->getId();
+          $params['content'] = MailFormatHelper::htmlToText($message->getMessage());
+          $params['data'] = [
+            'notification_type' => 'MESSAGE',
+            'data' => [
+              'thread_id' => $private_message_thread->id(),
+              'id' => $message->id(),
+              'owner' => [
+                'uid' => $message->getOwnerId(),
+                'name' => $message->getOwner()->getAccountName(),
+                'user_picture' => opigno_mobile_app_get_user_picture($message->getOwner()),
+              ],
+              'message' => MailFormatHelper::htmlToText($message->getMessage()),
+              'created' => $message->getCreatedTime(),
+            ],
+          ];
+          // Get users who should receive the notifications.
+          $params['users'] = array_map(function ($user) {
+            return $user->id();
+          }, $private_message_thread->getMembers());
+          // Delete author id from recipients array.
+          if (in_array($message->getOwnerId(), $params['users'])) {
+            array_splice($params['users'], array_search($message->getOwnerId(), $params['users']), 1);
+          }
+
+          /* @var \Drupal\opigno_onesignal\OneSignalManager $opigno_onesignal_manager */
+          $opigno_onesignal_manager = \Drupal::service('opigno_onesignal.manager');
+          $opigno_onesignal_manager->sendNotificationForUsers($params);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function opigno_onesignal_opigno_calendar_event_insert(Drupal\Core\Entity\EntityInterface $event) {
+  /* @var \Drupal\opigno_calendar_event\Entity\CalendarEvent $event */
+  $params = [];
+  $params['title'] = 'New event';
+  $params['langcode'] = $event->language()->getId();
+  $params['content'] = $event->label();
+  // Get start and end dates in UTC.
+  $storage_format = 'Y-m-d\TH:i:s';
+  // Get start date in UTC.
+  $row_start = $event->getDateItems()->value;
+  $start_date = DrupalDateTime::createFromFormat($storage_format, $row_start, 'UTC');
+  // Get end date in UTC.
+  $row_end = $event->getDateItems()->end_value;
+  $end_date = DrupalDateTime::createFromFormat($storage_format, $row_end, 'UTC');
+
+  // Build data for One Signal notification.
+  $params['data'] = [
+    'notification_type' => 'EVENT',
+    'data' => [
+      'id' => $event->id(),
+      'title' => $event->label(),
+      'description' => $event->get('description')->value,
+      'start_date' => $start_date->getTimestamp(),
+      'end_date' => $end_date->getTimestamp(),
+    ],
+  ];
+  $params['users'] = array_map(function ($user) {
+    return $user->id();
+  }, $event->get('field_calendar_event_members')->referencedEntities());
+//  // Delete author id from recipients array.
+//  if (in_array($event->get('uid')->target_id, $params['users'])) {
+//    array_splice($params['users'], array_search($event->get('uid')->target_id, $params['users']), 1);
+//  }
+  /* @var \Drupal\opigno_onesignal\OneSignalManager $opigno_onesignal_manager */
+  $opigno_onesignal_manager = \Drupal::service('opigno_onesignal.manager');
+  $opigno_onesignal_manager->sendNotificationForUsers($params);
+}

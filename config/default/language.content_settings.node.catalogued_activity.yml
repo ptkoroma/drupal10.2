@@ -1,0 +1,11 @@
+uuid: dc648a93-5107-496a-bd20-32ac39eb9a6c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.catalogued_activity
+id: node.catalogued_activity
+target_entity_type_id: node
+target_bundle: catalogued_activity
+default_langcode: site_default
+language_alterable: false

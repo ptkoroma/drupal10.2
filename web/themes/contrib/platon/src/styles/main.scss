@@ -1,0 +1,56 @@
+@import "common/variables";
+@import "common/functions";
+@import "common/svg";
+@import "common/fonts";
+@import "common/mixins";
+
+@import "~bootstrap/scss/bootstrap";
+
+@import "common/global";
+
+@import "components/buttons";
+@import "components/cke";
+@import "components/forms";
+@import "components/form_element/multiselect";
+@import "components/form_element/daterange";
+@import "components/tft/tft";
+@import "components/local_tasks";
+@import "components/local_actions";
+@import "components/headings";
+@import "components/breadcrumb";
+@import "components/tables";
+@import "components/dropdowns";
+@import "components/vertical_tabs";
+@import "components/messages";
+@import "components/dashboard";
+@import "components/progression";
+@import "components/calendar";
+@import "components/forum";
+@import "components/moxtra";
+@import "components/tft";
+@import "components/module_result";
+@import "components/views/views";
+@import "components/views/views_exposed_form";
+@import "components/views/views_actions_form";
+@import "components/views/views_search";
+@import "components/bs-tabs";
+@import "components/loader";
+@import "components/file/file-video";
+@import "components/modal/modal";
+
+@import "layouts/header";
+@import "layouts/navigation";
+@import "layouts/first_sidebar";
+@import "layouts/main_content";
+@import "layouts/footer";
+@import "layouts/pages";
+@import "pages/anonymous";
+@import "pages/course";
+@import "pages/learning_path";
+@import "pages/catalogue";
+@import "pages/page_user_edit";
+@import "pages/private_messages";
+@import "pages/activity";
+@import "pages/group";
+@import "pages/calendar";
+@import "pages/classes";

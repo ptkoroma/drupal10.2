@@ -1,0 +1,59 @@
+base theme: false
+type: theme
+name: Aristotle
+description: 'HTML5, SASS, Responsive grid base theme.'
+package: ''
+core_version_requirement: ^9 || ^10
+logo: logo.svg
+
+regions:
+  help: 'Help'
+  branding: 'Branding'
+  menu: 'Menu'
+  admin_opigno: 'Admin opigno menu'
+  status_messages: 'Status messages'
+  top: 'Top'
+  sidebar_first: 'Sidebar first'
+  content: 'Content'
+  footer: 'Footer'
+
+libraries:
+  - aristotle/global
+
+libraries-override:
+  tft/tft:
+    css:
+      theme:
+        css/tft.css: false
+
+  tft/tft.select-folder:
+    css:
+      theme:
+        css/tft.css: false
+
+  calendar/calendar.theme:
+    css:
+      theme:
+        css/calendar.css: false
+        css/calendar_multiday.css: false
+
+  opigno_calendar/month_block:
+    css:
+      theme:
+        css/opigno_calendar_month_block.css: false
+
+## Use libraries-override to prevent rewrite unnecessary code.
+#libraries-override:
+#  multiselect/drupal.multiselect:
+#    css:
+#      theme:
+#        # Moved to styles/components/form/_multiselect.scss
+#        css/multiselect.css: false
+
+
+#  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&display=swap');
+
+# Information added by Drupal.org packaging script on 2023-06-01
+version: '3.1.0'
+project: 'aristotle'
+datestamp: 1685622363

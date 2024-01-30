@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Enables Subgroup functionality.
+ */
+
+use Drupal\group\Entity\GroupTypeInterface;
+use Drupal\group\Entity\GroupContentInterface;
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function ggroup_entity_type_alter(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  // Add the subgroup creation wizard steps as entity forms.
+  $entity_types['group']->setFormClass('ggroup-form', 'Drupal\ggroup\Form\SubgroupFormStep1');
+  $entity_types['group_content']->setFormClass('ggroup-form', 'Drupal\ggroup\Form\SubgroupFormStep2');
+
+  // Make sure circular references cannot be created with subgroups.
+  $entity_types['group_content']->addConstraint('GroupSubgroup');
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ggroup_group_type_insert(GroupTypeInterface $group_type) {
+  \Drupal::service('plugin.manager.group_content_enabler')->clearCachedDefinitions();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ggroup_group_content_insert(GroupContentInterface $group_content) {
+  if ($group_content->getContentPlugin()->getEntityTypeId() !== 'group') {
+    return;
+  }
+
+  \Drupal::service('ggroup.group_hierarchy_manager')->addSubgroup($group_content);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function ggroup_group_content_delete(GroupContentInterface $group_content) {
+  if ($group_content->getContentPlugin()->getEntityTypeId() !== 'group') {
+    return;
+  }
+
+  \Drupal::service('ggroup.group_hierarchy_manager')->removeSubgroup($group_content);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function ggroup_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\Core\Routing\RouteMatchInterface $route_matcher */
+  $route_matcher = \Drupal::service('current_route_match');
+  if ($route_matcher->getRouteName() == 'entity.group_content.create_form' && $route_matcher->getParameter('plugin_id') ) {
+    $form['actions']['submit']['#value'] = t('Save');
+  }
+
+}

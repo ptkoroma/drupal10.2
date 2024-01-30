@@ -1,0 +1,25 @@
+uuid: 0d3b4d78-ef26-4d94-a30a-767f0e7e5928
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_provider_email
+    - node.type.catalogued_activity
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.catalogued_activity.field_provider_email
+field_name: field_provider_email
+entity_type: node
+bundle: catalogued_activity
+label: Email
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

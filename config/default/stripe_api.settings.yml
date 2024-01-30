@@ -1,0 +1,10 @@
+test_secret_key: cpd_stripe_secret_key_1
+test_public_key: cpd_stripe_public_key_1
+live_secret_key: public_test_key_1
+live_public_key: public_test_key_1
+log_webhooks: 1
+mode: test
+_core:
+  default_config_hash: bDytzWYwg0WvFxdrSzHMrWCCi82WboNTCqPbNA5oN_Q
+api_version: account
+api_version_custom: ''

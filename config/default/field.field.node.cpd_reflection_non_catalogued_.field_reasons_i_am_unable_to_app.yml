@@ -1,0 +1,26 @@
+uuid: c2c38f00-653d-452e-bbd1-3bc818efeb27
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_reasons_i_am_unable_to_app
+    - node.type.cpd_reflection_non_catalogued_
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.cpd_reflection_non_catalogued_.field_reasons_i_am_unable_to_app
+field_name: field_reasons_i_am_unable_to_app
+entity_type: node
+bundle: cpd_reflection_non_catalogued_
+label: 'Reasons I am unable to apply this learning to the workplace: '
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

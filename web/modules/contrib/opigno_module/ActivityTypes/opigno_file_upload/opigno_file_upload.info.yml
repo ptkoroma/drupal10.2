@@ -1,0 +1,13 @@
+name: Opigno File Upload
+type: module
+description: Opigno file upload activity type.
+core_version_requirement: ^9 || ^10
+package: Opigno
+
+dependencies:
+  - opigno_module:opigno_module
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '3.1.1'
+project: 'opigno_module'
+datestamp: 1685711919

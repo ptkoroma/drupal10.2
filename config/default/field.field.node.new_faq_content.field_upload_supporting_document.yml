@@ -1,0 +1,27 @@
+uuid: 43182d25-26a4-4160-813c-ba7e04ac5157
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_upload_supporting_document
+    - node.type.new_faq_content
+  module:
+    - file
+id: node.new_faq_content.field_upload_supporting_document
+field_name: field_upload_supporting_document
+entity_type: node
+bundle: new_faq_content
+label: 'Upload Supporting Documents '
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'txt pdf docx doc xlsx rtf'
+  max_filesize: ''
+  description_field: false
+field_type: file

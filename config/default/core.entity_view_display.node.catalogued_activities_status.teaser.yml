@@ -1,0 +1,32 @@
+uuid: 230e97fc-87ff-48f9-bee2-ba4df4dcf2a5
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.catalogued_activities_status.field_activity
+    - field.field.node.catalogued_activities_status.field_activity__status
+    - field.field.node.catalogued_activities_status.field_user_id
+    - node.type.catalogued_activities_status
+  module:
+    - user
+id: node.catalogued_activities_status.teaser
+targetEntityType: node
+bundle: catalogued_activities_status
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_activity: true
+  field_activity__status: true
+  field_user_id: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

@@ -1,0 +1,34 @@
+uuid: 869baace-9bfb-4cdd-aa06-0a84a585c8be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.mentee_registartion.body
+    - node.type.mentee_registartion
+  module:
+    - text
+    - user
+id: node.mentee_registartion.default
+targetEntityType: node
+bundle: mentee_registartion
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

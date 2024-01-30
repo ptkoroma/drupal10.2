@@ -1,0 +1,449 @@
+.page-view-opigno-calendar-page-month {
+  .view-opigno-calendar {
+    margin-bottom: rem(340);
+
+    .content-box__info {
+      @include media-breakpoint-down(sm) {
+        margin-bottom: rem(10);
+
+        h3 {
+          padding-top: rem(55);
+        }
+
+        .pager__item {
+          top: rem(56);
+        }
+      }
+
+      #today {
+        @include media-breakpoint-down(md) {
+          min-width: rem(130);
+        }
+      }
+    }
+  }
+}
+
+.view-opigno-calendar {
+  border-radius: rem(10);
+  box-shadow: 0 0 6px rgba($clr-black, .3);
+  margin-bottom: rem(20);
+  padding: rem(20) rem(10);
+  position: relative;
+
+  @include media-breakpoint-up(sm) {
+    padding: rem(20);
+  }
+
+  &[class*="month"] {
+    .month-view {
+      .full {
+        tr.single-day td.single-day {
+          height: 0 !important;
+          padding: 0;
+        }
+      }
+    }
+
+    td.single-day {
+      .inner {
+        display: none;
+      }
+    }
+
+    td.single-day.single-day-active {
+      .inner {
+        background: $clr-white;
+        border-radius: 0 0 rem(10) rem(10);
+        box-shadow: 0 0 6px rgba($clr-black, .3);
+        display: flex;
+        padding: rem(20);
+        position: absolute;
+        top: calc(100% - 6px);
+        left: 0;
+        width: 100%;
+        z-index: 1;
+
+        @include media-breakpoint-up(sm) {
+          padding: rem(20) rem(30) rem(20) rem(40);
+        }
+
+        &:before {
+          background: $clr-white;
+          content: '';
+          height: rem(10);
+          position: absolute;
+          left: 0;
+          top: rem(-10);
+          width: 100%;
+        }
+
+        &:after {
+          background: $clr-desktop-link;
+          content: '';
+          height: 3px;
+          position: absolute;
+          top: 0;
+          left: rem(20);
+          width: calc(100% - 40px);
+
+          @include media-breakpoint-up(sm) {
+            left: rem(30);
+            width: calc(100% - 60px);
+          }
+        }
+
+        > .items,
+        > .title {
+          display: flex;
+          flex-direction: column;
+          flex: 1 1 auto;
+          margin: 0;
+          max-height: rem(300);
+          overflow-y: auto;
+          padding-left: 5%;
+          text-align: left;
+        }
+
+        .cutoff {
+          height: rem(23);
+        }
+      }
+
+      .date-box {
+        border-right: 1px solid $clr-desktop-text;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        line-height: 1.2;
+        padding: 0 4%;
+      }
+
+      .date-day {
+        font-size: rem(40);
+      }
+
+      .date-month {
+        font-size: rem(20);
+      }
+
+      .date-year {
+        font-size: rem(30);
+      }
+
+      .heading {
+        display: flex;
+
+        .join-link {
+          display: none;
+        }
+
+        a[href*="edit"] {
+          @extend .fi-rr-edit;
+          color: transparent;
+          font-size: rem(24);
+          height: rem(24);
+          margin-left: auto;
+          overflow: hidden;
+          text-indent: -9999px;
+          width: rem(24);
+
+          &:before {
+            color: $clr-desktop-text;
+            font-family: uicons-regular-rounded !important;
+            font-style: normal;
+            font-weight: normal !important;
+            font-variant: normal;
+            display: block;
+            text-transform: none;
+            line-height: 1;
+            text-indent: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+        }
+      }
+
+      .type {
+        margin-bottom: rem(10);
+      }
+
+      .event-info {
+        display: flex;
+        flex-wrap: wrap;
+        line-height: rem(18);
+        margin-bottom: rem(5);
+
+        > div {
+          &:not(:last-child) {
+            margin-right: rem(30);
+          }
+
+          margin-bottom: rem(5);
+        }
+      }
+
+      .title {
+        font-size: rem(16);
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+      }
+
+      .daterange {
+        font-weight: $font-weight-semibold;
+      }
+
+      .description {
+        max-width: rem(580);
+
+        p {
+          margin-bottom: rem(10);
+        }
+      }
+    }
+  }
+
+  .content-box {
+    &__title {
+      display: none;
+    }
+
+    &__info {
+      margin-bottom: rem(30);
+      min-height: rem(40);
+      position: relative;
+
+      #today {
+        @extend .btn;
+        @extend .btn-rounded;
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        @include media-breakpoint-up(md) {
+          min-width: rem(180);
+        }
+      }
+
+      h3 {
+        margin: 0;
+        padding-top: rem(8);
+      }
+
+      .js-pager__items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .pager__item {
+        padding: 0;
+        position: absolute;
+        left: calc(50% - 12px);
+        top: rem(10);
+
+        a {
+          display: block;
+          font-size: rem(24);
+          text-decoration: none;
+
+          &:before {
+            color: $clr-desktop-text;
+            font-family: uicons-regular-rounded !important;
+            font-style: normal;
+            font-weight: normal !important;
+            font-variant: normal;
+            display: block;
+            text-transform: none;
+            line-height: 1;
+            text-indent: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+        }
+
+        span {
+          display: none;
+        }
+
+        &--previous {
+          transform: translate(-120px);
+
+          a {
+            @extend .fi-rr-angle-small-left;
+          }
+        }
+
+        &--next {
+          transform: translate(120px);
+
+          a {
+            @extend .fi-rr-angle-small-right;
+          }
+        }
+      }
+
+      .btn-add {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+  }
+}
+
+.calendar-calendar {
+  thead,
+  td {
+    border: none;
+  }
+
+  th {
+    font-weight: $font-weight-normal;
+    text-transform: uppercase;
+  }
+
+  th,
+  td {
+    height: auto;
+    padding: 4px;
+    text-align: center;
+
+    @include media-breakpoint-up(sm) {
+      padding: 4px rem(10);
+    }
+  }
+
+  .date-box {
+    &.today {
+      .inner {
+        background: $clr-gray-light-D5;
+      }
+    }
+
+    &.past-month,
+    &.future-month {
+      color: $clr-gray;
+    }
+
+    &.selected-date {
+      .inner {
+        background: $clr-desktop-link;
+      }
+    }
+
+    .inner {
+      border-radius: 50%;
+      height: rem(30);
+      margin: 0 auto;
+      position: relative;
+      width: rem(30);
+    }
+
+    .day {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+
+      &:after {
+        background: $clr-desktop-link;
+        border-radius: 50%;
+        content: '';
+        height: rem(7);
+        position: absolute;
+        left: 100%;
+        top: 0;
+        width: rem(7);
+      }
+    }
+  }
+
+  .no-entry,
+  .past-month,
+  .future-month {
+    .day {
+      cursor: default;
+
+      &:after {
+        content: none;
+      }
+    }
+  }
+}
+
+/*
+ * Calendar style updates for Dashboard
+ */
+.dashboard {
+  .view-opigno-calendar {
+    margin-bottom: rem(163);
+
+    .content-box__title {
+      display: block;
+      margin: rem(8) 0 0;
+    }
+
+    .content-box__info {
+      .btn-add {
+        transform: translateY(-35px);
+      }
+    }
+
+    &[class*="month"] {
+      td.single-day.single-day-active {
+        .inner {
+          > .items,
+          > .title {
+            height: rem(110);
+
+            > a {
+              margin-top: auto;
+              text-align: right;
+            }
+          }
+
+          .cutoff {
+            height: rem(8);
+          }
+        }
+
+        .type {
+          margin-bottom: 4px;
+        }
+
+        .title {
+          margin-right: 0;
+        }
+
+        .event-info {
+          > div {
+            margin-bottom: 0;
+          }
+        }
+
+        .join-link {
+          display: block;
+          margin-left: rem(20);
+        }
+
+        .heading a[href*="edit"],
+        .daterange,
+        .event-link,
+        .training-link,
+        .description {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .calendar-calendar {
+    th,
+    td {
+      padding: 4px;
+    }
+  }
+}

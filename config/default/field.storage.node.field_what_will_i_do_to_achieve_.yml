@@ -1,0 +1,19 @@
+uuid: 6ea2037a-4a08-4cd0-a7c6-829049d1464b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_what_will_i_do_to_achieve_
+field_name: field_what_will_i_do_to_achieve_
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

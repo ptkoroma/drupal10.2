@@ -1,0 +1,23 @@
+.block-local_tasks_block {
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0 0 rem(20);
+    padding: 0;
+
+    li {
+      + li {
+        margin-left: rem(20);
+      }
+    }
+
+    a {
+      @extend .btn;
+
+      &.is-active {
+        background-color: $clr-green;
+        text-decoration: none;
+      }
+    }
+  }
+}

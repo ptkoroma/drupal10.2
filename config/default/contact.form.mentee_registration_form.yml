@@ -1,0 +1,12 @@
+uuid: feb93d54-4e5f-4113-9484-c680cad6e969
+langcode: en
+status: true
+dependencies: {  }
+id: mentee_registration_form
+label: 'Mentee Registration form'
+recipients:
+  - example@gmail.com
+reply: ''
+weight: 0
+message: 'Your form has been sent successfully. '
+redirect: ''

@@ -1,0 +1,19 @@
+{% macro status(state, icon, label, date) %}
+<span class="icon_state icon_state_{{ state }}">
+      <i class="fi fi-rr-{{ icon }}"></i>
+      <span>{{ label }}<br>
+      <span class="date">{{ date }}</span>
+  </span>
+</span>
+{% endmacro %}
+{% if passed == true and expired == true %}
+  {{ _self.status('pending', 'hourglass-end', 'Expired'|t , 'Since @date'|t({ '@date': expired_date|date("m/d/Y")})) }}
+{% elseif passed == true and has_expiration_date == true %}
+  {{ _self.status('passed', 'check', 'Passed'|t , 'Valid untill @date'|t({ '@date': expired_date|date("m/d/Y")})) }}
+{% elseif passed == true and has_expiration_date != true %}
+  {{ _self.status('passed', 'check', 'Passed'|t , 'Completed on @date'|t({ '@date': complete_date|date("m/d/Y")})) }}
+{% elseif passed != true and complete_date != false %}
+  {{ _self.status('failed', 'cross', 'Failed'|t , 'Completed on @date'|t({ '@date': complete_date|date("m/d/Y")})) }}
+{% elseif passed != true %}
+  {{ _self.status('pending', 'rotate-right', 'Pending'|t , 'Started on @date'|t({ '@date': started_date|date("m/d/Y")})) }}
+{% endif %}

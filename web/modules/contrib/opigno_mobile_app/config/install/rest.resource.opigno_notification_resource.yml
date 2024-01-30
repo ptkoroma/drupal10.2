@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - hal
+    - jwt
+    - opigno_mobile_app
+    - serialization
+id: opigno_notification_resource
+plugin_id: opigno_notification_resource
+granularity: resource
+configuration:
+  methods:
+    - GET
+    - PATCH
+  formats:
+    - hal_json
+    - json
+  authentication:
+    - jwt_auth

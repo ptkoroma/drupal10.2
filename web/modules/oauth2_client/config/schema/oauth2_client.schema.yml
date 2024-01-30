@@ -1,0 +1,26 @@
+key.type.oauth2_client:
+  type: sequence
+
+oauth2_client.oauth2_client.*:
+  type: config_entity
+  label: OAuth2 Client
+  mapping:
+    id:
+      type: string
+      label: ID
+    label:
+      type: label
+      label: Label
+    uuid:
+      type: string
+    description:
+      type: string
+    oauth2_client_plugin_id:
+      type: string
+      label: 'Associated Oauth2Client Plugin'
+    credential_provider:
+      type: string
+      label: 'Credential provider'
+    credential_storage_key:
+      type: string
+      label: 'Storage identifier'

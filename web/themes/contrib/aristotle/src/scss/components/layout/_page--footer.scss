@@ -1,0 +1,44 @@
+.page-footer {
+  background: $clr-gray-light;
+  margin-top: rem(50);
+  min-height: rem(80);
+  padding: rem(20) rem(5);
+
+  .footer-content {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    max-width: rem(155);
+  }
+
+  nav {
+    margin-left: auto;
+
+    > ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin-right: rem(50);
+
+        @include media-breakpoint-down(sm) {
+          margin-right: rem(25);
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      a {
+        color: $clr-desktop-text;
+        font-size: rem(14);
+      }
+    }
+  }
+}

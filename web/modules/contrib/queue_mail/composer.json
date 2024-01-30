@@ -1,0 +1,25 @@
+{
+    "name": "drupal/queue_mail",
+    "description": "Queues all mail sent by your Drupal site so that it is sent via cron using the Drupal Queue API.",
+    "type": "drupal-module",
+    "homepage": "http://drupal.org/project/queue_mail",
+    "authors": [
+        {
+            "name": "Evgenii Nikitin (sinn)",
+            "homepage": "https://www.drupal.org/u/sinn",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Steven Jones",
+            "homepage": "https://www.drupal.org/user/99644",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/queue_mail",
+        "source": "https://git.drupalcode.org/project/queue_mail"
+    },
+    "require": {
+        "drupal/core": "^9.4 || ^10.0"
+    }
+}

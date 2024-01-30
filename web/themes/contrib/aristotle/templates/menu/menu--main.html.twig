@@ -1,0 +1,66 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the main menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     menu tree.
+ *   - is_collapsed: TRUE if the link has children within the current menu tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ *
+ * @ingroup themeable
+ */
+#}
+{% import _self as menus %}
+{{ menus.menu_links(items, attributes, 0, management_menu) }}
+
+{% macro menu_links(items, attributes, menu_level, management_menu) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <ul {{ attributes.addClass('main-menu') }}>
+    {% else %}
+      <ul>
+    {% endif %}
+    {% for item in items %}
+      <li {{ item.attributes.addClass('main-menu__item') }}>
+        {% set link_html  %}
+          <span>{{ item.title }}</span>
+        {% endset %}
+
+        {{ link(link_html, item.url, {'class':['main-menu__link', item.title|replace({' ': '_'})|lower], 'title': item.title }) }}
+
+        {% if item.below %}
+          {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+    {% if management_menu %}
+    <li class="main-menu__item management">
+      <div class="dropdown">
+        <a href="javascript:void();" id="dropdownManagement" class="main-menu__link d-flex align-items-center" data-toggle="dropdown">{{ 'Management'|t }}</a>
+        <div class="dropdown-menu" role="menu" aria-labelledby="dropdownManagement">
+          <div class="container d-flex">
+            <div class="info">
+              <h2>{{ 'Management'|t }}</h2>
+            </div>
+            <div class="menu-wrapper">
+              {{ management_menu }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    {% endif %}
+    </ul>
+  {% endif %}
+{% endmacro %}

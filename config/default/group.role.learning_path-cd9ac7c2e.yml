@@ -1,0 +1,17 @@
+uuid: 12084c30-e32d-4635-b4b2-12af2bf60a71
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.learning_path
+  enforced:
+    config:
+      - user.role.auditor
+id: learning_path-cd9ac7c2e
+label: Auditor
+weight: 4
+internal: true
+audience: outsider
+group_type: learning_path
+permissions_ui: false
+permissions: {  }

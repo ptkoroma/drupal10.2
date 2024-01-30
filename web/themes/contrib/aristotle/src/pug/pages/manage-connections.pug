@@ -1,0 +1,64 @@
+extends ../layout/main
+
+block variables
+  - var title = 'Manage connections';
+  - var description = '';
+  - var pageClass = 'manage-connections-page';
+  - var pageID = 'manage-connections';
+
+block content
+  .back-btn.d-none.d-lg-block
+    a(href="#")
+      i.fi.fi-rr-arrow-left
+      | Back
+
+  .block-page-title-block
+    h1= title
+
+  .row
+    .col-left.col-lg-6.col-md-12
+      .content-box
+        .content-box__top-section
+          h2.content-box__title Your connections
+          include ../includes/modules/form/search-form
+
+        .connections-wrapper
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+          include ../includes/modules/your-connection
+
+
+    .col-right.col-lg-6.col-md-12
+      .content-box
+        h2.content-box__title Pending connections
+
+        include ../includes/modules/pending-connection
+
+      .content-box
+        h2.content-box__title Search new connections
+        include ../includes/modules/form/search-form
+
+        include ../includes/modules/invite-connection
+        include ../includes/modules/invite-connection
+        - var invited = true
+        include ../includes/modules/invite-connection

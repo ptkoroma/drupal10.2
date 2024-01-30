@@ -1,0 +1,19 @@
+uuid: 468594cc-6fbe-4fc5-827e-c65f94ce9fdf
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_members_forum_body
+field_name: field_members_forum_body
+entity_type: node
+type: text_with_summary
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,26 @@
+uuid: 13835a0e-9c96-42a4-a976-5e9c37872d09
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_discussion_outcome_if_any_
+    - node.type.cpd_reflection_non_catalogued_
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.cpd_reflection_non_catalogued_.field_discussion_outcome_if_any_
+field_name: field_discussion_outcome_if_any_
+entity_type: node
+bundle: cpd_reflection_non_catalogued_
+label: 'Discussion outcome if any:'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

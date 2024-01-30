@@ -1,0 +1,310 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/object1639481032.json",
+  "title": "Root",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "scorm_version",
+    "cmi"
+  ],
+  "properties": {
+    "scorm_version": {
+      "$id": "#root/scorm_version",
+      "title": "Scorm_version",
+      "type": "string",
+      "default": "",
+      "pattern": "^.*$"
+    },
+    "cmi": {
+      "$id": "#root/cmi",
+      "title": "Cmi",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "_version",
+        "suspend_items",
+        "location",
+        "completion_status",
+        "exit",
+        "entry",
+        "learner_id",
+        "learner_name",
+        "learner_preference",
+        "score",
+        "success_status",
+        "objectives",
+        "suspend_data"
+      ],
+      "properties": {
+        "_version": {
+          "$id": "#root/cmi/_version",
+          "title": "_version",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "suspend_items": {
+          "$id": "#root/cmi/suspend_items",
+          "title": "Suspend_items",
+          "type": "object",
+          "required": [
+          ],
+          "properties": {
+          }
+        }
+      ,
+        "location": {
+          "$id": "#root/cmi/location",
+          "title": "Location",
+          "type": ["string", "integer"],
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "completion_status": {
+          "$id": "#root/cmi/completion_status",
+          "title": "Completion_status",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "exit": {
+          "$id": "#root/cmi/exit",
+          "title": "Exit",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "entry": {
+          "$id": "#root/cmi/entry",
+          "title": "Entry",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "learner_id": {
+          "$id": "#root/cmi/learner_id",
+          "title": "Learner_id",
+          "type": ["integer", "string"],
+          "default": ""
+        },
+        "learner_name": {
+          "$id": "#root/cmi/learner_name",
+          "title": "Learner_name",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "learner_preference": {
+          "$id": "#root/cmi/learner_preference",
+          "title": "Learner_preference",
+          "type": "object",
+          "required": [
+            "_children",
+            "audio_level",
+            "language",
+            "delivery_speed",
+            "audio_captioning"
+          ],
+          "properties": {
+            "_children": {
+              "$id": "#root/cmi/learner_preference/_children",
+              "title": "_children",
+              "type": "string",
+              "default": "",
+              "pattern": "^.*$"
+            },
+            "audio_level": {
+              "$id": "#root/cmi/learner_preference/audio_level",
+              "title": "Audio_level",
+              "type": "integer",
+              "default": 0
+            },
+            "language": {
+              "$id": "#root/cmi/learner_preference/language",
+              "title": "Language",
+              "type": "string",
+              "default": "",
+              "pattern": "^.*$"
+            },
+            "delivery_speed": {
+              "$id": "#root/cmi/learner_preference/delivery_speed",
+              "title": "Delivery_speed",
+              "type": "integer",
+              "default": 0
+            },
+            "audio_captioning": {
+              "$id": "#root/cmi/learner_preference/audio_captioning",
+              "title": "Audio_captioning",
+              "type": "integer",
+              "default": 0
+            }
+          }
+        }
+      ,
+        "score": {
+          "$id": "#root/cmi/score",
+          "title": "Score",
+          "type": "object",
+          "required": [
+            "raw",
+            "min",
+            "max",
+            "scaled"
+          ],
+          "properties": {
+            "raw": {
+              "$id": "#root/cmi/score/raw",
+              "title": "Raw",
+              "type": ["string", "integer", "number"],
+              "default": "",
+              "pattern": "^.*$"
+            },
+            "min": {
+              "$id": "#root/cmi/score/min",
+              "title": "Min",
+              "type": ["string", "integer", "number"],
+              "default": "",
+              "pattern": "^.*$"
+            },
+            "max": {
+              "$id": "#root/cmi/score/max",
+              "title": "Max",
+              "type": ["string", "integer", "number"],
+              "default": "",
+              "pattern": "^.*$"
+            },
+            "scaled": {
+              "$id": "#root/cmi/score/scaled",
+              "title": "Scaled",
+              "type": ["string", "integer", "number"],
+              "default": "",
+              "pattern": "^.*$"
+            }
+          }
+        }
+      ,
+        "success_status": {
+          "$id": "#root/cmi/success_status",
+          "title": "Success_status",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "objectives": {
+          "$id": "#root/cmi/objectives",
+          "title": "Objectives",
+          "type": "array",
+          "default": []
+        },
+        "suspend_data": {
+          "$id": "#root/cmi/suspend_data",
+          "title": "Suspend_data",
+          "type": "string",
+          "default": "",
+          "pattern": "^.*$"
+        },
+        "interactions": {
+          "$id": "#root/cmi/interactions",
+          "title": "Interactions",
+          "type": "array",
+          "default": [],
+          "items":{
+            "$id": "#root/cmi/interactions/items",
+            "title": "Items",
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "learner_response",
+              "result",
+              "correct_responses",
+              "description",
+              "objectives",
+              "timestamp"
+            ],
+            "properties": {
+              "id": {
+                "$id": "#root/cmi/interactions/items/id",
+                "title": "Id",
+                "type": "string",
+                "default": "",
+                "pattern": "^.*$"
+              },
+              "type": {
+                "$id": "#root/cmi/interactions/items/type",
+                "title": "Type",
+                "type": "string",
+                "default": "",
+                "pattern": "^.*$"
+              },
+              "learner_response": {
+                "$id": "#root/cmi/interactions/items/learner_response",
+                "title": "Learner_response",
+                "type": "string",
+                "default": "",
+                "pattern": "^.*$"
+              },
+              "result": {
+                "$id": "#root/cmi/interactions/items/result",
+                "title": "Result",
+                "type": "string",
+                "default": "",
+                "pattern": "^.*$"
+              },
+              "correct_responses": {
+                "$id": "#root/cmi/interactions/items/correct_responses",
+                "title": "Correct_responses",
+                "type": "array",
+                "default": [],
+                "items":{
+                  "$id": "#root/cmi/interactions/items/correct_responses/items",
+                  "title": "Items",
+                  "type": "object",
+                  "required": [
+                  ],
+                  "properties": {
+                  }
+                }
+
+              },
+              "description": {
+                "$id": "#root/cmi/interactions/items/description",
+                "title": "Description",
+                "type": "string",
+                "default": "",
+                "pattern": "^.*$"
+              },
+              "objectives": {
+                "$id": "#root/cmi/interactions/items/objectives",
+                "title": "Objectives",
+                "type": "array",
+                "default": [],
+                "items":{
+                  "$id": "#root/cmi/interactions/items/objectives/items",
+                  "title": "Items",
+                  "type": "object",
+                  "required": [
+                  ],
+                  "properties": {
+                  }
+                }
+
+              },
+              "timestamp": {
+                "$id": "#root/cmi/interactions/items/timestamp",
+                "title": "Timestamp",
+                "type": "string",
+                "default": "",
+                "pattern": "^.*$"
+              }
+            }
+          }
+
+        }
+      }
+    }
+
+  }
+}

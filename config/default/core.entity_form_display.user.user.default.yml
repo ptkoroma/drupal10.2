@@ -1,0 +1,238 @@
+uuid: null
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.user.user.commerce_remote_id
+    - field.field.user.user.field_address
+    - field.field.user.user.field_address_new
+    - field.field.user.user.field_bio
+    - field.field.user.user.field_correspondence
+    - field.field.user.user.field_created_by
+    - field.field.user.user.field_date_of_birth
+    - field.field.user.user.field_discipline
+    - field.field.user.user.field_engineer_group
+    - field.field.user.user.field_field_of_engineering_user
+    - field.field.user.user.field_first_name
+    - field.field.user.user.field_last_name
+    - field.field.user.user.field_membership__level
+    - field.field.user.user.field_membership_level
+    - field.field.user.user.field_membership_number
+    - field.field.user.user.field_membership_status_
+    - field.field.user.user.field_name
+    - field.field.user.user.field_nationality
+    - field.field.user.user.field_next_payment_due_date
+    - field.field.user.user.field_next_renewal_date_
+    - field.field.user.user.field_pdu_total
+    - field.field.user.user.field_place_of_birth
+    - field.field.user.user.field_present_employer
+    - field.field.user.user.field_private_profile
+    - field.field.user.user.field_telephone
+    - field.field.user.user.field_yearly_pdu_target
+    - field.field.user.user.stripe_customer_id
+    - field.field.user.user.user_picture
+    - image.style.medium
+  module:
+    - address
+    - commerce
+    - datetime
+    - image
+    - path
+    - user
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content:
+  account:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  contact:
+    weight: 19
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_address_new:
+    type: address_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_bio:
+    type: string_textarea
+    weight: 16
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_correspondence:
+    type: string_textfield
+    weight: 14
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_date_of_birth:
+    type: datetime_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_field_of_engineering_user:
+    type: options_select
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_membership__level:
+    type: commerce_entity_select
+    weight: 7
+    region: content
+    settings:
+      hide_single_entity: true
+      autocomplete_threshold: 7
+      autocomplete_size: 60
+      autocomplete_placeholder: ''
+    third_party_settings: {  }
+  field_membership_number:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_membership_status_:
+    type: options_select
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_nationality:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_next_payment_due_date:
+    type: datetime_default
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_next_renewal_date_:
+    type: datetime_default
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_pdu_total:
+    type: string_textfield
+    weight: 17
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_place_of_birth:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_present_employer:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_private_profile:
+    type: options_buttons
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_telephone:
+    type: string_textfield
+    weight: 15
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_yearly_pdu_target:
+    type: string_textfield
+    weight: 10
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  language:
+    weight: 18
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 23
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  private_messages:
+    weight: 22
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  stripe_customer_id:
+    type: string_textfield
+    weight: 21
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  stripe_registration_payment:
+    weight: 25
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  stripe_registration_plans:
+    weight: 24
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  timezone:
+    weight: 20
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  user_picture:
+    type: image_image
+    weight: 6
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: medium
+    third_party_settings: {  }
+hidden:
+  commerce_remote_id: true
+  customer_profiles: true
+  field_address: true
+  field_created_by: true
+  field_discipline: true
+  field_engineer_group: true
+  field_first_name: true
+  field_last_name: true
+  field_membership_level: true
+  field_name: true
+  langcode: true

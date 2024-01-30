@@ -1,0 +1,6 @@
+remove any post entities:
+  title: 'Remove any post entities'
+  restrict access: true
+share any content:
+  title: 'Share any content'
+  restrict access: true

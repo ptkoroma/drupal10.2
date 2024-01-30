@@ -1,0 +1,49 @@
+.training
+  .training__image
+    img(src="images/content/training.svg" alt="img")
+
+  .training__container
+    h2.training__title Training - Training name
+
+    .training__content
+      .training__status
+        .label Status
+        .state Success
+        .status
+          .status__icon.passed
+            i.fi.fi-rr-check
+
+      .training__progress
+        .label Progress
+        - var radius = 40
+        - var progressNumber = '100'
+        include ../progress/circle-progress
+
+      .training__score
+        .label Score
+        - var radius = 40
+        - var progressNumber = '100'
+        include ../progress/circle-progress
+
+      .training__dates
+        .training__dates--valid-date
+          .label Validation date
+          time.value 01/04/2021
+
+          .label Valid until
+          time.value 01/04/2021
+
+        .training__dates--register-date
+          .label Register date
+          time.value 01/04/2021
+
+        .training__dates--time-spent
+          .label Time spent
+          time.value 00:02:00
+
+      .training__certificate
+        a(href="#")
+          img(src="images/design/certificate.svg" alt="img")
+          | Download
+          br
+          | certificate

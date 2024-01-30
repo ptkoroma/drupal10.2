@@ -1,0 +1,149 @@
+form:not(.views-exposed-form):not(.group-content-form):not(.tft-add-term-form) {
+  .form-item {
+    &:not(.fieldgroup) {
+      margin-bottom: rem(14);
+    }
+  }
+}
+
+#learning-path-members-form,
+.learning-path-members-form {
+  .class {
+    .class_member_toggle_cm,
+    .class_member_toggle_sm,
+    .class_member_toggle_class_manager {
+      background: none;
+      border: 1px solid $clr-navy;
+      border-radius: 3px;
+      display: block;
+      margin: 0 auto;
+      min-height: rem(25);
+      min-width: rem(25);
+      padding: 0;
+      text-indent: -9999px;
+
+      &:hover {
+        box-shadow: 0 0 0 2px rgba($clr-green, .8);
+        transform: none;
+      }
+
+      &:focus {
+        box-shadow: none;
+        transform: none;
+      }
+    }
+
+    .class_member_toggle_cm_active,
+    .class_member_toggle_sm_active,
+    .class_member_toggle_class_manager_active {
+      background: $clr-green;
+      border-color: $clr-green;
+
+      &:hover {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .class_member_delete {
+    background: none;
+    color: $clr-navy;
+    font-size: rem(24);
+    line-height: normal;
+    height: auto;
+    width: auto;
+  }
+}
+
+.form-radios,
+.form-checkboxes {
+  > .form-item {
+    &:not(:last-child) {
+      margin-bottom: rem(10);
+    }
+  }
+}
+
+.checkbox-slider {
+  @include sr-only;
+
+  ~ label {
+    cursor: pointer;
+    margin: 0;
+    padding-left: rem(45);
+    position: relative;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      transition: .3s ease;
+    }
+
+    &:before {
+      background: $clr-gray-light-D5;
+      border-radius: rem(7);
+      height: rem(14);
+      top: 3px;
+      width: rem(36);
+    }
+
+    &:after {
+      background: $clr-white;
+      border-radius: 50%;
+      box-shadow: 0 1px 2px rgba($clr-black, .66);
+      height: rem(18);
+      top: 0;
+      width: rem(18);
+    }
+  }
+
+  &:hover {
+    &:not(:checked) {
+      ~ label {
+        &:after {
+          box-shadow: 0 1px 2px rgba($clr-black, .66), 0 0 0 5px rgba($clr-green, .8);
+        }
+      }
+    }
+  }
+
+  &:checked {
+    ~ label {
+      &:before {
+        background: rgba($clr-green, .8);
+      }
+
+      &:after {
+        background: $clr-green;
+        left: rem(18);
+      }
+    }
+  }
+}
+
+
+.ui-menu {
+  &.ui-widget-content {
+    background: $clr-gray-light;
+    border-radius: rem(10);
+    border: 1px solid $clr-gray-light-D5;
+  }
+
+  .ui-menu-item-wrapper {
+    border-radius: rem(10);
+    border: none;
+    color: $clr-navy;
+    display: block;
+    font-size: rem(14);
+    margin: 0;
+    padding: rem(5) rem(20);
+    text-decoration: none;
+    transition: background .3s ease;
+  }
+
+  .ui-state-active {
+    background: $clr-green;
+  }
+}

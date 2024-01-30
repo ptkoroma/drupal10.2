@@ -1,0 +1,89 @@
+extends ../layout/main
+
+block variables
+  - var title = 'My profile';
+  - var description = '';
+  - var pageClass = 'page-profile';
+
+block content
+  .back-btn.d-none.d-lg-block
+    a(href="#")
+      i.fi.fi-rr-arrow-left
+      | Back
+
+  .block-page-title-block
+    h1= title
+
+  .row
+    .col-12
+      .content-box
+        .user-info
+          .edit-link
+            a(href="#")
+              i.fi.fi-rr-edit
+
+          .user-info__section-top
+            .user-info-photo-wrapper
+              .user-info-photo(style="background-image: url(images/content/profil.svg)")
+
+            .user-info-text-wrapper
+              .user-info-contacts
+                h2.user-info-name Simon Contreras
+                p.user-info-type Student
+                p.user-info-email
+                  a(href="#") scontreras@connect-i.ch
+
+              .user-info-dates
+                p.user-info-date-joined
+                  span.label Date joined
+                  span 2021-05-07
+
+                p.user-info-last-access
+                  span.label Last access
+                  span 2021-06-07
+
+                p.user-info-member-for
+                  span.label Member for
+                  span 1 year 1 month
+
+            .user-info-connections.d-none.d-lg-block
+              - var linkboxImg = 'images/design/connections.svg'
+              - var linkboxNumber = '20'
+              - var linkboxTitle = 'Connections'
+              - var linkboxSubtext = 'Manage connections'
+              include ../includes/modules/link-box
+
+          .user-info__section-bottom
+            - var linkboxImg = 'images/design/trainings.svg'
+            - var linkboxNumber = '9'
+            - var linkboxTitle = 'Trainings completed'
+            - var linkboxSubtext = false
+            include ../includes/modules/link-box
+
+            - var linkboxImg = 'images/design/certificate.svg'
+            - var linkboxNumber = '9'
+            - var linkboxTitle = 'Certificates received'
+            - var linkboxSubtext = false
+            include ../includes/modules/link-box
+
+            - var linkboxImg = 'images/design/badges.svg'
+            - var linkboxNumber = '8'
+            - var linkboxTitle = 'Badges earned'
+            - var linkboxSubtext = false
+            include ../includes/modules/link-box
+
+            - var linkboxImg = 'images/design/skills.svg'
+            - var linkboxNumber = '3'
+            - var linkboxTitle = 'Skills acquired'
+            - var linkboxSubtext = false
+            include ../includes/modules/link-box
+
+      .content-box.p-0.d-lg-none
+        - var linkboxImg = 'images/design/connections.svg'
+        - var linkboxNumber = '20'
+        - var linkboxTitle = 'Connections'
+        - var linkboxSubtext = 'Manage connections'
+        include ../includes/modules/link-box
+
+      .content-box
+        include ../includes/modules/table/trainings

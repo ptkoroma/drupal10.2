@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the "Join communities" page.
+ */
+#}
+
+<div class="join-communities-page-title block-page-title-block">
+  <h1>{{ 'Join communities'|t }}</h1>
+  {{ create_btn }}
+</div>
+
+<div class="communities-listing-wrapper row">
+  <div class="col-left col-xxl-5 col-lg-6 col-md-12">
+    {{ listing }}
+  </div>
+
+  <div class="col-right col-xxl-4 col-lg-5 col-md-12">
+    <div class="content-box">
+      {{ pending }}
+    </div>
+  </div>
+</div>

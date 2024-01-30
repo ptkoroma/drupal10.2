@@ -1,0 +1,26 @@
+uuid: 19c01a8d-1f35-43eb-9eac-89713c190520
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_delivery
+    - node.type.non_catalogued_activity
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.non_catalogued_activity.field_delivery
+field_name: field_delivery
+entity_type: node
+bundle: non_catalogued_activity
+label: 'Mode of Delivery'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

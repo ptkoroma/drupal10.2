@@ -1,0 +1,38 @@
+uuid: null
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.opigno_group_members
+  module:
+    - system
+    - user
+    - views
+  theme:
+    - aristotle
+id: dashboard_views_block_opigno_group_members_block_pending
+theme: aristotle
+region: content
+weight: -1
+provider: null
+plugin: 'views_block:opigno_group_members-block_pending'
+settings:
+  id: 'views_block:opigno_group_members-block_pending'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: '<front>'
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated

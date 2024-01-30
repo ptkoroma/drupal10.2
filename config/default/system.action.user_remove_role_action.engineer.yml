@@ -1,0 +1,14 @@
+uuid: 13b586d8-5491-4df6-a4cf-cbf6a22d48f0
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.engineer
+  module:
+    - user
+id: user_remove_role_action.engineer
+label: 'Remove the Engineer role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: engineer

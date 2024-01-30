@@ -1,0 +1,222 @@
+// scss-lint:disable all
+// The dropdown wrapper (`<div>`)
+.dropup,
+.dropright,
+.dropdown,
+.dropleft {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  white-space: nowrap;
+
+  &:after {
+    content: none;
+  }
+
+  .fi {
+    color: $clr-desktop-text;
+    font-size: rem(27);
+  }
+}
+
+// The dropdown menu
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: z-index(dropdown);
+  display: none; // none by default, but block on "open" of the menu
+  float: left;
+  min-width: rem($dropdown-min-width);
+  padding: rem(4) 0;
+  margin: 0; // override default ul
+  font-size: rem($dropdown-font-size);
+  color: $dropdown-color;
+  text-align: center; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  list-style: none;
+  background-color: $dropdown-bg;
+  background-clip: padding-box;
+  box-shadow: 0 0 6px rgba($clr-black, .3);
+  border-radius: rem(10);
+  border: none;
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .dropdown-menu#{$infix}-left {
+      right: auto;
+      left: 0;
+    }
+
+    .dropdown-menu#{$infix}-right {
+      right: 0;
+      left: auto;
+    }
+  }
+}
+
+// Allow for dropdowns to go bottom up (aka, dropup-menu)
+// Just add .dropup after the standard .dropdown class and you're set.
+.dropup {
+  .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
+    margin-bottom: rem(2);
+  }
+}
+
+.dropright {
+  .dropdown-menu {
+    top: 0;
+    right: auto;
+    left: 100%;
+    margin-top: 0;
+    margin-left: rem(2);
+  }
+
+  .dropdown-toggle {
+    &:after {
+      vertical-align: 0;
+    }
+  }
+}
+
+.dropleft {
+  .dropdown-menu {
+    top: 0;
+    right: 100%;
+    left: auto;
+    margin-top: 0;
+    margin-right: rem(2);
+  }
+
+  .dropdown-toggle {
+    &:before {
+      vertical-align: 0;
+    }
+  }
+}
+
+// When enabled Popper.js, reset basic dropdown position
+// stylelint-disable-next-line no-duplicate-selectors
+.dropdown-menu {
+  &[x-placement^="top"],
+  &[x-placement^="right"],
+  &[x-placement^="bottom"],
+  &[x-placement^="left"] {
+    right: auto;
+    bottom: auto;
+  }
+}
+
+// Links, buttons, and more within the dropdown menu
+//
+// `<button>`-specific styles are denoted with `// For <button>s`
+.dropdown-item {
+  display: block;
+  width: 100%; // For `<button>`s
+  padding: 0 rem(10);
+  clear: both;
+  font-weight: $font-weight-normal;
+  color: $dropdown-link-color;
+  text-align: inherit; // For `<button>`s
+  text-decoration: if($link-decoration == none, null, none);
+  white-space: nowrap; // prevent links from randomly breaking onto new lines
+  background-color: transparent; // For `<button>`s
+  border: 0; // For `<button>`s
+
+  &:focus,
+  &:hover {
+    color: $dropdown-link-color;
+    text-decoration: none;
+  }
+
+  &.active,
+  &:active {
+    background: $clr-desktop-button-color-hover-secondary;
+    color: $dropdown-link-active-color;
+    text-decoration: none;
+  }
+
+  &.disabled,
+  &:disabled {
+    opacity: $disable-opacity;
+    pointer-events: none;
+    background-color: transparent;
+  }
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+// Dropdown section headers
+.dropdown-header {
+  display: block;
+  padding: rem(8) 0;
+  margin-bottom: 0; // for use with heading elements
+ font-size: rem($font-size-sm);
+  color: $dropdown-header-color;
+  white-space: nowrap; // as with > li > a
+}
+
+// Dropdown text
+.dropdown-item-text {
+  display: block;
+  padding: rem(4) 0;
+  color: $dropdown-link-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.views-admin {
+  .dropdown-menu {
+    padding: 4px 0;
+  }
+
+  .dropdown-item-text {
+    &.icon.compact {
+      background: none;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      height: auto;
+      text-indent: 0;
+      width: auto;
+    }
+  }
+}
+.views-displays {
+  .tabs {
+    .action-list {
+      input.form-submit {
+        display: block;
+        min-height: 0;
+        min-width: 0;
+        padding: 3px 0;
+        text-align: left;
+        transform: none;
+      }
+    }
+  }
+}
+// scss-lint:enable all
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

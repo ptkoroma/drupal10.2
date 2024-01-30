@@ -1,0 +1,61 @@
+uuid: d72b85ce-d2dd-4b3a-b84d-c446b494f6fd
+langcode: en
+status: true
+dependencies: {  }
+id: activities_type
+label: 'Activities Type'
+renderer: quick_tabs
+hide_empty_tabs: false
+default_tab: 9999
+options:
+  quick_tabs:
+    ajax: true
+    class: ''
+    style: ''
+configuration_data:
+  -
+    title: 'Catalogued '
+    weight: 0
+    type: block_content
+    content:
+      block_content:
+        options:
+          bid: 'views_block:my_activity-block_1'
+          block_title: ''
+          display_title: false
+      view_content:
+        options:
+          vid: activities
+          display: default
+          args: ''
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: true
+      qtabs_content:
+        options:
+          machine_name: ''
+  -
+    title: Non-Catalogued
+    weight: 0
+    type: block_content
+    content:
+      block_content:
+        options:
+          bid: 'views_block:activities-block_1'
+          block_title: ''
+          display_title: false
+      view_content:
+        options:
+          vid: activities
+          display: default
+          args: ''
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: true
+      qtabs_content:
+        options:
+          machine_name: ''

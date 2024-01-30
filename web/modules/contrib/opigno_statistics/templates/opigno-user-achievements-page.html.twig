@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Theme implementation to display user achievements page.
+ *
+ * Available variables:
+ * - tabs: the left side tabs section;
+ * - active: the active tab name;
+ * - content: the main tab content.
+ */
+#}
+
+<div class="row">
+  {# Tabs section. #}
+  <div class="col-left col-xl-3 col-lg-4">
+    <div class="content-box">
+      <h2 class="content-box__title">{{ 'Lists'|t }}</h2>
+      <div class="achievements-tabs">
+        {% for key, tab in tabs %}
+          {% set classes = key == active ? 'btn active' : 'btn' %}
+          <a href="{{ tab.url }}" class="use-ajax {{ key}} {{ classes }}">
+            <span class="label">{{ tab.title }}</span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {# The main content. #}
+  <div class="col-right col-xl-9 col-lg-8">
+    <div id="opigno-achievements-content" class="content-box achievements-table">
+      <div class="achievements-list-wrapper">
+        <h2>{{ tabs[active].title }}</h2>
+        <div class="tab-content">
+          {{ content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

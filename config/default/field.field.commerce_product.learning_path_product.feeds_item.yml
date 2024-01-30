@@ -1,0 +1,28 @@
+uuid: ae823a63-54e1-4961-82b2-3987485bf86c
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.learning_path_product
+    - field.storage.commerce_product.feeds_item
+  module:
+    - custom_add_another
+    - feeds
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: commerce_product.learning_path_product.feeds_item
+field_name: feeds_item
+entity_type: commerce_product
+bundle: learning_path_product
+label: 'Feeds item'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:feeds_feed'
+  handler_settings: {  }
+field_type: feeds_item

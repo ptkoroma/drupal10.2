@@ -1,0 +1,4 @@
+administer oauth2 clients:
+  title: 'Administer OAuth2 Clients'
+  description: 'Allows administrators to view OAuth2 Client Report pages'
+  restrict access: true

@@ -1,0 +1,11 @@
+services:
+  color.config_cache_invalidator:
+    class: Drupal\color\EventSubscriber\ColorConfigCacheInvalidator
+    arguments: ['@cache_tags.invalidator']
+    tags:
+      - { name: event_subscriber }
+  color.theme_decorator:
+    class: Drupal\color\ColorThemeDecorator
+    arguments: ['@config.factory', '@file_system', '@cache.default', '@extension.list.theme', '@file_url_generator']
+    tags:
+      - { name: cache_tags_invalidator}

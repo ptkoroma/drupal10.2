@@ -1,0 +1,9 @@
+name: Twig Blocks
+description: 'Provides the ability to render a block in twig.'
+type: module
+core_version_requirement: ^8.8 || ^9 || ^10
+
+# Information added by Drupal.org packaging script on 2023-01-25
+version: '8.x-2.5'
+project: 'twig_blocks'
+datestamp: 1674656561

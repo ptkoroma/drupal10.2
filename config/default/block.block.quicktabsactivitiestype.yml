@@ -1,0 +1,25 @@
+uuid: d7abe5af-bd09-4fba-827e-60ef6709c20f
+langcode: en
+status: true
+dependencies:
+  module:
+    - quicktabs
+    - system
+  theme:
+    - aristotle
+id: quicktabsactivitiestype
+theme: aristotle
+region: content
+weight: -10
+provider: null
+plugin: 'quicktabs_block:activities_type'
+settings:
+  id: 'quicktabs_block:activities_type'
+  label: 'Catalogue Status'
+  label_display: visible
+  provider: quicktabs
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /node/33

@@ -1,0 +1,28 @@
+uuid: 8f388852-38c2-45ef-b934-8740fd8ef553
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_question_
+    - node.type.faq_content
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.faq_content.field_question_
+field_name: field_question_
+entity_type: node
+bundle: faq_content
+label: 'Question:'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

@@ -1,0 +1,5 @@
+entity.oauth2_client.overview:
+  title: OAuth2 Clients
+  parent: system.admin_config_system
+  description: 'List of Oauth2 Clients.'
+  route_name: entity.oauth2_client.collection

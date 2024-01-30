@@ -1,0 +1,30 @@
+uuid: 079a67da-9793-446b-9e07-e1df2d1fda9d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.stripe_subscription.stripe_subscription.field_testing_purpose
+  module:
+    - stripe_registration
+    - user
+id: stripe_subscription.stripe_subscription.default
+targetEntityType: stripe_subscription
+bundle: stripe_subscription
+mode: default
+content:
+  field_testing_purpose:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  cancel_at_period_end: true
+  current_period_end: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  search_api_excerpt: true

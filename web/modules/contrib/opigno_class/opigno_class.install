@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Opigno Class module.
+ */
+
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\user\RoleInterface;
+
+/**
+ * Enable Userprotect and Role Delegation modules.
+ */
+function opigno_class_install() {
+  \Drupal::service('module_installer')->install(['userprotect', 'role_delegation']);
+}
+
+/**
+ * Set permissions for the content manager.
+ */
+function opigno_class_update_9001() {
+  try {
+    $role = \Drupal::entityTypeManager()->getStorage('user_role')->load('content_manager');
+  }
+  catch (PluginNotFoundException | InvalidPluginDefinitionException $e) {
+    watchdog_exception('opigno_class_exception', $e);
+    return;
+  }
+
+  if (!$role instanceof RoleInterface) {
+    return;
+  }
+
+  // Add permissions to manage the durations taxonomy to content manager.
+  $permissions = [
+    'create terms in duration',
+    'delete terms in duration',
+    'edit terms in duration',
+  ];
+  foreach ($permissions as $permission) {
+    $role->grantPermission($permission);
+  }
+
+  try {
+    $role->save();
+  }
+  catch (EntityStorageException $e) {
+    watchdog_exception('opigno_class_exception', $e);
+  }
+}

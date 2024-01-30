@@ -1,0 +1,5 @@
+form#opigno-activity-opigno-h5p-form .h5p-activity-errors.error {
+  clear: both;
+  color: #da0001;
+  margin-top: 10px;
+}

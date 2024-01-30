@@ -1,0 +1,234 @@
+.form-item-files-package .form-element-wrapper {
+    font-size: 1rem;
+    background-color: #eee;
+    position: relative;
+    padding: 3rem 1.25rem;
+    font-style: italic;
+    text-align: center
+}
+
+.form-item-files-package .form-element-wrapper:before {
+    content: "";
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMC4xNyAyMS41MSI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiMzMzM7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5waWN0by1maWxlLXVwbG9hZDwvdGl0bGU+PGcgaWQ9IkNhbHF1ZV8yIiBkYXRhLW5hbWU9IkNhbHF1ZSAyIj48ZyBpZD0iQ2FscXVlXzEtMiIgZGF0YS1uYW1lPSJDYWxxdWUgMSI+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMTkuNDksMTZhLjY3LjY3LDAsMCwwLS42Ny42N3YzLjQ2SDEuMzRWMTYuNzFhLjY3LjY3LDAsMCwwLTEuMzQsMHY0LjEzYS42Ny42NywwLDAsMCwuNjcuNjdIMTkuNDlhLjY4LjY4LDAsMCwwLC42OC0uNjdWMTYuNzFBLjY4LjY4LDAsMCwwLDE5LjQ5LDE2WiIvPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTUuMTgsNi4zNyw5LjQ0LDIuMjZWMTYuNzFhLjY3LjY3LDAsMSwwLDEuMzQsMFYyLjI2bDQuMjcsNC4xMWEuNjUuNjUsMCwwLDAsLjQ2LjE5LjcuNywwLDAsMCwuNDktLjIuNjcuNjcsMCwwLDAsMC0xTDEwLjU4LjE5YS40Ny40NywwLDAsMC0uMDktLjA2TDEwLjM3LjA1YS42OS42OSwwLDAsMC0uMjQsMGgwYS42OS42OSwwLDAsMC0uMjQuMDUuOTEuOTEsMCwwLDAtLjEzLjA4cy0uMDYsMC0uMDguMDZMNC4yNCw1LjQxYS42Ny42NywwLDAsMCwuOTQsMVoiLz48L2c+PC9nPjwvc3ZnPg==");
+    display: block;
+    width: 21px;
+    height: 22px;
+    margin: 0 auto 2em;
+}
+
+.form-item-files-package .form-element-wrapper .description {
+    font-size: 1rem;
+    color: #212529!important;
+}
+
+.form-item-files-package .form-element-wrapper input[type=file] {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 160px;
+}
+
+.opigno-file-widget-wrapper div:first-child {
+    padding-top: 35px;
+}
+
+.opigno-file-widget-wrapper {
+    font-size: 1rem;
+    background-color: #eee;
+    position: relative;
+    padding: 1rem 1.25rem;
+}
+
+.opigno-file-widget-wrapper:not(.not-empty):hover {
+    background-color: #ddd
+}
+
+.opigno-file-widget-wrapper.not-empty input[type=text] {
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding: .5rem;
+    width: 100%
+}
+
+.opigno-file-widget-wrapper.not-empty input[type=submit] {
+    width: 100%;
+    background: 0;
+    border: 0;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    text-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: #ccc;
+    border-radius: 0;
+    padding: 1rem;
+    margin: 1rem 0 -1rem;
+}
+
+.opigno-file-widget-wrapper.not-empty input[type=submit]:hover {
+    background-color: #bbb;
+}
+
+.opigno-file-widget-wrapper .empty-informations {
+    font-style: italic;
+    text-align: center;
+    padding-bottom: 20px;
+}
+.opigno-file-widget-wrapper .empty-informations i {
+    padding-bottom: 20px;
+}
+
+.opigno-file-widget-wrapper.not-empty .empty-informations {
+    display: none
+}
+
+.opigno-file-widget-wrapper input[type=file] {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 160px;
+}
+
+.opigno-file-widget-wrapper .icon-upload {
+    display: inline-block;
+    font-size: 24px;
+    margin: 0 auto 30px;
+}
+
+.opigno-file-widget-wrapper .image-widget img {
+    float: left;
+    width: 100px;
+    margin-right: 15px;
+}
+
+.opigno-file-widget-wrapper .image-widget body.page-calendar-event-add-opigno_calendar_event img+.form-item-field-calendar-event-members,.opigno-file-widget-wrapper .image-widget body.page-calendar-event-add-opigno_calendar_event img+div#edit-members,.opigno-file-widget-wrapper .image-widget body[class*=page-calendar-event-][class*=-edit] img+.form-item-field-calendar-event-members,.opigno-file-widget-wrapper .image-widget body[class*=page-calendar-event-][class*=-edit] img+div#edit-members,.opigno-file-widget-wrapper .image-widget img+.form-group,body.page-calendar-event-add-opigno_calendar_event .opigno-file-widget-wrapper .image-widget img+.form-item-field-calendar-event-members,body.page-calendar-event-add-opigno_calendar_event .opigno-file-widget-wrapper .image-widget img+div#edit-members,body[class*=page-calendar-event-][class*=-edit] .opigno-file-widget-wrapper .image-widget img+.form-item-field-calendar-event-members,body[class*=page-calendar-event-][class*=-edit] .opigno-file-widget-wrapper .image-widget img+div#edit-members {
+    margin-left: 115px;
+}
+
+.form-wrapper .form-date,
+.form-wrapper .form-time {
+    background: #f5f5f5;
+    border: 1px solid #d5d5d5;
+    border-radius: 0.625rem;
+    color: var(--desktop-text);
+    outline: none;
+    padding: 0.625rem 1.25rem;
+    width: 100%;
+}
+
+.form-wrapper .form-time {
+    margin-top: 10px;
+}
+
+.views-exposed-form .form-items-group {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.content-box__title {
+    display: none;
+}
+
+.content-box__info {
+    padding-bottom: 20px;
+    text-align: left;
+}
+
+/* Faq page css*/
+.cpd-faq-entries p{
+   margin: 0;
+  display: contents;
+}
+.view-faq-view-list.view-display-id-page_1 .cpd-faq-topic a, 
+.view-faq-view-list.view-display-id-page_1 .cpd-faq-topic a:hover{
+    text-decoration: none;
+    color: black;
+}
+.view-faq-view-list.view-display-id-page_1 {
+    border-radius: 0.625rem;
+    -webkit-box-shadow: 0 0 6px rgba(0,0,0,.3);
+    box-shadow: 0 0 6px rgba(0,0,0,.3);
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+    padding: 1.25rem;
+    width: 100%;
+    min-height: 450px;
+}
+#views-exposed-form-faq-view-list-page-1 .form-item-field-topic-value{}
+.view-faq-view-list.view-display-id-page_1 .view-header{float: right;}
+.view-faq-view-list.view-display-id-page_1 .view-filters{clear: both;}
+#block-platon-content .label {
+    font-weight: bold;
+}
+.cpd-faq-color-box a img{width:190px;}
+.cpd-faq-color-box a {margin-right:10px;}
+.page-node-faq_content #block-platon-page-title{
+    display: none;
+}
+
+/*quicktabs styling*/
+
+.quicktabs-tabs a {
+    background-color: #fff;
+    border: 2px solid var(--desktop-button-color);
+    border-radius: 1.5625rem;
+    color: var(--desktop-button-text-secondary);
+    font-weight: 600;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    min-width: 9.75rem;
+    padding: 0.625rem 0.9375rem;
+}
+
+.quicktabs-tabs li.active a {
+    background-color: var(--desktop-button-color);
+    color: #fff;
+}
+
+.view-id-engineer_activities.view-display-id-training_catalogue {
+    display: none;
+}
+
+.switch-link.switch-link-bottom.text-center a {
+    color: #000;
+}
+
+.switch-link.switch-link-bottom.text-center {
+    appearance: none;
+    background-color: #4ad3b3;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 1.5625rem;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: .625rem 1.9375rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+}

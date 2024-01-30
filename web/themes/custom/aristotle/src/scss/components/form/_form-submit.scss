@@ -1,0 +1,212 @@
+form {
+  .form-submit {
+    @extend .btn;
+    @extend .btn-bg;
+    @extend .btn-rounded;
+
+    &[id*='remove'] {
+      @extend .btn-border-red;
+    }
+
+    ~ .form-submit,
+    ~ .button {
+      margin-left: rem(50);
+    }
+  }
+
+  #edit-unpublish,
+  #edit-delete,
+  #edit-actions-delete,
+  #edit-cancel {
+    @extend .btn;
+    @extend .btn-rounded;
+    @extend .btn-border-red;
+  }
+}
+
+.ui-dialog-buttonset {
+  .form-submit {
+    @extend .btn;
+    @extend .btn-rounded;
+
+    &[id*='remove'] {
+      @extend .btn-border-red;
+    }
+  }
+}
+
+.views-ui-dialog {
+  .tabledrag-toggle-weight-wrapper {
+    margin-bottom: rem(20);
+  }
+
+  .scroll {
+    .js-form-type-checkbox {
+      display: inline-flex;
+      margin: 0;
+    }
+
+    .views-remove-link {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+}
+
+#catalog-filter-parent,
+.view-private-message,
+.view-post-sharing-trainings,
+.view-post-sharing-badges,
+.view-user-invitations {
+  .form-items-group {
+    .form-submit {
+      background: $clr-gray-light url(../images/design/search-gray.svg) center/18px no-repeat;
+      border-radius: 50%;
+      border: 1px solid $clr-gray-light-D5;
+      height: rem(33);
+      min-height: 0;
+      min-width: 0;
+      text-indent: -9999px;
+      width: rem(33);
+
+      &:hover {
+        background-image: url(../images/design/search-navy.svg);
+        border-color: $clr-desktop-button-color;
+      }
+    }
+
+    .form-item {
+      &:focus-within {
+        ~ .form-submit {
+          background-image: url(../images/design/search-navy.svg);
+          border-color: $clr-desktop-button-color;
+        }
+      }
+    }
+  }
+
+  .btn-reset-filter {
+    background: $clr-white;
+    border-color: $clr-desktop-button-color;
+    color: $clr-desktop-button-text-secondary;
+
+    &:hover {
+      background-color: $clr-desktop-button-color-hover-secondary;
+      color: $clr-desktop-button-text-secondary;
+    }
+  }
+}
+
+.private-message-add-form,
+.comment-form {
+  .form-item {
+    &:focus-within {
+      ~ .form-actions {
+        .form-submit {
+          background-image: url(../images/design/send-navy.svg);
+          border-color: $clr-desktop-button-color-hover-primary;
+        }
+      }
+    }
+  }
+
+  .form-submit {
+    background: $clr-gray-light url(../images/design/send-gray.svg) 5px 8px/24px no-repeat;
+    border: 1px solid $clr-gray-light-D5;
+    border-radius: 50%;
+    height: rem(39);
+    min-height: 0;
+    min-width: 0;
+    outline: none;
+    text-indent: -9999px;
+    width: rem(39);
+
+    &:hover {
+      background-color: $clr-desktop-button-color-hover-secondary;
+      background-image: url(../images/design/send-navy.svg);
+      border-color: $clr-desktop-button-color-hover-primary;
+    }
+  }
+}
+
+.comment-item__form {
+  .form-submit {
+    background: transparent url(../images/design/send-navy.svg) 5px 8px/24px no-repeat;
+    border: 1px solid $clr-desktop-button-color;
+
+    &:hover {
+      background-color: $clr-desktop-button-color-hover-secondary;
+    }
+  }
+}
+
+.comment-comment-forum-form {
+  .form-submit {
+    @extend .btn;
+    @extend .btn-rounded;
+    background: $clr-white url(../images/design/send-navy.svg) rem(35) center/24px no-repeat;
+    border: 2px solid $clr-desktop-button-color;
+    border-radius: rem(25);
+    min-height: rem(40);
+    min-width: rem(156);
+    padding-left: rem(40);
+    text-indent: 0;
+    width: auto;
+
+    &:hover {
+      background-color: $clr-desktop-button-color-hover-secondary;
+    }
+  }
+}
+
+.modal-body {
+  .views-exposed-form {
+    .form-actions {
+      .form-submit {
+        background: $clr-white url(../images/design/send-navy.svg) rem(35) center/24px no-repeat;
+        border: 2px solid $clr-desktop-button-color;
+        color: $clr-desktop-button-text-secondary;
+        max-width: rem(156);
+        padding-left: rem(30);
+
+        &:hover {
+          background-color: $clr-desktop-button-color-hover-secondary;
+        }
+      }
+    }
+  }
+}
+
+.edit-discussion-modal {
+  .form-managed-file {
+    .form-submit[id*='remove'] {
+      background: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      font-weight: $font-weight-normal !important;
+      min-width: 0 !important;
+      padding: 0 !important;
+      text-decoration: underline !important;
+    }
+  }
+
+  .opigno-pm-thread-form__add {
+    .form-actions {
+      .form-submit {
+        background: $clr-gray-light url(../images/design/send-gray.svg) 5px 8px/24px no-repeat;
+        border: 1px solid $clr-gray-light-D5;
+        border-radius: 50%;
+        height: rem(39);
+        outline: none;
+        min-width: 0;
+        text-indent: -9999px;
+        width: rem(39);
+
+        &:hover {
+          background-image: url(../images/design/send-navy.svg);
+          border-color: $clr-desktop-link;
+        }
+      }
+    }
+  }
+}

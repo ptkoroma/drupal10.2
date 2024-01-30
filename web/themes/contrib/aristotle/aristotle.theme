@@ -1,0 +1,766 @@
+<?php
+
+/**
+ * @file
+ * The main site theme.
+ */
+
+use Drupal\block\Entity\Block;
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Block\BlockManagerInterface;
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\GeneratedUrl;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Element\PasswordConfirm;
+use Drupal\Core\StreamWrapper\StreamWrapperManager;
+use Drupal\Core\Url;
+use Drupal\group\Entity\GroupInterface;
+use Drupal\image\Entity\ImageStyle;
+use Drupal\opigno_dashboard\Plugin\Block\AboutOpignoBlock;
+use Drupal\opigno_dashboard\Plugin\Block\SiteHeaderBlock;
+use Drupal\opigno_statistics\Services\UserStatisticsManager;
+use Drupal\search\Form\SearchBlockForm;
+use Drupal\user\Form\UserLoginForm;
+use Drupal\user\Form\UserPasswordForm;
+use Drupal\user\UserInterface;
+use Drupal\views\ViewExecutable;
+
+define('ARISTOTLE_HOMEPAGE_DEFAULT_NUM_SLIDES', 1);
+define('ARISTOTLE_HOMEPAGE_IMAGE_STYLE', 'frontpage_slider');
+
+/**
+ * Implements hook_theme().
+ */
+function aristotle_theme() {
+  return [
+    'aristotle__login_front_slider' => [
+      'variables' => [
+        'branding' => NULL,
+        'items' => NULL,
+      ],
+      'template' => 'aristotle/aristotle--login-front-slider',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_alter().
+ */
+function aristotle_theme_suggestions_alter(&$suggestions, $variables, $hook) {
+  if ($hook === 'page') {
+
+    // Node type.
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node) {
+      $suggestions[] = 'page__node__' . $node->type->target_id;
+    }
+
+    // Anonymous/logged frontpages.
+    if (\Drupal::service('path.matcher')->isFrontPage() && \Drupal::currentUser()->isAnonymous()) {
+      $suggestions[] = 'page__front__not_logged_in';
+    }
+    elseif (\Drupal::service('path.matcher')->isFrontPage() && !\Drupal::currentUser()->isAnonymous()) {
+      $suggestions[] = 'page__front__logged_in';
+    }
+
+    // If anonymous has slider/login page.
+    if (aristotle_anonymous_has_slider()) {
+      $suggestions[] = 'page__anonymous__with_slider';
+    }
+
+    // Admin.
+    $route = \Drupal::routeMatch()->getRouteObject();
+    $is_admin = FALSE;
+    if (!empty($route)) {
+      $is_admin_route = \Drupal::service('router.admin_context')->isAdminRoute($route);
+      $has_node_operation_option = $route->getOption('_node_operation_route');
+      $is_admin = ($is_admin_route || $has_node_operation_option);
+    }
+    else {
+      $current_path = \Drupal::service('path.current')->getPath();
+      if (preg_match('/node\/(\d+)\/edit/', $current_path, $matches)) {
+        $is_admin = TRUE;
+      }
+      elseif (preg_match('/taxonomy\/term\/(\d+)\/edit/', $current_path, $matches)) {
+        $is_admin = TRUE;
+      }
+    }
+
+    if ($is_admin) {
+      $suggestions[] = 'page__admin';
+    }
+
+    $suggestions = array_unique($suggestions);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function aristotle_theme_suggestions_user_alter(array &$suggestions, array $variables) {
+  $user = $variables['elements']['#user'];
+  if ($user instanceof UserInterface) {
+    $suggestions[] = 'user__' . $variables['elements']['#view_mode'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_user(&$variables) {
+  $user = $variables['user'];
+  if (!$user instanceof UserInterface) {
+    return;
+  }
+
+  // Add user url.
+  $url = Url::fromRoute('entity.user.canonical', ['user' => (int) $user->id()])->toString();
+  $variables['url'] = $url instanceof GeneratedUrl ? $url->getGeneratedUrl() : $url;
+
+  // Add the default user picture if it wasn't added by the user.
+  $stats_service = \Drupal::service('opigno_statistics.user_stats_manager');
+  if (!$user->get('user_picture')->isEmpty()) {
+    $variables['user_picture'] = $variables['content']['user_picture'] ?? [];
+  }
+  else {
+    $variables['user_picture'] = UserStatisticsManager::getDefaultUserPicture($user);
+  }
+
+  // Add the user role.
+  if ($stats_service instanceof UserStatisticsManager) {
+    $variables['user_role'] = $stats_service->getUserRole($user);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function aristotle_theme_suggestions_views_exposed_form_alter(array &$suggestions, array $variables) {
+  $id = $variables['form']['#id'] ?? '';
+  if (!$id) {
+    return;
+  }
+
+  $id = str_replace('views-exposed-form-', '', $id);
+  $sanitized_id = strtr($id, '-', '_');
+  $suggestions[] = "views_exposed_form__$sanitized_id";
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_group__learning_path(&$variables) {
+  $group = $variables['group'];
+  if (!$group instanceof GroupInterface || $group->bundle() !== 'learning_path') {
+    return;
+  }
+
+  // Add the default learning path picture if it wasn't added before.
+  if (!$group->get('field_learning_path_media_image')->isEmpty()) {
+    $variables['group_picture'] = $variables['content']['field_learning_path_media_image'] ?? [];
+  }
+  else {
+    $img = $variables['view_mode'] === 'list_item' ? 'svg/fi-rr-book-alt.svg' : 'content/training.svg';
+    $path = \Drupal::service('extension.list.theme')->getPath('aristotle') . "/src/images/$img";
+    $name = $group->label();
+    $variables['group_picture'] = [
+      '#theme' => 'image',
+      '#uri' => file_exists($path) ? \Drupal::service('file_url_generator')->transformRelative(base_path() . $path) : '',
+      '#alt' => $name,
+      '#title' => $name,
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_html(&$variables) {
+  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+    $variables['attributes']['class'][] = 'section-admin';
+  }
+
+  // Add the route name as an extra class to body.
+  $route = (string) \Drupal::routeMatch()->getRouteName();
+  $class = str_replace(['.', '_'], '-', $route);
+  $variables['attributes']['class'][] = 'page-' . $class;
+
+  // Add extra class to hide the admin toolbar based on the route setting.
+  $route_object = \Drupal::routeMatch()->getRouteObject();
+  if ($route_object && $route_object->hasOption('_without_toolbar') && $route_object->getOption('_without_toolbar')) {
+    $variables['attributes']['class'][] = 'without-admin-toolbar';
+    $style = $variables['attributes']['style'] ?? '';
+    $variables['attributes']['style'] = $style . 'margin:0;';
+  }
+
+  // The "About Opigno" modal.
+  $block_manager = \Drupal::service('plugin.manager.block');
+  if ($block_manager instanceof BlockManagerInterface) {
+    $about = $block_manager->createInstance('opigno_about_block');
+    $variables['about_block'] = $about instanceof AboutOpignoBlock ? $about->build() : NULL;
+  }
+
+  // This is copy f aristotle starting form there.
+  try {
+    $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+  }
+  catch (Exception $e) {
+    $variables['is_front'] = FALSE;
+  }
+
+  // If we're on the front page.
+  if (!$variables['is_front']) {
+    $variables['attributes']['class'][] = 'page-not-front';
+    // Add unique classes for each page and website section.
+    $path = \Drupal::service('path.current')->getPath();
+    $alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+    $alias = trim($alias, '/');
+    if (!empty($alias)) {
+      $name = str_replace('/', '-', $alias);
+      $variables['attributes']['class'][] = 'page-' . $name;
+      [$section] = explode('/', $alias, 2);
+      if (!empty($section)) {
+        $variables['attributes']['class'][] = 'section-' . $section;
+      }
+    }
+  }
+  else {
+    $variables['attributes']['class'][] = 'page-front';
+  }
+
+  if (\Drupal::currentUser()->isAnonymous()) {
+    $variables['attributes']['class'][] = 'user-not-logged-in';
+  }
+  else {
+    $variables['attributes']['class'][] = 'user-logged-in';
+  }
+
+  if (isset($variables['node_type']) && $variables['node_type']) {
+    $variables['attributes']['class'][] = 'page-node-' . $variables['node_type'];
+  }
+  elseif (\Drupal::routeMatch()->getRouteName() === 'opigno_learning_path.manager.index') {
+    $variables['attributes']['class'][] = 'page-node-learning_path';
+  }
+
+  // Add cachability metadata.
+  $theme_name = \Drupal::theme()->getActiveTheme()->getName();
+  $theme_settings = \Drupal::config($theme_name . '.settings');
+  CacheableMetadata::createFromRenderArray($variables)
+    ->addCacheableDependency($theme_settings)
+    ->applyTo($variables);
+
+  // Attach the admin_ui library on admin pages.
+  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+    $variables['#attached']['library'][] = 'opigno_statistics/admin_ui';
+  }
+
+  // Union all theme setting variables to the html.html.twig template.
+  $variables += $theme_settings->getOriginal();
+
+  if (aristotle_anonymous_has_slider()) {
+    $variables['attributes']['class'][] = 'anonymous-slider';
+  }
+
+  if (aristotle_anonymous_has_menu()) {
+    $variables['attributes']['class'][] = 'anonymous-menu';
+  }
+
+  if (\Drupal::routeMatch()->getRouteName() === 'opigno_module.manager.get_item_form'
+    || \Drupal::routeMatch()->getRouteName() === 'opigno_group_manager.manager.get_item_form'
+  ) {
+    $variables['attributes']['class'][] = 'lp-iframe';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_page(&$variables) {
+  CacheableMetadata::createFromRenderArray($variables)
+    ->addCacheContexts(['user'])
+    ->applyTo($variables);
+
+  $block_manager = \Drupal::service('plugin.manager.block');
+  if ($block_manager instanceof BlockManagerInterface) {
+    // Add the header block.
+    $header = $block_manager->createInstance('opigno_site_header_block');
+    $variables['header'] = $header instanceof SiteHeaderBlock ? $header->build() : NULL;
+  }
+
+  // This is copy f aristotle starting form there.
+  $route = \Drupal::routeMatch()->getRouteName();
+  $account = \Drupal::currentUser();
+  $moduleHandler = \Drupal::service('module_handler');
+  $variables['route_name'] = $route;
+
+  $account_settings = \Drupal::config('user.settings');
+  $register = $account_settings->get('register');
+  $variables['register'] = $register;
+
+  /* About opigno version */
+  if (function_exists('opigno_lms_check_opigno_lms_updates') && function_exists('update_get_available')) {
+    $variables['opigno_lms_updates'] = opigno_lms_check_opigno_lms_updates() ? 'nok' : 'ok';
+  }
+
+  if (function_exists('opigno_search_block_form')) {
+    $variables['opigno_search_form'] = opigno_search_block_form();
+  }
+
+  /* Login form */
+  $variables['login_form'] = NULL;
+  if (!$account->id()) {
+    if ($route === 'user.login') {
+      $variables['login_form'] = $variables['page']['content'];
+    }
+    else {
+      $form = Drupal::formBuilder()->getForm(UserLoginForm::class);
+      $variables['login_form'] = $form;
+    }
+  }
+
+  /* Password form */
+  $variables['password_form'] = NULL;
+  if (!$account->id()) {
+    if ($route === 'user.pass') {
+      $variables['password_form'] = $variables['page']['content'];
+    }
+    else {
+      $form = Drupal::formBuilder()->getForm(UserPasswordForm::class);
+      $variables['password_form'] = $form;
+    }
+  }
+
+  /* Password form */
+  $variables['register_form'] = NULL;
+  if (!$account->id()) {
+    if ($route === 'user.register') {
+      $variables['register_form'] = $variables['page']['content'];
+    }
+    else {
+      $entity = \Drupal::entityTypeManager()
+        ->getStorage('user')
+        ->create([]);
+
+      $formObject = \Drupal::entityTypeManager()
+        ->getFormObject('user', 'register')
+        ->setEntity($entity);
+
+      $form = \Drupal::formBuilder()->getForm($formObject);
+
+      $variables['register_form'] = $form;
+    }
+  }
+
+  /* Search form */
+  $variables['search_form'] = NULL;
+  if ($moduleHandler->moduleExists('search')) {
+    $form = Drupal::formBuilder()->getForm(SearchBlockForm::class);
+    $form['keys']['#attributes']['placeholder'] = $form['keys']['#title'];
+    $form['keys']['#title_display'] = 'invisible';
+    $variables['search_form'] = $form;
+  }
+
+  /* Frontpage slider */
+  $variables['frontpage_slider'] = FALSE;
+  if (aristotle_anonymous_has_slider()) {
+    $aristotle_home_page_settings = theme_get_setting('aristotle_home_page_settings');
+    $variables['frontpage_slider'] = TRUE;
+
+    $slides = [];
+    foreach ($aristotle_home_page_settings['aristotle_home_page_slides'] as $slide) {
+      if (isset($slide['aristotle_home_page_image_path'])) {
+        $background_image_uri = 'public://' . $slide['aristotle_home_page_image_path'];
+        $background_image_url = (ImageStyle::load(ARISTOTLE_HOMEPAGE_IMAGE_STYLE)) ? ImageStyle::load(ARISTOTLE_HOMEPAGE_IMAGE_STYLE)->buildUrl($background_image_uri) : \Drupal::service('file_url_generator')->generateAbsoluteString($background_image_uri);
+
+        $slides[] = [
+          'img_path' => Xss::filter($background_image_url),
+        ];
+      }
+    }
+
+    $variables['page']['content'] = [
+      '#theme' => 'aristotle__login_front_slider',
+      '#branding' => $variables['page']['branding'],
+      '#items' => $slides,
+    ];
+  }
+
+  /* Frontpage menu */
+  if (!aristotle_anonymous_has_menu($variables) && $account->isAnonymous()) {
+    $variables['page']['menu'] = NULL;
+  }
+
+  /* Pages with faded background */
+  if (aristotle_page_has_faded_background()) {
+    $variables['content_wrapper_classes'] = 'faded-form-wrapper';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_block(&$variables) {
+  if ($variables['base_plugin_id'] === 'system_menu_block') {
+    unset($variables['configuration']['label_display']);
+  }
+  if ((('system_branding_block' === $variables['elements']['#plugin_id'] &&
+        \Drupal::currentUser()->isAnonymous()) || (($variables['attributes']['id'] ?? "") === "block-sitebranding-2")) &&
+    isset($variables['content']['site_logo'])
+  ) {
+    $theme_path = \Drupal::theme()->getActiveTheme()->getPath();
+    $logo_path = theme_get_setting('logo_path_anonymous');
+    if (!is_file($logo_path)) {
+      if (StreamWrapperManager::getScheme($logo_path) === FALSE) {
+        $logo_path = $theme_path . '/assets/' . $logo_path;
+      }
+    }
+    $site_logo = \Drupal::service('file_url_generator')->generateString($logo_path);
+    $variables['site_logo'] = $site_logo;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_menu__main(&$variables) {
+  if ($variables['logged_in'] !== TRUE) {
+    return;
+  }
+
+  // Add management dropdown menu block to the main menu.
+  try {
+    $block = Block::load('opigno_admin');
+    if (!$block || !$block->access('view')) {
+      return;
+    }
+    $variables['management_menu'] = \Drupal::entityTypeManager()
+      ->getViewBuilder('block')
+      ->view($block);
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('aristotle')->error($e->getMessage());
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function aristotle_page_attachments_alter(array &$attachments) {
+  // Add extra parameter to the viewport metatag.
+  $viewport = FALSE;
+  foreach ($attachments['#attached']['html_head'] as &$attachment) {
+    $name = $attachment[0]['#attributes']['name'] ?? '';
+    if ($name === 'viewport') {
+      $attachment[0]['#attributes']['content'] .= ', minimum-scale=1';
+      break;
+    }
+  }
+  unset($attachment);
+
+  if (!$viewport) {
+    $attachments['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'meta',
+        '#attributes' => [
+          'name' => 'viewport',
+          'content' => 'width=device-width, initial-scale=1, minimum-scale=1',
+        ],
+      ],
+      'viewport',
+    ];
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function aristotle_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $elements = Element::children($form);
+  $form_state->addCleanValueKey('actions');
+  $clean = $form_state->getCleanValueKeys();
+  $keys = array_diff($elements, $clean);
+
+  if (!$keys) {
+    return;
+  }
+
+  // Add extra class depending on the field type.
+  foreach ($keys as $key) {
+    $type = $form[$key]['#type'] ?? '';
+    switch ($type) {
+      case 'textfield':
+        $form[$key]['#attributes']['class'][] = 'form-search';
+        break;
+
+      case 'select':
+        $form[$key]['#attributes']['class'][] = 'selectpicker';
+        break;
+
+      default:
+        // Do nothing.
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function aristotle_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  // Add the general suggestion for the dashboard blocks. Set it to the 1st
+  // place to be able to override with another template.
+  $id = $variables['elements']['#id'] ?? '';
+  if (strpos($id, 'dashboard_') === 0) {
+    array_unshift($suggestions, 'block__opigno_dashboard_block');
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function aristotle_theme_suggestions_container_alter(array &$suggestions, array $variables) {
+  $id = $variables['element']['#attributes']['id'] ?? '';
+  if ($id) {
+    $sanitized_id = strtr($id, '-', '_');
+    $suggestions[] = "container__$sanitized_id";
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function aristotle_theme_suggestions_menu_local_action_alter(array &$suggestions, array $variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  if (\Drupal::service('path.matcher')->matchPath($current_path, '/forum*')) {
+    $suggestions[] = 'menu_local_action';
+    $suggestions[] = 'menu_local_action__forum';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_menu_local_action(&$variables) {
+  $cache = CacheableMetadata::createFromRenderArray($variables);
+  $cache->addCacheContexts(['url.path']);
+  $cache->applyTo($variables);
+
+  if (isset($variables['link']['#options']['attributes']['class'])) {
+    $variables['link']['#options']['attributes']['class'][] = 'btn';
+    $variables['link']['#options']['attributes']['class'][] = 'btn-rounded';
+  }
+
+  $current_path = \Drupal::service('path.current')->getPath();
+  if (\Drupal::service('path.matcher')->matchPath($current_path, '/forum*')) {
+    if (isset($variables['attributes']['class'])) {
+      $variables['link']['#options']['attributes']['class'][] = 'forum-action-links';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_page_title(&$variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  if (\Drupal::service('path.matcher')->matchPath($current_path, '/forum*')) {
+    $variables['title'] = t('Forum');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_form(&$variables) {
+  if ($variables['element']['#form_id'] === 'views_exposed_form') {
+    $variables['attributes']['class'][] = 'views-exposed-form';
+  }
+}
+
+/**
+ * Callback for both ajax-enabled buttons.
+ *
+ * Selects and returns the fieldset with the names in it.
+ */
+function aristotle_form_system_theme_settings_slide_callback(array &$form, FormStateInterface $form_state) {
+  return $form['aristotle_home_page_settings']['aristotle_home_page_slides'];
+}
+
+/**
+ * Has slider.
+ */
+function aristotle_anonymous_has_slider() {
+  if ((\Drupal::service('path.matcher')->isFrontPage()
+      || \Drupal::routeMatch()->getRouteName() === 'user.login'
+      || \Drupal::routeMatch()->getRouteName() === 'user.pass'
+      || \Drupal::routeMatch()->getRouteName() === 'user.register')
+    && \Drupal::currentUser()->isAnonymous()
+  ) {
+    $aristotle_home_page_settings = theme_get_setting('aristotle_home_page_settings');
+    if (isset($aristotle_home_page_settings['aristotle_use_home_page_markup'])
+      && $aristotle_home_page_settings['aristotle_use_home_page_markup']
+    ) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Has menu.
+ */
+function aristotle_anonymous_has_menu() {
+  return theme_get_setting('aristotle_menu_show_for_anonymous');
+}
+
+/**
+ * Has faded background.
+ */
+function aristotle_page_has_faded_background() {
+  $route = \Drupal::routeMatch()->getRouteName();
+
+  $faded_form_routes_names = [
+    'node.add',
+    'cancel_form',
+    'add_form',
+    'edit_form',
+    'delete_form',
+    'admin_form',
+    'admin_create',
+    'uninstall_confirm',
+    'settings',
+    'admin',
+    'system',
+    'add_page',
+    'module_update',
+    'backup_migrate',
+    'devel',
+    'dblog',
+  ];
+
+  $faded_form = FALSE;
+  foreach ($faded_form_routes_names as $value) {
+    if (strpos($route, $value) !== FALSE) {
+      $faded_form = TRUE;
+    }
+  }
+
+  $none_faded_form_routes_names = [
+    'entity.group.edit_form',
+    'entity.opigno_module.edit_form',
+    'entity.group.add_form',
+    'entity.group_content.add_form',
+    'opigno_moxtra.settings',
+  ];
+
+  if (in_array($route, $none_faded_form_routes_names)) {
+    $faded_form = FALSE;
+  }
+
+  return $faded_form;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_select(&$variables) {
+  // Do not add selectpicker to weight fields because it breaks draggable
+  // functionality.
+  if (!isset($variables['element']['#is_weight']) || !$variables['element']['#is_weight']) {
+    $variables["attributes"]["class"][] = 'selectpicker';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_views_view_table(&$variables) {
+  $view = $variables['view'] ?? NULL;
+  if ($view instanceof ViewExecutable) {
+    $class = $view->id() . '-' . $view->current_display;
+    $variables['attributes']['class'][] = str_replace('_', '-', $class);
+    $variables['#attached']['library'][] = 'opigno_statistics/admin_ui';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function aristotle_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['name']['#attributes']['placeholder'] = $form['name']['#title'] ?? t('Username');
+  $form['pass']['pass']['#attributes']['placeholder'] = $form['pass']['pass']['#title'] ?? t('Password');
+  $form['#action'] = Url::fromRoute('user.login')->toString();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function aristotle_form_user_pass_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['name']['#attributes']['placeholder'] = $form['name']['#title'] ?? t('Username or email');
+  $form['mail']['#access'] = FALSE;
+  $form['#action'] = Url::fromRoute('user.pass')->toString();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function aristotle_form_user_register_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (!\Drupal::currentUser()->isAnonymous()) {
+    return;
+  }
+
+  $form['account']['mail']['#attributes']['placeholder'] = $form['account']['mail']['#title'] ?? t('Email address');
+  $form['account']['name']['#attributes']['placeholder'] = $form['account']['name']['#title'] ?? t('Username');
+  $form['user_picture']['#access'] = FALSE;
+  $form['contact']['#access'] = FALSE;
+  $form['timezone']['#access'] = FALSE;
+  $form['#action'] = Url::fromRoute('user.register')->toString();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function aristotle_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['account']['name']['#attributes']['placeholder'] = $form['account']['name']['#title'] ?? t('Username');
+  $form['account']['mail']['#attributes']['placeholder'] = $form['account']['mail']['#title'] ?? t('Email address');
+  if (isset($form['account']['pass']) && $form['account']['pass']['#type'] === 'password_confirm') {
+    $form['account']['pass']['#process'][] = 'user_form_process_password_confirm';
+    $form['account']['pass']['#process'][] = 'aristotle_user_form_process_pass';
+  }
+}
+
+/**
+ * Add placeholders to "password" and "confirm password" fields.
+ *
+ * @param array $element
+ *   The form element to process.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ * @param array $complete_form
+ *   The complete form structure.
+ *
+ * @return array
+ *   The processed element.
+ */
+function aristotle_user_form_process_pass(array &$element, FormStateInterface $form_state, array &$complete_form) {
+  $element = PasswordConfirm::processPasswordConfirm($element, $form_state, $complete_form);
+  $element['pass1']['#placeholder'] = t('Password');
+  $element['pass2']['#placeholder'] = t('Confirm password');
+
+  return $element;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function aristotle_preprocess_links__dropbutton(&$variables) {
+  if (!$variables['links']) {
+    return;
+  }
+
+  foreach ($variables['links'] as &$link) {
+    $link['link']['#options']['attributes']['class'][] = 'dropdown-item-text';
+  }
+}

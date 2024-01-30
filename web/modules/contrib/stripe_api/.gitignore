@@ -1,0 +1,4 @@
+.idea
+*.patch
+*.rej
+*.orig

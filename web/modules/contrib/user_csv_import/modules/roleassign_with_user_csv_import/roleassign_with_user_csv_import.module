@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Contains roleassign_with_user_csv_import.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function roleassign_with_user_csv_import_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the roleassign_with_user_csv_import module.
+    case 'help.page.roleassign_with_user_csv_import':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Allows RoleAssign and User CSV Import modules work better together.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * roleassign limits what roles are avaiable when editing or creating users
+ *  for certain roles
+ * user_csv_import allows bulk import of users and lists all roles available on the system
+ *
+ * combined, the user_csv_import form will show the roles, but roleassign will not let it
+ *  assign all the roles.
+ *
+ * this function modifies the bulk user csv import form to only show the roles they should see
+ *  based on roleassign so the visual matches the functionality
+ */
+function roleassign_with_user_csv_import_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // we only target the user csv import form
+  if ($form_id == 'user_csv_import_form') {
+    // limit the visible roles to just those saved in roleassign.settings
+    $form['config_options']['roles']['#options'] =
+      array_intersect_key(
+        $form['config_options']['roles']['#options'],
+        array_filter(\Drupal::config('roleassign.settings')->get('roleassign_roles')
+      )
+    );
+  }
+}

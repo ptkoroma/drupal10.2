@@ -1,0 +1,46 @@
+uuid: 8b87fd1c-c103-41f1-9fe5-7107531c531b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.planned_action.field_activity_status
+    - field.field.node.planned_action.field_categorys
+    - field.field.node.planned_action.field_effort
+    - field.field.node.planned_action.field_field_of_engineering_2
+    - field.field.node.planned_action.field_how_will_i_know_i_have_suc
+    - field.field.node.planned_action.field_target_date
+    - field.field.node.planned_action.field_upload_supporting_document
+    - field.field.node.planned_action.field_what_do_i_need_to_learn_
+    - field.field.node.planned_action.field_what_resources_support_is_
+    - field.field.node.planned_action.field_what_will_i_do_to_achieve_
+    - node.type.planned_action
+  module:
+    - user
+id: node.planned_action.teaser
+targetEntityType: node
+bundle: planned_action
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_activity_status: true
+  field_categorys: true
+  field_effort: true
+  field_field_of_engineering_2: true
+  field_how_will_i_know_i_have_suc: true
+  field_target_date: true
+  field_upload_supporting_document: true
+  field_what_do_i_need_to_learn_: true
+  field_what_resources_support_is_: true
+  field_what_will_i_do_to_achieve_: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

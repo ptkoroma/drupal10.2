@@ -1,0 +1,22 @@
+{% if summary %}
+<div class="content-box lp-global-progress-wrapper">
+  <div class="lp-global-progress">
+    <div class="lp-global-progress-title">{{ 'Global progress'|t }}</div>
+    <div class="progress-wrapper">
+      <div class="views-field views-field-opigno-lp-progress">
+        <div class="field-content">
+          <div class="learning-path-progress d-flex flex-column progress-bar-mini">
+            <div class="progress-bar">
+              <div class="progress-progress" style="width: {{ progress }}%;"></div>
+            </div>
+            <div class="progress-content">
+              <div class="progress-value">{{ progress }}%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ summary }}
+  </div>
+</div>
+{% endif %}

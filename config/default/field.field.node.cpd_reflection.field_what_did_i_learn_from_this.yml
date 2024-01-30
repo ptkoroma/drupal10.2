@@ -1,0 +1,26 @@
+uuid: a8fce4f5-fc0b-4cd4-8de1-0d8ee4598f57
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_what_did_i_learn_from_this
+    - node.type.cpd_reflection
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.cpd_reflection.field_what_did_i_learn_from_this
+field_name: field_what_did_i_learn_from_this
+entity_type: node
+bundle: cpd_reflection
+label: 'What did I learn from this activity? '
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

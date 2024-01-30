@@ -1,0 +1,359 @@
+<?php
+
+/**
+ * @file
+ * Contains the user connections, posts and comments functionality.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\GeneratedUrl;
+use Drupal\Core\Url;
+use Drupal\opigno_like\Services\OpignoLikeManager;
+use Drupal\opigno_social\Entity\OpignoPostInterface;
+use Drupal\opigno_social\Services\OpignoPostsManagerInterface;
+use Drupal\opigno_social\Services\UserConnectionManager;
+use Drupal\opigno_social\UserAccessControlHandler;
+use Drupal\user\UserInterface;
+use Drupal\file\Entity\File;
+
+/**
+ * Implements hook_theme().
+ */
+function opigno_social_theme() {
+  return [
+    'opigno_social_connect_links' => [
+      'variables' => [
+        'actions' => [],
+      ],
+    ],
+    'opigno_manage_connections_page' => [
+      'variables' => [
+        'suggested' => NULL,
+        'pending' => NULL,
+        'network' => NULL,
+      ],
+    ],
+    'opigno_social_wall_block' => [
+      'variables' => [
+        'user' => NULL,
+        'create_post_form' => [],
+        'attachment_links' => [],
+        'posts' => [],
+        'new_posts_link' => NULL,
+      ],
+    ],
+    'opigno_post' => [
+      'render element' => 'elements',
+    ],
+    'opigno_social_comment_form_block' => [
+      'variables' => [
+        'form' => [],
+        'user' => [],
+        'close_link' => [],
+      ],
+    ],
+    'opigno_post_comments' => [
+      'variables' => [
+        'form' => [],
+        'comments' => [],
+        'more_link' => NULL,
+      ],
+    ],
+    'opigno_post_actions' => [
+      'variables' => [
+        'actions' => [],
+      ],
+    ],
+    'opigno_post_achievement_preview' => [
+      'variables' => [
+        'text' => NULL,
+        'achievement_type' => NULL,
+        'name' => NULL,
+        'extra_class' => NULL,
+        'image' => NULL,
+      ],
+    ],
+    'opigno_create_share_post_form' => [
+      'render element' => 'form',
+    ],
+    'opigno_popup' => [
+      'variables' => [
+        'title' => NULL,
+        'body' => [],
+        'is_ajax' => NULL,
+      ],
+    ],
+    'opigno_user_connections_block' => [
+      'variables' => [
+        'connections' => NULL,
+      ],
+    ],
+    'opigno_read_more' => [
+      'variables' => [
+        'summary' => NULL,
+        'text'    => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function opigno_social_user_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  // Add connection links to the user entities.
+  if ((int) \Drupal::currentUser()->id() === (int) $entity->id() || $view_mode !== 'connection') {
+    return;
+  }
+
+  $connection_manager = \Drupal::service('opigno_user_connection.manager');
+  if ($connection_manager instanceof UserConnectionManager) {
+    $build['user_connection_links'] = $connection_manager->getUserConnectionLinks((int) $entity->id());
+  }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function opigno_social_entity_type_alter(array &$entity_types) {
+  // Override the default user access handler.
+  $entity_types['user']->setHandlerClass('access', UserAccessControlHandler::class);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function opigno_social_form_social_settings_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add the checkbox to enable/disable social features (user connections and
+  // social wall).
+  $form['enable_social_features'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable social features'),
+    '#description' => t('If checked, social wall, manage connections page and user connection links will be accessible.'),
+    '#default_value' => \Drupal::config('opigno_class.socialsettings')->get('enable_social_features') ?? TRUE,
+  ];
+  $form['#submit'][] = '_opigno_social_features_submit';
+
+  // Add "Remove social entities" button, make it accessible only for the
+  // superadmin.
+  $form['actions']['remove_social_entities'] = [
+    '#type' => 'link',
+    '#title' => t('Remove all social entities'),
+    '#url' => Url::fromRoute('opigno_social.confirm_social_entities_removal'),
+    '#access' => (int) \Drupal::currentUser()->id() === 1,
+    '#attributes' => [
+      'class' => ['button', 'button--danger'],
+    ],
+  ];
+}
+
+/**
+ * Submit function to store the social features settings.
+ *
+ * @param array $form
+ *   The form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state object.
+ */
+function _opigno_social_features_submit(array &$form, FormStateInterface $form_state) {
+  // Set the "enable_social_features" setting value.
+  \Drupal::configFactory()->getEditable('opigno_class.socialsettings')
+    ->set('enable_social_features', $form_state->getValue('enable_social_features', TRUE))
+    ->save(TRUE);
+}
+
+/**
+ * Prepare variables for the Opigno post template.
+ *
+ * Default template: opigno-post.html.twig.
+ *
+ * @param array $variables
+ *   The opigno post data:
+ *     - elements: an array of elements to display in the view mode.
+ *     - post: the Opigno post object.
+ */
+function opigno_social_preprocess_opigno_post(array &$variables) {
+  $post_keys = ['#opigno_post', '#opigno_community_post'];
+  $post = NULL;
+
+  foreach ($post_keys as $key) {
+    if (isset($variables['elements'][$key])) {
+      $post = $variables['elements'][$key];
+      break;
+    }
+  }
+
+  if (!$post instanceof OpignoPostInterface) {
+    return;
+  }
+
+  $id = (int) $post->id();
+  $entity_type = $post->getEntityTypeId();
+  $variables['post'] = $post;
+  $variables['id'] = $id;
+  $variables['created'] = $post->getCreatedTime();
+  $author = $post->getAuthor();
+  if ($author instanceof UserInterface) {
+    $variables['author'] = \Drupal::entityTypeManager()->getViewBuilder('user')->view($author, 'post_author');
+    $variables['author_name'] = $author->getDisplayName();
+    $variables['author_link'] = Url::fromRoute('entity.user.canonical', ['user' => $author->id()])->toString();
+  }
+
+  // Add like links.
+  $like_manager = \Drupal::service('opigno_like.manager');
+  if ($like_manager instanceof OpignoLikeManager) {
+    $variables['like_link'] = $like_manager->getEntityLikeLink($id, $entity_type);
+    $variables['like_count_link'] = $like_manager->getLikersCountLink($id, $entity_type);
+  }
+
+  // Add post/comment actions.
+  $posts_manager = $post->getPostManagerService();
+  if (!$posts_manager instanceof OpignoPostsManagerInterface) {
+    return;
+  }
+
+  $variables['text'] = $posts_manager->renderReadMoreText($post);
+  $variables['post_actions'] = $posts_manager->getActionLinks($post);
+  // Posts comments section.
+  if ($post->isComment()) {
+    return;
+  }
+
+  $variables['add_comment_link'] = $posts_manager->getCommentFormLink($id);
+  // Display the comments amount if the post has already been commented.
+  $variables['comments'] = $posts_manager->getCommentsLink($id);
+  $variables['is_pinned'] = $post->isPinned();
+  $variables['is_last_viewed'] = $id === $posts_manager->getLastViewedPostId();
+  $variables['attachment'] = $posts_manager->renderPostAttachment($post);
+  $url = Url::fromRoute('entity.' . $entity_type . '.canonical', [
+    $entity_type => $id,
+  ])->toString();
+  $variables['url'] = $url instanceof GeneratedUrl ? $url->getGeneratedUrl() : $url;
+  $variables['is_page'] = \Drupal::routeMatch()->getRouteName() === 'entity.' . $entity_type . '.canonical';
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function opigno_social_theme_suggestions_opigno_post(array $variables) {
+  $suggestions = [];
+  $post = $variables['elements']['#opigno_post'] ?? NULL;
+  if ($post instanceof OpignoPostInterface && $post->isComment()) {
+    $suggestions[] = 'opigno_post__comment';
+  }
+
+  return $suggestions;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function opigno_social_opigno_post_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if ($entity instanceof OpignoPostInterface) {
+    $build['#attached']['library'][] = 'opigno_social/post_comment';
+    $build['#attached']['library'][] = 'opigno_social/read_more';
+  }
+}
+
+/**
+ * Implements hook_views_data().
+ */
+function opigno_social_views_data() {
+  // Integrate opigno_module_badges table to views.
+  return [
+    'opigno_module_badges' => [
+      'table' => [
+        'group' => t('Opigno badges'),
+        'provider' => 'opigno_module',
+        'base' => [
+          'field' => 'id',
+          'title' => t('Opigno badges'),
+          'help' => t('Contains courses and modules badges info.'),
+        ],
+      ],
+      'uid' => [
+        'title' => t('User ID'),
+        'help' => t('The ID of the user who earned the badge.'),
+        'field' => ['id' => 'numeric'],
+        'sort' => ['id' => 'standard'],
+        'filter' => ['id' => 'numeric'],
+        'argument' => ['id' => 'numeric'],
+      ],
+      'entity_id' => [
+        'title' => t('Course/module ID'),
+        'help' => t('The ID of the badge-related entity (course/module).'),
+        'field' => ['id' => 'numeric'],
+        'sort' => ['id' => 'standard'],
+        'filter' => ['id' => 'numeric'],
+        'argument' => ['id' => 'numeric'],
+      ],
+      'typology' => [
+        'title' => t('Badge-related entity typology'),
+        'help' => t('The typology of the badge-related entity (course/module).'),
+        'field' => ['id' => 'standard'],
+        'sort' => ['id' => 'standard'],
+        'filter' => ['id' => 'string'],
+        'argument' => ['id' => 'string'],
+      ],
+      'opigno_badge_name' => [
+        'field' => [
+          'title' => t('Opigno badge name'),
+          'help' => t('Provides a custom field to display the badge name depending on the entity type (course/module).'),
+          'id' => 'opigno_badge_name',
+        ],
+        'filter' => [
+          'title' => t('Opigno badge name'),
+          'help' => t('Provides a custom filter for the badge name.'),
+          'real field' => 'entity_id',
+          'id' => 'opigno_badge_name',
+        ],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function opigno_social_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  // Check ownership of the user picture.
+  $user_forms = ['user_register_form', 'user_form'];
+  if (isset($form['user_picture']) && in_array($form_id, $user_forms)) {
+    array_unshift($form['user_picture']['widget'][0]['#process'], '_opigno_social_process_user_picture');
+  }
+}
+
+/**
+ * Processes user picture field form element.
+ *
+ * @param array $element
+ *   An associative array containing the properties and children of the
+ *   form actions container.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ * @param array $complete_form
+ *   The complete form structure.
+ *
+ * @return array
+ *   The processed element.
+ */
+function _opigno_social_process_user_picture(array &$element, FormStateInterface $form_state, array &$complete_form): array {
+  if (empty($element['#value']['fids'])) {
+    return $element;
+  }
+
+  $file = File::load($element['#value']['fids'][0]);
+  $owner = $file->getOwner();
+  if ($owner->id() != \Drupal::currentUser()->id()) {
+    $form_state->setError($element, t('The file used in the @name field may not be referenced.', ['@name' => $element['#title']]));
+    $element['#errors'] = $form_state->getError($element);
+
+    // Unset the fid to disable the image preview.
+    $element['#value']['fids'] = [];
+  }
+
+  return $element;
+}

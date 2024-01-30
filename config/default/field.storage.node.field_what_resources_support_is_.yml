@@ -1,0 +1,19 @@
+uuid: a9f82ff9-c300-4219-bc45-f67ce62c7d5e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_what_resources_support_is_
+field_name: field_what_resources_support_is_
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

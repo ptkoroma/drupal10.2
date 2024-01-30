@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Contains opigno_file_upload.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\opigno_module\Entity\OpignoAnswer;
+use Drupal\Core\Link;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function opigno_file_upload_form_opigno_answer_opigno_file_upload_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['#validate'][]  = 'opigno_file_upload_opigno_answer_opigno_file_upload_validate_handler';
+  $form['#attached']['library'][] = 'opigno_file_upload/opigno_answer_upload_form';
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function opigno_file_upload_form_opigno_module_result_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $answers_id = array_filter(array_keys($form['answers']), 'is_int');
+  foreach ($answers_id as $id) {
+    $answer = OpignoAnswer::load($id);
+    if (!is_null($answer)) {
+      $activity = $answer->getActivity();
+      if (in_array($activity->getType(), ['opigno_file_upload', 'opigno_long_answer']) && $activity->get('opigno_evaluation_method')->getValue()[0]['value']) {
+        if ($answer->getType() == 'opigno_file_upload') {
+          $owner = $answer->getOwner();
+
+          $user_link = Link::createFromRoute(
+            $owner->getAccountName(),
+            'entity.user.canonical',
+            [
+              'user' => $owner->id(),
+            ]
+          )->toString();
+
+          $form['student'] = [
+            '#type' => 'item',
+            '#title' => t('Student\'s name: '),
+            '#markup' => $user_link,
+            '#weight' => -10,
+          ];
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Submission validate for opigno_file_upload_form_opigno_answer_opigno_file_upload_form_alter().
+ */
+function opigno_file_upload_opigno_answer_opigno_file_upload_validate_handler(array &$form, FormStateInterface $form_state) {
+  $values = $form_state->getValues();
+
+  if (empty($values['opigno_file'][0]['fids']) && $_POST["op"] != t('Back')) {
+    $form_state->setErrorByName('opigno_file', t('Please upload any file.'));
+  }
+}

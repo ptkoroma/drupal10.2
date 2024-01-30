@@ -1,0 +1,24 @@
+uuid: aca87321-6ef9-465e-ac91-0d79fa62d5fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.learning_path
+_core:
+  default_config_hash: _2_u1NP7SZsvFAmAOTmFTorTbLq5jOjIZ0_PDGH96Es
+id: learning_path-user_manager
+label: 'User manager'
+weight: -9
+internal: false
+audience: member
+group_type: learning_path
+permissions_ui: true
+permissions:
+  - 'administer members'
+  - 'leave group'
+  - 'score ilt entities'
+  - 'update own group_membership content'
+  - 'view any private profile in training'
+  - 'view group'
+  - 'view group_membership content'
+  - 'view own results'

@@ -1,0 +1,14 @@
+global:
+  version: VERSION
+  css:
+    theme:
+      https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&display=swap: { type: external }
+      color/color.css: {}
+      dist/css/main.css: {}
+  js:
+    dist/js/main.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - core/drupal.ajax

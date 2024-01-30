@@ -1,0 +1,73 @@
+block content
+  .group-member.views-row
+    a.not-take-link-wrapper(href="#")
+    .fields-content.is-member
+      .top-wrapper
+        .views-field.views-field-field-learning-path-media-image
+          .field-content
+            img(src="images/content/training.svg" alt="img")
+
+        .views-field.views-field-label
+          a.not-take-link-wrapper(href="#")
+
+          if status === 'passed'
+            h2.field-content Training title
+          else
+            h2.field-content Training title on 2 lines
+
+          include ../dropdown/dropdown
+
+      .body-wrapper
+        .text-wrapper
+          .views-field.views-field-label
+            if status === 'passed'
+              h2.field-content Training title
+            else
+              h2.field-content Training title on 2 lines
+
+            i.fi.fi-rr-menu-dots
+
+          .views-field.views-field-field-learning-path-description
+            .field-content
+              p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam ...
+
+          .views-field.views-field-field-learning-path-spent-time
+            .field-content
+              p 02 h 00
+
+          .views-field.views-field-field-learning-path-category
+            .field-content
+              p Photographie
+
+          if status === 'failed'
+            .status
+              .status__icon.failed
+                i.fi.fi-rr-cross
+              .status__content
+                .status__text Failed
+                .status__completed Completed on xx/xx/xxx
+
+          if status === 'passed'
+            .status
+              .status__icon.passed
+                i.fi.fi-rr-check
+              .status__content
+                .status__text Passed
+                .status__completed Completed on xx/xx/xxx
+
+        .progress-wrapper
+          include ../dropdown/dropdown
+          - var radius = 31
+          include ../progress/circle-progress
+          include ../progress/simple-progress
+
+          .views-field.views-field-opigno-lp-take-link
+            span.field-content
+              if !progressNumber
+                a.btn.btn-rounded.btn-bg.use-ajax.continue-link(href="#") Learn more
+              else if progressNumber === '0'
+                a.btn.btn-rounded.use-ajax.continue-link(href="#") Start
+              else if progressNumber === '100' || progressNumber === 'passed' || progressNumber === 'failed'
+                a.btn.btn-rounded.use-ajax.continue-link(href="#") Restart
+              else if progressNumber
+                a.btn.btn-rounded.use-ajax.continue-link(href="#") Continue

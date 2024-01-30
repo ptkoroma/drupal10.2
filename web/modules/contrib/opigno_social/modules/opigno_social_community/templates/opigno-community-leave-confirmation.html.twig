@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the "Leave community" confirmation.
+ */
+#}
+
+{% if confirm_url %}
+  <div class="modal modal-ajax community-modal-actions fade" tabindex="-1" role="dialog" aria-label="{{ title }}">
+    <div class="modal-dialog modal-dialog-centered community-modal" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">{{ 'Do you want leave the community?'|t }}</h2>
+        </div>
+
+        <div class="modal-body">
+          <p>
+            {{ 'You are going to leave the community, but your messages stay.'|t }}
+            <br>
+            <strong>{{ 'This action is not reversible.'|t }}</strong>
+          </p>
+          <p>
+            <i>{{ 'If the community is private, you must receive an invitation again to access it.'|t }}</i>
+          </p>
+          <div class="actions">
+            <a class="btn btn-rounded" type="button" aria-label="{{ 'Cancel'|t }}" data-dismiss="modal">{{ 'Cancel'|t }}</a>
+            <a href="{{ confirm_url }}" class="btn btn-bg btn-rounded use-ajax">{{ 'Yes, leave the community'|t }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

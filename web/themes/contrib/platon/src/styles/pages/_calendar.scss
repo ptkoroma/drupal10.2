@@ -1,0 +1,32 @@
+body.page-calendar-event-add-opigno_calendar_event,
+body[class*="page-calendar-event-"][class*="-edit"] {
+  .field--name-displayed,
+  .field--name-field-article,
+  .field--name-field-calendar-event-group {
+    display: none;
+  }
+
+  .form-item-field-calendar-event-members,
+  div#edit-members {
+    @extend .form-group;
+    margin-top: 20px;
+
+    .form-item-training {
+      @include media-breakpoint-up(md) {
+        margin-left: $form-label-width;
+      }
+    }
+
+    > .form-element-wrapper,
+    > div#members {
+      @include media-breakpoint-up(md) {
+        margin-left: $form-label-width;
+      }
+    }
+  }
+
+  #edit-filters .form-item {
+    display: inline-block;
+    width: 45%;
+  }
+}

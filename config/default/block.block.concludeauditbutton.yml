@@ -1,0 +1,30 @@
+uuid: 74349a02-b8fe-4f25-9b77-31c68531eacd
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:aa6d7137-3094-4a72-9ff3-fdec8aa96c16'
+  module:
+    - block_content
+    - system
+  theme:
+    - aristotle
+id: concludeauditbutton
+theme: aristotle
+region: content
+weight: 2
+provider: null
+plugin: 'block_content:aa6d7137-3094-4a72-9ff3-fdec8aa96c16'
+settings:
+  id: 'block_content:aa6d7137-3094-4a72-9ff3-fdec8aa96c16'
+  label: 'Conclude Audit Button'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/engineer-activities/*'

@@ -1,0 +1,71 @@
+.trainings-list-wrapper
+  h2 Trainings
+
+  table.statistics-table.trainings-list.table-striped.responsive-enabled.table.table-hover(data-striping="1")
+    thead
+      tr
+        th.name Name
+        th.progress Progress
+        th.status Status
+        th.details
+
+    tbody
+      tr
+        td.name
+          span Training name
+
+        td.progress
+          span 100%
+
+        td.status
+          span.icon_state.icon_state_passed
+            i.fi.fi-rr-check
+            span Success
+
+        td.details
+          a.btn.btn-rounded(href="#") Details
+
+      tr
+        td.name
+          span Training name
+
+        td.progress
+          span 85%
+
+        td.status
+          span.icon_state.icon_state_passed
+            i.fi.fi-rr-check
+            span Success
+
+        td.details
+          a.btn.btn-rounded(href="#") Details
+
+      tr
+        td.name
+          span Training name
+
+        td.progress
+          span 100%
+
+        td.status
+          span.icon_state.icon_state_failed
+            i.fi.fi-rr-cross-small
+            span Failed
+
+        td.details
+          a.btn.btn-rounded(href="#") Details
+
+      tr
+        td.name
+          span Training name
+
+        td.progress
+          span 80%
+
+        td.status
+          span.icon_state.icon_state_pending
+            i.fi.fi-rr-rotate-right
+            span Pending
+
+        td.details
+          a.btn.btn-rounded(href="#") Details

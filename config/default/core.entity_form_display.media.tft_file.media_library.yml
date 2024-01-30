@@ -1,0 +1,40 @@
+uuid: eba36da4-9730-4a6e-9ea4-d9db38732451
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.tft_file.opigno_moxtra_recording_link
+    - field.field.media.tft_file.tft_file
+    - field.field.media.tft_file.tft_folder
+    - field.field.media.tft_file.tft_members
+    - media.type.tft_file
+id: media.tft_file.media_library
+targetEntityType: media
+bundle: tft_file
+mode: media_library
+content:
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  opigno_moxtra_recording_link: true
+  path: true
+  status: true
+  tft_file: true
+  tft_folder: true
+  tft_members: true
+  uid: true

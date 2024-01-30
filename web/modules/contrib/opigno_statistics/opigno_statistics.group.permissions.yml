@@ -1,0 +1,11 @@
+view group statistics:
+  title: 'View group statistics'
+  description: 'Allows the user to view a group statistics'
+
+view any private profile in class:
+  title: 'View any private profile in the class'
+  description: "Recommended for Class Managers. Allows to view any private profile in the user's class."
+
+view any private profile in training:
+  title: 'View any private profile in training'
+  description: 'Recommended for Local User Managers. Allows to view any private profile in the associated training.'

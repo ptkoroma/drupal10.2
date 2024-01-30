@@ -1,0 +1,17 @@
+uuid: 3c6f7f84-f127-40fd-9298-883d5e632cb6
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.opigno_course
+  enforced:
+    config:
+      - user.role.mentor
+id: opigno_course-b31cf79fa
+label: Mentor
+weight: 6
+internal: true
+audience: outsider
+group_type: opigno_course
+permissions_ui: false
+permissions: {  }

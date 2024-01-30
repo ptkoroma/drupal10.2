@@ -1,0 +1,9 @@
+.file-video-wrapper {
+  .video-image-preview {
+    cursor: pointer;
+
+    & + video {
+      display: none;
+    }
+  }
+}

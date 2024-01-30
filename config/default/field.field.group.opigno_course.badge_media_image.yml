@@ -1,0 +1,36 @@
+uuid: 1a48ee67-c238-4310-b726-de63cb7eec8b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.badge_media_image
+    - group.type.opigno_course
+    - media.type.image_png
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: fB-kDUsR9dX-ig0xrs7ci-qqSkl8sUtN5E2z2z_JS6A
+id: group.opigno_course.badge_media_image
+field_name: badge_media_image
+entity_type: group
+bundle: opigno_course
+label: 'Badge image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image_png: image_png
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: image
+field_type: entity_reference

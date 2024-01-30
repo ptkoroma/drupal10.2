@@ -1,0 +1,226 @@
+.dashboard-region-top {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  @include media-breakpoint-down(md) {
+    justify-content: center;
+  }
+}
+
+app-root.dashboard {
+  position: static;
+
+  .trigger-btn {
+    margin-left: auto;
+
+    @include media-breakpoint-down(lg) {
+      display: none !important;
+    }
+
+    .btn {
+      + .btn {
+        margin-left: rem(20);
+      }
+    }
+  }
+
+  app-panel {
+    box-shadow: none;
+    display: block;
+    overflow: visible;
+    padding: 0;
+    position: static;
+    width: auto;
+
+    h2 {
+      margin-bottom: rem(20);
+    }
+
+    button.close-dashboard {
+      float: right;
+      background-color: transparent!important;
+      font-size: 0;
+      padding: 0;
+      outline: none;
+      border: none;
+
+      i {
+        color: $clr-navy;
+        display: block;
+        font-size: rem(34);
+        margin-top: -3px;
+      }
+    }
+
+    section.layout {
+      display: flex;
+
+      .content-box {
+        align-items: center;
+        display: flex;
+        margin-bottom: rem(26);
+        padding-top: rem(10);
+        padding-bottom: rem(10);
+
+        > span {
+          z-index: 1;
+        }
+      }
+
+      p {
+        font-size: rem(14);
+        font-weight: $font-weight-semibold;
+        margin-bottom: 0;
+        margin-right: rem(40);
+      }
+
+      .radio {
+        display: inline-block;
+        flex: 1 0 rem(37);
+        max-width: rem(37);
+        width: rem(37);
+        height: rem(32);
+        margin-right: rem(10);
+        outline: none;
+        border: 0;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        box-shadow: none;
+        font-size: 0;
+        padding: 0;
+
+        @for $i from 1 through 5 {
+          &#layout-#{$i} {
+            @extend .picto-layout-#{$i};
+
+            &.active,
+            &:hover {
+              @extend .picto-layout-#{$i}-hover;
+            }
+          }
+        }
+      }
+
+      .btn {
+        margin-left: rem(20);
+      }
+    }
+  }
+
+  .dashboard-column-wrapper {
+    display: flex;
+
+    &.panel-open {
+      margin-right: 0;
+    }
+
+    section.add-blocks {
+      flex: 1 0 rem(276);
+      max-width: rem(276);
+      margin-right: rem(14);
+      margin-bottom: 0;
+
+      p {
+        font-size: rem(12);
+        font-style: italic;
+      }
+
+      .dashboard-block {
+        +.dashboard-block {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+
+  button.save-dashboard {
+    float: right;
+    margin-top: rem(20);
+  }
+}
+
+// Admin view blocks
+.dashboard-block {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 !important;
+  background-color: $clr-desktop-button-color !important;
+  border-radius: rem(18);
+  color: $clr-desktop-button-text-primary;
+
+  + .dashboard-block {
+    margin-top: rem(13);
+  }
+
+  .title {
+    font-size: rem(14);
+    padding: rem(6) rem(20);
+    position: relative;
+    width: 100%;
+  }
+
+  &.gu-mirror {
+    background-color: #fff !important;
+    color: inherit !important;
+
+    &::before {
+      width: 2px!important;
+      background-color: #ff5440;
+    }
+
+    .handle {
+      display: none;
+    }
+  }
+
+  .handle {
+    float: none;
+    background: none !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    z-index: 1;
+
+    &:before {
+      content: icon(plus);
+      position: absolute;
+      font-size: 20px;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      .dashboard-column & {
+        display: none;
+      }
+    }
+  }
+
+  button.remove {
+    position: relative;
+    z-index: 1;
+    font-size: 0;
+    background: none !important;
+    margin-right: rem(7);
+    box-sizing: content-box;
+    border: none;
+
+    i {
+      color: $clr-navy;
+      display: block;
+      font-size: rem(24);
+    }
+  }
+}
+
+// User view blocks
+.dashboard-drupal-block {
+  div[data-contextual-id] {
+    display: none;
+  }
+}

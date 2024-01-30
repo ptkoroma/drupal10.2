@@ -1,0 +1,31 @@
+services:
+  opigno_statistics.route_subscriber:
+    class: Drupal\opigno_statistics\EventSubscriber\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  opigno_statistics.user_stats_manager:
+    class: Drupal\opigno_statistics\Services\UserStatisticsManager
+    arguments: [ '@current_user', '@database', '@entity_type.manager', '@date.formatter', '@csrf_token', '@config.factory', '@module_handler' ]
+
+  # Access check based on the selected social settings.
+  opigno_statistics.check_achievements_access:
+    class: Drupal\opigno_statistics\Access\UserAchievementsAccess
+    calls:
+      - [ setContainer, [ '@service_container' ] ]
+    tags:
+      - { name: access_check, applies_to: _opigno_access_user_achievements }
+
+  opigno_statistics.user_achievement_manager:
+    class: Drupal\opigno_statistics\Services\UserAchievementManager
+    arguments:
+      - '@current_user'
+      - '@database'
+      - '@entity_type.manager'
+      - '@logger.opigno_statistics'
+      - '@messenger'
+
+  logger.opigno_statistics:
+    class: Drupal\Core\Logger\LoggerChannel
+    factory: logger.factory:get
+    arguments: [ 'opigno_statistics' ]

@@ -1,0 +1,38 @@
+uuid: a90b469c-22c5-45a3-a511-0a10ad31769a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_members_forum_comments
+    - node.type.members_forum
+  module:
+    - comment
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.members_forum.field_members_forum_comments
+field_name: field_members_forum_comments
+entity_type: node
+bundle: members_forum
+label: 'Members Forum Comments'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    status: 2
+    cid: 0
+    last_comment_timestamp: 0
+    last_comment_name: null
+    last_comment_uid: 0
+    comment_count: 0
+default_value_callback: ''
+settings:
+  default_mode: 1
+  per_page: 50
+  anonymous: 0
+  form_location: true
+  preview: 1
+field_type: comment

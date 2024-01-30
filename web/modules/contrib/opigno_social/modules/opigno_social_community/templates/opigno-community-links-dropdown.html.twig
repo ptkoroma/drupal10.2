@@ -1,0 +1,23 @@
+{#
+/*
+ * @file
+ * Default theme implementation for the community member actions dropdown.
+ *
+ * Avalable variables:
+ * - actions: the list of action links.
+ */
+#}
+
+{% if links %}
+  <div class="dropdown">
+    <button class="comment-item__edit-btn dropdown-toggle" data-toggle="dropdown">
+      <i class="fi fi-rr-menu-dots"></i>
+    </button>
+
+    <ul class="comment-item__edit-menu dropdown-menu dropdown-menu-right">
+      {% for link in links %}
+        <li class="dropdown-item">{{ link }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

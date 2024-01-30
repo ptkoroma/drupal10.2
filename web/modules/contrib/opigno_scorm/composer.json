@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_scorm",
+    "type": "drupal-module",
+    "description": "Opigno scorm.",
+    "homepage": "http://drupal.org/project/opigno_scorm",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

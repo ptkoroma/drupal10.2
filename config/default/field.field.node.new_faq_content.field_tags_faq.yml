@@ -1,0 +1,19 @@
+uuid: 5c8014ff-b166-4827-9c84-9db3d90820e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags_faq
+    - node.type.new_faq_content
+id: node.new_faq_content.field_tags_faq
+field_name: field_tags_faq
+entity_type: node
+bundle: new_faq_content
+label: Tags
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

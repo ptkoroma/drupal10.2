@@ -1,0 +1,17 @@
+video {
+  height: auto;
+  max-width: 100%;
+
+  .paragraph & {
+    height: auto !important;
+  }
+}
+
+iframe {
+  max-width: 100%;
+
+  .paragraph & {
+    aspect-ratio: 16/9;
+    height: auto;
+  }
+}

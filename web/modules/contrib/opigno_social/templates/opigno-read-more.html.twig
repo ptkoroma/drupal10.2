@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the Opigno read more field formatter.
+ *
+ * Available varaibles:
+ * - summary: truncated text;
+ * - text: the full text.
+ */
+#}
+
+<div class="summary read-more-text">
+  {{ summary }}
+  <a class="opigno-read-more link-bold">{{ 'Read more'|t }}</a>
+</div>
+<div class="full-text read-more-text">
+  {{ text }}
+  <a class="opigno-show-less link-bold">{{ 'Show less'|t }}</a>
+</div>

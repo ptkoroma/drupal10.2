@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - opigno_mobile_app
+    - serialization
+id: color_rest_resource
+plugin_id: color_rest_resource
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+    - hal_json
+  authentication:
+    - jwt_auth

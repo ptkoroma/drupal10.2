@@ -1,0 +1,22 @@
+<div class="content-box lp-table">
+  <div class="lp-table-wrapper">
+    <table class="statistics-table table-striped responsive-enabled table table-hover" data-striping="1">
+      <thead>
+      <tr>
+        <th class="mandatory"></th>
+        <th class="type">{{ 'Type'|t }}</th>
+        <th class="steps">{{ 'Steps'|t }}</th>
+        <th class="status">{{ 'Status'|t }}</th>
+        <th class="progress">{{ 'Score'|t }}</th>
+        {% if elements.steps.display_actions %}
+          <th class="action">{{ 'Action'|t }}</th>
+        {% endif %}
+        <th class="details"></th>
+      </tr>
+      </thead>
+      <tbody>
+        {{ elements.steps|without('display_actions') }}
+      </tbody>
+    </table>
+  </div>
+</div>

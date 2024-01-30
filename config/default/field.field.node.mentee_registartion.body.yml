@@ -1,0 +1,28 @@
+uuid: 97755818-d9e4-433f-8b8a-63ed6233cfda
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.mentee_registartion
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.mentee_registartion.body
+field_name: body
+entity_type: node
+bundle: mentee_registartion
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

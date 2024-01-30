@@ -1,0 +1,10 @@
+{
+  "name": "drupal/opigno_learning_path",
+  "type": "drupal-module",
+  "description": "Opigno Learning Path Module.",
+  "homepage": "http://drupal.org/project/opigno_learning_path",
+  "license": "GPL-2.0+",
+  "require": {
+  },
+  "minimum-stability": "dev"
+}

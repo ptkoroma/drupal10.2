@@ -1,0 +1,26 @@
+uuid: 3918c2f7-7fe1-43d9-9c67-d710081f5fc5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_comment
+    - node.type.audit
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.audit.field_comment
+field_name: field_comment
+entity_type: node
+bundle: audit
+label: Comment
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

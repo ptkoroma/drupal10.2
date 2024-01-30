@@ -1,0 +1,26 @@
+uuid: fb84d180-9f42-41d6-aa4a-6d5acc4b402f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_how_does_this_learning_act
+    - node.type.cpd_reflection_non_catalogued_
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.cpd_reflection_non_catalogued_.field_how_does_this_learning_act
+field_name: field_how_does_this_learning_act
+entity_type: node
+bundle: cpd_reflection_non_catalogued_
+label: 'How does this learning activity enhance my development? '
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

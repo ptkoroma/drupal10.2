@@ -1,0 +1,65 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.opigno_community.info_block
+  module:
+    - opigno_social_community
+    - options
+    - text
+id: opigno_community.opigno_community.info_block
+targetEntityType: opigno_community
+bundle: opigno_community
+mode: info_block
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  extra_field_community_invite_members_link:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  extra_field_community_operations:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: community
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  visibility:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  extra_field_available_communities_list: true
+  extra_field_community_feed: true
+  extra_field_community_invitation_user_actions: true
+  extra_field_community_user_actions: true
+  search_api_excerpt: true
+  uid: true

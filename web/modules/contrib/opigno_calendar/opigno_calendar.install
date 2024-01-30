@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Opigno Calendar module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+
+/**
+ * Changed calendar for alpha4.
+ */
+function opigno_calendar_update_9001() {
+  module_load_include('install', 'opigno_module');
+  _opigno_module_apply_update('opigno_calendar', 'config/install', [
+    'views.view.opigno_calendar',
+    'core.entity_form_display.opigno_calendar_event.opigno_calendar_event.default',
+    'core.entity_view_display.opigno_calendar_event.opigno_calendar_event.default',
+  ]);
+
+  // Enable simple_gmap module.
+  if (!\Drupal::moduleHandler()->moduleExists('simple_gmap')) {
+    \Drupal::service('module_installer')->install(['simple_gmap']);
+  }
+}

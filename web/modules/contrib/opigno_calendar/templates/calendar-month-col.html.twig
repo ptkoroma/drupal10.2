@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Template to display a column.
+ *
+ * Available variables:
+ * - item: The item to render within a td element.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if item.class starts with 'single-day no-entry' %}
+  <td
+    id="{{ item.id ~ '_empty'}}"
+    date-date="{{ item.date }}"
+    data-day-of-month="{{ item.day_of_month }}"
+    headers="{{ item.header_id }}"
+    class="{{ item.class }}"
+    colspan="{{ item.colspan }}"
+    rowspan="{{ item.rowspan }}">
+    <div class="inner">
+      <div class="date-box"><span class="date-day">{{ item.date|date("d") }}</span>
+        <span class="date-month">{{ item.date|date("F")|t({}, {'context': 'Long month name'}) }}</span>
+        <span class="date-year">{{ item.date|date("Y") }}</span>
+      </div>
+      <h4 class="title">{{ "No Event"|t }}</h4>
+    </div>
+  </td>
+{% else %}
+  <td
+    id="{{ item.id }}"
+    date-date="{{ item.date }}"
+    data-day-of-month="{{ item.day_of_month }}"
+    headers="{{ item.header_id }}"
+    class="{{ item.class }}"
+    colspan="{{ item.colspan }}"
+    rowspan="{{ item.rowspan }}">
+    <div class="inner">
+      {{ item.entry }}
+    </div>
+  </td>
+{% endif %}
+

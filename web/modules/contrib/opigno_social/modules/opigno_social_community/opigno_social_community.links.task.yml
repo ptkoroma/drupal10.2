@@ -1,0 +1,4 @@
+opigno_social_community.settings_tab:
+  route_name: opigno_community.settings
+  title: 'Settings'
+  base_route: opigno_community.settings

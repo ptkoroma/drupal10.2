@@ -1,0 +1,21 @@
+field.formatter.third_party.entity_form_field_label:
+  type: mapping
+  label: 'Entity Form Field Label'
+  mapping:
+    new_label:
+      type: label
+      label: 'New label'
+    rewrite_label:
+      type: integer
+      label: 'Rewrite label'
+
+field.widget.third_party.entity_form_field_label:
+  type: mapping
+  label: 'Entity Form Field Label'
+  mapping:
+    new_label:
+      type: label
+      label: 'New label'
+    rewrite_label:
+      type: integer
+      label: 'Rewrite label'

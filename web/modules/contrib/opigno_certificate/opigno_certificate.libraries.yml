@@ -1,0 +1,5 @@
+opigno_certificate_edit_form:
+  version: VERSION
+  css:
+    theme:
+      css/opigno_certificate_edit_form.css: {}

@@ -1,0 +1,30 @@
+config_rewrite: replace
+langcode: en
+status: true
+dependencies: {  }
+id: user_manager
+label: 'User manager'
+weight: -6
+is_admin: null
+permissions:
+  - 'access media_entity_browser_groups entity browser pages'
+  - 'access users overview'
+  - 'administer ilt entities'
+  - 'administer meeting entities'
+  - 'administer users'
+  - 'assign collaborative_features role'
+  - 'cancel users by role'
+  - 'create opigno_class group'
+  - 'create users'
+  - 'delete any image media'
+  - 'delete own image media'
+  - 'edit any image media'
+  - 'edit own image media'
+  - 'edit users by role'
+  - 'manage group members in any group'
+  - 'message all groups'
+  - 'message anyone regardless of groups'
+  - 'opigno dashboard layout access'
+  - 'role-assign users by role'
+  - 'score ilt entities'
+  - 'view users by role'

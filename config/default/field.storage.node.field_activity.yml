@@ -1,0 +1,20 @@
+uuid: 9c37a541-3a5d-41aa-ab13-fedb00fd9dc4
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - node
+id: node.field_activity
+field_name: field_activity
+entity_type: node
+type: entity_reference
+settings:
+  target_type: group
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

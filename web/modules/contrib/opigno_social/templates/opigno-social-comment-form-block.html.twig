@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the "Create comment" form block.
+ *
+ * Available variables:
+ * - user: the rendered current user;
+ * - form: the form to create a new comment;
+ * - close_link: the ajax link to close the form.
+ */
+#}
+
+<div class="comment-item__form">
+  {{ close_link }}
+  {% if form %}
+    <div class="form--content">
+      {{ user }}
+      {{ form }}
+    </div>
+  {% endif %}
+</div>
+<div class="comment-item__comment--list"></div>

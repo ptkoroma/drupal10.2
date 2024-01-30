@@ -1,0 +1,109 @@
+<div class="mb-3" *ngIf="!moduleContext">
+  <select class="form-select selectpicker" (change)="updateModules()" [(ngModel)]="activityFilter">
+    <option value="">{{ text_all }}</option>
+    <ng-container *ngFor="let entity of entities">
+      <option value="{{entity.entityId}}" *ngIf="entity.contentType=='ContentTypeCourse'">{{entity.title}}</option>
+    </ng-container>
+  </select>
+</div>
+
+<ng-container *ngIf="!moduleContext">
+  <div *ngFor="let module of modules">
+    <div *ngIf="module.editable" class="activities-wrapper" [attr.data-id]="module.entity_id">
+        <div class="module-item mb-4">
+          <div class="pt-4">
+            <div class="title-wrapper d-flex mb-4">
+              <h2 class="module-title mb-0">{{module.name}}</h2>
+              <button class="ml-auto btn btn-rounded" (click)="addActivitiesBank(module)" [innerHTML]= text_activities_bank ></button>
+              <button class="ml-4 btn btn-rounded" (click)="addActivity(module)">{{ text_add_activity }}</button>
+            </div>
+            <div class="content-wrapper bg-white px-3 py-4">
+              <div class="activity-count" *ngIf="module.activity_count||module.activity_count===0">
+                {{module.activity_count}}
+                <ng-container *ngIf="module.activity_count==1">{{ text_activity }}</ng-container>
+                <ng-container *ngIf="module.activity_count!=1">{{ text_activities }}</ng-container>
+              </div>
+
+              <div *ngIf="module.showError" class="status-message error" role="contentinfo" aria-label="Error message">
+                <i class="fi fi-rr-cross-circle"></i>
+                <div role="alert">
+                  {{module_score_validation_error_prefix}} {{module.name}} {{score_validation_error_suffix}}
+                </div>
+              </div>
+
+              <div class="tree-view my-5" *ngIf="module.treeViewOpened">
+                <module (updateActivityEvent)="updateActivity($event)" [module]="module" (updateEvent)="updateModules()"></module>
+              </div>
+            </div>
+          </div>
+          <div class="tree-view-toggler">
+            <button class="d-flex align-items-center justify-content-end w-100 text-right px-3 py-3 toggle-activities"
+                    (click)="module.treeViewOpened = module.treeViewOpened ? false : true;"
+                    [class.open]="module.treeViewOpened">{{ text_show_activities }}
+              <i *ngIf="!module.treeViewOpened" class="fi fi-rr-eye"></i>
+              <i *ngIf="module.treeViewOpened" class="fi fi-rr-eye-crossed"></i>
+            </button>
+          </div>
+        </div>
+    </div>
+    <div *ngIf="!module.editable" class="activities-wrapper" [attr.data-id]="module.entity_id">
+      <div class="module-item mb-4">
+        <div class="pt-4">
+          <div class="title-wrapper d-flex mb-4">
+            <h2 class="module-title mb-0">{{module.name}}</h2>
+          </div>
+          <div class="content-wrapper bg-white px-3 py-4">
+            <div class="activity-count" *ngIf="module.activity_count||module.activity_count===0">
+              {{module.activity_count}}
+              <ng-container *ngIf="module.activity_count==1">{{ text_activity }}</ng-container>
+              <ng-container *ngIf="module.activity_count!=1">{{ text_activities }}</ng-container>
+            </div>
+
+            <div *ngIf="module.showError" class="status-message error" role="contentinfo" aria-label="Error message">
+              <i class="fi fi-rr-cross-circle"></i>
+              <div role="alert">
+                {{module_score_validation_error_prefix}} {{module.name}} {{score_validation_error_suffix}}
+              </div>
+            </div>
+
+            <div class="tree-view my-5" *ngIf="module.treeViewOpened">
+              <module (updateActivityEvent)="updateActivity($event)" [module]="module" (updateEvent)="updateModules()"></module>
+            </div>
+          </div>
+        </div>
+        <div class="tree-view-toggler">
+          <button class="d-flex align-items-center justify-content-end w-100 text-right px-3 py-3 toggle-activities"
+                  (click)="module.treeViewOpened = module.treeViewOpened ? false : true;"
+                  [class.open]="module.treeViewOpened">{{ text_show_activities }}
+            <i *ngIf="!module.treeViewOpened" class="fi fi-rr-eye"></i>
+            <i *ngIf="module.treeViewOpened" class="fi fi-rr-eye-crossed"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="moduleContext">
+  <div class="activities-wrapper">
+    <div class="module-item mb-4" [ngClass]="'cid-' + module.cid">
+      <div class="pt-4">
+        <div class="title-wrapper d-flex mb-4">
+          <button class="ml-auto btn btn-rounded" (click)="addActivity(module);">{{ text_add_activity }}</button>
+        </div>
+        <div class="content-wrapper bg-white px-3 px-md-5 py-4">
+          <div *ngIf="module.showError" class="status-message error" role="contentinfo" aria-label="Error message">
+            <i class="fi fi-rr-cross-circle"></i>
+            <div role="alert">
+              {{module_score_validation_error_prefix}} {{module.name}} {{score_validation_error_suffix}}
+            </div>
+          </div>
+
+          <div class="tree-view my-5">
+            <module (updateActivityEvent)="updateActivity($event)" [module]="module"></module>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

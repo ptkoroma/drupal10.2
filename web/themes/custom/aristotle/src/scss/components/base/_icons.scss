@@ -1,0 +1,138 @@
+.icon_state {
+  align-items: center;
+  display: inline-flex;
+
+  .fi {
+    align-items: center;
+    background: $clr-gray;
+    border-radius: 50%;
+    display: inline-flex;
+    font-size: rem(12);
+    justify-content: center;
+    height: rem(20);
+    margin-right: rem(5);
+    width: rem(20);
+  }
+
+  &_passed {
+    .fi {
+      background: $clr-desktop-link;
+    }
+  }
+
+  &_pending {
+    .fi {
+      background: $clr-gray;
+      color: $clr-white;
+      font-size: rem(14);
+    }
+  }
+
+  &_failed {
+    .fi {
+      background: $clr-red;
+      color: $clr-white;
+    }
+  }
+}
+
+.icon-like {
+  align-items: center;
+  background: $clr-desktop-link;
+  border-radius: 50%;
+  color: $clr-desktop-text;
+  display: inline-flex;
+  font-size: rem(10);
+  justify-content: center;
+  height: rem(14);
+  width: rem(14);
+}
+
+.status {
+  align-items: center;
+  display: flex;
+  margin-top: auto;
+
+  &__icon {
+    align-items: center;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    font-size: rem(24);
+    height: rem(37);
+    margin-right: rem(10);
+    width: rem(37);
+  }
+
+  .failed {
+    background: $clr-red;
+    color: $clr-white;
+  }
+
+  .passed {
+    background: $clr-desktop-link;
+  }
+
+  .in-progress,
+  .pending {
+    background: $clr-gray;
+    color: $clr-white;
+  }
+
+  &__text {
+    margin-bottom: 4px;
+  }
+
+  &__completed {
+    font-size: rem(12);
+    font-style: italic;
+  }
+}
+
+.led {
+  align-items: center;
+  display: flex;
+
+  &.passed {
+    background: none;
+    color: $clr-desktop-text;
+
+    &:before {
+      background: $clr-desktop-link;
+    }
+  }
+
+  &.pending {
+    background: none;
+    color: $clr-desktop-text;
+
+    &:before {
+      background: $clr-gray;
+    }
+  }
+
+  &.failed {
+    background: none;
+    color: $clr-desktop-text;
+
+    &:before {
+      background: $clr-red;
+    }
+  }
+
+  &:before {
+    border-radius: 50%;
+    content: '';
+    height: rem(12);
+    margin-right: rem(10);
+    width: rem(12);
+  }
+}
+
+.video-call-icon {
+  background: url(../images/design/video-call.svg) center/cover no-repeat;
+}
+
+.ilt-event-icon {
+  background: url(../images/design/ilt.svg) center/cover no-repeat;
+}

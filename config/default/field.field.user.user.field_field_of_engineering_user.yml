@@ -1,0 +1,35 @@
+uuid: 951fbf1d-9acc-42c5-96bf-4b98074cd494
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_field_of_engineering_user
+    - taxonomy.vocabulary.field_of_engineering
+  module:
+    - custom_add_another
+    - user
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: user.user.field_field_of_engineering_user
+field_name: field_field_of_engineering_user
+entity_type: user
+bundle: user
+label: 'Field Of Engineering'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      field_of_engineering: field_of_engineering
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

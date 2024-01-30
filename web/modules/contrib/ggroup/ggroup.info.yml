@@ -1,0 +1,12 @@
+name: 'Subgroup'
+description: 'Allows a group to belong to another group'
+package: 'Group'
+type: 'module'
+core_version_requirement: ^8 || ^9 || ^10
+dependencies:
+  - 'group'
+
+# Information added by Drupal.org packaging script on 2022-09-19
+version: '1.0.0-alpha4'
+project: 'ggroup'
+datestamp: 1663612157

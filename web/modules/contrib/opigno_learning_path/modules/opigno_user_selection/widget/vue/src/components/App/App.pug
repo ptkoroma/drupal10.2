@@ -1,0 +1,74 @@
+
+section(class="app")
+  div(class="navi navi-pills")
+    div.navi-item(
+      v-for="(tabLabel, tabKey) in topTabsWithTypes()"
+      :key="tabKey"
+      :class="{active: active == tabKey}"
+      @click.stop="onClickTab(tabKey)"
+    )
+      span.navi-link {{ tabLabel }}
+
+  div(class="input-group")
+    input(
+      class="form-control"
+      v-model="filter"
+      :placeholder="`Filter by ${group ? 'users' : topTabsWithTypeLabel(active)}`"
+    )
+
+  pre(v-if=0) {{ $props }}
+
+  EntitySelected(
+    :selectedIds="selectedIds"
+    :selectedGroupsIds="selectedGroupsIds"
+    @onUserClicked="(entity, isUserSelected) => $emit('onUserClicked', entity, isUserSelected)"
+    @onGroupClicked="(entity, selected) => $emit('onGroupClicked', entity, selected)"
+  )
+  transition(name="mode-fade" mode="out-in")
+    // Filtered user list by name or e-mail.
+    div.card-container(key="user" v-if="active == 'users' || group")
+      div.card-body
+        UserList(
+          :group="group"
+          :user-list="applyFiltersToUsers"
+          :user-filter="false"
+          :grouped-display="!group && !filter"
+          @onUserClicked="(entity, isUserSelected) => $emit('onUserClicked', entity, isUserSelected)"
+          @backToGroup="backToGroup"
+        )
+    div.card-container(key="classes" v-else-if="active == 'classes' && !group")
+      div.card-body
+        GroupList(
+          :user-list="applyFiltersToGroupClasses"
+          :user-filter="false"
+          @viewGroup="setGroupID"
+          @onGroupClicked="(entity, selected) => $emit('onGroupClicked', entity, selected)"
+        )
+    div.card-container(key="trainings" v-else-if="active == 'trainings' && !group")
+      div.card-body
+        GroupList(
+          :user-list="applyFiltersToGroupTrainings"
+          :user-filter="false"
+          @viewGroup="setGroupID"
+          @onGroupClicked="(entity, selected) => $emit('onGroupClicked', entity, selected)"
+        )
+
+  div(v-if="debug")  {{ [selectedIds, selectedGroupsIds,getStoringValuesByEntity] }}
+  select(
+    class="form-select"
+    v-show="debug"
+    v-model="getStoringValuesByEntity"
+    :id="dataId"
+    :name="dataName"
+    :multiple="true"
+  )
+    option(v-for="(entity,index) in getAllAllowed" :key="index" :value="getStoringIdByEntity(entity)")
+      | {{ entity.getDisplayName() }}
+
+  div(v-if=0)
+    | "dataUserLoad": "",
+    | "class": "form-select",
+    | "id": "edit-users-to-send",
+    | "name": "users_to_send[]",
+    | "multiple": "multiple",
+    | "dataDrupalSelector": "edit-users-to-send"

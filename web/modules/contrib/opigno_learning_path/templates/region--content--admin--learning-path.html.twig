@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a region.
+ *
+ * Available variables:
+ * - content: The content for this region, typically blocks.
+ * - attributes: HTML attributes for the region <div>.
+ * - region: The name of the region variable as defined in the theme's
+ *   .info.yml file.
+ *
+ * @see template_preprocess_region()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if content %}
+  <div>
+    {{ attach_library('opigno_learning_path/creation_steps') }}
+  </div>
+  <div class="row">
+    <div class="col-md-3 aside-col">
+      {{ step_list_aside }}
+    </div>
+    <div class="col-md-9 content-col">
+      {{ step_list_top }}
+
+      <div{{ attributes.addClass('content-box', 'd-flex', 'flex-column') }}>
+        {{ add_member_link }}
+        {{ content }}
+      </div>
+    </div>
+
+    <div class="col d-flex justify-content-end">
+      {{ next_link }}
+    </div>
+  </div>
+
+{% endif %}

@@ -1,0 +1,25 @@
+uuid: aa4d8801-f384-4319-a213-4ce24da9b13e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_present_employer
+  module:
+    - custom_add_another
+    - user
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: user.user.field_present_employer
+field_name: field_present_employer
+entity_type: user
+bundle: user
+label: 'Present Employer'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

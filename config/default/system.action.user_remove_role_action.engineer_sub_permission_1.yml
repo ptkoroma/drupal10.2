@@ -1,0 +1,14 @@
+uuid: 1bebb742-80ce-408c-9b05-e4d1a643ac07
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.engineer_sub_permission_1
+  module:
+    - user
+id: user_remove_role_action.engineer_sub_permission_1
+label: 'Remove the Engineer Sub Permission 1 role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: engineer_sub_permission_1

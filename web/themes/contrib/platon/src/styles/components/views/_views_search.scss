@@ -1,0 +1,19 @@
+.view-search-content {
+  &.view-display-id-page_1 {
+
+    .views-row {
+      margin-bottom: 20px;
+      max-width: 560px;
+    }
+
+    .views-field {
+      &-label,
+      &-title {
+        .field-content {
+          @include font-size($h5-font-size);
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

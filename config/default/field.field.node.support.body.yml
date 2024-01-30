@@ -1,0 +1,28 @@
+uuid: e28e4686-9039-49c7-8d90-a8e54afbe849
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.support
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.support.body
+field_name: body
+entity_type: node
+bundle: support
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

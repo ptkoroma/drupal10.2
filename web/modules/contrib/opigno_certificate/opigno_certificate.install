@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Opigno Certificate module.
+ */
+
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\opigno_certificate\Entity\OpignoCertificate;
+use Drupal\user\Entity\Role;
+
+/**
+ * Implements hook_install().
+ */
+function opigno_certificate_install() {
+  try {
+    // Create default certificate.
+    $certificate = OpignoCertificate::create([
+      'bundle' => 'template',
+      'label' => t('Default certificate'),
+    ]);
+
+    $certificate->save();
+  }
+  catch (Exception $e) {
+    watchdog_exception('opigno_certificate_exception', $e);
+  }
+
+  // Allow platform-level content managers to administer certificates.
+  try {
+    $role = Role::load('content_manager');
+    if ($role instanceof Role) {
+      $role->grantPermission('administer certificates');
+      $role->grantPermission('add certificate entities');
+      $role->grantPermission('delete certificate entities');
+      $role->grantPermission('edit certificate entities');
+      $role->grantPermission('access certificate overview');
+      $role->grantPermission('view published certificate entities');
+      $role->grantPermission('view unpublished certificate entities');
+      $role->save();
+    }
+  }
+  catch (Exception | EntityStorageException $e) {
+    watchdog_exception('opigno_certificate_exception', $e);
+  }
+
+  // Enable CKEditor Background module.
+  \Drupal::service('module_installer')->install(['ckeditor_bgimage', 'ckeditor_font']);
+}

@@ -1,0 +1,22 @@
+.tft-add-term-form {
+  margin: 0 auto;
+  max-width: rem(490);
+  text-align: center;
+
+  .form-item-name {
+    align-items: center;
+    display: flex;
+    margin-bottom: rem(20);
+
+    label {
+      font-weight: $font-weight-semibold;
+      margin-right: rem(10);
+      margin-bottom: 0;
+    }
+  }
+
+  .form-text {
+    border-radius: rem(10);
+    border-color: $clr-gray-light-D5;
+  }
+}

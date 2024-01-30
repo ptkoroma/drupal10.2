@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an image field widget.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - data: Render elements of the image widget.
+ *
+ * @see template_preprocess_image_widget()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes }}>
+  <div class="upload-field">
+    {{ data.preview }}
+    {# Render widget data without the image preview that was output already. #}
+    {{ data|without('preview', 'remove_button', 'upload_button') }}
+  </div>
+  <div>
+    {{ data.remove_button }}
+    {{ data.upload_button }}
+  </div>
+</div>

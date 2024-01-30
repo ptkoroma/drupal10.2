@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Opigno notification app install/update functionality.
+ */
+
+use Drupal\Core\Config\FileStorage;
+
+/**
+ * Update the notifications view config.
+ */
+function opigno_notification_update_9001() {
+  $path = \Drupal::service('extension.list.module')->getPath('opigno_notification') . '/config/optional/';
+  $config = 'views.view.opigno_notifications';
+  $source = new FileStorage($path);
+  \Drupal::service('config.storage')->write($config, $source->read($config));
+}
+

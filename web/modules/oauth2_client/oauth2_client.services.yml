@@ -1,0 +1,25 @@
+services:
+  oauth2_client.plugin_manager:
+    class: Drupal\oauth2_client\PluginManager\Oauth2ClientPluginManager
+    arguments: ['@entity_type.manager']
+    parent: default_plugin_manager
+
+  plugin.manager.oauth2_grant_type:
+    class: Drupal\oauth2_client\PluginManager\Oauth2GrantTypePluginManager
+    parent: default_plugin_manager
+
+  oauth2_client.service:
+    class: Drupal\oauth2_client\Service\Oauth2ClientService
+    arguments: ['@entity_type.manager', '@state', '@tempstore.private']
+
+  oauth2_client.service.credentials:
+    class: Drupal\oauth2_client\Service\CredentialProvider
+    arguments: ['@state', '@entity_type.manager']
+    calls:
+      - [ setKeyRepository, [ '@?key.repository' ] ]
+
+  oauth2_client.service.route_access:
+    class: Drupal\oauth2_client\Access\RouteAccess
+    arguments: ['@oauth2_client.plugin_manager']
+    tags:
+      - { name: access_check, applies_to: _oauth2_client_route_access }

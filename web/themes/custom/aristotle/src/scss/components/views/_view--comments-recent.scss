@@ -1,0 +1,38 @@
+.view-comments-recent {
+  &.view-display-id-block_1 {
+    .item-list {
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      li {
+        margin: 0 0 rem($view-item-list-mb);
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .views-field {
+      &-subject {
+       font-size: rem($font-size-sm);
+
+        a {
+          color: inherit;
+
+          &:hover {
+            color: $clr-header-link-active;
+          }
+        }
+      }
+
+      &-changed {
+       font-size: rem($font-size-xs);
+        text-align: right;
+      }
+    }
+  }
+}

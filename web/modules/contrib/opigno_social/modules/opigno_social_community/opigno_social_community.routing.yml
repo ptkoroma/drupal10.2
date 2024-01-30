@@ -1,0 +1,327 @@
+# Accept the community invitation.
+opigno_social_community.accept_invitation:
+  path: '/ajax/opigno-community-invitation/accept/{invitation}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityInvitationController::accept'
+  options:
+    parameters:
+      invitation:
+        type: entity:opigno_community_invitation
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# Decline the community invitation.
+opigno_social_community.decline_invitation:
+  path: '/ajax/opigno-community-invitation/decline/{invitation}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityInvitationController::decline'
+  options:
+    parameters:
+      invitation:
+        type: entity:opigno_community_invitation
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# Join the public community without invitation.
+opigno_social_community.join_community:
+  path: '/ajax/opigno-community/join/{opigno_community}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityController::joinCommunity'
+  options:
+    parameters:
+      opigno_community:
+        type: entity:opigno_community
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# Send request to join the restricted community.
+opigno_social_community.join_request:
+  path: '/ajax/opigno-community/join-request/{opigno_community}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityController::joinRequest'
+  options:
+    parameters:
+      opigno_community:
+        type: entity:opigno_community
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# The available for joining communities listing.
+opigno_social_community.join_communities:
+  path: '/join-communities'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityController::joinCommunitiesPage'
+    _title: 'Join communities'
+  requirements:
+    _role: 'authenticated'
+    _opigno_social_community_enabled: 'TRUE'
+
+# The available for joining communities listing.
+opigno_social_community.latest_active_community:
+  path: '/latest-active-community'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityController::latestActiveCommunityPage'
+    _title: 'Latest active community'
+  requirements:
+    _role: 'authenticated'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to render the "Create a community" form.
+opigno_social_community.ajax_create_community_form:
+  path: '/ajax/opigno-community/create'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityController::openAjaxCommunityCreateForm'
+  requirements:
+    _entity_create_access: 'opigno_community'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to render the "Edit a community" form.
+opigno_social_community.ajax_edit_community_form:
+  path: '/ajax/opigno-community/{opigno_community}/edit'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityController::openAjaxCommunityEditForm'
+  options:
+    parameters:
+      opigno_community:
+        type: entity:opigno_community
+  requirements:
+    _entity_access: 'opigno_community.update'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to render the "Delete a community" form.
+opigno_social_community.ajax_delete_community_form:
+  path: '/ajax/opigno-community/{opigno_community}/delete'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityController::openAjaxCommunityDeleteForm'
+  options:
+    parameters:
+      opigno_community:
+        type: entity:opigno_community
+  requirements:
+    _entity_access: 'opigno_community.delete'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to delete the community member.
+opigno_social_community.delete_member:
+  path: '/ajax/opigno-community/{opigno_community}/delete-member/{user}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityController::deleteMember'
+  options:
+    parameters:
+      opigno_community:
+        type: entity:opigno_community
+      user:
+        type: entity:user
+  requirements:
+    _entity_access: 'opigno_community.delete_member'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to delete the community invitation.
+opigno_social_community.delete_invitation:
+  path: '/ajax/opigno-community-invitation/delete/{invitation}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityInvitationController::deleteInvitation'
+  options:
+    parameters:
+      invitation:
+        type: entity:opigno_community_invitation
+  requirements:
+    _entity_access: 'invitation.delete'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to invite the user to the community.
+opigno_social_community.invite_user:
+  path: '/ajax/opigno-community-invitation/invite/{user}/community/{opigno_community}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityInvitationController::inviteUser'
+  options:
+    parameters:
+      user:
+        type: entity:user
+      opigno_community:
+        type: entity:opigno_community
+  requirements:
+    _entity_access: 'opigno_community.invite_member'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to display the "Invite members" form.
+opigno_social_community.invitation_form:
+  path: '/ajax/opigno-community-invitation/form/{opigno_community}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityInvitationController::openInvitationForm'
+  options:
+    parameters:
+      opigno_community:
+        type: entity:opigno_community
+  requirements:
+    _entity_access: 'opigno_community.invite_member'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to display the "leave the community" confirmation message.
+opigno_social_community.leave_community_confirmation:
+  path: '/ajax/opigno-community/leave/{opigno_community}/confirm'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityController::leaveCommunityConfirmation'
+  options:
+    parameters:
+      opigno_community:
+        type: entity:opigno_community
+  requirements:
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to leave the community.
+opigno_social_community.leave_community:
+  path: '/ajax/opigno-community/leave/{opigno_community}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityController::leaveCommunity'
+  options:
+    parameters:
+      opigno_community:
+        type: entity:opigno_community
+  requirements:
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# Community administration form.
+opigno_social_community.admin_form:
+  path: '/admin/config/opigno-social-community/settings'
+  defaults:
+    _form: '\Drupal\opigno_social_community\Form\CommunityAdministrationForm'
+    _title: 'Community administration settings'
+  requirements:
+    _role: 'administrator'
+  options:
+    _admin_route: TRUE
+
+# AJAX route to share the extra post content (training/badge/certificate).
+opigno_social_community.share_post_content:
+  path: '/ajax/opigno-social-community/share-post-content'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityPostsController::sharePostContent'
+  methods: [ 'POST', 'GET' ]
+  requirements:
+    _role: 'authenticated'
+    _opigno_social_community_enabled: 'TRUE'
+    _opigno_social_can_share_content: 'TRUE'
+
+# Get the shareable content of the given type.
+opigno_social_community.get_shareable_content:
+  path: '/ajax/opigno-social-community/get-shareable-content/{type}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityPostsController::getShareableContent'
+  methods: [ 'POST', 'GET' ]
+  requirements:
+    _role: 'authenticated'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to create a community post.
+opigno_social_community.create_post:
+  path: '/ajax/opigno-social-community/create/post'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityPostsController::createPost'
+  methods: [ 'POST' ]
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to delete a community post.
+opigno_social_community.delete_post:
+  path: '/ajax/opigno-social-community/post/{post}/delete'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityPostsController::deletePost'
+  options:
+    parameters:
+      post:
+        type: entity:opigno_community_post
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+    _entity_access: 'post.delete'
+
+# AJAX route to render the comment form.
+opigno_social_community.show_comment_form:
+  path: '/ajax/opigno-social-community/post/{pid}/comment-form'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityPostsController::getCommentForm'
+  methods: [ 'POST' ]
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+    _opigno_community_member: 'TRUE'
+
+# AJAX route to create the post comment.
+opigno_social_community.create_comment:
+  path: '/ajax/opigno-social-community/post/{pid}/comment'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityPostsController::createComment'
+  methods: [ 'POST' ]
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+    _opigno_community_member: 'TRUE'
+
+# AJAX route to get the post comments block.
+opigno_social_community.get_post_comments:
+  path: '/ajax/opigno-social-community/post/{pid}/get-comments/{amount}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityPostsController::getPostComments'
+  methods: [ 'POST' ]
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to hide the post comments.
+opigno_social_community.hide_post_comments:
+  path: '/ajax/opigno-social-community/post/{pid}/hide-post-comments'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityPostsController::hidePostComments'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+
+# AJAX route to load more post comments.
+opigno_social_community.load_more_comments:
+  path: '/ajax/opigno-social-community/post/{pid}/load-more/{from}/{amount}'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityPostsController::loadMoreComments'
+  methods: [ 'POST' ]
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'
+
+# AJAX route to pin/unpin the community post.
+opigno_social_community.pin_post:
+  path: '/ajax/opigno-social-community/post/{post}/pin'
+  defaults:
+    _controller: '\Drupal\opigno_social_community\Controller\CommunityPostsController::pinPost'
+  options:
+    parameters:
+      post:
+        type: entity:opigno_community_post
+  methods: [ 'POST' ]
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_community_enabled: 'TRUE'

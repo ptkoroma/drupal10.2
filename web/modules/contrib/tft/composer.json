@@ -1,0 +1,11 @@
+{
+    "name": "drupal/tft",
+    "type": "drupal-module",
+    "description": "Opigno tft.",
+    "homepage": "http://drupal.org/project/opigno_tft",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

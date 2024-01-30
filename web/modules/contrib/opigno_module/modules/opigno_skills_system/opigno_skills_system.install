@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Opigno skills system module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\user\Entity\Role;
+
+/**
+ * Implements hook_install().
+ */
+function opigno_skills_system_install($is_syncing) {
+  if ($is_syncing) {
+    return;
+  }
+
+  // Give an access to manage skills vocabulary.
+  $role = Role::load('content_manager');
+  $issueAccessPermissions = [
+    'create terms in skills',
+    'delete terms in skills',
+    'edit terms in skills'
+  ];
+  foreach ($issueAccessPermissions as $permission) {
+    $role->grantPermission($permission);
+  }
+
+  try {
+    $role->save();
+  }
+  catch (EntityStorageException $e) {
+    watchdog_exception('opigno_skills_system_exception', $e);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function opigno_skills_system_uninstall() {
+  $config_path = \Drupal::service('extension.list.module')->getPath('opigno_module') . '/config/optional';
+
+  $storage = new FileStorage($config_path);
+  $config_storage = \Drupal::service('config.storage');
+
+  $data = $storage->read('views.view.opigno_activities_bank_lp_interface');
+  $config_storage->write('views.view.opigno_activities_bank_lp_interface', $data);
+}

@@ -1,0 +1,14 @@
+name: Opigno Social Community
+type: module
+description: 'Extends the Opigno Social module functionality to be able to create and manage social communities.'
+package: Opigno
+core_version_requirement: ^9 || ^10
+dependencies:
+  - opigno_social:opigno_social
+  - opigno_like:opigno_like
+  - drupal:extra_field
+
+# Information added by Drupal.org packaging script on 2023-06-01
+version: '3.1.0'
+project: 'opigno_social'
+datestamp: 1685622535

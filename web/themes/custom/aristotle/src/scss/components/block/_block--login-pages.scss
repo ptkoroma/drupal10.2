@@ -1,0 +1,44 @@
+.block-login-pages {
+  position: relative;
+  margin: rem(60) auto;
+  max-width: rem(280);
+  padding: rem(30) rem(20) rem(20);
+  background: $clr-white;
+  border-radius: rem(30);
+  z-index: 1;
+
+  @include media-breakpoint-up(sm) {
+    max-width: rem(360);
+    padding: rem(40) rem(40) rem(30);
+  }
+
+  .login-tab-content {
+    margin: rem(15) 0 rem(20);
+
+    @include media-breakpoint-up(sm) {
+      margin: rem(20) 0 rem(30);
+    }
+  }
+
+  .login-nav-tab {
+    flex-direction: column;
+    align-items: center;
+
+    .nav-item {
+     font-size: rem($font-size-xs);
+      display: inline;
+      padding: 0;
+      color: $clr-content-link;
+      line-height: $line-height-base;
+
+      &.active {
+        display: none !important;
+      }
+
+      &:hover {
+        color: $clr-content-link-active;
+        text-decoration: $link-hover-decoration;
+      }
+    }
+  }
+}

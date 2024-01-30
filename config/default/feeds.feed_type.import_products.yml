@@ -1,0 +1,79 @@
+uuid: c90811a6-9b77-401a-80d9-620c7b8e7b5d
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.learning_path_product
+    - field.field.commerce_product.learning_path_product.field_learning_path_id
+  module:
+    - commerce_feeds
+    - commerce_product
+label: 'Import Products'
+id: import_products
+description: ''
+help: ''
+import_period: -1
+fetcher: upload
+fetcher_configuration:
+  allowed_extensions: 'txt csv tsv xml opml'
+  directory: 'private://feeds'
+parser: csv
+parser_configuration:
+  delimiter: ','
+  no_headers: false
+  line_limit: 100
+processor: 'entity:commerce_product'
+processor_configuration:
+  values:
+    type: learning_path_product
+  langcode: en
+  insert_new: 1
+  update_existing: 0
+  update_non_existent: _keep
+  skip_hash_check: false
+  authorize: true
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+custom_sources:
+  activity_title:
+    value: 'Activity Title'
+    label: 'Activity Title'
+    machine_name: activity_title
+    type: csv
+  store:
+    value: Store
+    label: Store
+    machine_name: store
+    type: csv
+mappings:
+  -
+    target: field_learning_path_id
+    map:
+      target_id: activity_title
+    settings:
+      language: null
+      reference_by: label
+      autocreate: false
+      feeds_item: false
+  -
+    target: title
+    map:
+      value: activity_title
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: variations
+    map:
+      target_id: activity_title
+    settings:
+      reference_by: title
+      autocreate: '1'
+  -
+    target: stores
+    map:
+      target_id: store
+    settings:
+      reference_by: name
+      autocreate: false

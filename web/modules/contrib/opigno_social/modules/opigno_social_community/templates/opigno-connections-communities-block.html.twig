@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display connections/communities block.
+ */
+#}
+
+<div id="opigno-connections-communities-block" class="opigno-connections-communities-block content-box">
+  <h2 class="content-box__title">{{ 'Social'|t }}</h2>
+  <p class="connections-number">
+    {% trans %}
+      You have <strong>1</strong> connection
+    {% plural connections %}
+      You have <strong>{{ connections }}</strong> connections
+    {% endtrans %}
+  </p>
+  {{ connections_link }}
+
+  {% if communities %}
+    <h5>{{ 'Your communities'|t }}</h5>
+    {% for community in communities %}
+      {{ community }}
+    {% endfor %}
+  {% endif %}
+
+  <div class="see-connections">
+    {{ communities_feed_link }}
+  </div>
+</div>

@@ -1,0 +1,20 @@
+extends ../layout/main
+
+block variables
+  - var title = 'Training progress';
+  - var description = '';
+  - var pageClass = 'page-training-progress';
+
+block content
+  .back-btn.d-none.d-lg-block
+    a(href="#")
+      i.fi.fi-rr-arrow-left
+      | Back
+
+  .block-page-title-block
+    h1= title
+
+  .row
+    .col-12
+      .content-box
+        

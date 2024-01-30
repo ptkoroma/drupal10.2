@@ -1,0 +1,48 @@
+// Modal position
+body.toolbar-fixed.toolbar-horizontal {
+  .modal-dialog-sidebar {
+    top: 39px !important;
+    height: calc(100% - 39px) !important;
+  }
+
+  &.toolbar-tray-open {
+    .modal-dialog-sidebar {
+      top: 79px !important;
+      height: calc(100% - 79px) !important;
+    }
+  }
+}
+
+body.toolbar-fixed.toolbar-vertical {
+  .modal-dialog-sidebar {
+    top: 39px !important;
+    height: calc(100% - 39px) !important;
+  }
+}
+
+// Modal base style
+.modal-dialog-sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  width: 100% !important;
+  max-width: 390px !important;
+  height: 100% !important;
+  overflow-y: auto;
+
+  .ui-dialog-content {
+    width: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+  }
+
+  .ui-dialog-titlebar {
+    padding: 32px !important;
+
+    .ui-dialog-titlebar-close {
+      right: 16px;
+    }
+  }
+}

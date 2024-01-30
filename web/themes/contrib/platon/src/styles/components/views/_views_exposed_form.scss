@@ -1,0 +1,28 @@
+.views-exposed-form {
+
+  .form-inline {
+    align-items: flex-end;
+
+    .form-group,
+    .form-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 5px;
+    }
+
+    .form-element-wrapper,
+    .form-control {
+      width: 100%;
+    }
+
+    a.button,
+    input[type=submit] {
+      padding: 6px 20px;
+      text-transform: none;
+    }
+
+    .form-actions {
+      flex-direction: row;
+    }
+  }
+}

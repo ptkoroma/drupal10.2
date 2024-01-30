@@ -1,0 +1,28 @@
+uuid: a97cf5ae-1ffd-4e00-b696-d065147d9e7d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_course_description
+    - group.type.opigno_course
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: vVEotqZfwnx_ZRFYCuAOE_-fvQ--wRIIEWUWZgZZ3YM
+id: group.opigno_course.field_course_description
+field_name: field_course_description
+entity_type: group
+bundle: opigno_course
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

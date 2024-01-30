@@ -1,0 +1,155 @@
+uuid: 67a23f1f-a857-496e-90c5-82eac92605ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.planned_action.field_activity_status
+    - field.field.node.planned_action.field_categorys
+    - field.field.node.planned_action.field_effort
+    - field.field.node.planned_action.field_field_of_engineering_2
+    - field.field.node.planned_action.field_how_will_i_know_i_have_suc
+    - field.field.node.planned_action.field_target_date
+    - field.field.node.planned_action.field_upload_supporting_document
+    - field.field.node.planned_action.field_what_do_i_need_to_learn_
+    - field.field.node.planned_action.field_what_resources_support_is_
+    - field.field.node.planned_action.field_what_will_i_do_to_achieve_
+    - node.type.planned_action
+  module:
+    - comment
+    - datetime
+    - file
+    - path
+    - text
+id: node.planned_action.default
+targetEntityType: node
+bundle: planned_action
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_activity_status:
+    type: options_select
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_categorys:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_effort:
+    type: comment_default
+    weight: 17
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_field_of_engineering_2:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_how_will_i_know_i_have_suc:
+    type: text_textarea
+    weight: 8
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_target_date:
+    type: datetime_default
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_upload_supporting_document:
+    type: file_generic
+    weight: 10
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+  field_what_do_i_need_to_learn_:
+    type: text_textarea
+    weight: 5
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_what_resources_support_is_:
+    type: text_textarea
+    weight: 7
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_what_will_i_do_to_achieve_:
+    type: text_textarea
+    weight: 6
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 3
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 13
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 16
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 14
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 11
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

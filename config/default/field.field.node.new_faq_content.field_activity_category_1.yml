@@ -1,0 +1,29 @@
+uuid: bc5d7a04-c26f-462f-bddc-1fd8a0b7c3b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_activity_category_1
+    - node.type.new_faq_content
+    - taxonomy.vocabulary.category
+id: node.new_faq_content.field_activity_category_1
+field_name: field_activity_category_1
+entity_type: node
+bundle: new_faq_content
+label: 'Activity Category'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      category: category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

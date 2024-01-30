@@ -1,0 +1,17 @@
+block content
+  .person-item
+    .person-item__content
+      .person-item__info
+        span.profile-pic
+          img(src="images/content/profil.svg" alt="img")
+        span.body
+          span.name Jerome Simentale
+          span.type Student
+
+      .person-item__actions.person-item__actions-invite
+        if invited === true
+          a.btn-connection.invited(href="#") Invited
+            i.fi.fi-rr-cross-small
+        else
+          a.btn-connection.invite(href="#") Invite
+

@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: training_preview_image
+label: 'Training preview image (120x120)'
+effects:
+  d7b5354c-845f-424a-b115-6c2e28fe286e:
+    uuid: d7b5354c-845f-424a-b115-6c2e28fe286e
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 120
+      height: 120
+      anchor: center-center

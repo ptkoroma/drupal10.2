@@ -1,0 +1,14 @@
+name: Queue Mail Test
+type: module
+description: Module for use by the queue mail module tests.
+core_version_requirement: ^9.4 || ^10
+dependencies:
+  - queue_mail:queue_mail
+
+package: Testing
+hidden: true
+
+# Information added by Drupal.org packaging script on 2023-09-28
+version: '8.x-1.6'
+project: 'queue_mail'
+datestamp: 1695892214

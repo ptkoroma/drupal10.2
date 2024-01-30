@@ -1,0 +1,24 @@
+uuid: eb22fde8-0da5-4e76-97e4-309e0b9718d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.private_message_thread.field_create_group
+  module:
+    - private_message
+id: private_message_thread.private_message_thread.field_create_group
+field_name: field_create_group
+entity_type: private_message_thread
+bundle: private_message_thread
+label: 'Create a group'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

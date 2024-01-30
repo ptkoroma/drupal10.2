@@ -1,0 +1,7 @@
+views.filter.views_daterange_filters_daterange:
+  type: views_filter
+  label: 'Date range'
+
+views.filter_value.views_daterange_filters_daterange:
+  type: views.filter_value.date
+  label: 'Date range'

@@ -1,0 +1,11 @@
+uuid: 162c5cbb-d117-4369-a73e-91f8285a594d
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: c1OnkZy-W8qNKfvlpbf69r-9VK0mDQeifpeuAci57BU
+id: opigno_file_upload
+label: 'File upload'
+description: 'File upload activity makes possible  for students to load files that will be manually scored by teacher.'
+summary: null
+image: null

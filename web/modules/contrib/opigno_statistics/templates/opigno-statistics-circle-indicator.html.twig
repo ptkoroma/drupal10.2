@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the circle indicator.
+ */
+#}
+
+<div class="indicator-wrapper">
+  <svg class="indicator" viewBox="0 0 {{ width }} {{ height }}">
+    <circle cx="{{ cx }}" cy="{{ cy }}" r="{{ radius }}"></circle>
+    <path d="M{{ cx }},{{ cy }}
+    L{{ cx }},0
+    {% if not val_rad %}
+      A{{ radius }},{{ radius }} 1 0,1 {{ cx }},{{ cy + radius }}
+    {% endif %}
+    A{{ radius }},{{ radius }} 1 0,1 {{ x }},{{ y }} z"></path>
+    <circle class="inner" cx="{{ cx }}" cy="{{ cy }}" r="{{ radius - 6 }}"></circle>
+  </svg>
+</div>

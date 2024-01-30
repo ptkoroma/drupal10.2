@@ -1,0 +1,10 @@
+{
+  "users": {
+    "2": {
+      "id": "2",
+      "name": "user1",
+      "email": "user1@localhost",
+      "avatar": "https:\/\/cdn.fakercloud.com\/avatars\/jarsen_128.jpg"
+    }
+  }
+}

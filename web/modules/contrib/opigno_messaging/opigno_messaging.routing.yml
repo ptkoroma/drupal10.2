@@ -1,0 +1,40 @@
+# Custom PM thread create form.
+opigno_messaging.get_add_thread_form:
+  path: '/ajax/opigno-messages/get-add-thread-form'
+  defaults:
+    _controller: '\Drupal\opigno_messaging\Controller\OpignoMessageThreadController::getThreadForm'
+  methods: ['POST']
+  requirements:
+    _permission: 'use private messaging system'
+
+# Custom PM thread update form.
+opigno_messaging.get_edit_thread_form:
+  path: '/ajax/opigno-messages/{private_message_thread}/edit'
+  defaults:
+    _controller: '\Drupal\opigno_messaging\Controller\OpignoMessageThreadController::getEditThreadForm'
+  methods: ['POST']
+  requirements:
+    _opigno_messaging_update_thread_access: 'TRUE'
+    _permission: 'use private messaging system'
+  options:
+    parameters:
+      private_message_thread:
+        type: entity:private_message_thread
+
+# Delete thread confirmation form.
+opigno_messaging.confirm_delete_form:
+  path: '/ajax/opigno-messages/{private_message_thread}/delete'
+  defaults:
+    _controller: '\Drupal\opigno_messaging\Controller\OpignoMessageThreadController::getDeleteThreadForm'
+  methods: ['POST']
+  requirements:
+    _entity_access: 'private_message_thread.delete'
+    _permission: 'use private messaging system'
+
+# Create the new message thread with the given user and redirect to it.
+opigno_messaging.redirect_to_new_thread:
+  path: '/opigno-messaging/redirect-new-thread-with-user/{uid}'
+  defaults:
+    _controller: '\Drupal\opigno_messaging\Controller\OpignoMessageThreadController::redirectToNewThread'
+  requirements:
+    _role: 'authenticated'

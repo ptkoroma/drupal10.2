@@ -1,0 +1,38 @@
+# Opigno-admin menu
+opigno_admin.user_and_class_managments:
+  title: User and class
+  description: 'User and class management'
+  route_name: <none>
+  menu_name: opigno-admin
+  weight: -36
+
+opigno_admin.social_settings_form:
+  title: Social settings
+  description: 'Social settings'
+  route_name: opigno_class.social_settings_form
+  parent: opigno_admin.user_and_class_managments
+  menu_name: opigno-admin
+  weight: -40
+
+opigno_admin.manage_users:
+  title: Users
+  description: 'Manage users'
+  route_name: view.user_admin_people.page_1
+  parent: opigno_admin.user_and_class_managments
+  menu_name: opigno-admin
+  weight: -35
+
+opigno_admin.manage_classes:
+  title: Classes
+  description: 'Manage classes'
+  route_name: view.opigno_classes.all
+  parent: opigno_admin.user_and_class_managments
+  menu_name: opigno-admin
+  weight: -34
+
+opigno_class.social_settings_form:
+  title: 'Social settings'
+  route_name: opigno_class.social_settings_form
+  description: 'Social settings configuration form'
+  parent: system.admin_config_system
+  weight: 99

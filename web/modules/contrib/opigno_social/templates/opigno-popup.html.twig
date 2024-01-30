@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the Opigno popup.
+ *
+ * Available varaibles:
+ * - title: the popup title;
+ * - body: the popup body;
+ * - is_ajax: should the modal be triggered with AJAX or not.
+ */
+#}
+
+<div class="modal fade {{ is_ajax ? 'modal-ajax' }}" tabindex="-1" role="dialog" aria-label="{{ title }}">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        {% if title is not empty %}
+          <h2 class="modal-title">{{ title }}</h2>
+        {% endif %}
+        <a href="{{ path('opigno_learning_path.close_modal') }}" class="close use-ajax" type="button" aria-label="{{ 'Close'|t }}" data-dismiss="modal">
+          <i class="fi fi-rr-arrow-left"></i>
+        </a>
+      </div>
+
+      <div class="modal-body">
+        {{ body }}
+      </div>
+    </div>
+  </div>
+</div>

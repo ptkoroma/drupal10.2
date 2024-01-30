@@ -1,0 +1,58 @@
+messages:
+  version: VERSION
+  js:
+    js/commerce_stripe.messages.js: {}
+  dependencies:
+    - classy/messages
+    - core/jquery
+    - core/drupal
+
+form:
+  version: VERSION
+  css:
+    theme:
+      css/commerce_stripe.form.css: {}
+  js:
+    js/commerce_stripe.form.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
+    - commerce_stripe/messages
+    - commerce_stripe/stripe
+
+checkout_review:
+  version: VERSION
+  css:
+    theme:
+      css/commerce_stripe.review.css: {}
+  js:
+    js/commerce_stripe.review.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
+    - commerce_stripe/messages
+    - commerce_stripe/stripe
+
+payment_element:
+  version: VERSION
+  css:
+    theme:
+      css/commerce_stripe.form.css: { }
+  js:
+    js/commerce_stripe.payment_element.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/once
+    - commerce_stripe/messages
+    - commerce_stripe/stripe
+
+credit_card_icons:
+  version: VERSION
+  css:
+    theme:
+      css/commerce_stripe.credit_card_icons.css: {}
+  dependencies:
+    - commerce_payment/payment_method_icons

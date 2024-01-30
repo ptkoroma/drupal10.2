@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * The Queue Mail Language module.
+ */
+
+use Drupal\queue_mail_language\Plugin\QueueWorker\LanguageAwareSendMailQueueWorker;
+
+/**
+ * Implements hook_queue_info_alter().
+ */
+function queue_mail_language_queue_info_alter(&$queues) {
+  $queues['queue_mail']['class'] = LanguageAwareSendMailQueueWorker::class;
+}

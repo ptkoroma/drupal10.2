@@ -1,0 +1,44 @@
+.modal.fade#postTraining(tabindex="-1" role="dialog" aria-labelledby="postTraining" aria-hidden="true")
+  .modal-dialog.modal-dialog-centered(role="document")
+    .modal-content
+      .modal-header
+        h2.modal-title Add training
+
+        a.close(href="#" type="button" data-dismiss="modal" aria-label="Close")
+          i.fi.fi-rr-arrow-left
+
+      .modal-body
+        form.views-exposed-form(action="#")
+          .form-items-group
+            .js-form-item.form-item.js-form-type-textfield.form-item-label.js-form-item-label
+              input.form-search.form-text(type="search" placeholder="Search")
+            input.button.js-form-submit.form-submit(type="submit")
+
+          select.form-select.selectpicker#filter(name="filter")
+            option(value="progress") In progress
+            option(value="completed") Completed
+
+        ul.trainings-list
+          li.trainings-list__item
+            a(href="#")
+              span.image
+                img(src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1280px-Image_created_with_a_mobile_phone.png")
+              span.text La photographie pour les nuls
+
+          li.trainings-list__item
+            a(href="#")
+              span.image
+                img(src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1280px-Image_created_with_a_mobile_phone.png")
+              span.text La photographie pour les nuls
+
+          li.trainings-list__item
+            a(href="#")
+              span.image
+                img(src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1280px-Image_created_with_a_mobile_phone.png")
+              span.text La photographie pour les nuls
+
+          li.trainings-list__item
+            a(href="#")
+              span.image
+                img(src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1280px-Image_created_with_a_mobile_phone.png")
+              span.text La photographie pour les nuls

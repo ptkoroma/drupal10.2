@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * @file
+ * Contains hooks for the activity/module restart functionality.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\opigno_module\Entity\OpignoAnswerInterface;
+use Drupal\opigno_module_restart\Entity\OpignoModule;
+use Drupal\opigno_module_restart\Entity\UserModuleStatus;
+use Drupal\opigno_module_restart\Form\OpignoAnswerForm;
+use Drupal\opigno_module_restart\Plugin\Block\StepsBlock;
+use Drupal\opigno_module_restart\Services\ModuleRestartManager;
+
+/**
+ * Implements hook_block_alter().
+ */
+function opigno_module_restart_block_alter(&$definitions) {
+  if (isset($definitions['lp_steps_block'])) {
+    $definitions['lp_steps_block']['class'] = StepsBlock::class;
+  }
+}
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function opigno_module_restart_entity_type_build(array &$entity_types) {
+  // Override Module and User module status entities.
+  if (isset($entity_types['opigno_module'])) {
+    $entity_types['opigno_module']->setClass(OpignoModule::class);
+  }
+  if (isset($entity_types['user_module_status'])) {
+    $entity_types['user_module_status']->setClass(UserModuleStatus::class);
+  }
+  if (isset($entity_types['opigno_answer'])) {
+    $entity_types['opigno_answer']->setFormClass('default', OpignoAnswerForm::class);
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ */
+function opigno_module_restart_opigno_answer_update(EntityInterface $entity) {
+  $original = $entity->original ?? NULL;
+  if (!$entity instanceof OpignoAnswerInterface || !$original instanceof OpignoAnswerInterface) {
+    return;
+  }
+
+  $group = $entity->getLearningPath();
+  $free_nav_enabled = ModuleRestartManager::isGroupFreeNavigation($group);
+  // The special rules for the answer update should be applicable only for LPs
+  // with the free navigation.
+  $attempt = $entity->getUserModuleStatus();
+  if (!$free_nav_enabled || !$attempt instanceof UserModuleStatus) {
+    return;
+  }
+
+  $activity = $entity->getActivity();
+  // The user's answer should be updated only in case when the new score is
+  // better than the previous one. If for the related activity selected manual
+  // evaluation method, the answer should be updated in any case.
+  if ($activity->evaluationMethodManual()) {
+    $attempt->incrementRestartedActivitiesNumber()->save();
+    return;
+  }
+
+  // Update the module attempt score if the new answer score is better than the
+  // previous one.
+  if ($entity->getScore() > $original->getScore()) {
+    $score = $attempt->calculateScore();
+    $max_score = $attempt->calculateMaxScore();
+    $percents = $max_score > 0 ? round(($score / $max_score) * 100) : 100;
+    $attempt->incrementRestartedActivitiesNumber()
+      ->setScore((int) $percents)
+      ->save();
+
+    return;
+  }
+
+  // Rollback the entity if the new score is worse than the previously earned.
+  $fields = $entity->getFields();
+  foreach ($fields as $key => $field) {
+    $value = $original->get($key)->getValue();
+    $entity->get($key)->setValue($value);
+  }
+}

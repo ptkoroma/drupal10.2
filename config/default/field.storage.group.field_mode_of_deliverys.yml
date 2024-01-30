@@ -1,0 +1,27 @@
+uuid: d6d0a746-8cca-45f8-ae7c-b8a680a821e4
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - options
+id: group.field_mode_of_deliverys
+field_name: field_mode_of_deliverys
+entity_type: group
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Virtual
+      label: Virtual
+    -
+      value: Physical
+      label: Physical
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

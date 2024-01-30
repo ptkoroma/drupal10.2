@@ -1,0 +1,12 @@
+uuid: 2192be91-17a3-41e8-bfa2-c91f1759eadd
+langcode: en
+status: true
+dependencies:
+  module:
+    - forum
+id: engineer_sub_permission_1
+label: 'Engineer Sub Permission 1'
+weight: 5
+is_admin: null
+permissions:
+  - 'administer forums'

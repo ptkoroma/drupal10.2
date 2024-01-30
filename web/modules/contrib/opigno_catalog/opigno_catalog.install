@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the module.
+ */
+
+/**
+ * Import configs.
+ */
+function opigno_catalog_update_9001() {
+  // Enable the views infinite scroll module.
+  \Drupal::service('module_installer')->install(['views_infinite_scroll']);
+
+  // Import configs.
+  \Drupal::service('config.installer')->installDefaultConfig('module', 'opigno_catalog');
+}

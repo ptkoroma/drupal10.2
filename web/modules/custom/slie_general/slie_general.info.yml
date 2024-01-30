@@ -1,0 +1,6 @@
+name: 'Slie General'
+type: module
+description: 'A simple Drupal 10 module.'
+package: Custom
+version: 1.0
+core_version_requirement: ^8 || ^9 || ^10

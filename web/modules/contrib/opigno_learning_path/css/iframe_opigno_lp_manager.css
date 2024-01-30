@@ -1,0 +1,25 @@
+html.inIframe #main-content #content {
+  /* Setup Flexbox */
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  /* Reverse Column Order */
+  -webkit-flex-flow: column-reverse;
+  flex-flow: column-reverse;
+}
+
+html.inIframe .message-wrapper .alert {
+  display: block !important;
+}
+
+html.inIframe .message-wrapper {
+  position: unset;
+}
+
+html.inIframe #block-tabs {
+  display: none;
+}
+

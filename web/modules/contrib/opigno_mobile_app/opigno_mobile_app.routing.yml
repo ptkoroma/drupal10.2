@@ -1,0 +1,239 @@
+# ********
+# Private messages
+# ********
+opigno_mobile_app.messaging.add_message:
+  path: '/api/v1/private_message_thread/{private_message_thread}/add-message'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Messaging\MessagingController::addNewMessageToTread'
+    _title: 'addNewMessageToTread'
+  requirements:
+    _entity_access: 'private_message_thread.view'
+    _permission: 'use private messaging system,access user profiles'
+    _user_is_logged_in: 'TRUE'
+    _format: 'json'
+  methods: [POST]
+  options:
+    _auth:
+      - jwt_auth
+    parameters:
+      private_message_thread:
+        type: entity:private_message_thread
+
+opigno_mobile_app.messaging.add_messages_bulk:
+  path: '/api/v1/private_message_thread/{private_message_thread}/add-messages-bulk'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Messaging\MessagingController::addMessagesBulkToTread'
+    _title: 'addNewMessageToTread'
+  requirements:
+    _entity_access: 'private_message_thread.view'
+    _entity_create_access: 'private_message'
+    _permission: 'use private messaging system,access user profiles'
+    _user_is_logged_in: 'TRUE'
+    _format: 'json'
+  methods: [POST]
+  options:
+    _auth:
+      - jwt_auth
+    parameters:
+      private_message_thread:
+        type: entity:private_message_thread
+
+opigno_mobile_app.messaging.get_thread_info:
+  path: '/api/v1/private_message_thread/{private_message_thread}'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Messaging\MessagingController::getPrivateMessageThreadInfo'
+  requirements:
+    _entity_access: 'private_message_thread.view'
+    _permission: 'use private messaging system,access user profiles'
+    _user_is_logged_in: 'TRUE'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+    parameters:
+      private_message_thread:
+        type: entity:private_message_thread
+
+opigno_mobile_app.messaging.create_thread:
+  path: '/api/v1/private_message_thread/create'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Messaging\MessagingController::createPrivateMessageThread'
+  requirements:
+    _entity_create_access: 'private_message_thread'
+    _permission: 'use private messaging system,access user profiles'
+    _user_is_logged_in: 'TRUE'
+    _format: 'json'
+  methods: [POST]
+  options:
+    _auth:
+      - jwt_auth
+
+# ********
+# Groups
+# ********
+opigno_mobile_app.training.get_categories:
+  path: '/api/v1/training/categories'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Groups\LearningPathController::getCategories'
+    _title: 'Categories'
+  requirements:
+    _access: 'TRUE'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+
+opigno_mobile_app.training.get_latest_active_trainings:
+  path: '/api/v1/training/get-latest-active-trainings'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Groups\LearningPathController::getLatestActiveTrainings'
+    _title: 'Latest active trainings'
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+
+opigno_mobile_app.training.get_groups_info_by_membership:
+  path: '/api/v1/training/get-groups-info-by-membership'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Groups\LearningPathController::getGroupsInfoByUserMembership'
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+
+opigno_mobile_app.training.all:
+  path: '/api/v1/training/all'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Groups\LearningPathController::getAllTrainings'
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+# ********
+# Users.
+# ********
+opigno_mobile_app.users.list:
+  path: '/api/v1/users/list'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Users\UsersController::getUsersList'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _permission: 'administer users'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+
+opigno_mobile_app.users_groups:
+  path: '/api/v1/users-groups'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Users\UsersController::getUsersGroupsList'
+  requirements:
+    _user_is_logged_in: 'TRUE'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+
+opigno_mobile_app.users.groups_members:
+  path: '/api/v1/users/get-groups-members'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Users\UsersController::getUsersByGroupsMembership'
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+      -
+opigno_mobile_app.users.user_profile:
+  path: '/api/v1/user/profile'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\Users\UsersController::getUserProfileInfo'
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+
+# ********
+# Common.
+# ********
+opigno_mobile_app.check_opigno_instance:
+  path: '/api/v1/check-opigno-instance'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\OpignoMobileController::checkOpignoInstance'
+  requirements:
+    _access: 'TRUE'
+    _format: 'json'
+  methods: [GET]
+
+# ********
+# Statistics.
+# ********
+opigno_mobile_app.statistics:
+  path: '/api/v1/statistics'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\StatisticsController::getStatistics'
+  requirements:
+    _custom_access: '\Drupal\opigno_statistics\Form\DashboardForm::access'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+
+opigno_mobile_app.statistics.get_years:
+  path: '/api/v1/statistics/years'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\StatisticsController::getYears'
+  requirements:
+    _custom_access: '\Drupal\opigno_statistics\Form\DashboardForm::access'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+
+# ********
+# Moxtra meetings.
+# ********
+opigno_mobile_app.moxtra_meetings:
+  path: 'api/v1/opigno-moxtra-meetings'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\OpignoMoxtraController::getMeetings'
+  requirements:
+    _permission: 'access content'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth
+
+opigno_mobile_app.moxtra_credentials:
+  path: 'api/v1/moxtra-credentials'
+  defaults:
+    _controller: '\Drupal\opigno_mobile_app\Controller\OpignoMoxtraController::getMoxtraCredentials'
+  requirements:
+    _permission: 'access content'
+    _format: 'json'
+  methods: [GET]
+  options:
+    _auth:
+      - jwt_auth

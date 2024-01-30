@@ -1,0 +1,97 @@
+@font-face {
+  font-family: 'h5p-reporting-icons';
+  src:  url('../fonts/h5p-reporting-icons.eot?xscgrg');
+  src:  url('../fonts/h5p-reporting-icons.eot?xscgrg#iefix') format('embedded-opentype'),
+  url('../fonts/h5p-reporting-icons.ttf?xscgrg') format('truetype'),
+  url('../fonts/h5p-reporting-icons.woff?xscgrg') format('woff'),
+  url('../fonts/h5p-reporting-icons.svg?xscgrg#h5p-reporting-icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.h5p-fill-in-container {
+  line-height: 2.25;
+}
+
+.h5p-fill-in-container p {
+  line-height: 2.25;
+  margin-bottom: 0;
+}
+
+.h5p-fill-in-options {
+  color: #7f7f7f;
+  background-color: #f5f5f5;
+  padding: 1.66em;
+  font-size: 0.94em;
+}
+
+.h5p-fill-in-correct-responses-pattern,
+.h5p-fill-in-user-response-wrong,
+.h5p-fill-in-user-response-correct {
+  display: inline-block;
+  padding: 0.15em 0.66em;
+  margin-left: 0.33em;
+  margin-right: 0.33em;
+  border-radius: 0.33em;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+.h5p-fill-in-correct-responses-pattern {
+  color: #79b74b;
+  background-color: #fff;
+  border: dashed 1px #79b74b;
+}
+
+.h5p-fill-in-user-response {
+  display: block;
+  white-space: normal;
+}
+
+.h5p-fill-in-user-response-correct {
+  color: #ffffff;
+  background: #8ac062;
+  border: dashed 1px #8ac062;
+}
+
+.h5p-fill-in-user-response::before {
+  padding: 10px;
+}
+
+.h5p-fill-in-user-response-correct.h5p-fill-in-no-correct {
+  background-color: #186df7;
+  border: none;
+}
+
+.h5p-fill-in-user-response-correct:before {
+  font-family: 'h5p-reporting-icons';
+  content: "\e90c";
+}
+
+.h5p-fill-in-user-response-wrong {
+  color: #ffffff;
+  background-color: #df465a;
+  border: dashed 1px #df465a;
+}
+
+.h5p-fill-in-user-response-wrong:before {
+  font-family: 'h5p-reporting-icons';
+  content: "\e894";
+}
+
+.h5p-fill-in-footer {
+  font-size: 14px;
+  text-align: right;
+  margin-top: 30px;
+  color: #5c5c5c;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Customization for long-fill-in interactions */
+.h5p-fill-in-container.h5p-long-fill-in .h5p-fill-in-correct-responses-pattern,
+.h5p-fill-in-container.h5p-long-fill-in .h5p-fill-in-user-response-wrong,
+.h5p-fill-in-container.h5p-long-fill-in .h5p-fill-in-user-response-correct {
+  width: 100%;
+  white-space: normal;
+}

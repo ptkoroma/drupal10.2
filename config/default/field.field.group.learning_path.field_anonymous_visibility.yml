@@ -1,0 +1,31 @@
+uuid: 8be7e5e7-69bc-4776-a8dd-0fe874039660
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_anonymous_visibility
+    - group.type.learning_path
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: q9CF0Tqjs4UrKvuQwPFphtxFFyZpikrP5laqLw95wFI
+id: group.learning_path.field_anonymous_visibility
+field_name: field_anonymous_visibility
+entity_type: group
+bundle: learning_path
+label: 'Hide for anonymous users'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

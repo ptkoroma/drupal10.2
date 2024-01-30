@@ -1,0 +1,19 @@
+editor.editor.*.third_party.ckeditor_bgimage:
+  type: mapping
+  label: 'Configuração do upload de imagem do gerador de banner'
+  mapping:
+    status:
+      type: boolean
+      label: 'Status'
+    scheme:
+      type: string
+      label: 'File storage'
+    directory:
+      type: string
+      label: 'Upload directory'
+    extensions:
+      type: string
+      label: 'Allowed file extensions'
+    max_size:
+      type: string
+      label: 'Maximum file size'

@@ -1,0 +1,11 @@
+opigno_social_community.community_field_settings:
+  title: 'Opigno community settings'
+  route_name: opigno_community.settings
+  description: 'Manage Opigno community field settings.'
+  parent: system.admin_structure
+
+opigno_social_community.collection:
+  title: 'Communities'
+  route_name: view.communities.collection
+  description: 'Opigno communities collection.'
+  parent: system.admin_content

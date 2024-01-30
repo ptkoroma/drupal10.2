@@ -1,0 +1,10 @@
+block content
+  .views-field.views-field-opigno-lp-progress
+    if progressNumber
+      .field-content
+        .learning-path-progress.d-flex.flex-column.progress-bar-mini
+          .progress-bar
+            .progress-progress(style="width: " + progressNumber + "%")
+
+          .progress-content
+            .progress-value= progressNumber + "%"

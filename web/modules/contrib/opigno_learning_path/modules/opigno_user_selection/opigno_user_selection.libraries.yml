@@ -1,0 +1,6 @@
+userselect:
+  version: VERSION
+  js:
+    widget/vue.min.js: { min: true}
+    widget/vue/dist/userselect.umd.min.js: { min: true}
+    widget/userselect.js: {}

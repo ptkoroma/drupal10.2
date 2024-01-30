@@ -1,0 +1,14 @@
+<div class="meeting-start-soon content-box">
+  <div class="meeting-start-soon__content">
+    <div class="meeting-icon video-call-icon"></div>
+    <div class="meeting-start-soon__body">
+      {% trans %}
+      <h5 class="meeting-start-soon__title">Live meeting {{ title }} start soon</h5>
+      <p>{{ start_end_label }}</p>
+      {% endtrans %}
+    </div>
+  </div>
+  <div class="meeting-start-soon__action">
+    <a href="{{ link }}" class="btn btn-rounded">{{ 'Join live meeting'|t }}</a>
+  </div>
+</div>

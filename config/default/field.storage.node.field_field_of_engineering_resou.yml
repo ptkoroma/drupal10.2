@@ -1,0 +1,20 @@
+uuid: 8f37b226-3546-4b7d-aecd-e364bb6bda84
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_field_of_engineering_resou
+field_name: field_field_of_engineering_resou
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

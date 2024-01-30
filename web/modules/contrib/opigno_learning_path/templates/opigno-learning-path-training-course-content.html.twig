@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the training elements.
+ *
+ * Available variables:
+ * - #course_id: Course id.
+ * - elements: The training elements.
+ */
+#}
+
+<div id="{{ 'course_steps_' ~ elements['#course_id'] }}"
+     class="lp_course_steps_wrapper">
+  {{ elements }}
+</div>
+
+

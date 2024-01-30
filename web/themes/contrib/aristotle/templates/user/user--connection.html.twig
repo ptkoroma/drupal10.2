@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present user data ("Connection" view mode).
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'. Fields attached to a user
+ *   such as 'user_picture' are available as 'content.user_picture'.
+ * - attributes: HTML attributes for the container element.
+ * - user: A Drupal User entity.
+ *
+ * @see template_preprocess_user()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div {{ attributes.addClass('person-item') }}>
+  <div class="person-item__content">
+    <div class="person-item__info">
+      <span class="profile-pic">{{ user_picture }}</span>
+      <span class="body">
+        <a href="{{ url }}" class="name">{{ user.getDisplayName }}</a>
+        {% if user_role is not empty %}
+          <span class="type">{{ user_role }}</span>
+        {% endif %}
+      </span>
+    </div>
+
+    {{ content.user_connection_links }}
+  </div>
+</div>

@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Default template to display the list of people who had liked the entity.
+ *
+ * Available varaibles:
+ * - title: the popup title;
+ * - likers: the list of rendered users;
+ * - close_link: the link to close the popup.
+ */
+#}
+
+{% if likers is not empty %}
+  <div class="modal modal-ajax fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="fi fi-rr-thumbs-up icon-like"></i>
+            {{ title }}
+          </h5>
+          {{ close_link }}
+        </div>
+
+        <div class="modal-body">
+          <div class="who-is">
+            {% for user in likers %}
+              <div class="who-is__item">
+                {{ user }}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

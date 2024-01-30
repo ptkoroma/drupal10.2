@@ -1,0 +1,133 @@
+uuid: 16664c29-2fcd-4707-8a31-cbeb1e85bbb2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.planned_action.field_activity_status
+    - field.field.node.planned_action.field_categorys
+    - field.field.node.planned_action.field_effort
+    - field.field.node.planned_action.field_field_of_engineering_2
+    - field.field.node.planned_action.field_how_will_i_know_i_have_suc
+    - field.field.node.planned_action.field_target_date
+    - field.field.node.planned_action.field_upload_supporting_document
+    - field.field.node.planned_action.field_what_do_i_need_to_learn_
+    - field.field.node.planned_action.field_what_resources_support_is_
+    - field.field.node.planned_action.field_what_will_i_do_to_achieve_
+    - node.type.planned_action
+  module:
+    - datetime
+    - empty_fields
+    - file
+    - options
+    - text
+    - user
+id: node.planned_action.default
+targetEntityType: node
+bundle: planned_action
+mode: default
+content:
+  field_activity_status:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: text
+        settings:
+          empty_text: ''
+    weight: 1
+    region: content
+  field_categorys:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: text
+        settings:
+          empty_text: ''
+    weight: 6
+    region: content
+  field_field_of_engineering_2:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_how_will_i_know_i_have_suc:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: text
+        settings:
+          empty_text: ''
+    weight: 5
+    region: content
+  field_target_date:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: d/m/Y
+    third_party_settings:
+      empty_fields:
+        handler: text
+        settings:
+          empty_text: ''
+    weight: 0
+    region: content
+  field_upload_supporting_document:
+    type: file_default
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_what_do_i_need_to_learn_:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: text
+        settings:
+          empty_text: ''
+    weight: 2
+    region: content
+  field_what_resources_support_is_:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: text
+        settings:
+          empty_text: ''
+    weight: 4
+    region: content
+  field_what_will_i_do_to_achieve_:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: text
+        settings:
+          empty_text: ''
+    weight: 3
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_effort: true
+  langcode: true
+  links: true
+  private_message_link: true
+  search_api_excerpt: true

@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the User connections block.
+ *
+ * Available variables:
+ * - connections: the rendered connections block content.
+ */
+#}
+
+{% if connections|render|striptags|trim is not empty %}
+  <div class="content-box p-0">
+    {{ connections }}
+  </div>
+{% endif %}

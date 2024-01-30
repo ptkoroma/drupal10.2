@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Views filters for the datetime range field type.
+ */
+
+use Drupal\field\FieldStorageConfigInterface;
+
+/**
+ * Implements hook_field_views_data_alter().
+ */
+function views_daterange_filters_field_views_data_alter(array &$data, FieldStorageConfigInterface $field_storage) {
+  if ($field_storage->getType() === 'daterange') {
+    foreach ($data as $field_name => $field) {
+      foreach ($field as $key => $item) {
+        if (substr($key, -10) !== '_end_value') {
+          if (isset($item['filter'])) {
+            $data[$field_name][$key]['filter']['id'] = 'views_daterange_filters_daterange';
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+uuid: b7cae9f5-5708-42dc-a5d8-e2fc6e5c61a5
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.catalogued_activity
+id: node.catalogued_activity.title
+field_name: title
+entity_type: node
+bundle: catalogued_activity
+label: 'Catalogued Activity'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

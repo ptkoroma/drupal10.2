@@ -1,0 +1,12 @@
+services:
+  opigno_module_restart.manager:
+    class: Drupal\opigno_module_restart\Services\ModuleRestartManager
+    arguments:
+      - '@entity_type.manager'
+      - '@current_user'
+
+  # Route subscriber.
+  opigno_module_restart.route_subscriber:
+    class: Drupal\opigno_module_restart\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

@@ -1,0 +1,40 @@
+uuid: b267b955-457f-45a0-84c8-8f9a1a5d2756
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.opigno_calendar_event.field_calendar_event_members
+    - opigno_calendar_event.type.ilt_calendar_event
+  module:
+    - custom_add_another
+    - opigno_calendar_event
+third_party_settings:
+  opigno_calendar_event:
+    embedded_widget: 0
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: m-bJDdfk4kBuRFlCz4G66Z4b1V1-EjlH13wZokEts1M
+id: opigno_calendar_event.ilt_calendar_event.field_calendar_event_members
+field_name: field_calendar_event_members
+entity_type: opigno_calendar_event
+bundle: ilt_calendar_event
+label: Members
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: name
+      direction: ASC
+    auto_create: false
+    filter:
+      type: _none
+    include_anonymous: false
+field_type: entity_reference

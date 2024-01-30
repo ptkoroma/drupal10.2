@@ -1,0 +1,30 @@
+uuid: c6f275ed-ffc4-4872-ab3e-92162932d0d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.badge_criteria
+    - group.type.opigno_course
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: xTi0WxlBJhO87cF9iefENs0-ycrYScFmQeeKYhRlixc
+id: group.opigno_course.badge_criteria
+field_name: badge_criteria
+entity_type: group
+bundle: opigno_course
+label: 'Badge criteria'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: finished
+default_value_callback: ''
+settings: {  }
+field_type: list_string

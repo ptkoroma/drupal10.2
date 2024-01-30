@@ -1,0 +1,33 @@
+.activity-info {
+  background: $clr-gray-light;
+  border-radius: rem(10);
+  padding: rem(20) rem(30);
+
+  &__item {
+    align-items: center;
+    display: flex;
+
+    &:not(:first-child) {
+      margin-top: rem(27);
+    }
+
+    .label {
+      flex: 0 0 rem(140);
+      padding-right: 10px;
+    }
+
+    .value {
+      display: flex;
+      justify-content: center;
+      font-size: rem(16);
+      font-weight: $font-weight-bold;
+      flex: 0 0 rem(50);
+      margin-right: auto;
+    }
+  }
+
+  &__link {
+    margin-top: rem(20);
+    text-align: center;
+  }
+}

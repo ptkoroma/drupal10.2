@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the metric value.
+ *
+ * Available variables:
+ * - value: Value.
+ * - help_text: The popover text.
+ * - label: The label of value.
+ */
+#}
+
+<div class="user-metric">
+  <div class="user-metric-value">
+    {{ value }}
+    {% if help_text %}
+      <div class="popover-help"
+           data-toggle="popover"
+           data-content="{{ help_text }}">
+        ?
+      </div>
+    {% endif %}
+  </div>
+  <div class="user-metric-label">{{ label }}</div>
+</div>

@@ -1,0 +1,29 @@
+uuid: b8d80a8c-c6d1-4264-be07-ebd499c4f66c
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.members-area
+  module:
+    - system
+  theme:
+    - aristotle
+id: membersarea
+theme: aristotle
+region: sidebar_first
+weight: -16
+provider: null
+plugin: 'system_menu_block:members-area'
+settings:
+  id: 'system_menu_block:members-area'
+  label: 'Members Area'
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "/admin\r\n/admin/*"

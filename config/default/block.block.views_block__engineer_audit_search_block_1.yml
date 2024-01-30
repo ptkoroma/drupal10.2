@@ -1,0 +1,30 @@
+uuid: d4d96b4e-db8d-40ef-a25c-f5de639212b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.engineer_audit_search
+  module:
+    - system
+    - views
+  theme:
+    - aristotle
+id: views_block__engineer_audit_search_block_1
+theme: aristotle
+region: top
+weight: -21
+provider: null
+plugin: 'views_block:engineer_audit_search-block_1'
+settings:
+  id: 'views_block:engineer_audit_search-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/engineer-activities/*'

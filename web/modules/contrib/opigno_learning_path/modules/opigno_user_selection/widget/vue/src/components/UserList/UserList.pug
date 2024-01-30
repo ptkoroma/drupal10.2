@@ -1,0 +1,26 @@
+section(class="user-list")
+  div.back-to-group(
+    v-if="group"
+    @click="$emit('backToGroup')"
+  )
+    i.fi.fi-rr-arrow-left
+    | {{ group.getName() }}
+
+  div.group-label(
+    v-for="(entities, letter) in getFilteredUsersGroupBy"
+    v-if="groupedDisplay"
+  )
+    div.group-letter {{ letter }}
+    UserView(
+      v-for="entity in entities"
+      :key="entity.key"
+      :entity="entity"
+      @onUserClicked="(entity, isUserSelected) => $emit('onUserClicked', entity, isUserSelected)"
+    )
+  UserView(
+    v-for="entity in getFilteredUsers"
+    v-if="!groupedDisplay"
+    :key="entity.key"
+    :entity="entity"
+    @onUserClicked="(entity, isUserSelected) => $emit('onUserClicked', entity, isUserSelected)"
+  )

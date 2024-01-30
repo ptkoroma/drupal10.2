@@ -1,0 +1,32 @@
+.modal.fade#postCertificate(tabindex="-1" role="dialog" aria-labelledby="postCertificate" aria-hidden="true")
+  .modal-dialog.modal-dialog-centered(role="document")
+    .modal-content
+      .modal-header
+        h2.modal-title Add training
+
+        a.close(href="#" type="button" data-dismiss="modal" aria-label="Close")
+          i.fi.fi-rr-arrow-left
+
+      .modal-body
+        form.views-exposed-form(action="#")
+          .form-items-group
+            .js-form-item.form-item.js-form-type-textfield.form-item-label.js-form-item-label
+              input.form-search.form-text(type="search" placeholder="Search")
+            input.button.js-form-submit.form-submit(type="submit")
+
+        ul.trainings-list
+          li.trainings-list__item
+            a(href="#")
+              span.text La photographie pour les nuls
+              span.date 05 may
+
+          li.trainings-list__item
+            a(href="#")
+              span.text La photographie pour les nuls
+              span.date 05 may
+
+          li.trainings-list__item
+            a(href="#")
+              span.text La photographie pour les nuls
+              span.date 05 sept 2020
+

@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_moxtra",
+    "type": "drupal-module",
+    "description": "Opigno moxtra.",
+    "homepage": "http://drupal.org/project/opigno_moxtra",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

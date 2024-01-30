@@ -1,0 +1,9 @@
+name: 'CPD Connection'
+description: 'This module connects drupal with SLIE api'
+package: Custom
+core_version_requirement: ^8 || ^9
+type: module
+dependencies:
+- block
+# Information added by Drupal.org packaging script on 2020-03-18
+version: '8.x-1.x-dev'

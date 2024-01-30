@@ -1,0 +1,25 @@
+uuid: ca248744-1347-4b3b-a8ac-72c49bc6e8d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.opigno_class
+_core:
+  default_config_hash: WnKD8QsrHOh02gpSkwibwY29GZ51I6uNuzm_riQhvyY
+id: opigno_class-class_manager
+label: 'Class Manager'
+weight: -8
+internal: false
+audience: member
+group_type: opigno_class
+permissions_ui: true
+permissions:
+  - 'access content overview'
+  - 'access group_node overview'
+  - 'administer group'
+  - 'administer members'
+  - 'leave group'
+  - 'update own group_membership content'
+  - 'view any private profile in class'
+  - 'view group'
+  - 'view group_membership content'

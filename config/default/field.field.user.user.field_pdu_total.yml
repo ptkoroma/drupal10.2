@@ -1,0 +1,25 @@
+uuid: d796c191-7f59-4651-8a82-6814db2bcae4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_pdu_total
+  module:
+    - custom_add_another
+    - user
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: user.user.field_pdu_total
+field_name: field_pdu_total
+entity_type: user
+bundle: user
+label: 'PDU Total'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

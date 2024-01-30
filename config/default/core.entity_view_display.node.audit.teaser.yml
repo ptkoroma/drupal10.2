@@ -1,0 +1,32 @@
+uuid: 00af3f65-7961-4a22-b9a9-4fb7c3017682
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.audit.field_audit_conclusion
+    - field.field.node.audit.field_comment
+    - field.field.node.audit.field_engineer
+    - node.type.audit
+  module:
+    - user
+id: node.audit.teaser
+targetEntityType: node
+bundle: audit
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_audit_conclusion: true
+  field_comment: true
+  field_engineer: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

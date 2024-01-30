@@ -1,0 +1,26 @@
+uuid: 4cb3c2c4-82e3-438c-9299-6159106c7945
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_individual_dates
+    - node.type.non_catalogued_activity
+  module:
+    - custom_add_another
+    - datetime
+third_party_settings:
+  custom_add_another:
+    custom_add_another: 'Add Dates'
+    custom_remove: ''
+id: node.non_catalogued_activity.field_individual_dates
+field_name: field_individual_dates
+entity_type: node
+bundle: non_catalogued_activity
+label: 'Individual Dates'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,4 @@
+administer string overrides:
+  title: 'Administer string overrides'
+  description: 'Allows to override default translatable strings.'
+  restrict access: true

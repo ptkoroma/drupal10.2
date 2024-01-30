@@ -1,0 +1,48 @@
+uuid: fc927b97-cdb6-4bc9-9695-53af31a800e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.cpd_reflection.field_activity
+    - field.field.node.cpd_reflection.field_completed
+    - field.field.node.cpd_reflection.field_discussion_outcome_if_any_
+    - field.field.node.cpd_reflection.field_how_does_this_learning_act
+    - field.field.node.cpd_reflection.field_i_am_able_to_apply_this_le
+    - field.field.node.cpd_reflection.field_i_have_disucussed_this_lea
+    - field.field.node.cpd_reflection.field_i_will_need_the_following_
+    - field.field.node.cpd_reflection.field_reasons_i_am_unable_to_app
+    - field.field.node.cpd_reflection.field_upload_supporting_document
+    - field.field.node.cpd_reflection.field_user_id
+    - field.field.node.cpd_reflection.field_what_did_i_learn_from_this
+    - node.type.cpd_reflection
+  module:
+    - user
+id: node.cpd_reflection.teaser
+targetEntityType: node
+bundle: cpd_reflection
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_activity: true
+  field_completed: true
+  field_discussion_outcome_if_any_: true
+  field_how_does_this_learning_act: true
+  field_i_am_able_to_apply_this_le: true
+  field_i_have_disucussed_this_lea: true
+  field_i_will_need_the_following_: true
+  field_reasons_i_am_unable_to_app: true
+  field_upload_supporting_document: true
+  field_user_id: true
+  field_what_did_i_learn_from_this: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

@@ -1,0 +1,14 @@
+palette:
+  primary_button_color: '#c2e76b'
+  primary_button_hover_color: '#b4e24a'
+  primary_button_text_color: '#ffffff'
+  primary_button_hover_text_color: '#ffffff'
+  primary_theme_color: '#1f5ccf'
+  active_link_color: '#0287bf'
+  header_background_color: '#1f5ccf'
+  navigation_background_color: '#f8f7f5'
+logo: 'public://color/platon-67ed6475/logo.svg'
+stylesheets:
+  - 'public://color/platon-67ed6475/color.css'
+files:
+  - 'public://color/platon-67ed6475/color.css'

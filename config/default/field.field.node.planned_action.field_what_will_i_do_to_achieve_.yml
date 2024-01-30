@@ -1,0 +1,26 @@
+uuid: 54fe5f8d-e14b-49f2-9de1-bd7a69566650
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_what_will_i_do_to_achieve_
+    - node.type.planned_action
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.planned_action.field_what_will_i_do_to_achieve_
+field_name: field_what_will_i_do_to_achieve_
+entity_type: node
+bundle: planned_action
+label: 'What will I do to achieve it?'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

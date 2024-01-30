@@ -1,0 +1,36 @@
+/**
+ * @file
+ * Styles for the opigno_calendar module.
+ */
+
+.field--widget-opigno-daterange {
+  .form-wrapper {
+    display: flex;
+    align-items: flex-end;
+    margin: 0 -10px 1rem;
+
+    @include media-breakpoint-up(md) {
+      align-items: center;
+    }
+
+    .daterange-separator {
+      // 36 - input height.
+      line-height: 36px;
+    }
+
+    .form-group {
+      padding: 0 10px;
+      margin: 0;
+    }
+
+    .daterange-date,
+    .daterange-hours {
+      display: block;
+      vertical-align: inherit;
+    }
+
+    select {
+      background-image: none;
+    }
+  }
+}

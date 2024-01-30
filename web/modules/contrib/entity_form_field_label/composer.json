@@ -1,0 +1,20 @@
+{
+  "name": "drupal/entity_form_field_label",
+  "type": "drupal-module",
+  "authors": [
+    {
+      "name": "Nikita Sineok",
+      "email": "n.sineok@gmail.com"
+    }
+  ],
+  "description": "Add an ability to change a displayed label for a entity field.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/entity_form_field_label",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/entity_form_field_label",
+    "source": "http://cgit.drupalcode.org/entity_form_field_label"
+  },
+  "require": { }
+}

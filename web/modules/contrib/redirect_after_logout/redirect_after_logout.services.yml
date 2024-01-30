@@ -1,0 +1,13 @@
+services:
+  redirect_after_logout_subscriber:
+    class: 'Drupal\redirect_after_logout\EventSubscriber\RedirectAfterLogoutSubscriber'
+    arguments:
+      - '@config.factory'
+      - '@current_user'
+      - '@messenger'
+      - '@redirect.destination'
+      - '@request_stack'
+      - '@router.request_context'
+      - '@token'
+    tags:
+      - { name: 'event_subscriber' }

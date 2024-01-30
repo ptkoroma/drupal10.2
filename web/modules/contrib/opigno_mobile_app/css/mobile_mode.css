@@ -1,0 +1,47 @@
+header#site-header {
+  display: none !important;
+}
+
+.lp_progress_wrapper .home-link,
+.lp_progress_wrapper .fullscreen-link {
+  display: none !important;
+}
+
+/*
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media screen and (max-width: 760px) {
+  #folder-content-container table thead { display: none; }
+  #folder-content-container table tbody td {
+    display: block;
+    padding: .6rem;
+    width: 768px;
+  }
+  #folder-content-container table tbody tr td:first-child {
+  /* add division */
+    border-top-width: thick;
+  }
+  #folder-content-container table tbody td:before {
+    content: attr(data-th);
+    font-weight: bold;
+    display: inline-block;
+    width: 20rem;
+  }
+  #folder-content-container table .tft-file a {
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  #folder-content-container table tbody td:before {
+    width: 10rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #folder-content-container table tbody td:before {
+    width: 8rem;
+  }
+}

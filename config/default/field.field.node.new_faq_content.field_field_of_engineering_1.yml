@@ -1,0 +1,29 @@
+uuid: 8f4b85c2-f28a-4f47-b7cd-057ec97b58e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_field_of_engineering_1
+    - node.type.new_faq_content
+    - taxonomy.vocabulary.field_of_engineering
+id: node.new_faq_content.field_field_of_engineering_1
+field_name: field_field_of_engineering_1
+entity_type: node
+bundle: new_faq_content
+label: 'Field Of Engineering'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      field_of_engineering: field_of_engineering
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

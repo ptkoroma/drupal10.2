@@ -1,0 +1,30 @@
+uuid: 17deef5d-5b85-4755-a82a-6287e05fbda6
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:929e1c6c-4659-431b-a5bc-52aff0eb84a8'
+  module:
+    - block_content
+    - system
+  theme:
+    - aristotle
+id: hyperlinkedtabsforauditingengineer
+theme: aristotle
+region: top
+weight: -18
+provider: null
+plugin: 'block_content:929e1c6c-4659-431b-a5bc-52aff0eb84a8'
+settings:
+  id: 'block_content:929e1c6c-4659-431b-a5bc-52aff0eb84a8'
+  label: 'Tabs for Add Audits'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/node/add/audit\r\n/node/*/edit"

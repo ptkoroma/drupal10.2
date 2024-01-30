@@ -1,0 +1,8 @@
+uuid: 681f0f22-02f8-4744-8c87-2c0c41491fdd
+langcode: en
+status: true
+dependencies: {  }
+name: 'Resource Type'
+vid: resource_type
+description: ''
+weight: 0

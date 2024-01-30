@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display Opigno post entity.
+ *
+ * Available varaibles:
+ * - post: the full Opigno post entity;
+ * - id: the post ID;
+ * - author: the rendered author entity;
+ * - author_link: the url of the author entity;
+ * - author_name: the author displayed name;
+ * - text: the post text;
+ * - created: the post creation timestamp;
+ * - add_comment_link: the link to trigger the "Create comment" form opening;
+ * - comments: the block with the comment form and all post comments;
+ * - is_pinned: if the post is pinned or not;
+ * - is_last_viewed: if the post is the last one that was viewed by the user;
+ * - like_link: the link to like/dislike the post;
+ * - like_count_link: the link to display the list of people who liked the post;
+ * - attachment: the post shared attachment (training/badge/certificate).
+ */
+#}
+
+<div {{ attributes }}>
+  {{ author }}
+  {{ text }}
+  {{ created|format_date('post_date') }}
+</div>

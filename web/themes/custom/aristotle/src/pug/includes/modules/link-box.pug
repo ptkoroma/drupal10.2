@@ -1,0 +1,11 @@
+block content
+  .link-box
+    .link-box__type
+      img(src= linkboxImg alt="img")
+
+    .link-box__content
+      a.link-box__link(href="manage-connections.html")
+      .link-box__number= linkboxNumber
+      .link-box__title= linkboxTitle
+      if linkboxSubtext
+        .link-box__subtext= linkboxSubtext

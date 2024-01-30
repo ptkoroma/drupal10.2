@@ -1,0 +1,28 @@
+uuid: 50ece992-ee40-4c6c-9506-5a3088c19ed1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.opigno_answer.opigno_body
+    - opigno_module.opigno_answer_type.opigno_long_answer
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: 2tzkneEznqnFO5SjzWNS7x6UUW1MJEt0f2SkD4dftO0
+id: opigno_answer.opigno_long_answer.opigno_body
+field_name: opigno_body
+entity_type: opigno_answer
+bundle: opigno_long_answer
+label: Answer
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

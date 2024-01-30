@@ -1,0 +1,31 @@
+base theme: false
+type: theme
+
+name: Platon
+description: 'HTML5, SASS, Responsive grid base theme.'
+package: 'Platon'
+core_version_requirement: ^8 || ^9
+
+regions:
+  help: 'Help'
+  branding: 'Branding'
+  menu: 'Menu'
+  admin_opigno: 'Admin opigno menu'
+  status_messages: 'Status messages'
+  top: 'Top'
+  sidebar_first: 'Sidebar first'
+  content: 'Content'
+  footer: 'Footer'
+
+# Use libraries-override to prevent rewrite unnecessary code.
+libraries-override:
+  multiselect/drupal.multiselect:
+    css:
+      theme:
+        # Moved to styles/components/form/_multiselect.scss
+        css/multiselect.css: false
+
+# Information added by Drupal.org packaging script on 2021-09-10
+version: '8.x-1.10'
+project: 'platon'
+datestamp: 1631268059

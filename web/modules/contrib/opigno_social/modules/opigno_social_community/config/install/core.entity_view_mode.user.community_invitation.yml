@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.community_invitation
+label: 'Community invitation'
+targetEntityType: user
+cache: true

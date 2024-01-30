@@ -1,0 +1,14 @@
+cpd_con.result:
+  path: '/get-profile'
+  defaults:
+    _controller: '\Drupal\cpd_con\Controller\proSelController::displayOutput'
+    _title: 'My Profile'
+  requirements:
+    _permission: 'access content'
+cpd_con.reg:
+  path: '/regusr'
+  defaults:
+    _controller: '\Drupal\cpd_con\Controller\proSelController::regOutput'
+    _title: 'Register Here'
+  requirements:
+    _permission: 'access content'

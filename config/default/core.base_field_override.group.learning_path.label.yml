@@ -1,0 +1,18 @@
+uuid: 02acc5f6-eb7b-4dcc-a2e3-f9c90b0aa030
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.learning_path
+id: group.learning_path.label
+field_name: label
+entity_type: group
+bundle: learning_path
+label: 'Activity Title'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

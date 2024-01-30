@@ -1,0 +1,31 @@
+uuid: 844aaa5e-1ad2-4b52-b429-a88cdc82add6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_learning_path_enable_forum
+    - group.type.learning_path
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: ylbQQKFj7kIJfQMcuxHb3eilCbgl61tTRjEoTgzuV-M
+id: group.learning_path.field_learning_path_enable_forum
+field_name: field_learning_path_enable_forum
+entity_type: group
+bundle: learning_path
+label: 'Enable Forum'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

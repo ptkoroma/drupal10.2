@@ -1,0 +1,33 @@
+uuid: 170521b6-ecf8-4b3e-b617-427e678ef8a0
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - user
+id: user.field_membership_status_
+field_name: field_membership_status_
+entity_type: user
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: Student/learner
+      label: Student/learner
+    -
+      value: Active
+      label: Active
+    -
+      value: Inactive
+      label: Inactive
+    -
+      value: Retired
+      label: Retired
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

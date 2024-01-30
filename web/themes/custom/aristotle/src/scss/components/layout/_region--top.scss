@@ -1,0 +1,19 @@
+.region-top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: rem($block-page-title-p-y-xs) 0;
+
+  @include media-breakpoint-up(md) {
+    margin: rem($block-page-title-p-y) 0;
+  }
+
+  .action {
+    .btn {
+      @include media-breakpoint-down(sm) {
+        @include btn-icon-mini;
+      }
+    }
+  }
+}
+

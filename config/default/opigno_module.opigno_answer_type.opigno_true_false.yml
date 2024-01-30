@@ -1,0 +1,11 @@
+uuid: ec1266b3-a8c1-4656-8fa6-0c71bb0c575a
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: qACY45xD0iV4lB4auTldVExLi3NCFJLsMuDl6fGZqxY
+id: opigno_true_false
+label: True/false
+description: null
+summary: null
+image: null

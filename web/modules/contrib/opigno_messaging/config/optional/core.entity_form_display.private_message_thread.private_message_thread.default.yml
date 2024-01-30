@@ -1,0 +1,53 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.private_message_thread.private_message_thread.field_author
+    - field.field.private_message_thread.private_message_thread.field_create_group
+    - field.field.private_message_thread.private_message_thread.field_image
+    - field.field.private_message_thread.private_message_thread.field_pm_subject
+    - image.style.private_message_group_upload
+  module:
+    - image
+    - private_message
+id: private_message_thread.private_message_thread.default
+targetEntityType: private_message_thread
+bundle: private_message_thread
+mode: default
+content:
+  field_create_group:
+    weight: 0
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_image:
+    weight: 2
+    settings:
+      preview_image_style: private_message_group_upload
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_pm_subject:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  members:
+    type: private_message_thread_member_widget
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      max_members: 0
+      size: 60
+      placeholder: ''
+    weight: 3
+    region: content
+    third_party_settings: {  }
+hidden:
+  field_author: true

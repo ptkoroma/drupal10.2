@@ -1,0 +1,31 @@
+uuid: c01efc26-407d-4ca2-a023-8b57ae66c8e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_minimum_count_of_answers
+    - taxonomy.vocabulary.skills
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: mRr2dFdWAUL1v00Hcqezsf_YLKwCoQtxSxC-QAksk9s
+id: taxonomy_term.skills.field_minimum_count_of_answers
+field_name: field_minimum_count_of_answers
+entity_type: taxonomy_term
+bundle: skills
+label: 'Minimum count of answers'
+description: 'For each level of skill'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,9 @@
+# Opigno-admin menu.
+opigno_admin.manage_skills:
+  title: Skills
+  description: 'Manage skills'
+  route_name: entity.taxonomy_vocabulary.overview_form
+  route_parameters: { taxonomy_vocabulary: 'skills' }
+  parent: opigno_admin.training_contents
+  menu_name: opigno-admin
+  weight: -33

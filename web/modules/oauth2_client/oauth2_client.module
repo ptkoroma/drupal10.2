@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Holds hooks for the OAuth2 Client module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help() for oauth2_client module.
+ */
+function oauth2_client_help(string $route_name, RouteMatchInterface $route_match): ?array {
+  $build = [];
+  if ($route_name === 'help.page.oauth2_client') {
+    $readme_content = file_get_contents(__DIR__ . '/README.md');
+    $build = [
+      '#type' => 'html_tag',
+      '#tag' => 'pre',
+      '#value' => $readme_content,
+    ];
+  }
+  return $build;
+}

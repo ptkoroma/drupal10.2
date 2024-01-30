@@ -1,0 +1,32 @@
+uuid: df653fcf-b720-411f-b52f-616f624c3032
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_upload_supporting_document
+    - node.type.cpd_reflection
+  module:
+    - custom_add_another
+    - file
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.cpd_reflection.field_upload_supporting_document
+field_name: field_upload_supporting_document
+entity_type: node
+bundle: cpd_reflection
+label: 'Upload supporting documents or verification'
+description: "Maximum 10 files.\r\n100 MB limit.\r\nAllowed types: txt, pdf, docx, dotx, dot, xlsx, png, jpeg, jpg"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'txt pdf docx dotx dot xlsx png jpeg jpg'
+  max_filesize: '100 KB'
+  description_field: true
+field_type: file

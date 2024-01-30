@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the Opigno community entity (Info block DM).
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div class="content-box opigno-community-info-block">
+  <div class="community-header comment-item__user">
+    <h3 class="content-box__title">{{ content.title }}</h3>
+    {{ content.extra_field_community_operations }}
+  </div>
+
+  <div class="community-info">
+    <div class="members-number">
+      <strong>
+        {% trans %}
+          {{ members_number }} member
+        {% plural members_number %}
+          {{ members_number }} members
+        {% endtrans %}
+      </strong>
+    </div>
+    <div class="community-status">
+      {% if locked %}
+        <i class="fi fi-rr-lock"></i>
+      {% else %}
+        <i class="fi fi-rr-unlock"></i>
+      {% endif %}
+      {{ content.visibility }}
+    </div>
+  </div>
+
+  {{ picture }}
+
+  <div class="content-item description">
+    <h5>{{ 'About'|t }}</h5>
+    {{ content.description }}
+  </div>
+
+  <div class="content-item author comment-item__container">
+    <strong>{{ 'By'|t }}</strong>
+    <div class="comment-item__user">
+      <div class="profile-pic">{{ owner_picture }}</div>
+      <div class="comment-item__user-info">
+        <div class="comment-item__name">{{ owner_linked_name }}</div>
+        <time class="comment-item__date">{{ created|format_date('post_short_date') }}</time>
+      </div>
+    </div>
+  </div>
+
+  <div class="invite-link">
+    {{ content.extra_field_community_invite_members_link }}
+  </div>
+</div>

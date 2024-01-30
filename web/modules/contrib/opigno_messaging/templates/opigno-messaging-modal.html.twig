@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the Opigno messaging popup.
+ *
+ * Available varaibles:
+ * - title: the popup title;
+ * - body: the popup body.
+ */
+#}
+
+<div class="modal modal-ajax fade" tabindex="-1" role="dialog" aria-label="{{ title }}">
+  <div class="modal-dialog modal-dialog-centered edit-discussion-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        {% if title is not empty %}
+          <h2 class="modal-title">{{ title }}</h2>
+        {% endif %}
+        <a href="" class="close close-x use-ajax" type="button" aria-label="{{ 'Close'|t }}" data-dismiss="modal">
+          <i class="fi fi-rr-cross-small"></i>
+        </a>
+      </div>
+
+      <div class="modal-body">{{ body }}</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+name: Opigno Skills System
+type: module
+description: Expand the functionality of trainings by adding a skills system.
+core_version_requirement: ^9 || ^10
+package: Opigno
+dependencies:
+  - opigno_class:opigno_class
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '3.1.1'
+project: 'opigno_module'
+datestamp: 1685711919

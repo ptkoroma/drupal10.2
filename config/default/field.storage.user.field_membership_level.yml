@@ -1,0 +1,33 @@
+uuid: 5d9fd136-f4d4-4f44-8672-a8c585cf8c3b
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - user
+id: user.field_membership_level
+field_name: field_membership_level
+entity_type: user
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: student
+      label: Student
+    -
+      value: graduate
+      label: Graduate
+    -
+      value: corporate
+      label: Corporate
+    -
+      value: fellow
+      label: Fellow
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

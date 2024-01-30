@@ -1,0 +1,36 @@
+uuid: 133ef7fe-b3dd-4bc4-90ac-b24f76993a41
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.mentee_registartion.body
+    - node.type.mentee_registartion
+  module:
+    - text
+    - user
+id: node.mentee_registartion.teaser
+targetEntityType: node
+bundle: mentee_registartion
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

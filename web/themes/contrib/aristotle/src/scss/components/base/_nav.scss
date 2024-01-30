@@ -1,0 +1,27 @@
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 rem(-15);
+  padding: 0;
+}
+
+.nav-item {
+  padding: 0 rem(15);
+}
+
+.nav-link {
+  color: $clr-content-link;
+  text-decoration: none;
+
+  &:hover {
+    color: $clr-content-link-active;
+    text-decoration: none;
+  }
+
+  &.disabled {
+    opacity: $disable-opacity;
+    cursor: default;
+    pointer-events: none;
+  }
+}

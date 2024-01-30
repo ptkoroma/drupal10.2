@@ -1,0 +1,108 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: $clr-desktop-text;
+  font-family: $font-family-base;
+  font-size: rem($font-size-base);
+  line-height: 1.3;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $clr-desktop-headings;
+  font-family: $font-family-header;
+  font-weight: $font-weight-bold;
+  line-height: 1.35;
+  margin: 0 0 .5em;
+  text-transform: uppercase;
+}
+
+h1 {
+ font-size: rem($font-size-h1);
+  font-weight: $font-weight-extrabold;
+}
+
+h2 {
+  font-size: rem($font-size-h2);
+  font-weight: $font-weight-extrabold;
+  line-height: 1.23;
+}
+
+h3 {
+ font-size: rem($font-size-h3);
+}
+
+h4 {
+ font-size: rem($font-size-h4);
+}
+
+h5 {
+ font-size: rem($font-size-h5);
+}
+
+h6 {
+ font-size: rem($font-size-h6);
+}
+
+a {
+  color: $clr-desktop-link;
+  text-decoration: $link-decoration;
+  transition: color .3s ease-out;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    color: $clr-desktop-link-hover;
+    text-decoration: $link-hover-decoration;
+  }
+}
+
+button {
+  font-family: $font-family-base;
+  -webkit-tap-highlight-color: transparent;
+}
+
+main {
+  font-size: rem($font-size-sm);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.h5p-content img {
+  object-fit: fill;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  height: rem(50);
+  overflow: hidden;
+  width: rem(50);
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.hidden,
+.js-hide {
+  display: none !important;
+}
+
+.without-admin-toolbar {
+  #toolbar-administration {
+    display: none !important;
+  }
+}

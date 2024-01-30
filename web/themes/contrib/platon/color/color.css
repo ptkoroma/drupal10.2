@@ -1,0 +1,242 @@
+.color-palette + h2,
+.color-preview {
+  display: none !important; }
+
+#color_scheme_form select {
+  width: 89px; }
+
+a {
+  color: #5bb4d8; }
+  a:hover {
+    color: #0287bf; }
+
+.btn-success,
+.btn-primary {
+  background-color: #c2e76b;
+  color: #ffffff; }
+  .show > .btn-success.dropdown-toggle, .btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .btn-success:hover, .show >
+  .btn-primary.dropdown-toggle,
+  .btn-primary:not(:disabled):not(.disabled).active,
+  .btn-primary:not(:disabled):not(.disabled):active,
+  .btn-primary:hover {
+    background-color: #b4e24a;
+    color: #ffffff; }
+  .btn-success.disabled, .btn-success:disabled,
+  .btn-primary.disabled,
+  .btn-primary:disabled {
+    background-color: #c2e76b; }
+
+input[type=checkbox]:checked, input[type=checkbox]:disabled:checked,
+input[type=radio]:checked,
+input[type=radio]:disabled:checked {
+  background-color: #c2e76b;
+  border-color: #c2e76b; }
+
+input[type=checkbox]:focus, input[type=checkbox]:hover,
+input[type=radio]:focus,
+input[type=radio]:hover {
+  border-color: #c2e76b; }
+
+.view-private-message .new-message {
+  background-color: #c2e76b; }
+  .view-private-message .new-message:hover, .view-private-message .new-message:active {
+    background-color: #b4e24a; }
+
+.faded-form-wrapper {
+  border-top-color: #5bb4d8; }
+
+nav#mobile-menu ul:not(.contextual-links) li a.is-active,
+nav#mobile-menu ul:not(.contextual-links) li a:hover, nav.block-system_menu_block-main ul:not(.contextual-links) li a.is-active,
+nav.block-system_menu_block-main ul:not(.contextual-links) li a:hover {
+  border-bottom-color: #5bb4d8;
+  color: #5bb4d8; }
+
+.dashboard-drupal-block h2,
+div#block-dashboard-views-block-latest-active-trainings-block .views-row:after {
+  background-color: #5bb4d8; }
+
+div[id^=block-dashboard-views-block-] .view-content ul li a:after,
+div[id^=block-dashboard-views-block-] .view-content ul li span.button:after {
+  background-color: #5bb4d8; }
+
+body.page-catalog div#main-content .view .view-content .views-row .fields-content,
+body.page-catalogue div#main-content .view .view-content .views-row .fields-content {
+  border-top-color: #5bb4d8; }
+  body.page-catalog div#main-content .view .view-content .views-row .fields-content .views-field-opigno-lp-take-link a:hover,
+  body.page-catalogue div#main-content .view .view-content .views-row .fields-content .views-field-opigno-lp-take-link a:hover {
+    background-color: #b4e24a;
+    color: #ffffff; }
+body.page-catalog div#main-content .block-local_actions_block .list-inline-item a.button.button-action:hover, body.page-catalog div#main-content .block-local_actions_block .list-inline-item a.button.button-action:active,
+body.page-catalogue div#main-content .block-local_actions_block .list-inline-item a.button.button-action:hover,
+body.page-catalogue div#main-content .block-local_actions_block .list-inline-item a.button.button-action:active {
+  background-color: #b4e24a;
+  color: #ffffff; }
+body.page-catalog div#main-content .views-exposed-form #edit-field-learning-path-category-target-id > legend,
+body.page-catalog div#main-content .views-exposed-form fieldset:not([id^="edit-sort-by--"]) > legend,
+body.page-catalogue div#main-content .views-exposed-form #edit-field-learning-path-category-target-id > legend,
+body.page-catalogue div#main-content .views-exposed-form fieldset:not([id^="edit-sort-by--"]) > legend {
+  background-color: #5bb4d8; }
+body.page-catalog div#main-content .views-exposed-form #edit-field-learning-path-category-target-id > .fieldset-wrapper .form-item input, body.page-catalog div#main-content .views-exposed-form #edit-field-learning-path-category-target-id > .form-radios .form-item input,
+body.page-catalog div#main-content .views-exposed-form fieldset:not([id^="edit-sort-by--"]) > .fieldset-wrapper .form-item input,
+body.page-catalog div#main-content .views-exposed-form fieldset:not([id^="edit-sort-by--"]) > .form-radios .form-item input,
+body.page-catalogue div#main-content .views-exposed-form #edit-field-learning-path-category-target-id > .fieldset-wrapper .form-item input,
+body.page-catalogue div#main-content .views-exposed-form #edit-field-learning-path-category-target-id > .form-radios .form-item input,
+body.page-catalogue div#main-content .views-exposed-form fieldset:not([id^="edit-sort-by--"]) > .fieldset-wrapper .form-item input,
+body.page-catalogue div#main-content .views-exposed-form fieldset:not([id^="edit-sort-by--"]) > .form-radios .form-item input {
+  background-color: #5bb4d8 !important; }
+body.page-catalog div#main-content .views-exposed-form #edit-field-learning-path-category-target-id > .fieldset-wrapper .form-item label, body.page-catalog div#main-content .views-exposed-form #edit-field-learning-path-category-target-id > .form-radios .form-item label,
+body.page-catalog div#main-content .views-exposed-form fieldset:not([id^="edit-sort-by--"]) > .fieldset-wrapper .form-item label,
+body.page-catalog div#main-content .views-exposed-form fieldset:not([id^="edit-sort-by--"]) > .form-radios .form-item label,
+body.page-catalogue div#main-content .views-exposed-form #edit-field-learning-path-category-target-id > .fieldset-wrapper .form-item label,
+body.page-catalogue div#main-content .views-exposed-form #edit-field-learning-path-category-target-id > .form-radios .form-item label,
+body.page-catalogue div#main-content .views-exposed-form fieldset:not([id^="edit-sort-by--"]) > .fieldset-wrapper .form-item label,
+body.page-catalogue div#main-content .views-exposed-form fieldset:not([id^="edit-sort-by--"]) > .form-radios .form-item label {
+  background: linear-gradient(#5bb4d8, #5bb4d8) no-repeat;
+    background-size: 2px 100%; }
+
+.page-link {
+  color: #5bb4d8; }
+  .page-link:hover {
+    color: #5bb4d8; }
+  .page-item.active .page-link {
+    background-color: #5bb4d8;
+    border-color: #5bb4d8; }
+
+.block-system_breadcrumb_block ul:not(.contextual-links) li + li:before {
+  color: #5bb4d8; }
+
+.view-private-message .messages {
+  background-color: #5bb4d8; }
+.view-private-message .views-row {
+  background-image: linear-gradient(to right, #ffffff 50%, #5bb4d8 50%);
+  border-left-color: #5bb4d8; }
+.view-private-message .user-picture {
+  border-color: #5bb4d8; }
+
+#private-message-page .field-pm-subject .content,
+#private-message-page .private-message-recipients .content,
+#private-message-page .private-message-recipients .content a {
+  color: #0287bf; }
+#block-platon-content #private-message-page .private-message-thread-messages .user-picture-wrapper .user-picture.with-image {
+  border-color: #5bb4d8; }
+
+.lp_details_hide:hover,
+.lp_details_show:hover {
+  background-color: #5bb4d8; }
+
+.block-local_tasks_block ul:not(.contextual-links) li a {
+  background-color: #5bb4d8; }
+  .block-local_tasks_block ul:not(.contextual-links) li a.is-active, .block-local_tasks_block ul:not(.contextual-links) li a:hover {
+    background-color: #0287bf; }
+
+body.section-module .fullscreen-link a:hover,
+body.section-module .section-module a:hover {
+  background-color: #b4e24a; }
+body.section-module.fullscreen .fullscreen-link a {
+  background-color: #c2e76b;
+  color: #ffffff; }
+  body.section-module.fullscreen .fullscreen-link a:hover {
+    background-color: #b4e24a;
+    color: #ffffff; }
+
+body.admin-learning-path ul.step-list-top li .number {
+  color: #5bb4d8; }
+body.admin-learning-path ul.step-list-top li.active .number {
+  background-color: #5bb4d8;
+  border-color: #5bb4d8; }
+body.admin-learning-path .step-list-aside-wrapper h2 {
+  background-color: #5bb4d8; }
+body.admin-learning-path .step-list-aside-wrapper ul.step-list-aside li:after {
+  background-color: #5bb4d8; }
+body.admin-learning-path .activity-add.add .step-pager button.active,
+body.admin-learning-path .entity-add.add .step-pager button.active {
+  background-color: #5bb4d8 !important; }
+body.admin-learning-path .activity-add.add .step-1 .mat-radio-button,
+body.admin-learning-path .entity-add.add .step-1 .mat-radio-button {
+  border-left-color: #5bb4d8; }
+body.admin-learning-path .activity-add.add .step-2 button,
+body.admin-learning-path .entity-add.add .step-2 button {
+  border-left-color: #5bb4d8 !important; }
+body.admin-learning-path .activity-add button.type-name:after,
+body.admin-learning-path .entity-add button.type-name:after {
+  background-color: #5bb4d8; }
+body.admin-learning-path .tree-view-toggler button.open {
+  background-color: #5bb4d8 !important; }
+
+#site-header #header-right .user-block .btn-group.operations .dropdown-menu > a:not(.primary):after,
+#site-header #header-right .user-block a.dropdown-item:not(.primary):after,
+#site-header #header-right .user-block button.dropdown-item:not(.primary):after,
+.btn-group.operations #site-header #header-right .user-block .dropdown-menu > a:not(.primary):after {
+  background-color: #5bb4d8; }
+
+#site-header #header-right .dropdown .btn-group.operations .dropdown-menu > a.primary:hover,
+#site-header #header-right .dropdown .dropdown-menu a.dropdown-item.primary:hover,
+.btn-group.operations #site-header #header-right .dropdown .dropdown-menu > a.primary:hover {
+  background-color: #b4e24a; }
+
+body.lp-iframe input[type=checkbox]:checked, body.lp-iframe input[type=checkbox]:disabled:checked,
+body.lp-iframe input[type=radio]:checked,
+body.lp-iframe input[type=radio]:disabled:checked {
+  background-color: #c2e76b;
+  border-color: #c2e76b; }
+
+.class .class_hide:hover,
+.class .class_show:hover {
+  background-color: #5bb4d8; }
+
+.lp_progress_admin_continue {
+  background-color: #c2e76b; }
+  .lp_progress_admin_continue:hover {
+    background-color: #b4e24a; }
+
+.lp_progress_admin_edit:hover {
+  background-color: #b4e24a; }
+
+.bg-primary {
+  background-color: #5bb4d8 !important; }
+
+.bg-success {
+  background-color: #c2e76b !important; }
+
+body.section-module .fullscreen-link a:hover,
+body.section-module .home-link a:hover {
+  background-color: #b4e24a; }
+body.section-module .form-actions .btn-group.operations > a:hover,
+body.section-module .form-actions a.btn:hover,
+body.section-module .form-actions a.button:hover,
+body.section-module .form-actions a:hover[type=button],
+body.section-module .form-actions a:hover[type=reset],
+body.section-module .form-actions a:hover[type=submit],
+body.section-module .form-actions input[type=submit]:hover {
+  background-color: #b4e24a; }
+
+#site-header .view-display-id-block_last .view-content .views-row:after,
+#site-header #header-right .admin-opigno-block nav > ul:not(.contextual-links) > li ul li a:after,
+#site-header #header-right .dropdown .btn-group.operations .dropdown-menu > a.notification a:after,
+#site-header #header-right .dropdown .btn-group.operations .dropdown-menu > a.notification span.button:after,
+#site-header #header-right .dropdown .dropdown-menu .dropdown-item.notification a:after,
+#site-header #header-right .dropdown .dropdown-menu .dropdown-item.notification span.button:after,
+.btn-group.operations #site-header #header-right .dropdown .dropdown-menu > a.notification a:after,
+.btn-group.operations #site-header #header-right .dropdown .dropdown-menu > a.notification span.button:after {
+  background-color: #5bb4d8; }
+
+nav#mobile-menu, nav.block-system_menu_block-main {
+  background-color: #f8f7f5; }
+
+#site-header {
+  background: #3c3c3b; }
+
+#catalog-filter-parent .btn-collapse {
+  background-color: #5bb4d8; }
+
+body.anonymous-slider div#main #user-sidebar h1 {
+  color: #5bb4d8; }
+body.anonymous-slider div#main #user-sidebar nav.block-system_menu_block-main ul {
+  background: #5bb4d8; }
+
+.group.group--full a.bg-success {
+  background-color: #c2e76b !important; }
+  .group.group--full a.bg-success:hover {
+    background-color: #b4e24a !important; }
+
+/*# sourceMappingURL=color.css.map */

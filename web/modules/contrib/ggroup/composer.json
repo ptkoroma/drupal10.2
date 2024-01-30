@@ -1,0 +1,29 @@
+{
+  "name": "drupal/ggroup",
+  "type": "drupal-module",
+  "description": "Subgroup (Graph)t module allows to add subgroups in a group.",
+  "homepage": "https://www.drupal.org/project/ggroup",
+  "authors": [
+    {
+      "name": "Nikolay Lobachev",
+      "homepage": "https://www.drupal.org/u/lobsterr",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/ggroup",
+    "source": "https://git.drupalcode.org/project/ggroup"
+  },
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "require": {
+    "drupal/group": "^1.0",
+    "drupal/core": "^8.8 || ^9 || ^10"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ]
+}

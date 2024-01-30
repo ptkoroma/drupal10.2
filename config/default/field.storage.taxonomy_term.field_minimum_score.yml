@@ -1,0 +1,22 @@
+uuid: 1e7268cc-435c-4a02-a9d8-ab448639ffa5
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: N7_LyKRnyNM_0ASejvdDnneKHc34KhuRQxI7fp2cpm8
+id: taxonomy_term.field_minimum_score
+field_name: field_minimum_score
+entity_type: taxonomy_term
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

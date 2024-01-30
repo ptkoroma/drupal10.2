@@ -1,0 +1,8 @@
+
+form:
+  version: VERSION
+  js:
+    js/form.js: {}
+  dependencies:
+    - core/jquery
+    - core/once

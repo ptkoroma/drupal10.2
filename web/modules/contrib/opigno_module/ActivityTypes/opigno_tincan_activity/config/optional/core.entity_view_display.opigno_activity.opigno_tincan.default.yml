@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.opigno_activity.opigno_tincan.opigno_tincan_package
+    - opigno_module.opigno_activity_type.opigno_tincan
+  module:
+    - opigno_tincan_activity
+id: opigno_activity.opigno_tincan.default
+targetEntityType: opigno_activity
+bundle: opigno_tincan
+mode: default
+content:
+  name:
+    label: above
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  opigno_tincan_package:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: opigno_tincan_field_formatter
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  search_api_excerpt: true
+  uid: true

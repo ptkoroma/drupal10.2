@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Opigno Forum module.
+ */
+
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\opigno_forum\ForumTopicHandler;
+
+/**
+ * Implements hook_install().
+ */
+function opigno_forum_install() {
+  \Drupal::service('module_installer')->install(['gnode']);
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function opigno_forum_requirements($phase) {
+  $requirements = [];
+
+  if ($phase === 'runtime') {
+    $non_configured_types = [];
+    $forum_topic_handler = ForumTopicHandler::get();
+    $node_types = \Drupal::service('entity_type.bundle.info')->getBundleInfo('node');
+    foreach ($forum_topic_handler->getForumTopicTypeIds() as $node_type_id) {
+      if ($forum_topic_handler->isForumTopicType($node_type_id) && !$forum_topic_handler->isLearningPathContent($node_type_id)) {
+        $route_parameters = [
+          'group_type' => 'learning_path',
+          'plugin_id' => 'group_node:' . $node_type_id,
+        ];
+        $non_configured_types[$node_type_id] = Link::createFromRoute($node_types[$node_type_id]['label'],'entity.group_content_type.add_form', $route_parameters)
+          ->toString();
+      }
+    }
+
+    if ($non_configured_types) {
+      $args = [
+        ':url' => Url::fromRoute('entity.group_type.content_plugins', ['group_type' => 'learning_path'])->toString(),
+      ];
+      $requirements['opigno_forum'] = [
+        'title' => t('Opigno forum access'),
+        'description' => [
+          'text' => ['#markup' => t('Forum topics having these content types are not configured as <a href=":url">Learning path content</a> and will be visible to every user allowed to see regular content:', $args)],
+          'types' => [
+            '#theme' => 'item_list',
+            '#items' => $non_configured_types,
+          ],
+        ],
+        'severity' => REQUIREMENT_WARNING,
+      ];
+    }
+  }
+
+  return $requirements;
+}
+

@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Module file for go_back_history.
+ *
+ * Module for add block to back to previous page.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function go_back_history_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the Go Back module.
+    case 'help.page.go_back_history':
+      $output = '';
+      $output .= '<h3>' . t('About Go Back History') . '</h3>';
+      $output .= '<p>' . t('Allows you to add a block to any pages.') . '</p>';
+      $output .= '<p>' . t('This block adds a button that allows us to return to the previous page that we visited on the site.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function go_back_history_theme($existing, $type, $theme, $path) {
+  return [
+    'block_go_back_history' => [
+      'template' => 'block--go-back-history',
+      'render element' => 'elements',
+      'variables' => ['button_value' => NULL],
+    ],
+  ];
+}

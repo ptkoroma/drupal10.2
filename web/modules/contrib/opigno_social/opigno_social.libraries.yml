@@ -1,0 +1,26 @@
+post_comment:
+  version: 1.x
+  js:
+    js/post_comment.js: {}
+  dependencies:
+    - core/drupal.ajax
+    - core/jquery
+    - core/once
+
+post_sharing:
+  version: 1.x
+  js:
+    js/post_sharing.js: {}
+  dependencies:
+    - core/drupal.ajax
+    - core/jquery
+    - core/once
+
+read_more:
+  version: 1.x
+  js:
+    js/read_more.js: {}
+  dependencies:
+    - core/drupal.ajax
+    - core/jquery
+    - core/once

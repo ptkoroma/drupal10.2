@@ -1,0 +1,8 @@
+config_rewrite: replace
+langcode: en
+status: true
+dependencies: {  }
+name: Skills
+vid: skills
+description: 'Use this taxonomy to manage the available skills associated to activities'
+weight: 0

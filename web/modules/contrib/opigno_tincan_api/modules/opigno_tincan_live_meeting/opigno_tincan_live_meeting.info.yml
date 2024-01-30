@@ -1,0 +1,13 @@
+name: Opigno Tincan Live Meeting
+type: module
+description: 'Functionality for send tincan statements for Live meeting (provided by opigno_moxtra module).'
+core_version_requirement: ^9 || ^10
+package: Opigno Tincan
+dependencies:
+  - opigno_tincan_api:opigno_tincan_api
+  - opigno_moxtra:opigno_moxtra
+
+# Information added by Drupal.org packaging script on 2023-06-01
+version: '3.1.0'
+project: 'opigno_tincan_api'
+datestamp: 1685622965

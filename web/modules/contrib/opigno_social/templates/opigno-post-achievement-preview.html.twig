@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display Certificate/Badge preview.
+ *
+ * Available varaibles:
+ * - text: the intro text;
+ * - name: the title of the achievement;
+ * - achievement_type: whether the achievement is a badge or a certificate;
+ * - extra_class: the class to define the icon.
+ */
+#}
+
+<div id="createPost">
+  <div class="post">
+    <div class="post__body post__body-badge-certificate">
+      <p class="post__pretext">{{ text }}</p>
+      <div class="post__info">
+        <div class="post__icon {{ extra_class }}">
+          {{ image }}
+        </div>
+        <div class="post__info-content">
+          <h2>{{ achievement_type }}</h2>
+          <p>{{ name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

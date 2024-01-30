@@ -1,0 +1,137 @@
+pre {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  white-space: pre-wrap;
+}
+
+img {
+  max-width: 100%;
+  min-height: 1px;
+  height: auto;
+}
+
+.multiselect-wrapper {
+  @extend .clearfix;
+}
+
+.color-white {
+  color: #fff;
+
+  &.btn-success {
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.btn-danger {
+  color: #fff;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.p-static {
+  position: static!important;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.bg-faded {
+  background-color: $light-gray;
+
+  &.border-top-blue {
+    border-top: 5px solid $blue;
+  }
+}
+
+.dialog-off-canvas-main-canvas {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  body.toolbar-fixed & {
+    min-height: calc(100vh - 39px);
+  }
+
+  body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open & {
+    min-height: calc(100vh - 79px);
+  }
+}
+
+.filter-guidelines {
+  display: none;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.btn-back {
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    @include icon-base();
+    display: block;
+    content: icon(chevron-left);
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: inherit;
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  &:hover:after {
+    display: none;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+body {
+  opacity: 0;
+  transition: opacity .5s ease-in-out;
+  background-color: #fff;
+  color: $darken-gray;
+
+  &.page-ready {
+    opacity: 1;
+  }
+}
+
+.block-base {
+  .icon {
+    margin-right: 0.75rem;
+  }
+}
+
+article[typeof="schema:Person"] a[href*="/masquerade?"] {
+  display: none;
+}
+
+div#ilts-wrapper-empty,
+div#live-meetings-wrapper-empty {
+    padding: 0rem 2rem .5rem;
+}

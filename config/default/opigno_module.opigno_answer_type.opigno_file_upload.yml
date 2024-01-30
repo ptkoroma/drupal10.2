@@ -1,0 +1,11 @@
+uuid: 19921b17-7e81-4d4d-8768-b1a9f908dfc7
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: IUjIyL0o_1zb6-zfgD40M1Ewz-Q5Ea1jtTupzG38FsA
+id: opigno_file_upload
+label: 'File upload'
+description: null
+summary: null
+image: null

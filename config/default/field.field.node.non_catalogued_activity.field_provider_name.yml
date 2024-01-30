@@ -1,0 +1,25 @@
+uuid: c8caa614-d474-46e9-9fbd-108853cf1efc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_provider_name
+    - node.type.non_catalogued_activity
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.non_catalogued_activity.field_provider_name
+field_name: field_provider_name
+entity_type: node
+bundle: non_catalogued_activity
+label: 'Provider Name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

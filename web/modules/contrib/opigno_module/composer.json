@@ -1,0 +1,11 @@
+{
+  "name": "drupal/opigno_module",
+  "type": "drupal-module",
+  "description": "Opigno Module Module.",
+  "homepage": "http://drupal.org/project/opigno_module",
+  "license": "GPL-2.0+",
+  "require": {
+      "drupal/pdf": "1.x-dev#ec8d13d"
+  },
+  "minimum-stability": "dev"
+}

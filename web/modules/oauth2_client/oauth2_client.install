@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Update hooks provided by the OAuth2 Client module.
+ */
+
+use Drupal\Core\Config\Entity\ConfigEntityType;
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Install the entity definition for Oauth2Client config entities.
+ */
+function oauth2_client_update_9401(): void {
+  // The type should be null.
+  $type = \Drupal::entityDefinitionUpdateManager()
+    ->getEntityType('oauth2_client');
+  if ($type instanceof EntityTypeInterface) {
+    return;
+  }
+  \Drupal::entityDefinitionUpdateManager()
+    ->installEntityType(new ConfigEntityType([
+      'id' => 'oauth2_client',
+      'label' => t('OAuth2 Client'),
+      'label_collection' => t('OAuth2 Clients'),
+      'label_singular' => t('oauth2 client'),
+      'label_plural' => t('oauth2 clients'),
+      'label_count' => [
+        'singular' => '@count oauth2 client',
+        'plural' => '@count oauth2 clients',
+      ],
+      'handlers' => [
+        'list_builder' => 'Drupal\oauth2_client\Entity\Oauth2ClientListBuilder',
+        'form' => [
+          'edit' => 'Drupal\oauth2_client\Form\Oauth2ClientForm',
+          'disable' => 'Drupal\oauth2_client\Form\Oauth2ClientDisableForm',
+        ],
+      ],
+      'config_prefix' => 'oauth2_client',
+      'admin_permission' => 'administer oauth2_clients',
+      'links' => [
+        'collection' => '/admin/config/system/oauth2-client',
+        'edit-form' => '/admin/config/system/oauth2-client/[oauth2_client]/edit',
+        'enable' => '/admin/config/system/oauth2-client/[oauth2_client]/enable',
+        'disable' => '/admin/config/system/oauth2-client/[oauth2_client]/disable',
+      ],
+      'entity_keys' => [
+        'id' => 'id',
+        'label' => 'label',
+        'uuid' => 'uuid',
+        'status' => 'status',
+      ],
+      'config_export' => [
+        'id',
+        'label',
+        'description',
+        'oauth2_client_plugin_id',
+        'credential_provider',
+        'credential_storage_key',
+      ],
+    ]));
+}

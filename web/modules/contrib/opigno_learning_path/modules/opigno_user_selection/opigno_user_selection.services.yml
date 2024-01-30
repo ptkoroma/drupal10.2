@@ -1,0 +1,6 @@
+services:
+  opigno_user_selection.controller:
+    class: Drupal\opigno_user_selection\Controller\OpignoUserSelectionController
+    arguments:
+      - '@request_stack'
+      - '@group.membership_loader'

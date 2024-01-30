@@ -1,0 +1,4 @@
+table.ui-datepicker-calendar tr th,
+table.ui-datepicker-calendar tr td {
+  padding: 0;
+}

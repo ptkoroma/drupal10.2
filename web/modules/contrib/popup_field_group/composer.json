@@ -1,0 +1,25 @@
+{
+  "name": "drupal/popup_field_group'",
+  "description": "Adds a new field group option 'popup' which puts its children in a simple popup.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/popup_field_group",
+  "authors": [
+    {
+      "name": "Anton Ivanov",
+      "homepage": "https://www.drupal.org/u/antonnavi",
+      "role": "Maintainer"
+    },
+    {
+      "name": "James Silver",
+      "homepage": "https://www.drupal.org/u/jamsilver",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/popup_field_group",
+    "source": "https://git.drupalcode.org/project/popup_field_group"
+  },
+  "require": {
+    "drupal/core": "^8 || ^9 || ^10"
+  }
+}

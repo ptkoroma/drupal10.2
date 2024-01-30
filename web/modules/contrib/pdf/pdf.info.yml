@@ -1,0 +1,6 @@
+name: PDF
+description: 'Display PDF file in Drupal without external readers and plugins.'
+core_version_requirement: ^9.3 || ^10
+dependencies:
+  - drupal:file
+type: module

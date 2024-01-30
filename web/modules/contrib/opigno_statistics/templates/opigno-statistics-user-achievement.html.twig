@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the user achievement block.
+ *
+ * Available variables:
+ * - count: the amount of achievements;
+ * - img: the image link;
+ * - text: the text to be displayed;
+ * - subtitle: the text that should be displayed at the bottom (optional);
+ * - url: the url the block should lead to.
+ */
+#}
+
+<div class="link-box">
+  {% if img %}
+    <div class="link-box__type">
+      <img src="{{ img }}" alt="{{ text }}">
+    </div>
+  {% endif %}
+
+  <div class="link-box__content">
+    {% if url is not empty %}
+      <a class="link-box__link" href="{{ url }}"></a>
+    {% endif %}
+    <div class="link-box__number">{{ count }}</div>
+    <div class="link-box__title">{{ text }}</div>
+    {% if subtitle is not empty %}
+      <div class="link-box__subtext">{{ subtitle }}</div>
+    {% endif %}
+  </div>
+</div>

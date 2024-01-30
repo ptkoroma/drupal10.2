@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: private_message_group_upload
+label: 'Private message group upload (133x100)'
+effects:
+  92c49016-1ec5-4cf6-9470-e51aa5053e16:
+    uuid: 92c49016-1ec5-4cf6-9470-e51aa5053e16
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 133
+      height: 100
+      anchor: center-center

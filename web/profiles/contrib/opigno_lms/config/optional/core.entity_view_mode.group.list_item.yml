@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.list_item
+label: 'List item'
+targetEntityType: group
+cache: true

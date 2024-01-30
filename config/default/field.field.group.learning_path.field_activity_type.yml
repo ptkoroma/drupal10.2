@@ -1,0 +1,26 @@
+uuid: 3f68258f-958e-4f18-9e13-8fec57d673cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_activity_type
+    - group.type.learning_path
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: group.learning_path.field_activity_type
+field_name: field_activity_type
+entity_type: group
+bundle: learning_path
+label: 'Activity Type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

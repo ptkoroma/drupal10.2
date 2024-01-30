@@ -1,0 +1,43 @@
+uuid: 916ed405-08f4-4509-b845-0f970bbf824d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.faq_content.body
+    - field.field.node.faq_content.field_activity_category_1
+    - field.field.node.faq_content.field_answer
+    - field.field.node.faq_content.field_answer_
+    - field.field.node.faq_content.field_field_of_engineering_1
+    - field.field.node.faq_content.field_images
+    - field.field.node.faq_content.field_question
+    - field.field.node.faq_content.field_question_
+    - field.field.node.faq_content.field_tags_faq
+    - field.field.node.faq_content.field_topic
+    - field.field.node.faq_content.field_upload_supporting_document
+    - node.type.faq_content
+  module:
+    - user
+id: node.faq_content.default
+targetEntityType: node
+bundle: faq_content
+mode: default
+content: {  }
+hidden:
+  body: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_activity_category_1: true
+  field_answer: true
+  field_answer_: true
+  field_field_of_engineering_1: true
+  field_images: true
+  field_question: true
+  field_question_: true
+  field_tags_faq: true
+  field_topic: true
+  field_upload_supporting_document: true
+  langcode: true
+  links: true
+  private_message_link: true
+  search_api_excerpt: true

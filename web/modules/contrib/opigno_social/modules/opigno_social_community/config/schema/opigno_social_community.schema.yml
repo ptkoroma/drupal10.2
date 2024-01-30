@@ -1,0 +1,43 @@
+opigno_social_community.admin_settings:
+  type: config_object
+  label: 'Community admin settings'
+  mapping:
+    enable_communities:
+      type: boolean
+      label: 'Enable communities feature'
+    allow_view:
+      type: sequence
+      label: 'Allow the following users to view any community'
+      sequence:
+        type: integer
+        label: 'User IDs'
+    allow_create:
+      type: sequence
+      label: 'Allow the following users to create a community'
+      sequence:
+        type: integer
+        label: 'User IDs'
+    allow_update:
+      type: sequence
+      label: 'Allow the following users to edit any community'
+      sequence:
+        type: integer
+        label: 'User IDs'
+    allow_delete:
+      type: sequence
+      label: 'Allow the following users to delete any community'
+      sequence:
+        type: integer
+        label: 'User IDs'
+    allow_invite_member:
+      type: sequence
+      label: 'Allow the following users to invite users to any community'
+      sequence:
+        type: integer
+        label: 'User IDs'
+    allow_cancel_invitation:
+      type: sequence
+      label: 'Allow the following users to cancel any pending community invitation'
+      sequence:
+        type: integer
+        label: 'User IDs'

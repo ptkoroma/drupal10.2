@@ -1,0 +1,31 @@
+uuid: 645aa913-ab02-4e36-a052-4c30214511e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.commerce_remote_id
+  module:
+    - commerce
+    - custom_add_another
+    - user
+  enforced:
+    module:
+      - commerce_payment
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: Zu4REVGzMPlwpQVE7u1sM_74HqLCp0u42VNWlAwZcIw
+id: user.user.commerce_remote_id
+field_name: commerce_remote_id
+entity_type: user
+bundle: user
+label: 'Remote ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: commerce_remote_id

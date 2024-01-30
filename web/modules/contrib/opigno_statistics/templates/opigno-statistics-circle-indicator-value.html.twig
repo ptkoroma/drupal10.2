@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the cicle indicator value.
+ *
+ * Available variables:
+ * - value: Value.
+ * - label: The label of value.
+ */
+#}
+
+<div class="value-wrapper">
+  <span class="value {{ help_text ? 'p-relative'}}">
+    {{ value }}
+    {% if help_text %}
+      <div class="popover-help"
+           data-toggle="popover"
+           data-content="{{ help_text }}">
+        ?
+      </div>
+    {% endif %}
+  </span>
+  <span class="label">{{ label }}</span>
+</div>

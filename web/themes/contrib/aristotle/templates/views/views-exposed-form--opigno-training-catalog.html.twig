@@ -1,0 +1,56 @@
+{#
+/**
+ * @file
+ * Default theme implementation of a views exposed form.
+ *
+ * Available variables:
+ * - form: A render element representing the form.
+ *
+ * @see template_preprocess_views_exposed_form()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if q is not empty %}
+  {#
+  This ensures that, if clean URLs are off, the 'q' is added first,
+  as a hidden form element, so that it shows up first in the POST URL.
+  #}
+  {{ q }}
+{% endif %}
+
+{{ form.form_build_id }}
+{{ form.form_token }}
+{{ form.form_id }}
+
+<div id="catalog-filter-parent" class="clearfix">
+  <div class="form-items-group">
+    {{ form.search }}
+    {{ form.actions.search_submit }}
+    <button class="show-filter">
+      <i class="fi fi-rr-filter"></i>
+      {{ 'Filter'|t }}
+    </button>
+  </div>
+
+  <div class="catalog-filter">
+    <div class="filter-section-title d-lg-none">
+      <a class="close-btn">
+        <i class="fi fi-rr-angle-small-left"></i>
+        {{ 'Back'|t }}
+      </a>
+      <h2>{{ 'Filters'|t }}</h2>
+    </div>
+    {{ form.opigno_group_membership }}
+    {{ form.field_learning_path_category_target_id }}
+    {{ form.field_learning_path_duration_target_id }}
+    {{ form.status }}
+
+    {# Hide sorting. The correct value vill be set with ajax. #}
+    <div class="hidden">
+      {{ form.sort_bef_combine }}
+    </div>
+
+    {{ form.actions|without('search_submit') }}
+  </div>
+</div>

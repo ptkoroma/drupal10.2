@@ -1,0 +1,36 @@
+uuid: ad29ba0a-adb3-4a24-8262-970a46ff8b75
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_activity_status
+field_name: field_activity_status
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'To Do'
+      label: 'To Do'
+    -
+      value: 'In Progress'
+      label: 'In Progress'
+    -
+      value: Done
+      label: Done
+    -
+      value: Reflected
+      label: Reflected
+    -
+      value: Removed
+      label: Removed
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

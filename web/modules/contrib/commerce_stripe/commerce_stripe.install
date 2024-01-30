@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Commerce Stripe.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function commerce_stripe_requirements($phase) {
+  $requirements = [];
+  if ($phase == 'install') {
+    if (!class_exists('\Stripe\Stripe')) {
+      $requirements['commerce_stripe_library'] = [
+        'description' => t('Commerce Stripe requires the stripe/stripe-php library.'),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Disables credit card icon settings on existing payment gateways.
+ */
+function commerce_stripe_update_8101() {
+  $payment_gateways = \Drupal::entityTypeManager()
+    ->getStorage('commerce_payment_gateway')
+    ->loadMultiple();
+
+  foreach ($payment_gateways as $payment_gateway) {
+    if ($payment_gateway->getPluginId() !== 'stripe') {
+      continue;
+    }
+    $configuration = $payment_gateway->getPluginConfiguration();
+    $configuration['enable_credit_card_icons'] = FALSE;
+    $payment_gateway->setPluginConfiguration($configuration);
+    $payment_gateway->save();
+  }
+}

@@ -1,0 +1,57 @@
+<div class="user-form-wrapper">
+  {{ form.form_build_id }}
+  {{ form.form_token }}
+  {{ form.form_id }}
+
+  {{ form.user_picture }}
+
+  {{ form.field_first_name }}
+  {{ form.field_last_name }}
+
+  {{ form.account.mail }}
+  {{ form.account.name }}
+  {{ form.account.pass }}
+
+  {{ form.account|without('mail','name','pass','notify') }}
+  {{ form|without('field_private_profile', 'field_last_name', 'field_first_name', 'actions','footer','language','timezone','contact','account','user_picture','form_id','form_token','form_build_id',) }}
+
+  {% if form.field_private_profile %}
+  <div class="form-item">
+    <div class="label">
+      {{ form.field_private_profile.label }}
+    </div>
+    <div class="field">
+      {{ form.field_private_profile.content }}
+    </div>
+  </div>
+  {% endif %}
+
+  {% set notify = form.account.notify.notify|render|trim %}
+  {% if notify %}
+  <div class="form-item">
+    <div class="label">
+      {{ form.account.notify.label }}
+    </div>
+    <div class="field">
+      {{ notify|raw }}
+    </div>
+  </div>
+  {% endif %}
+
+  {{ form.language }}
+
+  <div class="form-item">
+    <div class="label">
+      {{ form.contact.label }}
+    </div>
+    <div class="field">
+      {{ form.contact.contact }}
+    </div>
+  </div>
+  {{ form.timezone }}
+
+  {#{{ form.field_private_profile }}#}
+  {{ form.footer }}
+
+  {{ form.actions }}
+</div>

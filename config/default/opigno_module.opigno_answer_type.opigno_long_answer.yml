@@ -1,0 +1,11 @@
+uuid: cbcf589f-9da3-46d2-a255-b385d0fed0d8
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: _Z7aJZGLEW26bOvMMTZzCxrLhwQkuYy-dATSl6K52xA
+id: opigno_long_answer
+label: 'Long answer'
+description: null
+summary: null
+image: null

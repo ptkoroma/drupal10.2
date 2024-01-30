@@ -1,0 +1,430 @@
+form {
+  label {
+    font-size: rem($input-label-font-size);
+    display: inline-block;
+    margin-bottom: rem(10);
+  }
+
+  .form-required {
+    &:after {
+      content: '*';
+      margin-left: 2px;
+    }
+  }
+}
+
+.entity-browser-community-images-media-entity-browser-form.entity-browser-form,
+.entity-browser-media-entity-browser-groups-form.entity-browser-form,
+.entity-browser-media-entity-browser-badge-images-form.entity-browser-form {
+  .form-item-widget {
+    margin: 0 !important;
+  }
+
+  .js-form-type-dropzonejs {
+    label {
+      display: none;
+    }
+  }
+
+  .form-items-group {
+    align-items: flex-end;
+
+    .form-search {
+      border-radius: rem(10);
+      padding: rem(10) rem(20);
+    }
+  }
+
+  .content-box {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  .form-select.bootstrap-select {
+    > .dropdown-toggle {
+      background: $clr-gray-light;
+      border-color: $clr-gray-light-D5;
+      font-weight: $font-weight-normal;
+      min-height: rem(40);
+      padding: rem(7) rem(5) rem(7) rem(20);
+    }
+
+    &.show {
+      > .dropdown-toggle {
+        border-color: $clr-desktop-button-color;
+        border-bottom-color: transparent;
+        border-radius: rem(10) rem(10) 0 0;
+      }
+
+      > .dropdown-menu {
+        transform: translate(0, 40px) !important;
+      }
+
+      &.dropup {
+        > .dropdown-toggle {
+          border-top-color: transparent;
+          border-bottom: 1px solid $clr-desktop-button-color;
+          border-radius: 0 0 rem(10) rem(10);
+        }
+      }
+    }
+
+    .dropdown-menu {
+      background: $clr-gray-light;
+      border-width: 1px;
+      max-width: 100%;
+      min-width: 100% !important;
+
+      &[x-placement="top-start"] {
+        border: 1px solid $clr-desktop-button-color;
+        border-bottom: none;
+        border-radius: rem(10) rem(10) 0 0;
+      }
+    }
+  }
+
+  .bootstrap-select {
+    margin-bottom: rem(10);
+    width: 100% !important;
+  }
+
+  .dropzone {
+    background: $clr-gray-light;
+    border: none;
+    box-shadow: inset 0 0 0 1px $clr-gray-light-D5;
+    border-radius: rem(10);
+    color: $clr-gray;
+    margin: 0;
+    min-height: 0;
+    padding: rem(97) rem(20);
+
+    .dz-message {
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      color: $clr-desktop-text;
+      text-decoration: underline;
+    }
+  }
+}
+
+.entity-browser-community-images-media-entity-browser-form.entity-browser-form {
+  .dropzone {
+    padding: rem(14) rem(22);
+  }
+
+  .form-actions {
+    display: none;
+  }
+}
+
+.group-content-learning-path-group-membership-add-form {
+  color: $clr-desktop-text;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+
+  #edit-btn-create {
+    padding: rem(10) rem(15);
+  }
+
+  > .form-submit {
+    align-self: flex-end;
+  }
+}
+
+.learning-path-create-member-form {
+  .btn_create {
+    background-color: $clr-gray-light;
+    border-left: 2px solid $clr-desktop-button-color !important;
+    color: $clr-desktop-text;
+    transition: .3s ease;
+
+    &:hover {
+      background-color: $clr-desktop-button-color-hover-primary !important;
+      color: $clr-desktop-text !important;
+    }
+  }
+}
+
+.opigno-activity-opigno-h5p-form {
+  .form-item {
+    display: flex;
+    margin-bottom: rem(30) !important;
+
+    > .label,
+    > legend {
+      font-size: rem(14);
+      flex: 0 0 20%;
+      font-weight: $font-weight-semibold;
+      text-align: left;
+      text-transform: none;
+      width: auto;
+    }
+
+    > .field,
+    > .fieldset-wrapper {
+      flex: 1 1 auto;
+    }
+
+    .description {
+      font-size: rem(12);
+      font-style: italic;
+    }
+  }
+
+  .form-text,
+  .form-email,
+  .form-number {
+    background: $clr-gray-light;
+    border: 1px solid $clr-gray-light-D5;
+    border-radius: rem(10);
+    color: $clr-desktop-text;
+    outline: none;
+    padding: rem(10) rem(20);
+    width: 100%;
+
+    &.error {
+      border-color: $clr-red !important;
+      color: $clr-red;
+    }
+
+    &:focus {
+      border-color: $clr-desktop-button-color;
+    }
+  }
+
+  .form-select.bootstrap-select {
+    width: 100% !important;
+
+    > .dropdown-toggle {
+      background: $clr-gray-light;
+      border: 1px solid $clr-gray-light-D5;
+      border-radius: rem(10);
+      font-weight: $font-weight-normal;
+      line-height: 1.3;
+      min-height: rem(40);
+      padding: rem(7) rem(5) rem(7) rem(20);
+
+      &:after {
+        content: '\f13f' !important;
+        font-size: rem(16);
+      }
+    }
+
+    &.show {
+      > .dropdown-toggle {
+        border-color: $clr-desktop-button-color;
+        border-bottom-color: transparent;
+        border-radius: rem(10) rem(10) 0 0;
+      }
+
+      &.dropup {
+        > .dropdown-toggle {
+          border-top-color: transparent;
+          border-bottom: 1px solid $clr-desktop-button-color;
+          border-radius: 0 0 rem(10) rem(10);
+        }
+      }
+    }
+
+    .dropdown-menu {
+      background: $clr-gray-light;
+      border-width: 1px;
+      max-width: 100%;
+      min-width: 100% !important;
+      z-index: 600;
+
+      &[x-placement="top-start"] {
+        border: 1px solid $clr-desktop-button-color;
+        border-bottom: none;
+        border-radius: rem(10) rem(10) 0 0;
+      }
+    }
+
+    .dropdown-item {
+      white-space: normal;
+    }
+
+    .dropdown-header {
+      color: $clr-desktop-text;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  .form-checkbox,
+  .form-radio {
+    @include sr-only();
+  }
+
+  .js-form-type-radio,
+  .js-form-type-checkbox {
+    margin-bottom: rem(15) !important;
+
+    &.form-no-label {
+      margin-bottom: 0 !important;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    label.option {
+      cursor: pointer;
+      margin-bottom: 0;
+      padding-left: rem(26);
+      position: relative;
+
+      &:before {
+        border: 1px solid $clr-desktop-text;
+        content: '';
+        height: rem(16);
+        position: absolute;
+        left: 0;
+        top: 1px;
+        transition: .3s ease;
+        width: rem(16);
+      }
+    }
+
+    .option.visually-hidden {
+      clip: auto;
+      position: relative !important;
+      height: auto;
+      min-height: rem(20);
+      text-indent: -9999px;
+      width: auto;
+
+      &:before {
+        left: 2px;
+        top: 2px;
+        text-indent: 0;
+      }
+    }
+
+    input {
+      &:not(:checked) {
+        ~ label.option {
+          &:hover {
+            &:before {
+              background: $clr-desktop-button-color-hover-secondary;
+              box-shadow: 0 0 0 2px $clr-desktop-button-color-hover-secondary;
+            }
+          }
+        }
+      }
+
+      &:checked {
+        ~ label.option {
+          &:before {
+            border-color: $clr-desktop-button-color;
+          }
+        }
+      }
+    }
+  }
+
+  .js-form-type-radio {
+    label.option {
+      &:before {
+        border-radius: 50%;
+      }
+    }
+
+    input {
+      &:checked {
+        ~ label.option {
+          &:after {
+            background: $clr-desktop-button-color;
+            border-radius: 50%;
+            content: '';
+            display: block;
+            height: rem(10);
+            position: absolute;
+            left: 3px;
+            top: 4px;
+            width: rem(10);
+          }
+        }
+      }
+    }
+  }
+
+  .js-form-type-checkbox {
+    label.option {
+      &:before {
+        border-radius: 2px;
+        color: $clr-white;
+        font-size: rem(12);
+        font-family: uicons-regular-rounded;
+        text-align: center;
+      }
+    }
+
+    input {
+      &:checked {
+        ~ label.option {
+          @extend .fi-rr-check;
+
+          &:before {
+            background: $clr-desktop-button-color;
+          }
+        }
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    .form-submit,
+    .button {
+      ~ .form-submit,
+      ~ .button {
+        margin-left: 5%;
+      }
+    }
+  }
+}
+
+.opignomodule-settings {
+  > .form-item {
+    &:first-child {
+      margin-top: rem(20);
+    }
+  }
+}
+
+.group-content-learning-path-group-membership-group-join-form {
+  .form-actions {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    .button {
+      align-items: center;
+      background-color: $clr-white;
+      border: 2px solid $clr-desktop-button-color;
+      border-radius: rem(25);
+      color: $clr-desktop-button-text-primary;
+      display: inline-flex;
+      font-weight: $font-weight-semibold;
+      justify-content: center;
+      line-height: 1;
+      min-height: rem(40);
+      min-width: rem(156);
+      padding: rem(10) rem(15);
+      text-decoration: none;
+    }
+
+    .form-submit {
+      background: $clr-desktop-button-color;
+    }
+  }
+}

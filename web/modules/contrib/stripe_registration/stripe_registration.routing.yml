@@ -1,0 +1,37 @@
+stripe_registration.my_subscriptions:
+  path: '/user/my-subscriptions'
+  defaults:
+    _controller: '\Drupal\stripe_registration\Controller\UserSubscriptionsController::redirectToSubscriptions'
+    _title: 'My Subscriptions'
+  requirements:
+    _permission: 'manage own stripe subscriptions+administer stripe subscriptions'
+    _user_is_logged_in: 'TRUE'
+stripe_registration.manage_billing:
+  path: 'user/{user}/stripe/manage-billing'
+  defaults:
+    _controller: '\Drupal\stripe_registration\Controller\UserSubscriptionsController::manageBilling'
+    _title: 'Manage Billing'
+  requirements:
+    _custom_access: '\Drupal\stripe_registration\Controller\UserSubscriptionsController::manageBillingAccess'
+    user: \d+
+  options:
+    no_cache: 'TRUE'
+stripe_registration.subscribe:
+  path: '/stripe_registration/subscribe'
+  defaults:
+    _controller: '\Drupal\stripe_registration\Controller\UserSubscriptionsController::subscribe'
+    _title_callback: '\Drupal\stripe_registration\Controller\UserSubscriptionsController::subscribeTitle'
+  requirements:
+    _permission: 'manage own stripe subscriptions+administer stripe subscriptions'
+    _user_is_logged_in: 'TRUE'
+stripe_registration.stripe_checkout_create_subscribe_session:
+  path: '/stripe_registration/subscribe/create_subscribe_session'
+  methods: [POST]
+  defaults:
+    _controller: '\Drupal\stripe_registration\Controller\UserSubscriptionsController::createSubscribeSession'
+    _title: 'Create session'
+  requirements:
+    _permission: 'access content'
+    _user_is_logged_in: 'TRUE'
+  options:
+    no_cache: 'TRUE'

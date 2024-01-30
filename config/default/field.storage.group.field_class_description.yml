@@ -1,0 +1,21 @@
+uuid: 1be5d58f-6bfe-48e0-8ce3-8cb0feb7fbaa
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - text
+_core:
+  default_config_hash: HPMoV6_JoYLiKq6MpxV9PB3ZqbtFx71FZd3RwLJ8oeg
+id: group.field_class_description
+field_name: field_class_description
+entity_type: group
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

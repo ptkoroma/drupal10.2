@@ -1,0 +1,27 @@
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+@mixin button-variant($background) {
+  background-color: $background;
+}
+
+// Button sizes
+@mixin button-size($padding-y, $padding-x, $font-size, $line-height) {
+ font-size: rem($font-size);
+  padding: rem($padding-y) rem($padding-x);
+  line-height: $line-height;
+}
+
+@mixin btn-icon-mini {
+  width: rem($btn-mini-width);
+  text-indent: rem(9999);
+  overflow: hidden;
+
+  i {
+    text-indent: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

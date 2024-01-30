@@ -1,0 +1,19 @@
+uuid: dcdda9e9-6c81-4475-9d2d-fc711ec88e6f
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.opigno_class
+  enforced:
+    config:
+      - user.role.content_manager
+_core:
+  default_config_hash: '-40_l5700GSFjEo1ba1p4oHgI7d2HlP-nKs9zQVnN8Y'
+id: opigno_class-1eb7047a7
+label: 'Content manager'
+weight: 3
+internal: true
+audience: outsider
+group_type: opigno_class
+permissions_ui: false
+permissions: {  }

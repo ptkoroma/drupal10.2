@@ -1,0 +1,10 @@
+uuid: 467663fc-b7e6-4ae4-a47d-17104f87a2d7
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.token
+label: Token
+targetEntityType: group
+cache: true

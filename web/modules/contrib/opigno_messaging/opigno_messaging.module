@@ -1,0 +1,649 @@
+<?php
+
+/**
+ * @file
+ * Contains opigno_messaging.module.
+ */
+
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Image\ImageInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\group\Entity\Group;
+use Drupal\group\Entity\GroupInterface;
+use Drupal\opigno_class\Form\SocialSettingsForm;
+use Drupal\opigno_messaging\Access\OpignoMessageThreadAccessHandler;
+use Drupal\opigno_messaging\Form\PrivateMessageForm;
+use Drupal\opigno_messaging\Form\PrivateMessageThreadDeleteForm;
+use Drupal\opigno_messaging\Services\OpignoMessageThread;
+use Drupal\private_message\Entity\PrivateMessageInterface;
+use Drupal\private_message\Entity\PrivateMessageThreadInterface;
+use Drupal\user\Entity\User;
+use Drupal\Core\Render\BubbleableMetadata;
+
+/**
+ * Implements hook_help().
+ */
+function opigno_messaging_help($route_name, RouteMatchInterface $route_match) {
+  // Main module help for the opigno_messaging module.
+  if ($route_name === 'help.page.opigno_messaging') {
+    $output = '<h3>' . t('About') . '</h3>';
+    $output .= '<p>' . t('Opigno app for messaging') . '</p>';
+
+    return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function opigno_messaging_theme() {
+  return [
+    'opigno_messaging' => [
+      'render element' => 'children',
+    ],
+    'opigno_messaging_modal' => [
+      'variables' => [
+        'title' => NULL,
+        'body' => NULL,
+      ],
+    ],
+    'opigno_pm_thread_actions' => [
+      'variables' => [
+        'actions' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function opigno_messaging_form_private_message_add_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Remove default & set custom submit handler.
+  $form['actions']['submit']['#submit'][] = 'opigno_messaging_private_message_add_form_submit';
+}
+
+/**
+ * Helper function to get users for group.
+ *
+ * @param int $group_id
+ *   Group.
+ *
+ * @return \Drupal\user\UserInterface[]
+ *   User ID.
+ */
+function opigno_messaging_get_user_for_group($group_id = NULL, $show_all = FALSE) {
+  if ($group_id === NULL || $group_id === 0) {
+    return opigno_messaging_get_all_recipients($show_all);
+  }
+
+  $users = [];
+  $group = Group::load($group_id);
+  $members = $group->getMembers();
+  $current_user = \Drupal::currentUser();
+
+  if ($show_all) {
+    if ($members) {
+      $users = array_map(function ($member) {
+        /** @var \Drupal\group\GroupMembership $member */
+        return $member->getUser();
+      }, $members);
+
+      $users = array_filter($users, function ($user) {
+        /** @var \Drupal\user\UserInterface $user */
+        return $user->id() > 0 && $user->isActive();
+      });
+    }
+
+    return $users;
+  }
+
+  $member = $group->getMember($current_user);
+  $member_roles = $member->getRoles();
+
+  if (opigno_messaging_user_is_manager($member_roles)) {
+    $users = array_map(function ($member) {
+      /** @var \Drupal\group\GroupMembership $member */
+      return $member->getUser();
+    }, $members);
+
+    $users = array_filter($users, function ($user) {
+      /** @var \Drupal\user\UserInterface $user */
+      return $user->id() > 0 && $user->isActive();
+    });
+  }
+  else {
+    $owner = $group->getOwner();
+
+    foreach ($members as $member) {
+      $member_roles = $member->getRoles();
+
+      if (opigno_messaging_social_sharing($group) ||
+        opigno_messaging_user_is_manager($member_roles) ||
+        $member->getUser()->id() == $owner->id()
+      ) {
+        if ($member->getUser()->isActive()) {
+          $users[] = $member->getUser();
+        }
+      }
+    }
+  }
+
+  return $users;
+}
+
+/**
+ * Check socials sharing settings.
+ *
+ * @param \Drupal\group\Entity\GroupInterface $group
+ *   A group to check the social sharing possibility for.
+ *
+ * @return bool
+ *   Social sharing is allowed.
+ */
+function opigno_messaging_social_sharing(GroupInterface $group): bool {
+  $social_config = \Drupal::config('opigno_class.socialsettings')
+    ->get('social');
+  $type = $group->bundle();
+
+  return (
+    ($social_config & SocialSettingsForm::SAME_CLASS && $type === 'opigno_class') ||
+    ($social_config & SocialSettingsForm::SAME_TRAINING && $type === 'learning_path') ||
+    $social_config === SocialSettingsForm::ALL_USERS
+  );
+}
+
+/**
+ * Checks the member roles is an manager.
+ *
+ * @param \Drupal\group\GroupMembership[] $member_roles
+ *   Group member roles.
+ *
+ * @return bool
+ *   User membership is manager.
+ */
+function opigno_messaging_user_is_manager(array $member_roles): bool {
+  return count(array_intersect(array_keys($member_roles), [
+    'learning_path-user_manager',
+    'opigno_class-class_manager',
+  ])) > 0;
+}
+
+/**
+ * Helper function to get all users that current user can message to.
+ */
+function opigno_messaging_get_all_users() {
+  $current_user = \Drupal::currentUser();
+
+  if ($current_user->hasPermission('message anyone regardless of groups')) {
+    return array_filter(User::loadMultiple(), function ($user) {
+      /** @var \Drupal\user\UserInterface $user */
+      return $user->id() > 0;
+    });
+  }
+
+  $users = [];
+  $groups = opigno_messaging_get_groups('opigno_class')
+    + opigno_messaging_get_groups('learning_path');
+
+  /** @var \Drupal\group\Entity\GroupInterface $group */
+  foreach ($groups as $group_info) {
+    $group = Group::load($group_info['entity_id']);
+    $members = $group->getMembers();
+
+    foreach ($members as $member) {
+      $user = $member->getUser();
+      if ($user) {
+        $users[$user->id()] = $member->getUser();
+      }
+    }
+  }
+
+  unset($users[0]);
+  return array_values($users);
+}
+
+/**
+ * Helper function to get list of all users that current user can message to.
+ */
+function opigno_messaging_get_all_recipients($show_all) {
+  $current_user = \Drupal::currentUser();
+  if ($current_user->isAnonymous()) {
+    return [];
+  }
+
+  $social_config = \Drupal::config('opigno_class.socialsettings')->get('social');
+  if (
+    $social_config == SocialSettingsForm::ALL_USERS ||
+    $show_all
+  ) {
+    return array_filter(User::loadMultiple(), function ($user) {
+      /** @var \Drupal\user\UserInterface $user */
+      return $user->id() > 0 && $user->isActive();
+    });
+  }
+  else {
+    $users = [];
+
+    // Get all users with roles "user manager" or "content manager" or
+    // "administrator".
+    $global_managers_roles = [
+      'user_manager',
+      'content_manager',
+      'administrator',
+    ];
+    $global_managers_ids = \Drupal::entityQuery('user')
+      ->condition('status', 1)
+      ->condition('roles', $global_managers_roles, 'IN')
+      ->execute();
+
+    $users = array_merge($users, $global_managers_ids);
+
+    // Get users with group roles "student manager" or "content manager"
+    // the current user is a member of.
+    /** @var \Drupal\group\GroupMembershipLoaderInterface $membership_service */
+    $membership_service = \Drupal::service('group.membership_loader');
+    $memberships = $membership_service->loadByUser($current_user);
+
+    foreach ($memberships as $membership) {
+      $group = $membership->getGroup();
+      $members = $group->getMembers();
+      $owner = $group->getOwner();
+
+      foreach ($members as $member) {
+        $member_roles = $member->getRoles();
+
+        if (opigno_messaging_social_sharing($group) ||
+          opigno_messaging_user_is_manager($member_roles) ||
+          $member->getUser()->id() == $owner->id()) {
+          $users[] = $member->getUser()->id();
+        }
+      }
+    }
+
+    // Get members from groups and classes where current user is a "class
+    // manager" in a class, "student manager" or "content manager" in a group.
+    $memberships = $membership_service->loadByUser($current_user, [
+      'learning_path-user_manager',
+      'opigno_class-class_manager',
+    ]);
+
+    foreach ($memberships as $membership) {
+      $group = $membership->getGroup();
+      $members = $group->getMembers();
+
+      foreach ($members as $member) {
+        $users[] = $member->getUser()->id();
+      }
+    }
+  }
+
+  $users = User::loadMultiple($users);
+  return array_values($users);
+}
+
+/**
+ * Helper function to get all groups that current user can message to.
+ */
+function opigno_messaging_get_groups($group_type) {
+  $current_user = \Drupal::currentUser();
+  $groups = \Drupal::entityTypeManager()->getStorage('group')->loadByProperties(['type' => $group_type]);
+
+  if (!$current_user->hasPermission('message all groups')) {
+    $groups = array_filter($groups, function ($group) use ($current_user) {
+      /** @var \Drupal\group\Entity\GroupInterface $group */
+      return $group->getMember($current_user) !== FALSE;
+    });
+  }
+
+  return array_map(function ($group) {
+    /** @var \Drupal\group\Entity\Group $group */
+    return [
+      'entity_id' => $group->id(),
+      'title' => $group->label(),
+    ];
+  }, $groups);
+}
+
+/**
+ * Add private message form custom submit handler.
+ *
+ * @param array $form
+ *   The PM creation form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state object.
+ */
+function opigno_messaging_private_message_add_form_submit(array $form, FormStateInterface $form_state) {
+  /** @var \Drupal\Core\Entity\ContentEntityFormInterface $form_obj */
+  $form_obj = $form_state->getFormObject();
+  /** @var \Drupal\opigno_messaging\Services\OpignoMessageThread $pm_service */
+  $pm_service = \Drupal::service('opigno_messaging.manager');
+  $form_state->cleanValues();
+  /** @var \Drupal\private_message\Entity\PrivateMessageInterface $entity */
+  $entity = $form_obj->buildEntity($form, $form_state);
+
+  // Get the thread and send the email to all participants.
+  try {
+    $private_message_thread = \Drupal::entityTypeManager()
+      ->getStorage('private_message_thread')
+      ->loadByProperties(['private_messages' => $entity->id()]);
+
+    if ($private_message_thread instanceof PrivateMessageThreadInterface) {
+      $pm_service->sendEmailToThreadMembers($private_message_thread, $entity);
+    }
+  }
+  catch (PluginNotFoundException | InvalidPluginDefinitionException $e) {
+    watchdog_exception('opigno_messaging_exception', $e);
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function opigno_messaging_mail($key, &$message, $params) {
+  if ($key == 'message_notification') {
+    $message['from'] = \Drupal::config('system.site')->get('name');
+    $message['subject'] = $params['subject'];
+    $message['body'][] = $params['message'];
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ *
+ * Changes 'last_message' view mode to 'thread_preview'
+ * if 'private_message_thread' view mode is 'preview'.
+ *
+ * @see private_message_private_message_thread_view()
+ */
+function opigno_messaging_private_message_thread_view_alter(
+  array &$build,
+  EntityInterface $entity,
+  EntityViewDisplayInterface $display
+) {
+  if (isset($build['last_message'])
+    && $build['#view_mode'] === 'preview') {
+    /** @var \Drupal\private_message\Entity\PrivateMessageThreadInterface $entity */
+    $messages = $entity->getMessages();
+    $last_message = array_pop($messages);
+    $view_builder = \Drupal::entityTypeManager()
+      ->getViewBuilder('private_message');
+    $build['last_message'] = $view_builder
+      ->view($last_message, 'thread_preview');
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function opigno_messaging_preprocess_views_view(&$vars) {
+  // Attach js & css to view.
+  if (isset($vars['view_array']['#name'])
+    && $vars['view_array']['#name'] === 'private_message') {
+    $vars['#attached']['library'][] = 'opigno_learning_path/opigno_autocomplite_multiselect';
+    $vars['#attached']['drupalSettings']['multiLingual'] = \Drupal::languageManager()->isMultilingual();
+  }
+}
+
+/**
+ * Implements hook_menu_local_actions_alter().
+ */
+function opigno_messaging_menu_local_actions_alter(&$local_actions) {
+  // Remove default 'Create private message' button.
+  unset($local_actions['private_message.private_message_add']);
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function opigno_messaging_entity_extra_field_info() {
+  $extra = [];
+  // Message thread image.
+  $extra['private_message_thread']['private_message_thread']['display']['thread_picture'] = [
+    'label' => t('Opigno messages thread picture'),
+    'description' => t('Provides the PM thread picture.'),
+    'weight' => 0,
+  ];
+
+  // Message thread title.
+  $extra['private_message_thread']['private_message_thread']['display']['thread_title'] = [
+    'label' => t('Opigno messages thread title'),
+    'description' => t('Provides the PM thread title.'),
+    'weight' => 0,
+  ];
+
+  // Message thread formatted date.
+  $extra['private_message_thread']['private_message_thread']['display']['thread_formatted_date'] = [
+    'label' => t('Opigno messages thread formatted date'),
+    'description' => t('Provides the PM thread formatted date.'),
+    'weight' => 0,
+  ];
+
+  // Message thread displayed text.
+  $extra['private_message_thread']['private_message_thread']['display']['thread_text'] = [
+    'label' => t('Opigno messages thread text'),
+    'description' => t('Provides the PM thread text (last message cropped text OR the last message author).'),
+    'weight' => 0,
+  ];
+
+  // Message thread options.
+  $extra['private_message_thread']['private_message_thread']['display']['thread_actions'] = [
+    'label' => t('Opigno messages thread actions'),
+    'description' => t('Provides the PM thread actions dropdown.'),
+    'weight' => 0,
+    'visible' => FALSE,
+  ];
+
+  // Message thread unread messages count.
+  $extra['private_message_thread']['private_message_thread']['display']['thread_unread_count'] = [
+    'label' => t('Opigno unread messages count'),
+    'description' => t('Provides the amount of unread messages in the PM thread.'),
+    'weight' => 0,
+    'visible' => FALSE,
+  ];
+
+  // Private message formatted date.
+  $extra['private_message']['private_message']['display']['opigno_date'] = [
+    'label' => t('Opigno message formatted date'),
+    'description' => t('Provides the PM formatted date'),
+    'weight' => 0,
+    'visible' => FALSE,
+  ];
+
+  return $extra;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function opigno_messaging_private_message_thread_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if (!$entity instanceof PrivateMessageThreadInterface) {
+    return;
+  }
+
+  $messages_service = \Drupal::service('opigno_messaging.manager');
+  if (!$messages_service instanceof OpignoMessageThread) {
+    return;
+  }
+
+  $data = $messages_service->getThreadDisplayData($entity);
+  $build['thread_picture'] = $data['image'] ?? '';
+  $build['thread_title'] = ['#markup' => $data['title'] ?? ''];
+  $build['thread_formatted_date'] = ['#markup' => $data['date'] ?? ''];
+  $build['thread_text'] = ['#markup' => $data['text'] ?? ''];
+  $build['thread_unread_count'] = ['#markup' => $data['unread_count'] ?? 0];
+  $build['thread_actions'] = $messages_service->getThreadActions($entity);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function opigno_messaging_private_message_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if (!$entity instanceof PrivateMessageInterface) {
+    return;
+  }
+
+  $messages_service = \Drupal::service('opigno_messaging.manager');
+  if ($messages_service instanceof OpignoMessageThread) {
+    $build['opigno_date'] = [
+      '#markup' => $messages_service->getMessageFormattedDate($entity),
+    ];
+  }
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function opigno_messaging_views_data_alter(array &$data) {
+  // The filter by the private messages thread name.
+  $data['private_message_threads']['opigno_pm_thread_name'] = [
+    'filter' => [
+      'title' => t('Opigno private message user/group name'),
+      'help' => t('Provides a custom filter for the private message threads user/group name.'),
+      'real field' => 'id',
+      'id' => 'opigno_pm_thread_name',
+    ],
+  ];
+
+  // The filter by the current user discussions.
+  $data['private_message_threads']['opigno_pm_thread_ids'] = [
+    'filter' => [
+      'title' => t('Opigno available private message threads'),
+      'help' => t('Provides a custom filter to limit the query to the available user message threads.'),
+      'real field' => 'id',
+      'id' => 'opigno_available_thread_ids',
+    ],
+  ];
+
+  // Custom sort plugin to display the current thread at the top.
+  $data['private_message_threads']['current_thread_first'] = [
+    'title' => t('Opigno display the current thread at the top'),
+    'group' => t('Opigno messaging'),
+    'help' => t('Display the current thread at the top, then others.'),
+    'sort' => [
+      'field' => 'updated',
+      'id' => 'current_thread_first',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function opigno_messaging_preprocess_image_widget(&$variables) {
+  // Display the image preview for image widget.
+  $element = $variables['element'];
+  $variables['attributes'] = [
+    'class' => [
+      'image-widget',
+      'js-form-managed-file',
+      'form-managed-file',
+      'clearfix',
+    ],
+  ];
+
+  if (!empty($element['fids']['#value'])) {
+    $file = reset($element['#files']);
+    $file_variables = [
+      'style_name' => $element['#preview_image_style'],
+      'uri' => $file->getFileUri(),
+    ];
+
+    // Determine image dimensions.
+    if (isset($element['#value']['width']) && isset($element['#value']['height'])) {
+      $file_variables['width'] = $element['#value']['width'];
+      $file_variables['height'] = $element['#value']['height'];
+    }
+    else {
+      $image = \Drupal::service('image.factory')->get($file->getFileUri());
+      if ($image instanceof ImageInterface && $image->isValid()) {
+        $file_variables['width'] = $image->getWidth();
+        $file_variables['height'] = $image->getHeight();
+      }
+      else {
+        $file_variables['width'] = $file_variables['height'] = NULL;
+      }
+    }
+
+    $element['preview'] = [
+      '#weight' => -10,
+      '#theme' => 'image_style',
+      '#width' => $file_variables['width'],
+      '#height' => $file_variables['height'],
+      '#style_name' => $file_variables['style_name'],
+      '#uri' => $file_variables['uri'],
+    ];
+
+    // Store the dimensions in the form so the file doesn't have to be accessed
+    // again. This is important for remote files.
+    $element['width'] = [
+      '#type' => 'hidden',
+      '#value' => $file_variables['width'],
+    ];
+    $element['height'] = [
+      '#type' => 'hidden',
+      '#value' => $file_variables['height'],
+    ];
+  }
+
+  $variables['data'] = [];
+  foreach (Element::children($element) as $child) {
+    $variables['data'][$child] = $element[$child];
+  }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function opigno_messaging_entity_type_alter(array &$entity_types) {
+  // Override the delete form for thread.
+  $entity_types['private_message_thread']->setHandlerClass('form', [
+    'delete' => PrivateMessageThreadDeleteForm::class,
+  ]);
+
+  // Override the default add message form.
+  $entity_types['private_message']->setHandlerClass('form', [
+    'add' => PrivateMessageForm::class,
+  ]);
+
+  // Override the access handler for private_message_thread.
+  $entity_types['private_message_thread']->setHandlerClass('access', OpignoMessageThreadAccessHandler::class);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function opigno_messaging_preprocess_private_message_thread__full(&$variables) {
+  $thread = $variables['private_message_thread'] ?? NULL;
+  if ($thread instanceof PrivateMessageThreadInterface && $thread->get('private_messages')->isEmpty()) {
+    // Add the extra wrapper to display the 1st message without the page reload.
+    $variables['content']['private_messages']['#prefix'] .= '<div class="private-message-wrapper"></div>';
+  }
+
+  // Update the field suffix to be create an anchor to scroll to.
+  $suffix = $variables['content']['private_messages']['#suffix'] ?? '';
+  $variables['content']['private_messages']['#suffix'] = '<div class="opigno-messages-scroll-target"></div>' . $suffix;
+}
+
+/**
+ * Implements hook_tokens_alter().
+ */
+function opigno_messaging_tokens_alter(array &$replacements, array $context, BubbleableMetadata $bubbleable_metadata) {
+  if ($context['type'] === 'private_message'
+    && !empty($context['tokens']['message'])
+    && $context['tokens']['message'] === '[private_message:message]'
+    && !empty($context['data']['message'])) {
+    $message = $context['data']['message'];
+    if ($message->hasField('field_message_private_message')) {
+      $private_message = $message->field_message_private_message->entity;
+      if ($private_message) {
+        $replacements['[private_message:message]'] = strip_tags($private_message->getMessage());
+      }
+    }
+  }
+}

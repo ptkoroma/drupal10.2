@@ -1,0 +1,181 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_schema().
+ */
+function opigno_h5p_schema() {
+  return [
+    'opigno_h5p_user_answer_results' => [
+      'description' => 'Table storing user H5P answer results.',
+      'fields' => [
+        'id' => [
+          'description' => 'Primary Key: The identifier of the user result per H5P',
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'parent_id' => [
+          'description' => 'If h5p content has parent content.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+        ],
+        'question_id' => [
+          'description' => 'Opigno activity id.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'question_vid' => [
+          'description' => 'Opigno activity vid.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'answer_id' => [
+          'description' => 'Opigno answer id.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'answer_vid' => [
+          'description' => 'Opigno answer vid.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+        ],
+        'score_scaled' => [
+          'type' => 'float',
+          'size' => 'medium',
+        ],
+        'score_raw' => [
+          'type' => 'float',
+          'size' => 'medium',
+        ],
+        'score_min' => [
+          'type' => 'float',
+          'size' => 'medium',
+        ],
+        'score_max' => [
+          'type' => 'float',
+          'size' => 'medium',
+        ],
+        'interaction_type' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ],
+        'description' => [
+          'type' => 'text',
+          'size' => 'medium',
+        ],
+        'correct_responses_pattern' => [
+          'type' => 'text',
+          'size' => 'medium',
+        ],
+        'response' => [
+          'type' => 'text',
+          'size' => 'medium',
+        ],
+        'additionals' => [
+          'type' => 'text',
+          'size' => 'medium',
+        ],
+      ],
+      'primary key' => ['id'],
+      'indexes' => [
+        'answer_id' => ['answer_id'],
+        'answer_vid' => ['answer_vid'],
+        'question_id' => ['question_id'],
+        'question_vid' => ['question_vid'],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Update opigno_answer.field_response field and it's configs.
+ */
+function opigno_h5p_update_9001() {
+  // Read data from old table.
+  $db_connection = \Drupal::service('database');
+  $query = $db_connection->select('opigno_answer__field_response', 'fr')
+    ->fields('fr');
+  $result = $query->execute();
+  $fields = [
+    'bundle',
+    'deleted',
+    'entity_id',
+    'revision_id',
+    'langcode',
+    'delta',
+    'field_response_value',
+  ];
+  $data = [];
+  foreach ($result as $row) {
+    $row_data = [];
+    foreach ($fields as $field) {
+      $row_data[$field] = $row->$field;
+    }
+    $data[] = $row_data;
+  }
+
+  // Remove the field and it's configs.
+  FieldStorageConfig::loadByName('opigno_answer', 'field_response')->delete();
+  \Drupal::configFactory()->getEditable('field.field.opigno_answer.opigno_h5p.field_response')->delete();
+  \Drupal::configFactory()->getEditable('field.storage.opigno_answer.field_response')->delete();
+
+  drupal_flush_all_caches();
+
+  // Restore the field and it's configs.
+  $path = drupal_get_path('module', 'opigno_h5p') . '/config/optional/';
+  $source = new FileStorage($path);
+
+  $field_data = $source->read('field.storage.opigno_answer.field_response');
+  if (!FieldStorageConfig::loadByName($field_data['entity_type'], $field_data['field_name'])) {
+    FieldStorageConfig::create($field_data)->save();
+  }
+
+  $storage = \Drupal::service('config.storage');
+  $configs = [
+    'field.storage.opigno_answer.field_response',
+    'field.field.opigno_answer.opigno_h5p.field_response',
+    'core.entity_form_display.opigno_answer.opigno_h5p.default',
+  ];
+  foreach ($configs as $config) {
+    $storage->write($config, $source->read($config));
+  }
+
+  drupal_flush_all_caches();
+
+  // Fill new table with old data.
+  foreach ($data as $row) {
+    try {
+      // Insert data into a new table.
+      $db_connection->insert('opigno_answer__field_response')
+        ->fields([
+          'bundle' => $row['bundle'],
+          'deleted' => $row['deleted'],
+          'entity_id' => $row['entity_id'],
+          'revision_id' => $row['revision_id'],
+          'langcode' => $row['langcode'],
+          'delta' => $row['delta'],
+          'field_response_value' => $row['field_response_value'],
+        ])
+        ->execute();
+    }
+    catch (\Exception $e) {
+      \Drupal::logger('opigno_h5p')->error($e->getMessage());
+      \Drupal::messenger()->addMessage($e->getMessage(), 'error');
+    }
+  }
+}

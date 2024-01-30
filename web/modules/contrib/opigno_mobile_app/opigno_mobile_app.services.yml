@@ -1,0 +1,10 @@
+services:
+  authentication.opigno_mobile_app:
+    class: Drupal\opigno_mobile_app\Authentication\Provider\JsonAuth
+    arguments: ['@config.factory', '@user.auth', '@flood', '@entity_type.manager']
+    tags:
+      - { name: authentication_provider, provider_id: 'json_auth', priority: 100 }
+  opigno_mobile_app.route_subscriber:
+    class: Drupal\opigno_mobile_app\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

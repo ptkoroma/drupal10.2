@@ -1,0 +1,8 @@
+uuid: 36e4ce96-1129-4d0e-bd1d-66c5b93ee7e3
+langcode: en
+status: true
+dependencies: {  }
+id: global-panel-navigation
+label: 'Global Menu'
+description: 'This path allows ALL ROLES to navigate global content'
+locked: false

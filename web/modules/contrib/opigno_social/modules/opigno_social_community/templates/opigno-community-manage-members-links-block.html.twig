@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the community members links block.
+ */
+#}
+
+<div class="col-xxl-3 col-lg-4 col-md-12 aside-col">
+  <div class="step-list-aside-wrapper content-box">
+    <h3 class="content-box__title">{{ title }}</h3>
+    <ul class="list-unstyled step-list-aside">
+      {% for link in links %}
+        {% if link.active %}
+          <li class="active">{{ link.link }}</li>
+        {% else %}
+          <li>{{ link.link }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display Opigno post comments.
+ *
+ * Available variables:
+ * - form: the rendered comments form block;
+ * - comments: the list of rendered comments;
+ * - more_link: the rendered "load more" link.
+ */
+#}
+
+{{ form }}
+{% for comment in comments %}
+  {{ comment }}
+{% endfor %}
+
+<div class="comment-item__comment--list">
+  {{ more_link }}
+</div>

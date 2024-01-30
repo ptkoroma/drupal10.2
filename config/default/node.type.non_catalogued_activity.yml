@@ -1,0 +1,18 @@
+uuid: 7416394d-2e61-4811-95d5-7a29451b764e
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Non-Catalogued Activity'
+type: non_catalogued_activity
+description: ''
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false

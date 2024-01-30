@@ -1,0 +1,47 @@
+uuid: 5ff577ea-1eca-4e45-839b-0ad2d3cd8d63
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.catalogued_activities_status
+    - node.type.cpd_reflection
+    - node.type.cpd_reflection_non_catalogued_
+    - node.type.non_catalogued_activity
+    - node.type.planned_action
+  module:
+    - comment
+    - node
+    - node_view_permissions
+id: engineer
+label: Engineer
+weight: 3
+is_admin: null
+permissions:
+  - 'access comments'
+  - 'create catalogued_activities_status content'
+  - 'create cpd_reflection content'
+  - 'create cpd_reflection_non_catalogued_ content'
+  - 'create non_catalogued_activity content'
+  - 'create planned_action content'
+  - 'edit any non_catalogued_activity content'
+  - 'edit own catalogued_activities_status content'
+  - 'edit own comments'
+  - 'edit own cpd_reflection content'
+  - 'edit own cpd_reflection_non_catalogued_ content'
+  - 'edit own non_catalogued_activity content'
+  - 'edit own planned_action content'
+  - 'post comments'
+  - 'view any about content'
+  - 'view any audit content'
+  - 'view own catalogued_activities_status content'
+  - 'view own catalogued_activity content'
+  - 'view own cpd_reflection content'
+  - 'view own cpd_reflection_non_catalogued_ content'
+  - 'view own faq_content content'
+  - 'view own forum content'
+  - 'view own members_forum content'
+  - 'view own news content'
+  - 'view own non_catalogued_activity content'
+  - 'view own planned_action content'
+  - 'view own resoures content'
+  - 'view own support content'

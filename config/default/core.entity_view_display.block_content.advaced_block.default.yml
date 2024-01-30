@@ -1,0 +1,27 @@
+uuid: 719ee62e-e57d-4540-895f-3c9fed30e04b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.advaced_block
+    - field.field.block_content.advaced_block.body
+  module:
+    - text
+id: block_content.advaced_block.default
+targetEntityType: block_content
+bundle: advaced_block
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  search_api_excerpt: true

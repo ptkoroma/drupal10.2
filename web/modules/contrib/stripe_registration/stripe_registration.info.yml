@@ -1,0 +1,13 @@
+name: Stripe Registration
+type: module
+description: Facilitates paid site registration via a Stripe subscription plan.
+core: 8.x
+core_version_requirement: ^8 || ^9 || ^10
+package: E-commerce
+dependencies:
+  - stripe_api:stripe_api
+
+# Information added by Drupal.org packaging script on 2020-09-14
+version: '3.0.0'
+project: 'stripe_registration'
+datestamp: 1600045107

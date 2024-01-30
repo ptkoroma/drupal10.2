@@ -1,0 +1,20 @@
+uuid: a2c256ba-325d-4b7a-91c7-e6d485fbd4f1
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - user
+id: user.field_field_of_engineering_user
+field_name: field_field_of_engineering_user
+entity_type: user
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

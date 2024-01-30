@@ -1,0 +1,25 @@
+{#
+/**
+ * Available varaibles:
+ * - logo: the site logo;
+ * - texts: the list of text paragraphs;
+ * - version: the platform version.
+ */
+#}
+
+<div id="join-group-form-overlay" class="modal fade" tabindex="-1" role="dialog" aria-label="{{ 'Enroll'|t }}">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">{{ 'Join training'|t }}</h2>
+        <a class="close close-x" href="#" type="button" data-dismiss="modal" aria-label="{{ 'Close'|t }}">
+          <i class="fi fi-rr-cross-small"></i>
+        </a>
+      </div>
+
+      <div class="modal-body">
+        {{ elements }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+uuid: null
+langcode: en
+status: true
+dependencies:
+  module:
+    - opigno_learning_path
+    - system
+  theme:
+    - aristotle
+id: lp_steps_block
+theme: aristotle
+region: sidebar_first
+weight: -18
+provider: null
+plugin: lp_steps_block
+settings:
+  id: lp_steps_block
+  label: 'LP Steps'
+  label_display: '0'
+  provider: opigno_learning_path
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: "/module/*/result/*\r\n/group/*/module/*"

@@ -1,0 +1,19 @@
+name: 'Opigno Mobile App'
+type: module
+description: 'Opigno Mobile App'
+core_version_requirement: ^9 || ^10
+package: Opigno
+dependencies:
+  - jwt:jwt
+  - jwt:jwt_auth_consumer
+  - jwt:jwt_auth_issuer
+  - key:key
+  - restui:restui
+  - drupal:rest
+  - drupal:hal
+  - drupal:serialization
+
+# Information added by Drupal.org packaging script on 2023-06-01
+version: '3.1.0'
+project: 'opigno_mobile_app'
+datestamp: 1685622491

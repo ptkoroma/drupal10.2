@@ -1,0 +1,335 @@
+// 0. Common variables
+// 1. Colors
+// 2. Typography, Link
+// 3. Grid
+// 4. Button, Inputs,
+// 5. Navigation
+// 6. Icomoon
+// 7. Spacer
+// 8. Z-index
+
+// Configs
+$enable-grid-classes: true;
+
+// 1. Colors
+$clr-white: #fff;
+$clr-black: #000;
+$gray-200: #f4f4f4;
+$gray-300: #d9d9d9;
+$gray-700: #575756;
+$clr-navy: #2f3758;
+$clr-green-light: #a4e9d7;
+$clr-green: #4ad3b0;
+$clr-green-dark: #43b598;
+$clr-yellow: #ffe6a2;
+$clr-red: #d34a4a;
+$clr-red-light: #dfb5b5;
+$clr-red-dark: #712828;
+$clr-gray-light: #f5f5f5;
+$clr-gray-light-D5: #d5d5d5;
+$clr-gray: #a5a5a5;
+$gray-dark: #707070;
+
+// Be careful with the following colors. They use via color.module
+$clr-theme-primary: #2f9fca;
+$clr-theme-secondary: #f4f4f4;
+$clr-theme-success: #2fa767;
+$clr-theme-danger: #c1272d;
+$clr-theme-warning: #ffc107;
+$clr-theme-info: #2f9fcb;
+$clr-header-link: #575756;
+$clr-header-link-active: #2f9fc9;
+$clr-header-background: #f4f4f5;
+$clr-content-text: #575755;
+$clr-content-link: #2f9fc8;
+$clr-content-link-active: #2f9fc7;
+$clr-block-background: #f4f4f6;
+$clr-block-title: #2f9fc6;
+$clr-block-content: #575754;
+$clr-form-background: #f4f4f7;
+$clr-form-text: #575753;
+$clr-form-border: #f4f4f8;
+$clr-form-border-active: #2f9fc5;
+$clr-footer-text: #fffff1;
+$clr-footer-background: #2f9fc4;
+$clr-footer-link: #fffff2;
+$clr-footer-link-active: #fffff3;
+
+$theme-colors: (
+  primary: $clr-theme-primary,
+  secondary: $clr-theme-secondary,
+  success: $clr-theme-success,
+  info: $clr-theme-info,
+  danger: $clr-theme-danger,
+  warning: $clr-theme-warning,
+);
+
+// Desktop colors from color.module config
+$clr-desktop-header-bg: var(--desktop-header-bg);
+$clr-desktop-header-link: var(--desktop-header-link);
+$clr-desktop-header-link-active: var(--desktop-header-link-active);
+$clr-desktop-headings: var(--desktop-headings);
+$clr-desktop-text: var(--desktop-text);
+$clr-desktop-link: var(--desktop-link);
+$clr-desktop-link-hover: var(--desktop-link-hover);
+$clr-desktop-button-color: var(--desktop-button-color);
+$clr-desktop-button-color-hover-primary: var(--desktop-button-color-hover-primary);
+$clr-desktop-button-color-hover-secondary: var(--desktop-button-color-hover-secondary);
+$clr-desktop-button-text-primary: var(--desktop-button-text-primary);
+$clr-desktop-button-text-secondary: var(--desktop-button-text-secondary);
+
+// 2. Typography
+$rem-base: 16;
+
+$font-family-serif: Georgia, 'Times New Roman', Times, serif;
+$font-family-sans-serif: 'Montserrat', Geneva, Arial, Helvetica, sans-serif;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+$font-family-base: $font-family-sans-serif;
+$font-family-header: $font-family-sans-serif;
+
+$line-height-base: 1.4;
+$line-height-lg: 1.5;
+$line-height-sm: 1.5;
+
+$font-size-h1: 40;
+$font-size-h2: 22;
+$font-size-h3: 20;
+$font-size-h4: 16;
+$font-size-h5: 14;
+$font-size-h6: 12;
+
+$font-size-base: $rem-base;
+$font-size-lg: $font-size-base * 1.125;
+$font-size-sm: $font-size-base * .875;
+$font-size-xs: $font-size-base * .75;
+
+$font-weight-lighter: lighter;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+$font-weight-bolder: bolder;
+
+// 2.1 Link
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+// 3. Grid
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+
+$grid-columns: 12;
+$grid-gutter-width: 12;
+$grid-row-columns: 6;
+
+// 4. Inputs
+$input-btn-padding-y: 6;
+$input-btn-padding-x: 12;
+$input-btn-font-family: $font-size-base;
+$input-btn-font-size: $font-size-base;
+$input-btn-line-height: $line-height-base;
+$input-btn-focus-color: inherit;
+$input-btn-focus-box-shadow: none;
+
+$input-btn-padding-y-sm: 4;
+$input-btn-padding-x-sm: 6;
+$input-btn-font-size-sm: $font-size-sm;
+$input-btn-line-height-sm: $line-height-sm;
+
+$input-btn-padding-y-lg: 8;
+$input-btn-padding-x-lg: 16;
+$input-btn-font-size-lg: $font-size-lg;
+$input-btn-line-height-lg: $line-height-lg;
+$input-btn-border-width: 0;
+
+
+// 4.1 Button
+$btn-padding-y: 13;
+$btn-padding-x: 10;
+$btn-mini-width: 100;
+$btn-line-height: 1;
+$btn-font-size: $input-btn-font-size-sm;
+
+$btn-padding-y-sm: $input-btn-padding-y-sm;
+$btn-padding-x-sm: $input-btn-padding-x-sm;
+$btn-font-size-sm: $input-btn-font-size-sm;
+$btn-line-height-sm: $input-btn-line-height-sm;
+
+$btn-padding-y-lg: $input-btn-padding-y-lg;
+$btn-padding-x-lg: $input-btn-padding-x-lg;
+$btn-font-size-lg: $input-btn-font-size-lg;
+$btn-line-height-lg: $input-btn-line-height-lg;
+$btn-hover-icons: (
+  primary: 'arrow-right',
+  secondary: 'arrow-right',
+  success: 'arrow-right',
+  danger: 'close',
+  warning: 'arrow-right',
+  back: 'arrow-left',
+  send: 'message',
+);
+
+// 4.2 Form
+$input-label-font-size: $font-size-sm;
+$input-label-weight: $font-weight-normal;
+$input-label-color: $clr-content-text;
+
+$input-font-size: $font-size-sm;
+$input-weight: $font-weight-normal;
+$input-padding-y: 10;
+$input-padding-x: 12;
+
+$input-padding-y-sm: 4;
+$input-padding-x-sm: 8;
+$input-padding-y-lg: 8;
+$input-padding-x-lg: 16;
+
+$input-background: $clr-form-background;
+$input-color: $clr-form-text;
+$input-border-color: $clr-form-border;
+$input-border-color-focus: $clr-form-border-active;
+
+$login-input-background: transparent;
+$login-input-border-color: $clr-content-text;
+$login-input-color: $clr-content-text;
+$login-input-border-color-focus: $clr-theme-primary;
+
+$width-default: 100%;
+$input-color-placeholder: $gray-700;
+$input-alt-color-placeholder: $gray-700;
+
+// 5. Navigation
+$nav-font-size: $font-size-sm;
+$disable-opacity: .65;
+
+// 6. Icomoon
+$icomoon: (
+  chevron-left: "\e900",
+  chevron-right: "\e901",
+  chevron-up: "\e902",
+  chevron-down: "\e903",
+  arrow-left: "\e904",
+  arrow-right: "\e905",
+  arrow-top: "\e906",
+  arrow-down: "\e907",
+  plus: "\e908",
+  close: "\e909",
+  minus: "\e90a",
+  user: "\e90b",
+  user-add: "\e90c",
+  user-online: "\e90d",
+  logout: "\e90e",
+  drag-drop: "\e90f",
+  player: "\e910",
+  comment: "\e911",
+  checkbox: "\e912",
+  report: "\e913",
+  message: "\e914",
+  calendar: "\e915",
+  setting: "\e916",
+  layout-100: "\e917",
+  layout-25-75: "\e918",
+  layout-50-50: "\e919",
+  layout-33-33-33: "\e91a",
+  menu-home: "\e91b",
+  menu-messages: "\e91c",
+  menu-achievements: "\e91d",
+  menu-catalogue: "\e91e",
+  menu-calendar: "\e91f",
+  menu-statistics: "\e920",
+  notification: "\e921",
+  clock: "\e922",
+  categories: "\e923",
+  eye: "\e924",
+  search: "\e925",
+  trash: "\e926",
+  pencil: "\e927",
+  chevron-left-thin: "\e928",
+  chevron-right-thin: "\e929",
+  chevron-top-thin: "\e92a",
+  lock: "\e92c",
+);
+
+// 7. Spacer
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3)
+);
+
+// 8. Z-index
+$z-index: (
+  dropdown: 10,
+  navbar: 10,
+  selectpicker: 1060, // must be higher than a modal background (1050)
+);
+
+// Alerts
+$alert-padding-y:                   16;
+$alert-padding-x:                   16;
+$alert-margin-bottom:               16;
+$alert-border-radius:               0;
+$alert-link-font-weight:            $font-weight-bold;
+$alert-border-width:                0;
+
+// Dropdowns
+//
+// Dropdown menu container and contents.
+$dropdown-min-width: 180;
+$dropdown-font-size: $font-size-sm;
+$dropdown-color: $clr-content-text;
+$dropdown-bg: $clr-white;
+$dropdown-divider-bg: $clr-desktop-text;
+$dropdown-link-color: $clr-desktop-text;
+$dropdown-link-hover-color: $clr-header-link-active;
+$dropdown-link-active-color: $clr-header-link-active;
+$dropdown-header-color: $gray-200;
+
+// Block base
+$block-title-font-size: $font-size-base;
+$block-title-font-weight: $font-weight-normal;
+$block-icon-font-size: 40;
+$block-title-m-y: 30;
+$block-p-y: 30;
+$block-p-x: 30;
+$block-space-between-y: 40;
+
+// Views
+$view-item-list-mb: 40;
+
+// Dashboard
+$dashboard-layout-open-gutter: 16;
+$dashboard-block-p-y: 35;
+$dashboard-block-p-x: 50;
+$dashboard-block-p-y-sm: $block-p-y;
+$dashboard-block-p-x-sm: $block-p-x;
+
+// Calendar
+$calendar-info-height-sm: 290;
+$calendar-info-height-lg: 230;
+
+// Catalogue
+$block-page-title-p-y: 60;
+$block-page-title-p-y-xs: 30;
+
+

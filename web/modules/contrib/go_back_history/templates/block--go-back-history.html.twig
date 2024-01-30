@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * go_back_history custom block.
+ */
+#}
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %}
+    <h2{{ title_attributes }}>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+  {% block content %}
+    <a class="go-back-history-btn">{{ button_value }}</a>
+  {% endblock %}
+</div>

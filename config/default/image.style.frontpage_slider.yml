@@ -1,0 +1,17 @@
+uuid: ff8d007a-bae2-43c7-9211-51c6aff7a125
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: A8fHr4ap4u3ffrot05WxlxMYhi52mN2jNzDTkAa9hA4
+name: frontpage_slider
+label: 'Frontpage slider'
+effects:
+  26b63ddc-caf1-42e3-8e9d-3ba3ad277aa6:
+    uuid: 26b63ddc-caf1-42e3-8e9d-3ba3ad277aa6
+    id: image_scale
+    weight: 1
+    data:
+      width: 1600
+      height: 900
+      upscale: false

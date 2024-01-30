@@ -1,0 +1,25 @@
+.block-system_breadcrumb_block {
+  padding-bottom: 0.5em;
+
+  ul:not(.contextual-links) {
+    margin-bottom: 0;
+
+    li {
+      + li {
+        &::before {
+          content: '\e904';
+          display: inline-block;
+          font-family: icomoon !important;
+          margin-right: 5px;
+          vertical-align: middle;
+          font-size: 9px;
+          color: $blue;
+        }
+      }
+
+      a {
+        color: $medium-gray-800;
+      }
+    }
+  }
+}

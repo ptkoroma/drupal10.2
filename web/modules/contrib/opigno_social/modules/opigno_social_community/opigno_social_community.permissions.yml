@@ -1,0 +1,34 @@
+# Additional community entity permissions.
+update own opigno_community:
+  title: Update own Opigno communities
+delete own opigno_community:
+  title: Delete own Opigno communities
+view any opigno_community:
+  title: View any Opigno communities
+  description: Allows users to view any private or public Opigno community entity
+  restrict access: true
+invite to any opigno_community:
+  title: Invite users to any communities
+  restrict access: true
+invite to own opigno_community:
+  title: Invite users to own communities
+invite to membership private opigno_community:
+  title: Invite users to any private community the user is a member of
+invite to membership public opigno_community:
+  title: Invite users to any public community the user is a member of
+invite to membership restricted opigno_community:
+  title: Invite users to any restricted community the user is a member of
+
+# Community invitations permissions.
+delete own opigno_community_invitation:
+  title: Cancel own invitation to communities
+delete any invitation to own opigno_community:
+  title: Cancel any invitation to own communities
+delete any opigno_community_invitation:
+  title: Cancel any invitation to communities
+  restrict access: true
+
+# Extra community posts permissions.
+remove any opigno_community_post entity:
+  title: Delete any Opigno community post entity
+  restrict access: true

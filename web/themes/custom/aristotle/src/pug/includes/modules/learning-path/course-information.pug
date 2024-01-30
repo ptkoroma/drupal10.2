@@ -1,0 +1,39 @@
+.course
+  .course__container
+    h2.course__title
+      i.fi.fi-rr-star
+      | Course - Course name
+
+    .course__content
+      .course__status
+        .course__status-content
+          .label Status
+          .state passed
+          .status 15/15
+
+      .course__progress
+        .label Completion
+        - var radius = 40
+        - var progressNumber = '100'
+        include ../progress/circle-progress
+
+      .course__score
+        .label Score
+        - var radius = 40
+        - var progressNumber = '100'
+        include ../progress/circle-progress
+
+      .course__time-spent
+        .inner
+          .label Time spent
+          time.value 00:02:00
+
+      .course__completed-on
+        .inner
+          .label Completed on
+          time.value 01/04/2021
+
+      .course__badges-earned
+        .inner
+          .label Badges earned
+          span.value 2

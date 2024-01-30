@@ -1,0 +1,52 @@
+.view-user-online-new {
+ font-size: rem($font-size-sm);
+
+  .view-header {
+    margin-bottom: rem(15);
+  }
+
+  .user-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: rem(10);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .views-field {
+    &-user-picture {
+      flex: 0 0 auto;
+      margin-right: rem($grid-gutter-width);
+
+      img {
+        width: rem(42);
+        height: auto;
+        border-radius: 50%;
+        margin: rem(2) 0;
+      }
+
+      .io {
+        font-size: rem(46);
+        color: $clr-theme-primary;
+      }
+    }
+
+    &-name {
+      a {
+        color: inherit;
+
+        &:hover {
+          color: $clr-content-link-active;
+        }
+      }
+    }
+  }
+}

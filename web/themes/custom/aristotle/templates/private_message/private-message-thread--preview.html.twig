@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a private message thread.
+ *
+ * Available variables:
+ * - private_message_thread: The private message thread entity
+ *    with limited access to object properties and methods.
+ * - content: All private message thread items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - last_update: Themed display of the last update time for the thread
+ * - url: Direct URL of the current private message thread.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ *
+ * @see template_preprocess_private_message()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<a href="{{ url }}" class="private-message private-message-thread_preview">
+  <span class="profile-pic">
+    {{ content.thread_picture }}
+  </span>
+  <span class="body">
+    <span class="username">{{ content.thread_title }}</span>
+    <span class="created">{{ content.thread_formatted_date }}</span>
+    <span class="field-pm-subject">{{ content.thread_text|render|striptags }}</span>
+    {% if content.thread_unread_count|first != 0 %}
+      <span class="unread-count">{{ content.thread_unread_count }}</span>
+    {% endif %}
+  </span>
+</a>

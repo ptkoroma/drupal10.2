@@ -1,0 +1,23 @@
+uuid: da2bf002-8c25-4731-a6e9-911401a59fb1
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - node
+id: node.field_upload_supporting_document
+field_name: field_upload_supporting_document
+entity_type: node
+type: file
+settings:
+  target_type: file
+  display_field: true
+  display_default: false
+  uri_scheme: public
+module: file
+locked: false
+cardinality: 10
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

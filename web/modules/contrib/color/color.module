@@ -1,0 +1,394 @@
+<?php
+
+/**
+ * @file
+ * Allows users to change the color scheme of themes.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Language\LanguageInterface;
+use Drupal\Core\Render\Element\Textfield;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\color\ColorSystemBrandingBlockAlter;
+
+/**
+ * Implements hook_help().
+ */
+function color_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.color':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Color module allows users with the <em>Administer site configuration</em> permission to change the color scheme (color of links, backgrounds, text, and other theme elements) of compatible themes. For more information, see the <a href=":color_do">online documentation for the Color module</a>.', [':color_do' => 'https://www.drupal.org/documentation/modules/color']) . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Changing colors') . '</dt>';
+      $output .= '<dd><p>' . t('To change the color settings, select the <em>Settings</em> link for your theme on the <a href=":appearance">Appearance</a> page. If the color picker does not appear then the theme is not compatible with the Color module.', [':appearance' => Url::fromRoute('system.themes_page')->toString()]) . '</p>';
+      $output .= '<p>' . t("The Color module saves a modified copy of the theme's specified stylesheets in the files directory. If you make any manual changes to your theme's stylesheet, <em>you must save your color settings again, even if you haven't changed the colors</em>. This step is required because the module stylesheets in the files directory need to be recreated to reflect your changes.") . '</p></dd>';
+      $output .= '</dl>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function color_theme() {
+  return [
+    'color_scheme_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function color_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  $build_info = $form_state->getBuildInfo();
+  if (isset($build_info['args'][0]) && ($theme = $build_info['args'][0]) && color_get_info($theme) && function_exists('gd_info')) {
+    $form['color'] = [
+      '#type' => 'details',
+      '#title' => t('Color scheme'),
+      '#open' => TRUE,
+      '#weight' => -1,
+      '#attributes' => ['id' => 'color_scheme_form'],
+      '#theme' => 'color_scheme_form',
+    ];
+    $form['color'] += color_scheme_form($form, $form_state, $theme);
+    $form['#validate'][] = 'color_scheme_form_validate';
+    // Ensure color submission happens first so we can unset extra values.
+    array_unshift($form['#submit'], 'color_scheme_form_submit');
+  }
+}
+
+/**
+ * Implements hook_library_info_alter().
+ *
+ * Replaces style sheets declared in libraries with color-altered style sheets.
+ */
+function color_library_info_alter(&$libraries, $extension) {
+  $themes = array_keys(\Drupal::service('theme_handler')->listInfo());
+  if (in_array($extension, $themes)) {
+    if ($paths = \Drupal::service('color.theme_decorator')->getThemeFiles($extension)) {
+      $color_paths = $paths['css'];
+      foreach (array_keys($libraries) as $name) {
+        if (isset($libraries[$name]['css'])) {
+          // Override stylesheets.
+          foreach ($libraries[$name]['css'] as $category => $css_assets) {
+            foreach ($css_assets as $path => $metadata) {
+              // Loop over the path array with recolored CSS files to find matching
+              // paths which could replace the non-recolored paths.
+              foreach ($color_paths as $color_path) {
+                // Color module currently requires unique file names to be used,
+                // which allows us to compare different file paths.
+                /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+                $file_system = \Drupal::service('file_system');
+                if ($file_system->basename($path) == $file_system->basename($color_path)) {
+                  // Replace the path to the new css file.
+                  // This keeps the order of the stylesheets intact.
+                  $index = array_search($path, array_keys($libraries[$name]['css'][$category]));
+                  $preceding_css_assets = array_slice($libraries[$name]['css'][$category], 0, $index);
+                  $succeeding_css_assets = array_slice($libraries[$name]['css'][$category], $index + 1);
+                  $libraries[$name]['css'][$category] = array_merge(
+                    $preceding_css_assets,
+                    [$color_path => $metadata],
+                    $succeeding_css_assets
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_block_view_BASE_BLOCK_ID_alter().
+ */
+function color_block_view_system_branding_block_alter(array &$build, BlockPluginInterface $block) {
+  $build['#pre_render'][] = [ColorSystemBrandingBlockAlter::class, 'preRender'];
+}
+
+/**
+ * Retrieves the Color module information for a particular theme.
+ */
+function color_get_info($theme) {
+  static $theme_info = [];
+
+  if (isset($theme_info[$theme])) {
+    return $theme_info[$theme];
+  }
+
+  $path = \Drupal::service('extension.list.theme')->getPath($theme);
+  $file = \Drupal::root() . '/' . $path . '/color/color.inc';
+  if ($path && file_exists($file)) {
+    include $file;
+    // Add in default values.
+    $info += [
+      // CSS files (excluding @import) to rewrite with new color scheme.
+      'css' => [],
+      // Files to copy.
+      'copy' => [],
+      // Gradient definitions.
+      'gradients' => [],
+      // Color areas to fill (x, y, width, height).
+      'fill' => [],
+      // Coordinates of all the theme slices (x, y, width, height) with their
+      // filename as used in the stylesheet.
+      'slices' => [],
+      // Reference color used for blending.
+      'blend_target' => '#ffffff',
+    ];
+    $theme_info[$theme] = $info;
+    return $info;
+  }
+}
+
+/**
+ * Form constructor for the color configuration form for a particular theme.
+ *
+ * @param $theme
+ *   The machine name of the theme whose color settings are being configured.
+ *
+ * @see color_scheme_form_validate()
+ * @see color_scheme_form_submit()
+ */
+function color_scheme_form($complete_form, FormStateInterface $form_state, $theme) {
+  $info = color_get_info($theme);
+
+  $info['schemes'][''] = ['title' => t('Custom'), 'colors' => []];
+  $color_sets = [];
+  $schemes = [];
+  foreach ($info['schemes'] as $key => $scheme) {
+    $color_sets[$key] = $scheme['title'];
+    $schemes[$key] = $scheme['colors'];
+    $schemes[$key] += $info['schemes']['default']['colors'];
+  }
+
+  // See if we're using a predefined scheme.
+  // Note: we use the original theme when the default scheme is chosen.
+  // Note: we use configuration without overrides since this information is used
+  // in a form and therefore without doing this would bleed overrides into
+  // active configuration. Furthermore, color configuration is used to write
+  // CSS to the file system making configuration overrides pointless.
+  $current_scheme = \Drupal::configFactory()->getEditable('color.theme.' . $theme)->get('palette');
+  foreach ($schemes as $key => $scheme) {
+    if ($current_scheme == $scheme) {
+      $scheme_name = $key;
+      break;
+    }
+  }
+  if (empty($scheme_name)) {
+    if (empty($current_scheme)) {
+      $scheme_name = 'default';
+    }
+    else {
+      $scheme_name = '';
+    }
+  }
+
+  // Add scheme selector.
+  $default_palette = \Drupal::service('color.theme_decorator')->getPalette($theme, TRUE);
+  $form['scheme'] = [
+    '#type' => 'select',
+    '#title' => t('Color set'),
+    '#options' => $color_sets,
+    '#default_value' => $scheme_name,
+    '#attached' => [
+      'library' => [
+        'color/drupal.color',
+        'color/admin',
+      ],
+      // Add custom JavaScript.
+      'drupalSettings' => [
+        'color' => [
+          'reference' => $default_palette,
+          'schemes' => $schemes,
+        ],
+        'gradients' => $info['gradients'],
+      ],
+    ],
+  ];
+
+  // Add palette fields. Use the configuration if available.
+  $palette = $current_scheme ?: $default_palette;
+  $names = $info['fields'];
+  $form['palette']['#tree'] = TRUE;
+  foreach ($palette as $name => $value) {
+    if (isset($names[$name])) {
+      $form['palette'][$name] = [
+        '#type' => 'textfield',
+        '#title' => $names[$name],
+        '#value_callback' => 'color_palette_color_value',
+        '#default_value' => $value,
+        '#size' => 8,
+        '#attributes' => ['dir' => LanguageInterface::DIRECTION_LTR],
+      ];
+    }
+  }
+  $form['theme'] = ['#type' => 'value', '#value' => $theme];
+  if (isset($info['#attached'])) {
+    $form['#attached'] = $info['#attached'];
+    unset($info['#attached']);
+  }
+  $form['info'] = ['#type' => 'value', '#value' => $info];
+
+  return $form;
+}
+
+/**
+ * Prepares variables for color scheme form templates.
+ *
+ * Default template: color-scheme-form.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - form: A render element representing the form.
+ */
+function template_preprocess_color_scheme_form(&$variables) {
+  $form = &$variables['form'];
+
+  $theme = $form['theme']['#value'];
+  $info = $form['info']['#value'];
+
+  if (isset($info['preview_library'])) {
+    $form['scheme']['#attached']['library'][] = $info['preview_library'];
+  }
+
+  // Attempt to load preview HTML if the theme provides it.
+  $preview_html_path = \Drupal::root() . '/';
+  if (isset($info['preview_html'])) {
+    $preview_html_path .= \Drupal::service('extension.list.theme')->getPath($theme) . '/' . $info['preview_html'];
+  }
+  else {
+    $preview_html_path .= \Drupal::service('extension.list.module')->getPath('color') . '/preview.html';
+  }
+  $variables['html_preview']['#markup'] = file_get_contents($preview_html_path);
+}
+
+/**
+ * Determines the value for a palette color field.
+ *
+ * @param array $element
+ *   The form element whose value is being populated.
+ * @param string|bool $input
+ *   The incoming input to populate the form element. If this is FALSE,
+ *   the element's default value should be returned.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The current state of the form.
+ *
+ * @return string
+ *   The data that will appear in the $form_state->getValues() collection for this
+ *   element. Return nothing to use the default.
+ */
+function color_palette_color_value($element, $input, FormStateInterface $form_state) {
+  // If we suspect a possible cross-site request forgery attack, only accept
+  // hexadecimal CSS color strings from user input, to avoid problems when this
+  // value is used in the JavaScript preview.
+  if ($input !== FALSE) {
+    // Start with the provided value for this textfield, and validate that if
+    // necessary, falling back on the default value.
+    $value = Textfield::valueCallback($element, $input, $form_state);
+    $complete_form = $form_state->getCompleteForm();
+    if (!$value || !isset($complete_form['#token']) || color_valid_hexadecimal_string($value) || \Drupal::csrfToken()->validate($form_state->getValue('form_token'), $complete_form['#token'])) {
+      return $value;
+    }
+    else {
+      return $element['#default_value'];
+    }
+  }
+}
+
+/**
+ * Determines if a hexadecimal CSS color string is valid.
+ *
+ * @param string $color
+ *   The string to check.
+ *
+ * @return bool
+ *   TRUE if the string is a valid hexadecimal CSS color string, or FALSE if it
+ *   isn't.
+ */
+function color_valid_hexadecimal_string($color) {
+  return (bool) preg_match('/^#([a-f0-9]{3}){1,2}$/iD', $color);
+}
+
+/**
+ * Form validation handler for color_scheme_form().
+ *
+ * @see color_scheme_form_submit()
+ */
+function color_scheme_form_validate($form, FormStateInterface $form_state) {
+  // Only accept hexadecimal CSS color strings to avoid XSS upon use.
+  foreach ($form_state->getValue('palette') as $key => $color) {
+    if (!color_valid_hexadecimal_string($color)) {
+      $form_state->setErrorByName('palette][' . $key, t('You must enter a valid hexadecimal color value for %name.', ['%name' => $form['color']['palette'][$key]['#title']]));
+    }
+  }
+}
+
+/**
+ * Form submission handler for color_scheme_form().
+ *
+ * @see color_scheme_form_validate()
+ */
+function color_scheme_form_submit($form, FormStateInterface $form_state) {
+  if (!$form_state->hasValue('info')) {
+    return;
+  }
+  $theme = $form_state->getValue('theme');
+  $palette = $form_state->getValue('palette');
+  $scheme = $form_state->getValue('scheme');
+  $info = $form_state->getValue('info');
+
+  // Avoid color settings spilling over to theme settings.
+  $form_state->unsetValue('theme');
+  $form_state->unsetValue('palette');
+  $form_state->unsetValue('scheme');
+  $form_state->unsetValue('info');
+
+  $config = \Drupal::configFactory()->getEditable('color.theme.' . $theme);
+
+  // We don't need to store anything in config in case of default schema.
+  if ($scheme == 'default') {
+    $config->delete();
+    return;
+  }
+
+  // Resolve palette.
+  if ($scheme != '') {
+    foreach ($palette as $key => $color) {
+      if (isset($info['schemes'][$scheme]['colors'][$key])) {
+        $palette[$key] = $info['schemes'][$scheme]['colors'][$key];
+      }
+    }
+    $palette += $info['schemes']['default']['colors'];
+  }
+
+  // Saving config will trigger ColorConfigCacheInvalidator, which will
+  // invalidating library_info cache tag, which will then trigger deleting
+  // generated files via ColorCacheTagsInvalidator.
+  // The rebuilding of these files and a corresponding cache entry will then
+  // be triggered by color_block_view_pre_render and color_library_info_alter.
+  // Note that there may be multiple overrides of this config varying e.g. by
+  // domain, so there may be multiple file collections and multiple cache
+  // entries. If you implement varying overrides of this config item, be sure
+  // to add a corresponding cache context, which will then be picked up by
+  // \Drupal::service('color.theme_decorator')->getHash(), so different
+  // color settings will go into different file directories and cache entries.
+
+  $config
+    ->set('palette', $palette)
+    ->save();
+}
+
+/**
+ * Implements hook_cache_flush().
+ */
+function color_cache_flush() {
+  \Drupal::service('color.theme_decorator')->unlinkGeneratedFiles();
+}

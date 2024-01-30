@@ -1,0 +1,26 @@
+uuid: 5a7cea56-9b7c-4abc-95e2-ec5533bd7371
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.non_catalogued_activity
+  module:
+    - custom_add_another
+    - datetime_range
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.non_catalogued_activity.field_date
+field_name: field_date
+entity_type: node
+bundle: non_catalogued_activity
+label: Activity
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: daterange

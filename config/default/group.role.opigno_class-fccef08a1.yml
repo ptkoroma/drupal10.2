@@ -1,0 +1,17 @@
+uuid: 55b3caa4-edb5-4925-8105-6ca2d8670f73
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.opigno_class
+  enforced:
+    config:
+      - user.role.engineer_sub_permission_1
+id: opigno_class-fccef08a1
+label: 'Engineer Sub Permission 1'
+weight: 5
+internal: true
+audience: outsider
+group_type: opigno_class
+permissions_ui: false
+permissions: {  }

@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function stripe_api_preprocess_page(&$variables) {
+  /** @var $stripe_api \Drupal\stripe_api\StripeApiService **/
+  $stripe_api = \Drupal::service('stripe_api.stripe_api');
+  if ($stripe_api->getMode() === 'test') {
+    \Drupal::messenger()
+      ->addMessage(t('Stripe API is running in test mode.'),
+        \Drupal\Core\Messenger\MessengerInterface::TYPE_WARNING);
+  }
+}

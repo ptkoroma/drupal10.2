@@ -1,0 +1,279 @@
+.group-opigno-course {
+  .lp-image {
+    padding: 0;
+
+    img {
+      aspect-ratio: 1;
+      border-radius: rem(10);
+
+      @include media-breakpoint-down(md) {
+        margin: 0 auto rem(30);
+      }
+    }
+  }
+
+  .lp-content {
+    @include media-breakpoint-up(sm) {
+      padding-left: rem(25);
+    }
+  }
+}
+
+.lp-docs {
+  .btn {
+    margin-bottom: rem(20);
+    min-width: 0;
+    padding-right: rem(15);
+    width: 100%;
+  }
+
+  .label {
+    overflow: hidden;
+    line-height: normal;
+    padding-right: rem(20);
+    text-align: left;
+    text-overflow: ellipsis;
+  }
+
+  .fi {
+    font-size: rem(24);
+    margin-left: auto;
+  }
+}
+
+.lp-forum {
+  .btn {
+    font-weight: $font-weight-semibold;
+    margin-bottom: rem(20);
+    min-width: 0;
+    padding-left: rem(20);
+    transition: .3s ease;
+    width: calc(100% - 5px);
+
+    &:hover {
+      background: $clr-gray-light-D5;
+      box-shadow: none;
+      padding-right: rem(15);
+      transform: none;
+      width: 100%;
+    }
+  }
+
+  .label {
+    text-align: left;
+    white-space: normal;
+  }
+
+  .new-posts {
+    color: $clr-green;
+    font-size: rem(12);
+    font-style: italic;
+    font-weight: $font-weight-normal;
+    margin-left: auto;
+    padding-left: rem(15);
+    white-space: normal;
+  }
+
+  .fi {
+    font-size: rem(24);
+    margin-left: rem(15);
+
+    &:before {
+      font-weight: $font-weight-bold !important;
+    }
+  }
+}
+
+.lp-content {
+  display: flex;
+  flex-direction: column;
+
+  &__top {
+    display: flex;
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      position: relative;
+    }
+  }
+
+  &__bottom {
+    margin-bottom: rem(20);
+
+    p {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .dropdown {
+    margin-left: rem(30);
+
+    @include media-breakpoint-down(md) {
+      position: absolute;
+      right: 0;
+      top: rem(-10);
+    }
+  }
+
+  p {
+    margin-top: 0;
+  }
+}
+
+.lp-title {
+  font-size: rem(19);
+  margin-right: auto;
+  margin-bottom: rem(20);
+
+  @include media-breakpoint-down(md) {
+    margin-bottom: rem(10);
+  }
+}
+
+.lp-update-date {
+  font-size: rem(12);
+  font-style: italic;
+  white-space: nowrap;
+
+  @include media-breakpoint-down(md) {
+    margin-bottom: rem(10);
+  }
+}
+
+.lp-info {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 0 auto;
+
+  .labels {
+    margin-right: rem(16);
+  }
+
+  .label {
+    align-items: center;
+    font-size: rem(20);
+    display: flex;
+    margin-bottom: rem(20);
+    text-transform: none;
+
+    @include media-breakpoint-down(md) {
+      font-size: rem(16);
+      margin-bottom: rem(13);
+    }
+
+    &:last-child {
+      margin-bottom: rem(5);
+    }
+  }
+
+  .fi {
+    margin-right: rem(10);
+  }
+
+  .value {
+    align-items: center;
+    display: flex;
+    margin: 0 0 rem(20);
+    min-height: rem(24);
+
+    @include media-breakpoint-down(md) {
+      margin-bottom: rem(13);
+      min-height: rem(19);
+    }
+
+    &:last-child {
+      margin-bottom: rem(5);
+    }
+  }
+
+  .action-wrapper {
+    align-items: flex-end;
+    display: flex;
+    flex: 1 0 100%;
+    justify-content: flex-end;
+    position: relative;
+
+    @include media-breakpoint-down(xs) {
+      margin-top: rem(60);
+    }
+
+    .btn {
+      @include media-breakpoint-up(lg) {
+        min-width: rem(180);
+      }
+
+      + .btn {
+        margin-left: rem(20);
+      }
+    }
+
+    .ajax-progress {
+      padding: 0;
+      position: absolute;
+      left: 50%;
+      bottom: rem(40);
+      transform: translate(-50%, -50%);
+      z-index: 1;
+
+      .throbber {
+        animation: scale 3s ease infinite;
+        background: url(../images/design/Logo_opigno_circle.svg) center no-repeat;
+        display: block;
+        height: rem(30);
+        padding: 0;
+        width: rem(30);
+      }
+    }
+  }
+
+  .top-text {
+    position: absolute;
+    bottom: rem(50);
+    right: 0;
+
+    @include media-breakpoint-up(lg) {
+      min-width: rem(180);
+    }
+
+    &.price {
+      font-size: rem(24);
+      font-weight: $font-weight-bold;
+      line-height: 1.2;
+      text-align: right;
+    }
+
+    &.complete {
+      align-items: center;
+      display: flex;
+      padding-right: rem(20);
+
+      .fi {
+        margin-right: rem(20);
+      }
+
+      ~ .btn {
+        margin-top: rem(20);
+      }
+    }
+
+    &.approval {
+      font-style: italic;
+      text-align: center;
+    }
+
+    .fi {
+      align-items: center;
+      background: $clr-gray;
+      border-radius: 50%;
+      color: $clr-white;
+      display: inline-flex;
+      justify-content: center;
+      font-size: rem(24);
+      height: rem(37);
+      margin-right: 0;
+      width: rem(37);
+    }
+  }
+}

@@ -1,0 +1,10 @@
+name: Redirect After Logout
+type: module
+description: User redirect, after logout.
+core_version_requirement: ^9 || ^10
+configure: redirect_after_logout.settings
+
+# Information added by Drupal.org packaging script on 2023-05-31
+version: '8.x-1.3'
+project: 'redirect_after_logout'
+datestamp: 1685530545

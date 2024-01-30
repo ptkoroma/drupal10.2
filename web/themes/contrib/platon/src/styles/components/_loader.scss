@@ -1,0 +1,39 @@
+.spinner-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparentize($black, .85);
+  z-index: 999999;
+
+  .spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 38px;
+      height: 38px;
+      border-top: 4px solid $gray-500;
+      border-bottom: 4px solid $gray-500;
+      border-right: 4px solid $gray-500;
+      border-left: 4px solid $dark-blue;
+      border-radius: 50%;
+      animation: spinner .75s linear infinite
+    }
+  }
+}
+
+@keyframes spinner {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

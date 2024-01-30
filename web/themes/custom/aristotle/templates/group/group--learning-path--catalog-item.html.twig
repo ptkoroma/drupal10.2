@@ -1,0 +1,100 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the LP group ("Catalog item").
+ *
+ * Available variables:
+ * - group: The group entity with limited access to object properties and
+ *   methods. Only "getter" methods (method names starting with "get", "has",
+ *   or "is") and a few common methods such as "id" and "label" are available.
+ *   Calling other methods (such as group.delete) will result in an exception.
+ * - label: The title of the group.
+ * - content: All group items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the
+ *   printing of a given child element.
+ * - url: Direct URL of the current group.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - group: The current template type (also known as a "theming hook").
+ *   - group--[type]: The current group type. For example, if the group is a
+ *     "Classroom" it would result in "group--classroom". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - group--[view_mode]: The View Mode of the group; for example, a
+ *     teaser would result in: "group--teaser", and full: "group--full".
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ *
+ * @see template_preprocess_group()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div {{ attributes.addClass(['group-member', 'views-row']) }}>
+  <a href="{{ url }}" class="not-take-link-wrapper"></a>
+  <div class="fields-content is-member">
+    {# The top layer. #}
+    <div class="top-wrapper">
+      <div class="views-field-field-learning-path-media-image">
+        {{ group_picture }}
+      </div>
+      <div class="views-field-label">
+        <a href="{{ url }}" class="not-take-link-wrapper"></a>
+        <h2>{{ label }}</h2>
+        {{ content.actions_dropdown }}
+      </div>
+    </div>
+
+    {# The main body. #}
+    <div class="body-wrapper">
+      <div class="text-wrapper">
+        <div class="views-field-label">
+          <h2>{{ label }}</h2>
+          {{ content.actions_dropdown }}
+        </div>
+
+        {% if content.field_learning_path_description|render|striptags|trim is not empty %}
+          <div class="views-field-field-learning-path-description">
+            {{ content.field_learning_path_description|render|striptags }}
+          </div>
+        {% endif %}
+
+        {% if content.field_learning_path_duration|render|striptags|trim is not empty %}
+          <div class="views-field-field-learning-path-spent-time">
+            {{ content.field_learning_path_duration }}
+          </div>
+        {% endif %}
+
+        {% if content.field_learning_path_category|render|striptags|trim is not empty %}
+          <div class="views-field-field-learning-path-category">
+            {{ content.field_learning_path_category }}
+          </div>
+        {% endif %}
+      </div>
+
+      {# LP progress section. #}
+      <div class="progress-wrapper">
+        {{ content.actions_dropdown }}
+        {% if opigno_catalog_is_member(group.id()) %}
+          {{ get_progress(false, 'circle', group) }}
+          <div class="views-field-opigno-lp-progress">
+            {{ get_progress(false, 'mini', group) }}
+          </div>
+        {% endif %}
+        <div class="views-field-opigno-lp-take-link">
+          {{ get_start_link(group, {'class': ['btn','btn-rounded']}, true) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

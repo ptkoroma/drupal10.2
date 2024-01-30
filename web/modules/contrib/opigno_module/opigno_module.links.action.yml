@@ -1,0 +1,78 @@
+entity.opigno_module.add_form:
+  route_name: opigno_module.add
+  title: 'Add Module'
+  appears_on:
+    - entity.opigno_module.collection
+
+entity.opigno_module.import:
+  route_name: 'opigno_module.import.module'
+  title: 'Import Module'
+  appears_on:
+    - entity.opigno_module.collection
+
+entity.opigno_activity.add_form:
+  route_name: 'entity.opigno_activity.add_page'
+  title: 'Add Activity'
+  appears_on:
+    - entity.opigno_activity.collection
+
+entity.opigno_activity.import:
+  route_name: 'opigno_module.import.activity'
+  title: 'Import Activity'
+  appears_on:
+    - entity.opigno_activity.collection
+
+entity.opigno_training.import:
+  route_name: 'opigno_module.import.training'
+  title: 'Import Training'
+  weight: 20
+  appears_on:
+    - 'entity.group.collection'
+    - 'view.groups_list.trainings_list'
+
+entity.opigno_course.import:
+  route_name: 'opigno_module.import.course'
+  title: 'Import Course'
+  weight: 20
+  appears_on:
+    - 'entity.group.collection'
+    - 'view.groups_list.courses_list'
+
+entity.opigno_activity_type.add_form:
+  route_name: 'entity.opigno_activity_type.add_form'
+  title: 'Add Activity type'
+  appears_on:
+    - entity.opigno_activity_type.collection
+
+entity.opigno_answer.add_form:
+  route_name: 'entity.opigno_answer.add_page'
+  title: 'Add Answer'
+  appears_on:
+    - entity.opigno_answer.collection
+entity.opigno_answer_type.add_form:
+  route_name: 'entity.opigno_answer_type.add_form'
+  title: 'Add Answer type'
+  appears_on:
+    - entity.opigno_answer_type.collection
+
+entity.user_module_status.add_form:
+  route_name: entity.user_module_status.add_form
+  title: 'Add User module status'
+  appears_on:
+    - entity.user_module_status.collection
+
+entity.courses_list.add_form:
+  route_name: 'entity.group.add_form'
+  route_parameters:
+    group_type: opigno_course
+  title: 'Add course'
+  appears_on:
+    - 'view.groups_list.courses_list'
+
+entity.trainings_list.add_form:
+  route_name: 'entity.group.add_form'
+  route_parameters:
+    group_type: learning_path
+  title: 'Add training'
+  appears_on:
+    - 'view.groups_list.trainings_list'

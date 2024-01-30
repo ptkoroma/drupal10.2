@@ -1,0 +1,19 @@
+uuid: 0d5c0c46-fc1b-4bd2-86df-f36478bfdf8e
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.learning_path
+  module:
+    - user
+_core:
+  default_config_hash: V2fEXLo6tt2kjCYePYUhNQ5cfm9ANtVzoUcuTEkFIc4
+id: learning_path-group_membership
+label: 'Learning Path: Group membership'
+description: 'Adds users to groups as members.'
+group_type: learning_path
+content_plugin: group_membership
+plugin_config:
+  group_cardinality: 0
+  entity_cardinality: 1
+  use_creation_wizard: true

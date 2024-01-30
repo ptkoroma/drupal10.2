@@ -1,0 +1,122 @@
+uuid: 19852641-9e75-42be-850c-4dff89aeff8d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.faq_content.body
+    - field.field.node.faq_content.field_activity_category_1
+    - field.field.node.faq_content.field_answer
+    - field.field.node.faq_content.field_answer_
+    - field.field.node.faq_content.field_field_of_engineering_1
+    - field.field.node.faq_content.field_images
+    - field.field.node.faq_content.field_question
+    - field.field.node.faq_content.field_question_
+    - field.field.node.faq_content.field_tags_faq
+    - field.field.node.faq_content.field_topic
+    - field.field.node.faq_content.field_upload_supporting_document
+    - image.style.thumbnail
+    - node.type.faq_content
+  module:
+    - file
+    - image
+    - text
+id: node.faq_content.default
+targetEntityType: node
+bundle: faq_content
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_activity_category_1:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_answer_:
+    type: text_textarea_with_summary
+    weight: 5
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  field_field_of_engineering_1:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_images:
+    type: image_image
+    weight: 10
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_question_:
+    type: text_textarea_with_summary
+    weight: 4
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  field_tags_faq:
+    type: string_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_topic:
+    type: text_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_upload_supporting_document:
+    type: file_generic
+    weight: 9
+    region: content
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  body: true
+  field_answer: true
+  field_question: true
+  langcode: true
+  path: true
+  promote: true
+  sticky: true
+  title: true

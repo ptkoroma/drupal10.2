@@ -1,0 +1,112 @@
+uuid: d52e6551-5c14-4943-81b1-06402f9127ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.new_faq_content.body
+    - field.field.node.new_faq_content.field_activity_category_1
+    - field.field.node.new_faq_content.field_answer
+    - field.field.node.new_faq_content.field_field_of_engineering_1
+    - field.field.node.new_faq_content.field_images
+    - field.field.node.new_faq_content.field_question
+    - field.field.node.new_faq_content.field_tags
+    - field.field.node.new_faq_content.field_tags_faq
+    - field.field.node.new_faq_content.field_upload_supporting_document
+    - node.type.new_faq_content
+  module:
+    - empty_fields
+    - entity_form_field_label
+    - field_label
+    - file
+    - image
+    - text
+    - user
+id: node.new_faq_content.default
+targetEntityType: node
+bundle: new_faq_content
+mode: default
+content:
+  field_answer:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      entity_form_field_label:
+        new_label: ''
+        rewrite_label: 0
+      field_label:
+        label_class: ''
+        label_value: ''
+        label_tag: h5
+    weight: 2
+    region: content
+  field_images:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_question:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      entity_form_field_label:
+        new_label: ''
+        rewrite_label: 0
+      field_label:
+        label_class: ''
+        label_value: ''
+        label_tag: h5
+    weight: 1
+    region: content
+  field_tags:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      entity_form_field_label:
+        new_label: ''
+        rewrite_label: 0
+      field_label:
+        label_class: ''
+        label_value: ''
+        label_tag: h5
+    weight: 3
+    region: content
+  field_upload_supporting_document:
+    type: file_default
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_activity_category_1: true
+  field_field_of_engineering_1: true
+  field_tags_faq: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

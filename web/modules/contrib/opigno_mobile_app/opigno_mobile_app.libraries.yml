@@ -1,0 +1,7 @@
+mobile_mode:
+  version: VERSION
+  css:
+    theme:
+      css/mobile_mode.css: {}
+  js:
+    js/mobile_mode.js: {}

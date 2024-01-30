@@ -1,0 +1,31 @@
+uuid: e6a08a62-a487-483a-822b-177f18d09ade
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.badge_active
+    - group.type.opigno_course
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: jiAFYzFoEi31HdLFoH6hDz2MxDa7_7Xm7f646ofCBso
+id: group.opigno_course.badge_active
+field_name: badge_active
+entity_type: group
+bundle: opigno_course
+label: 'Activate badge system for this course'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

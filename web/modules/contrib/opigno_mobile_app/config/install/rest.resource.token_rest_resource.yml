@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - hal
+    - opigno_mobile_app
+    - serialization
+id: token_rest_resource
+plugin_id: token_rest_resource
+granularity: resource
+configuration:
+  methods:
+    - POST
+  formats:
+    - hal_json
+    - json
+  authentication:
+    - json_auth

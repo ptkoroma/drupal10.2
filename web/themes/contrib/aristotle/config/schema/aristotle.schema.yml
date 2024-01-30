@@ -1,0 +1,57 @@
+aristotle.settings:
+  type: theme_settings
+  label: 'Aristotle settings'
+  mapping:
+    logo_path_anonymous:
+      type: text
+      label: "Path to homepage logo"
+    logo_anonymous_upload:
+      type: sequence
+      lable: "Upload homepage logo image"
+      sequence:
+        type: integer
+        label: "fids"
+    aristotle_use_header_background:
+      type: boolean
+      label: "Use another image for the header background"
+    aristotle_header_image_path:
+      type: text
+      label: "The path to the header background image."
+    aristotle_header_image_upload:
+      type: sequence
+      lable: "Upload an image"
+      sequence:
+        type: integer
+        label: "fids"
+    mobile_app_premium_logo:
+      type: sequence
+      lable: "Logo to display on mobile app"
+      sequence:
+        type: integer
+        label: "fids"
+    aristotle_use_home_page_markup:
+      type: boolean
+      label: "Use a different homepage for anonymous users."
+    aristotle_home_page_settings:
+      type: sequence
+      lable: "Homepage settings"
+      sequence:
+        aristotle_home_page_slides:
+          type: sequence
+          lable: "Homepage slides"
+          sequence:
+            aristotle_home_page_image_path:
+              type: text
+              label: "The path to the home page background image."
+            aristotle_home_page_image_upload:
+              type: sequence
+              lable: "Upload an image"
+              sequence:
+                type: integer
+                label: "fids"
+    aristotle_menu_source:
+      type: text
+      lable: "Main menu source"
+    aristotle_menu_show_for_anonymous:
+      type: boolean
+      label: "Show menu for anonymous users"

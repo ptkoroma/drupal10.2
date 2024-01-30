@@ -1,0 +1,200 @@
+uuid: 75169552-625b-4962-806b-14c301e1ed81
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.non_catalogued_activity.field_activity_status
+    - field.field.node.non_catalogued_activity.field_activity_type
+    - field.field.node.non_catalogued_activity.field_additional_duration_detail
+    - field.field.node.non_catalogued_activity.field_address
+    - field.field.node.non_catalogued_activity.field_category
+    - field.field.node.non_catalogued_activity.field_date
+    - field.field.node.non_catalogued_activity.field_delivery
+    - field.field.node.non_catalogued_activity.field_description
+    - field.field.node.non_catalogued_activity.field_event_url
+    - field.field.node.non_catalogued_activity.field_hours
+    - field.field.node.non_catalogued_activity.field_individual_dates
+    - field.field.node.non_catalogued_activity.field_pd_units_
+    - field.field.node.non_catalogued_activity.field_povider_contact_telehone_n
+    - field.field.node.non_catalogued_activity.field_provider_business_address
+    - field.field.node.non_catalogued_activity.field_provider_email
+    - field.field.node.non_catalogued_activity.field_provider_name
+    - field.field.node.non_catalogued_activity.field_provider_number
+    - field.field.node.non_catalogued_activity.field_related_documents
+    - field.field.node.non_catalogued_activity.field_related_images
+    - field.field.node.non_catalogued_activity.field_upload_supporting_document
+    - field.field.node.non_catalogued_activity.field_upload_verification
+    - node.type.non_catalogued_activity
+  module:
+    - address
+    - datetime
+    - datetime_range
+    - file
+    - link
+    - options
+    - text
+    - user
+id: node.non_catalogued_activity.default
+targetEntityType: node
+bundle: non_catalogued_activity
+mode: default
+content:
+  field_activity_status:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_activity_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_additional_duration_detail:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 80
+    region: content
+  field_address:
+    type: address_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 45
+    region: content
+  field_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  field_date:
+    type: daterange_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: d/m/Y
+      separator: '-'
+    third_party_settings: {  }
+    weight: 70
+    region: content
+  field_delivery:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 30
+    region: content
+  field_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 35
+    region: content
+  field_event_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 65
+    region: content
+  field_hours:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_individual_dates:
+    type: datetime_custom
+    label: above
+    settings:
+      timezone_override: ''
+      date_format: d/m/Y
+    third_party_settings: {  }
+    weight: 75
+    region: content
+  field_pd_units_:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_povider_contact_telehone_n:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 55
+    region: content
+  field_provider_email:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 50
+    region: content
+  field_provider_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 40
+    region: content
+  field_provider_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 41
+    region: content
+  field_upload_supporting_document:
+    type: file_default
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 81
+    region: content
+  field_upload_verification:
+    type: file_default
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_provider_business_address: true
+  field_related_documents: true
+  field_related_images: true
+  langcode: true
+  links: true
+  private_message_link: true
+  search_api_excerpt: true

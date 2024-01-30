@@ -1,0 +1,24 @@
+.lp_progress_wrapper {
+  .lp_progress {
+    align-items: center;
+    display: flex;
+  }
+
+  .lp_progress_bar {
+    background: $clr-gray-light-D5;
+    border-radius: rem(9);
+    flex: 1 0 auto;
+    height: rem(17);
+    margin: 0 rem(20);
+  }
+
+  .lp_progress_bar_completed {
+    background: $clr-desktop-link;
+    border-radius: inherit;
+    height: 100%;
+  }
+
+  .lp_progress_value {
+    font-weight: $font-weight-semibold;
+  }
+}

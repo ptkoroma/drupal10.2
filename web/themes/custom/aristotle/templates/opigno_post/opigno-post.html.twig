@@ -1,0 +1,80 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display Opigno post entity.
+ *
+ * Available varaibles:
+ * - post: the full Opigno post entity;
+ * - id: the post ID;
+ * - author: the rendered author entity;
+ * - author_link: the url of the author entity;
+ * - author_name: the author displayed name;
+ * - text: the post text;
+ * - created: the post creation timestamp;
+ * - add_comment_link: the link to trigger the "Create comment" form opening;
+ * - comments: the block with the comment form and all post comments;
+ * - is_pinned: if the post is pinned or not;
+ * - is_last_viewed: if the post is the last one that was viewed by the user;
+ * - like_link: the link to like/dislike the post;
+ * - like_count_link: the link to display the list of people who liked the post;
+ * - attachment: the post shared attachment (training/badge/certificate);
+ * - url: the post view page url;
+ * - is_page: whether the current page is a post view page or not.
+ */
+#}
+
+{% set classes = [
+    'content-box',
+    'comment-item__container',
+    is_pinned ? 'opigno-pinned-post',
+   ]
+%}
+
+<div id="opigno-post-{{ id }}">
+  {% if is_last_viewed and not is_page %}
+    <div class="new-comment-devider">
+      <span>{{ "you are up to date"|t( {}, {'context': 'Opigno social'} ) }}</span>
+    </div>
+  {% endif %}
+
+  <div {{ attributes.addClass(classes) }}>
+    <div class="comment-item__user">
+      {{ author }}
+      <div class="comment-item__user-info">
+        <div class="comment-item__name">
+          <a href="{{ author_link }}">{{ author_name }}</a>
+        </div>
+        {% if is_page %}
+          <time class="comment-item__date">{{ created|format_date('post_date') }}</time>
+        {% else %}
+          <a href="{{ url }}" class="comment-item__date">{{ created|format_date('post_date') }}</a>
+        {% endif %}
+      </div>
+
+      {{ post_actions }}
+      {% if is_pinned %}
+        <div class="pinned-post">
+          {{ 'pinned post'|t( {}, {'context': 'Opigno social'} ) }}
+          <i class="fi"></i>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="comment-item__body">
+      {{ text }}
+      {{ attachment }}
+    </div>
+    <div class="comment-item__info">
+      {{ like_count_link }}
+      {{ comments }}
+    </div>
+
+    <div class="comment-item__actions">
+      {{ like_link }}
+      {{ add_comment_link }}
+    </div>
+
+    {# The wrapper for the post comments block. #}
+    <div id="opigno-comments-placeholder-{{ id }}" class="opigno-comments-placeholder"></div>
+  </div>
+</div>

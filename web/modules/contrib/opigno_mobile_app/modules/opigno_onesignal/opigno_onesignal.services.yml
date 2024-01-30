@@ -1,0 +1,11 @@
+services:
+  opigno_onesignal.config_manager:
+    class: Drupal\opigno_onesignal\Config\ConfigManager
+    arguments: ['@config.factory']
+  opigno_onesignal.manager:
+    class: Drupal\opigno_onesignal\OneSignalManager
+    arguments:
+      - '@http_client'
+      - '@logger.factory'
+      - '@messenger'
+      - '@opigno_onesignal.config_manager'

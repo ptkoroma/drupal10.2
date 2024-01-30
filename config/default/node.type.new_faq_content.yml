@@ -1,0 +1,18 @@
+uuid: df40e43f-58e3-42bb-8a9f-2399e9655a52
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - system-administration
+    parent: 'system-administration:'
+name: 'New FAQ Content'
+type: new_faq_content
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

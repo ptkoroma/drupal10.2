@@ -1,0 +1,25 @@
+uuid: 4116ea81-36ac-4d39-b549-49574752e3c8
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.mentee_registration_form
+    - field.storage.contact_message.field_email
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: contact_message.mentee_registration_form.field_email
+field_name: field_email
+entity_type: contact_message
+bundle: mentee_registration_form
+label: Email
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

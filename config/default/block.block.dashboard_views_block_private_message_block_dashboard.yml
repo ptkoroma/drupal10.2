@@ -1,0 +1,30 @@
+uuid: null
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.private_message
+  module:
+    - system
+    - views
+  theme:
+    - aristotle
+id: dashboard_views_block_private_message_block_dashboard
+theme: aristotle
+region: content
+weight: -6
+provider: null
+plugin: 'views_block:private_message-block_dashboard'
+settings:
+  id: 'views_block:private_message-block_dashboard'
+  label: 'Dashboard: Private Message: Dashboard - Last Threads'
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    context_mapping: {  }
+    pages: '<front>'

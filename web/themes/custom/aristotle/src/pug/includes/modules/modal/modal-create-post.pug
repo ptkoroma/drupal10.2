@@ -1,0 +1,34 @@
+.modal.fade#createPost-1(tabindex="-1" role="dialog" aria-labelledby="createPost" aria-hidden="true")
+  .modal-dialog.modal-dialog-centered(role="document")
+    .modal-content
+      .modal-header
+        h2.modal-title Create a post
+
+        a.close(href="#" type="button" data-dismiss="modal" aria-label="Close")
+          i.fi.fi-rr-arrow-left
+
+        a.close.close-x(href="#" type="button" data-dismiss="modal" aria-label="Close")
+          i.fi.fi-rr-cross-small
+
+      .modal-body
+        form.views-exposed-form(action="#")
+          .js-form-item.form-item
+            textarea.form-textarea.form-text(rows="3" placeholder="write something")
+
+          .createPost
+            .post
+              .post__body
+                p.post__pretext Simon Contreras acquired a new badge:
+
+                .post__info
+                  .post__icon.badge
+
+                  .post__info-content
+                    h2 Badge
+                    p Manual mode
+                    p 13 may 2021
+
+          p.post-hint Only visible to connections
+
+          .form-actions
+            input.btn.btn-rounded.form-submit(type="submit" value="Post")

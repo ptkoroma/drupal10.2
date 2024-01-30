@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: datepicker
+label: 'Datepicker'
+locked: false
+pattern: m/d/Y

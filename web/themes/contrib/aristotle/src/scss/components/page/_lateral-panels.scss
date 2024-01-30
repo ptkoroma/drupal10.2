@@ -1,0 +1,135 @@
+.lateral-panel {
+  border-left: 1px solid $clr-navy;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+
+  .toolbar-vertical.toolbar-fixed &,
+  .toolbar-horizontal.toolbar-fixed & {
+    top: rem(39);
+  }
+
+  .toolbar-horizontal.toolbar-tray-open & {
+    top: rem(79);
+  }
+
+  .step-pager {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    button {
+      align-items: center;
+      background: $clr-gray-light-D5;
+      border: none;
+      border-radius: 50%;
+      color: $clr-desktop-text;
+      display: flex;
+      font-weight: $font-weight-semibold;
+      justify-content: center;
+      height: rem(25);
+      margin: 0 4px rem(5);
+      padding: 0;
+      width: rem(25);
+    }
+
+    .active {
+      background: $clr-desktop-link;
+    }
+  }
+
+  &.entity-add,
+  &.module-add,
+  &.activity-add {
+    padding: rem(20) rem(20) rem(20) 0;
+
+    &.add {
+      width: rem(495);
+    }
+  }
+
+  &.entity-add,
+  &.module-add {
+    &.add {
+      left: auto !important;
+    }
+  }
+
+  .entity-update {
+    padding: rem(30) rem(75) rem(30) rem(35);
+
+    &__title {
+      font-size: rem(40);
+      margin-bottom: rem(50);
+    }
+  }
+
+  .step-title {
+    font-size: rem(40);
+    margin-top: rem(80);
+    text-transform: none;
+  }
+
+  .close {
+    opacity: 1;
+  }
+
+  .step-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .activity-types {
+    .type-name {
+      align-items: center;
+      background: $clr-gray-light;
+      border-radius: rem(10);
+      border: none;
+      color: $clr-navy;
+      display: flex;
+      font-weight: $font-weight-semibold;
+      flex: 1 0 auto;
+      padding: rem(16) rem(10);
+      transition: .3s ease;
+
+      &:hover {
+        background: $clr-green;
+      }
+    }
+
+    .type-help-open,
+    .type-help-close {
+      align-items: center;
+      background: none;
+      border: none;
+      color: $clr-navy;
+      display: flex;
+      font-size: rem(30);
+      justify-content: center;
+    }
+
+    .activity-help-open {
+      background: $clr-gray-light;
+      border-radius: rem(10);
+      border-left: 2px solid $clr-green;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: rem(10);
+
+      .type-name {
+        background: none;
+      }
+
+      .btn {
+        margin-left: auto;
+        margin-right: rem(10);
+      }
+    }
+
+    .type-info {
+      padding-left: rem(20);
+      padding-right: rem(10);
+    }
+  }
+}

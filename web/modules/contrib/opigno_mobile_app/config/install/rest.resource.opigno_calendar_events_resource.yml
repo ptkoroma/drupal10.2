@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - hal
+    - jwt
+    - opigno_mobile_app
+    - serialization
+id: opigno_calendar_events_resource
+plugin_id: opigno_calendar_events_resource
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - hal_json
+    - json
+  authentication:
+    - jwt_auth

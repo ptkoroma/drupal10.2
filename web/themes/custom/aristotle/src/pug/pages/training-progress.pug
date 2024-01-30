@@ -1,0 +1,47 @@
+extends ../layout/main
+
+block variables
+  - var title = 'Training progress';
+  - var description = '';
+  - var pageClass = 'page-training-progress';
+
+block content
+  .back-btn.d-none.d-lg-block
+    a(href="#")
+      i.fi.fi-rr-arrow-left
+      | Back
+
+  .block-page-title-block
+    h1= title
+
+  .row
+    .col-12
+      .content-box.p-0
+        include ../includes/modules/learning-path/training-information
+
+      .content-box
+        include ../includes/modules/learning-path/course-information
+        - var module_status = 'passed'
+        include ../includes/modules/learning-path/module-information
+        include ../includes/modules/learning-path/activity-container
+
+      .content-box
+        include ../includes/modules/learning-path/ilt-information
+
+      .content-box
+        include ../includes/modules/learning-path/live-meeting-information
+
+      .content-box
+        - var module_status = 'in-progress'
+        include ../includes/modules/learning-path/module-information
+        include ../includes/modules/learning-path/activity-container
+
+      .content-box
+        - var module_status = 'pending'
+        include ../includes/modules/learning-path/module-information
+        include ../includes/modules/learning-path/activity-container
+
+      .content-box
+        - var module_status = 'failed'
+        include ../includes/modules/learning-path/module-information
+        include ../includes/modules/learning-path/activity-container

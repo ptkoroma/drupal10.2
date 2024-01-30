@@ -1,0 +1,34 @@
+services:
+  # User connection manager service.
+  opigno_user_connection.manager:
+    class: Drupal\opigno_social\Services\UserConnectionManager
+    arguments:
+      - '@entity_type.manager'
+      - '@current_user'
+      - '@cache.data'
+      - '@csrf_token'
+      - '@database'
+      - '@config.factory'
+      - '@opigno_learning_path.user_access_manager'
+      - '@opigno_messaging.manager'
+      - '@extension.list.theme'
+      - '@file_url_generator'
+
+  # Posts/comments manager service.
+  opigno_posts.manager:
+    class: Drupal\opigno_social\Services\OpignoPostsManager
+    arguments: ['@entity_type.manager', '@plugin.manager.block', '@cache.data', '@opigno_user_connection.manager', '@user.data', '@request_stack', '@database']
+
+  # Access check based on the selected social settings.
+  opigno_social.social_access_check:
+    class: Drupal\opigno_social\Access\SocialFeaturesAccessCheck
+    arguments: ['@config.factory']
+    tags:
+      - { name: access_check, applies_to: _opigno_social_features_enabled }
+
+  # Check if the user can share the given content.
+  opigno_social.content_sharing_access:
+    class: Drupal\opigno_social\Access\ShareContentAccessCheck
+    arguments: ['@request_stack', '@entity_type.manager']
+    tags:
+      - { name: access_check, applies_to: _opigno_social_can_share_content }

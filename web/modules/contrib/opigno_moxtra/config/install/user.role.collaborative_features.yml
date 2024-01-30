@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies: {  }
+id: collaborative_features
+label: 'Live meeting manager'
+weight: -8
+is_admin: null
+permissions:
+  - 'add workspace entities'
+  - 'view meeting entities'
+  - 'view workspace entities'
+  - 'start meeting'

@@ -1,0 +1,15 @@
+name: Opigno Tincan Learning Path
+type: module
+description: 'Functionality for sending tincan statements after user finished Learning Path.'
+core_version_requirement: ^9 || ^10
+package: Opigno Tincan
+dependencies:
+  - opigno_tincan_api:opigno_tincan_api
+  - opigno_learning_path:opigno_learning_path
+  - opigno_group_manager:opigno_group_manager
+  - opigno_certificate:opigno_certificate
+
+# Information added by Drupal.org packaging script on 2023-06-01
+version: '3.1.0'
+project: 'opigno_tincan_api'
+datestamp: 1685622965

@@ -1,0 +1,54 @@
+.content-box.comment-item__container
+  .comment-item__user
+    .profile-pic
+      a(href="#")
+        img(src="images/content/profil.svg" alt="profil")
+
+    .comment-item__user-info
+      .comment-item__name
+        a(href="#") Jaques Sommaruga
+
+      time.comment-item__date 03 may 2021 - 00h00
+
+    include ../dropdown/dropdown
+
+    .pinned-post pinned post
+      i.fi
+
+  .comment-item__body
+    p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+      a(href="#")  At vero eos
+
+  .comment-item__info
+    a.comment-item__number--like(href="#" data-toggle="modal" data-target="#postLike-1") 3
+      i.fi.fi-rr-thumbs-up.icon-like
+
+    a.comment-item__actions--comment(href="#") 2 comments
+
+  .comment-item__actions
+    a.comment-item__actions--like(href="#")
+      i.fi.fi-rr-thumbs-up
+      | Like
+
+    a.comment-item__actions--comment(href="#")
+      i.fi.fi-rr-comment-alt
+      | Comment
+
+  .collapsed-comments
+    .comment-item__form
+      a(href="#").comment-item__collapse-comments
+        i.fi.fi-rr-cross-small
+
+      .form--content
+        .profile-pic
+          img(src="images/content/profil.svg" alt="profil")
+
+        form.comment-form(action="#")
+          .form-item
+            input.form-text(type="text" placeholder="write something")
+
+          .form-actions
+            input.form-submit(type="submit" value="Submit")
+
+    include comment-item-inner
+    include comment-item-inner-2

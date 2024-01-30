@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - private_message
+    - user
+id: private_message_thread.field_author
+field_name: field_author
+entity_type: private_message_thread
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

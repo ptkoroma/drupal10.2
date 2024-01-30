@@ -1,0 +1,24 @@
+<?php
+
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+//function slie_general_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+    //dpm("$form_id");
+
+  // Check if the form is the user registration form.
+ // if ($form_id == 'user_login_form') {
+    // Loop through form elements and print field names.
+  //  foreach ($form as $key => $element) {
+      // Check if the element is a form field.
+  //    if (strpos($key, '#') !== 0) {
+        // Print the name of the field.
+       // dpm ($key);
+    //  }
+  //  }
+
+ // }
+//}

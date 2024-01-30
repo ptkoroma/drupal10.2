@@ -1,0 +1,12 @@
+uuid: 32779010-b4a2-40b1-89e4-206beae8ae75
+langcode: en
+status: true
+dependencies:
+  module:
+    - opigno_module
+_core:
+  default_config_hash: WTTz7YAylh3w9V92XKamw7g44O2SanecsLKG0kvKMz8
+id: opigno_module.token
+label: Token
+targetEntityType: opigno_module
+cache: true

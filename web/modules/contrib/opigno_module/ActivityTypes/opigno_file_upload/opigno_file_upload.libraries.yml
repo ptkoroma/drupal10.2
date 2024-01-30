@@ -1,0 +1,5 @@
+opigno_answer_upload_form:
+  version: VERSION
+  css:
+    theme:
+      css/opigno_answer_upload_form.css: {}

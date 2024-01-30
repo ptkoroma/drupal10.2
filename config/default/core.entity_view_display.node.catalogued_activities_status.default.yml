@@ -1,0 +1,45 @@
+uuid: 367aa7a5-8c3c-4096-847a-29cd22d14587
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.catalogued_activities_status.field_activity
+    - field.field.node.catalogued_activities_status.field_activity__status
+    - field.field.node.catalogued_activities_status.field_user_id
+    - node.type.catalogued_activities_status
+  module:
+    - options
+    - user
+id: node.catalogued_activities_status.default
+targetEntityType: node
+bundle: catalogued_activities_status
+mode: default
+content:
+  field_activity:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_activity__status:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_user_id: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

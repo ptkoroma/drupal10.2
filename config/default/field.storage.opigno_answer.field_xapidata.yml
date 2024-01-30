@@ -1,0 +1,21 @@
+uuid: 40c6023f-275a-422b-878b-03a654997f85
+langcode: en
+status: true
+dependencies:
+  module:
+    - opigno_module
+_core:
+  default_config_hash: ebVxB38c3g8yWIZP8_Hjh2UoEgpspKcuSfQxShuWRo8
+id: opigno_answer.field_xapidata
+field_name: field_xapidata
+entity_type: opigno_answer
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

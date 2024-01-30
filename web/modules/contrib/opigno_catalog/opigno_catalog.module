@@ -1,0 +1,154 @@
+<?php
+
+/**
+ * @file
+ * Contains opigno_catalog.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_help().
+ */
+function opigno_catalog_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the opigno_catalog module.
+    case 'help.page.opigno_catalog':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Add features to opigno catalogue') . '</p>';
+      return $output;
+
+    default:
+      return '';
+  }
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function opigno_catalog_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  if ($view->id() !== 'opigno_training_catalog') {
+    return;
+  }
+
+  // If the user is admin, bypass the additional checks.
+  $user = \Drupal::currentUser();
+  if ($user->hasPermission('manage group members in any group')
+    || $user->hasPermission('manage group content in any group')) {
+    // Allow platform-level managers to access any training.
+    return;
+  }
+
+  /** @var \Drupal\views\Plugin\views\query\Sql $query */
+  $query->addField('group_content_field_data_groups_field_data', 'entity_id', '', [
+    'function' => 'group',
+    'aggregate' => TRUE,
+  ]);
+  $query->addField('group__field_learning_path_visibility', 'field_learning_path_visibility_value', '', [
+    'function' => 'group',
+    'aggregate' => TRUE,
+  ]);
+
+  $group_condition = ($query->getConnection()->condition('AND'))
+    // Show the group if the user is a member.
+    ->condition('group_content_field_data_groups_field_data.entity_id', $user->id())
+    // Filter by type.
+    ->condition('group_content_field_data_groups_field_data.type', 'learning_path-group_membership');
+  $group_or = $query->setWhereGroup('OR');
+  $query->addWhere($group_or, $group_condition);
+  // Or if the group is not private.
+  $query->addWhere($group_or, 'group__field_learning_path_visibility.field_learning_path_visibility_value', [
+    'public',
+    'semiprivate',
+  ], 'IN');
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function opigno_catalog_preprocess_views_view__opigno_training_catalog(&$variables) {
+  // Add the "Create new training" link.
+  $new_training_url = Url::fromRoute('entity.group.add_form', ['group_type' => 'learning_path']);
+  if ($new_training_url->access()) {
+    $options = [
+      'attributes' => [
+        'class' => ['btn', 'btn-bg', 'btn-rounded'],
+      ],
+    ];
+    $new_training_url->setOptions($options);
+    $variables['new_training_link'] = Link::fromTextAndUrl(t('Create new training'), $new_training_url);
+  }
+
+  // Add the fake sort select. The sorting will be triggered with js because of
+  // the design.
+  $variables['fake_sort'] = [
+    '#type' => 'select',
+    '#options' => [
+      'created_DESC' => t('Newest'),
+      'created_ASC' => t('Oldest'),
+      'weight_ASC' => t('Shortest'),
+      'weight_DESC' => t('Longest'),
+      'label_ASC' => t('A to Z'),
+      'label_DESC' => t('Z to A'),
+    ],
+    '#default_value' => 'created_DESC',
+    '#theme_wrappers' => [],
+    '#attributes' => [
+      'id' => 'opigno-fake-sort',
+      'class' => ['form-select', 'selectpicker'],
+    ],
+  ];
+
+  // Add style class to view.
+  $style = \Drupal::service('opigno_catalog.get_style')->getStyle();
+  $variables['attributes']['class'][] = $style === 'line' ? 'style-line' : 'style-block';
+
+  // Add library.
+  $variables['view']->element['#attached']['library'][] = 'opigno_catalog/view_style';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function opigno_catalog_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $id = $form['#id'] ?? '';
+  if ($id !== 'views-exposed-form-opigno-training-catalog-training-catalogue') {
+    return;
+  }
+
+  $form['search']['#size'] = 0;
+  // Add classes to action buttons, change their order.
+  $form['actions']['submit']['#weight'] = 15;
+  $form['actions']['submit']['#attributes'] = [
+    'class' => ['btn', 'btn-bg', 'btn-rounded', 'apply-catalog-filters'],
+  ];
+  $form['actions']['reset']['#access'] = TRUE;
+  $form['actions']['reset']['#attributes'] = [
+    'class' => ['btn', 'btn-rounded', 'btn-reset-filter'],
+  ];
+  // Add one more submit button to display at the top of the form.
+  $form['actions']['search_submit'] = [
+    '#type' => 'submit',
+    '#value' => t('Search'),
+    '#attributes' => [
+      'class' => ['opigno-filters-submit'],
+    ],
+  ];
+
+  // Add cache tags.
+  $form['#cache']['tags'][] = 'group_list';
+  $form['#cache']['tags'][] = 'taxonomy_term_list';
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function opigno_catalog_views_data_alter(array &$data) {
+  $data['user_lp_status']['status']['filter']['id'] = 'opigno_user_lp_status';
+}

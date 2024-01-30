@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the Opigno community entity.
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div class="join-communities-page-title block-page-title-block">
+  <h1>{{ 'Communities'|t }}</h1>
+
+  <div class="d-none d-xl-block">
+    {{ create_btn }}
+  </div>
+</div>
+<div {{ attributes.addClass(['row', 'three-col-layout', 'community-layout']) }}>
+  <div class="col-left col-xl-3 col-md-6 your-community">
+    <div class="create-community-action d-md-none">
+      {{ create_btn }}
+    </div>
+
+    {{ content.extra_field_available_communities_list }}
+  </div>
+
+  <div class="col-center col-xl-5 col-md-12">
+    {{ content.extra_field_community_feed }}
+  </div>
+
+  <div class="col-right col-xl-4 col-md-6">
+    <div class="create-community-wrapper d-none d-md-block d-xl-none">
+      {{ create_btn }}
+    </div>
+
+    {{ info_block }}
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install and update scripts for extra_field_example module.
+ */
+
+use Drupal\Core\Cache\Cache;
+
+/**
+ * Implements extra_field_example().
+ */
+function extra_field_example_install() {
+
+  // Clear the discovery bin to refresh the list of available extra fields.
+  $discoveryBin = Cache::getBins()['discovery'];
+  $discoveryBin->deleteAll();
+}

@@ -1,0 +1,10 @@
+uuid: f2d5469b-a0d2-4be5-9229-8735f0a9658d
+langcode: en
+status: true
+dependencies:
+  module:
+    - h5p
+id: h5p_content.token
+label: Token
+targetEntityType: h5p_content
+cache: true

@@ -1,0 +1,25 @@
+uuid: e0294900-5a7f-49c3-b37b-240be5382e56
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.stripe_subscription.field_testing_purpose
+  module:
+    - custom_add_another
+    - stripe_registration
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: stripe_subscription.stripe_subscription.field_testing_purpose
+field_name: field_testing_purpose
+entity_type: stripe_subscription
+bundle: stripe_subscription
+label: 'testing purpose'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

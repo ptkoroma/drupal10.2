@@ -1,0 +1,35 @@
+uuid: 0569020d-91b4-47d2-b20e-82eea9b9dffd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_activity_category_resoures
+    - node.type.resoures
+    - taxonomy.vocabulary.category
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.resoures.field_activity_category_resoures
+field_name: field_activity_category_resoures
+entity_type: node
+bundle: resoures
+label: 'Activity Category'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      category: category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

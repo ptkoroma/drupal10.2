@@ -1,0 +1,130 @@
+uuid: 05a9bb43-7875-4879-ba17-c7efa7d49719
+langcode: en
+status: true
+dependencies: {  }
+id: engineer_under_audit_tabs
+label: 'ENGINEER UNDER AUDIT Tabs'
+renderer: quick_tabs
+hide_empty_tabs: false
+default_tab: 0
+options:
+  quick_tabs:
+    ajax: false
+    class: ''
+    style: ''
+configuration_data:
+  -
+    title: 'Profile View'
+    weight: 0
+    type: block_content
+    content:
+      qtabs_content:
+        options:
+          machine_name: activities_type
+      block_content:
+        options:
+          bid: profile_block
+          block_title: ''
+          display_title: false
+      view_content:
+        options:
+          vid: activities
+          display: default
+          args: ''
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: true
+  -
+    title: 'CPD Action Plan'
+    weight: 0
+    type: block_content
+    content:
+      qtabs_content:
+        options:
+          machine_name: activities_type
+      block_content:
+        options:
+          bid: 'views_block:cpd_action_plan-block_1'
+          block_title: ''
+          display_title: false
+      view_content:
+        options:
+          vid: activities
+          display: default
+          args: ''
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: true
+  -
+    title: 'View Booked Activities'
+    weight: 0
+    type: block_content
+    content:
+      qtabs_content:
+        options:
+          machine_name: activities_type
+      block_content:
+        options:
+          bid: 'views_block:engineer_activities-block_1'
+          block_title: ''
+          display_title: false
+      view_content:
+        options:
+          vid: engineer_activities
+          display: page_1
+          args: ''
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: false
+  -
+    title: 'View CPD Reflections'
+    weight: 0
+    type: block_content
+    content:
+      qtabs_content:
+        options:
+          machine_name: activities_type
+      block_content:
+        options:
+          bid: 'views_block:cpd_reflection_on_learning-block_1'
+          block_title: ''
+          display_title: false
+      view_content:
+        options:
+          vid: activities
+          display: default
+          args: ''
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: true
+  -
+    title: 'View Previous Audits'
+    weight: 0
+    type: block_content
+    content:
+      qtabs_content:
+        options:
+          machine_name: activities_type
+      block_content:
+        options:
+          bid: 'views_block:audit_list-block_1'
+          block_title: ''
+          display_title: false
+      view_content:
+        options:
+          vid: activities
+          display: default
+          args: ''
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: true

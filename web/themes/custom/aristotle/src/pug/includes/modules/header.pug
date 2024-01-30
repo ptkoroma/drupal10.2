@@ -1,0 +1,44 @@
+header.page-header(role="banner")
+  .container
+    .row.align-items-center
+      .col-lg-8.col-left
+        .region.region-branding
+          .block-system-branding-block
+            a.home-link(href="#")
+              img.logo(src="images/content/Logo-Opigno-3.svg")
+
+        .region-main-menu
+          include main-menu
+
+        .mobile-menu-btn
+          span
+          span
+          span
+
+        .mobile-header-wrapper
+          .mobile-header
+            include main-menu
+            include block-notifications
+            include block-profile
+
+            ul.user-menu-list
+              li.user-menu-item
+                a.user-menu-item-text(href="#")
+                  i.fi.fi-rr-info
+                  | About
+              li.user-menu-item
+                a.user-menu-item-text(href="#")
+                  i.fi.fi.fi-rr-interrogation
+                  | Help
+              li.user-menu-item
+                a.user-menu-item-text(href="#")
+                  i.fi.fi-rr-comment
+                  | Review opigno
+              li.user-menu-item.logout
+                a.user-menu-item-text(href="#")
+                  i.fi.fi-rr-sign-out
+                  | Logout
+
+      .col-lg-4.col-right
+        include block-profile
+        include block-notifications

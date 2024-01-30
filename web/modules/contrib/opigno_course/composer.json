@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_course",
+    "type": "drupal-module",
+    "description": "Opigno course.",
+    "homepage": "http://drupal.org/project/opigno_course",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

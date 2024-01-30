@@ -1,0 +1,29 @@
+entity.opigno_notification.canonical:
+  path: '/notifications/{opigno_notification}'
+  defaults:
+    _entity_view: 'opigno_notification'
+    _title: 'Notification'
+  requirements:
+    _entity_access: 'opigno_notification.view'
+
+entity.opigno_notification.collection:
+  path: '/notifications/list'
+  defaults:
+    _entity_list: 'opigno_notification'
+    _title: 'Notification List'
+  requirements:
+    _permission: 'administer opigno notification'
+
+opigno_notification.mark_read_all:
+  path: '/ajax/notifications/mark-read-all'
+  defaults:
+    _controller: '\Drupal\opigno_notification\Controller\OpignoNotificationController::markReadAll'
+  requirements:
+    _permission: 'access content'
+
+opigno_notification.get_messages:
+  path: '/ajax/notifications/get-messages'
+  defaults:
+    _controller: '\Drupal\opigno_notification\Controller\OpignoNotificationController::getMessages'
+  requirements:
+    _permission: 'access content'

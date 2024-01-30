@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: community_listing_image
+label: 'Community listing image (69x69)'
+effects:
+  54b27a33-e843-4789-ae6c-82063118f62d:
+    uuid: 54b27a33-e843-4789-ae6c-82063118f62d
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 69
+      height: 69
+      anchor: center-center

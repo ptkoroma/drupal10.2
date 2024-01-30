@@ -1,0 +1,234 @@
+// @TODO override module styles
+.group-content-learning-path-group-membership-add-form,
+.group-content-opigno-class-group-membership-add-form,
+.opigno-moxtra-create-workspace-form.opigno-moxtra-workspace-form {
+  background: none;
+}
+.group-content-learning-path-group-membership-add-form #edit-btn-create,
+#btn_member_add,
+.group-content-opigno-class-group-membership-add-form #edit-btn-create,
+#btn_member_add,
+.opigno-moxtra-create-workspace-form.opigno-moxtra-workspace-form #edit-btn-create {
+  float: none;
+}
+.group-content-learning-path-group-membership-add-form #edit-submit,
+.group-content-opigno-class-group-membership-add-form #edit-submit {
+  padding: rem(10) rem(15);
+  width: auto;
+}
+
+.app {
+  color: $clr-desktop-text;
+  font-size: rem(14);
+  max-width: rem(490);
+
+  .navi-pills {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: rem(10);
+
+    .navi-item {
+      cursor: pointer;
+      background: $clr-gray-light;
+      padding: rem(6) rem(10);
+      border-radius: rem(10);
+      flex: 1 0 calc(33.333% - 13px);
+      max-width: calc(33.333% - 13px);
+      transition: all .3s ease;
+
+      &.active {
+        background: $clr-desktop-link;
+      }
+    }
+  }
+
+  .input-group {
+    margin-bottom: rem(10);
+
+    input {
+      border: 1px solid $clr-gray-light-D5;
+      background: $clr-gray-light;
+      border-radius: rem(10);
+      box-sizing: border-box;
+      box-shadow: none;
+      font-size: rem(14);
+      height: auto;
+      line-height: 1.3;
+      outline: none;
+      padding: rem(11) rem(15);
+      width: 100%;
+
+      &::placeholder {
+        color: $clr-gray;
+      }
+    }
+  }
+
+  .entity-selected {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: rem(5);
+
+    &:empty {
+      margin: 0;
+    }
+
+    .label {
+      box-sizing: border-box;
+      border-radius: rem(12);
+      cursor: pointer;
+      display: flex;
+      font-size: rem(12);
+      padding: 2px rem(10);
+      margin: 0 rem(5) rem(5) 0;
+      min-width: rem(100);
+      max-width: rem(206);
+      background-color: $clr-gray-light;
+      align-items: center;
+
+      > img {
+        border-radius: 50%;
+        height: rem(20);
+        margin-right: rem(10);
+        width: rem(20);
+      }
+    }
+
+    .text {
+      max-width: rem(135);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .close {
+      color: $clr-desktop-text;
+      font-size: rem(16);
+      margin-left: auto;
+      opacity: 1;
+      padding-left: rem(10);
+    }
+  }
+
+  .card-container {
+    margin-bottom: rem(10);
+  }
+
+  .card-body {
+    border: 1px solid $clr-gray-light-D5;
+    border-radius: rem(10);
+    padding: rem(20);
+  }
+
+  .user-list,
+  .group-list {
+    height: rem(235);
+    overflow-y: auto;
+  }
+
+  .back-to-group {
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    font-weight: $font-weight-semibold;
+    margin-bottom: rem(10);
+
+    .fi {
+      font-size: rem(24);
+      margin-right: rem(10);
+    }
+  }
+
+  .group-view,
+  .user-view {
+    align-items: center;
+    background: $clr-gray-light;
+    border-radius: rem(10);
+    cursor: pointer;
+    display: flex;
+    font-weight: $font-weight-semibold;
+    margin-bottom: rem(10);
+    padding: rem(7) rem(20);
+    transition: all .3s ease;
+
+    &:hover {
+      background: $clr-gray-light-D5;
+    }
+
+    &:last-child {
+      margin-bottom: rem(5);
+    }
+
+    &.selected {
+      background: $clr-desktop-link;
+    }
+
+    > img {
+      border-radius: 50%;
+      height: rem(30);
+      margin-right: rem(15);
+      width: rem(30);
+    }
+
+    .name {
+      + .fi {
+        margin-left: auto;
+      }
+    }
+
+    .fi {
+      align-items: center;
+      background: $clr-white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      font-size: rem(20);
+      height: rem(30);
+      margin-left: rem(10);
+      width: rem(30);
+    }
+  }
+
+  .group-letter {
+    align-items: center;
+    display: flex;
+    font-weight: $font-weight-semibold;
+    margin-bottom: 3px;
+    padding-left: rem(8);
+
+    &:after {
+      background: $clr-navy;
+      content: '';
+      height: 1px;
+      margin-left: rem(9);
+      max-width: rem(180);
+      width: 45%;
+    }
+  }
+
+  select {
+    outline: none;
+    margin: rem(10) 0;
+    width: 100%;
+    padding: rem(10) rem(15);
+    border: 1px solid $clr-gray-light-D5;
+    background-color: $clr-gray-light;
+    border-radius: rem(10);
+  }
+
+  .mode-fade-enter-active {
+    transition: opacity .5s ease;
+  }
+
+  .mode-fade-leave-active {
+    transition: opacity .1s ease;
+  }
+
+  .mode-fade-enter {
+  }
+
+  .mode-fade-enter,
+  .mode-fade-leave-to {
+    opacity: 0;
+  }
+}

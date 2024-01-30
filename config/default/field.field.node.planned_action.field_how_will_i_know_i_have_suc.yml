@@ -1,0 +1,26 @@
+uuid: 8c877385-0a90-4a2b-b462-641f12174b02
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_how_will_i_know_i_have_suc
+    - node.type.planned_action
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.planned_action.field_how_will_i_know_i_have_suc
+field_name: field_how_will_i_know_i_have_suc
+entity_type: node
+bundle: planned_action
+label: 'How will I know I have succeeded? '
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display user stats block.
+ *
+ * Available variables:
+ * - stats: array of user statistics data.
+ */
+#}
+
+<ul class="statistics-list opigno-user-statistics">
+  {% for item in stats %}
+    <li class="statistics-list__item">
+      <span class="title">{{ item.title }}</span>
+      <div>
+        <span class="number">{{ item.amount|trim|first == '0' ? '-' : item.amount }}</span>
+
+        {% if item.progress|trim|first == '-' %}
+          {% set progress_class = 'progress down' %}
+        {% elseif item.progress|trim|first == '0' %}
+          {% set progress_class = 'progress' %}
+        {% else %}
+          {% set progress_class = 'progress up' %}
+        {% endif %}
+        <span class="{{ progress_class }}">
+          {% if item.progress matches '/^\\d+$/' and item.progress > 0 %}
+            {{ '+' ~ item.progress }}
+          {% elseif item.progress|trim|first == '0' %}
+            {{ '-' }}
+          {% else %}
+            {{ item.progress }}
+          {% endif %}
+          <i class="fi fi-rr-arrow-right"></i>
+        </span>
+      </div>
+    </li>
+  {% endfor %}
+</ul>

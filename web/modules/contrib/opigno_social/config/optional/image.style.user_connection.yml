@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: user_connection
+label: 'User connection (55x55)'
+effects:
+  034f1847-3371-4ba0-8891-5bcf2eb4e82b:
+    uuid: 034f1847-3371-4ba0-8891-5bcf2eb4e82b
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 55
+      height: 55
+      anchor: center-center

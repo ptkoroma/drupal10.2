@@ -1,0 +1,11 @@
+{
+    "name": "drupal/extra_field",
+    "type": "drupal-module",
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^10"
+            }
+        }
+    }
+}

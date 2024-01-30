@@ -1,0 +1,137 @@
+<style>
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  .page-bg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+  }
+  .page-bg img {
+    min-height: 600px;
+    min-width: 600px;
+  }
+  .logo {
+    border-left: 50px solid #2f3758;
+    max-width: 35%;
+    padding-top: 3rem;
+    padding-left: 1rem;
+    padding-bottom: 3rem;
+  }
+  .logo img {
+    max-height: 150px;
+  }
+  .main-content {
+    padding: 0 80px;
+    position: relative;
+    text-align: center;
+    z-index: 1;
+  }
+  .info-container {
+    padding: 125px 0;
+  }
+  h1 {
+    font-size: 30px;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+  h1 span {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: normal;
+    text-align: left;
+  }
+  .awarded {
+    margin-bottom: 55px;
+  }
+  .for {
+    margin-bottom: 55px;
+  }
+  .title {
+    font-size: 21px;
+  }
+  .color-blue {
+    color: #2f3758;
+    text-transform: uppercase;
+  }
+  .color-green {
+    color: #4ad3b0;
+    text-transform: uppercase;
+  }
+  .sentence-case {
+    text-transform: none;
+  }
+  .text-center {
+    position: relative;
+    text-align: center;
+  }
+  .bold {
+    font-weight: 700;
+  }
+  a {
+    text-decoration: none;
+    color: #4ad3b0;
+    text-transform: none;
+  }
+  .validity-date {
+    letter-spacing: -1.5px;
+  }
+  .footer {
+    margin-top: 90px;
+    text-align: right;
+  }
+</style>
+
+<article {{ attributes }}>
+  {% if logo %}
+    <div class="logo">
+      <img src="{{ logo }}" alt="{{ 'Opigno LMS logo'|t }}">
+    </div>
+  {% endif %}
+
+  <div {{ content_attributes.addClass('main-content') }}>
+    <h1 class="color-blue">
+      {{ 'Certificate of completion'|t }}
+      <br>
+      <span class="color-green">{{ completed_on }}</span>
+    </h1>
+
+    <div class="text-center">
+      {% if bg_image %}
+        <div class="page-bg">
+          <img src="{{ bg_image }}" alt="opigno-logo-bg">
+        </div>
+      {% endif %}
+
+      <div class="info-container">
+        <div class="awarded">
+          <div class="title bold color-blue">{{ 'Awarded to'|t }}</div>
+          <div class="title color-green">{{ awarded_to }}</div>
+        </div>
+
+        <div class="for">
+          <div class="title bold color-blue">{{ 'To certify completion of the training'|t }}</div>
+          <div class="title color-green">{{ referencing_entity.label.0.value }}</div>
+        </div>
+
+        {% if expire_on %}
+          <div class="validity">
+            <div class="color-blue">{{ 'Certificate validity'|t }}</div>
+            <div class="validity-date color-green bold">{{ completed_on ~ ' - ' ~ expire_on }}</div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="color-blue sentence-case">{{ 'Opigno LMS @year'|t({'@year': 'now'|date('Y')}) }}</div>
+    <a href="https://www.opigno.org" target="_blank">{{ 'opigno.org' }}</a>
+  </div>
+</article>

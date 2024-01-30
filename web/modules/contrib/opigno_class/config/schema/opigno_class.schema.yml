@@ -1,0 +1,7 @@
+opigno_class.socialsettings:
+  type: config_object
+  label: 'Social settings'
+  mapping:
+    opigno_class:
+      type: integer
+      label: 'Class'

@@ -1,0 +1,45 @@
+.alert {
+  position: relative;
+  padding: rem($alert-padding-y) rem($alert-padding-x);
+  margin-bottom: rem($alert-margin-bottom);
+  border: $alert-border-width solid transparent;
+  border-radius: rem($alert-border-radius);
+
+  &:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: .18;
+  }
+
+  &.alert-dismissible {
+    padding-right: rem(35);
+  }
+
+  .close {
+    position: absolute;
+    top: rem(8);
+    right: rem(10);
+    color: inherit;
+    padding: 0;
+  }
+
+  .alert-heading {
+    color: inherit;
+  }
+
+  a {
+    font-weight: $font-weight-bold;
+
+    &:hover {
+      color: inherit;
+    }
+  }
+}
+
+@include alert-variant($theme-colors);

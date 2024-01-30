@@ -1,0 +1,13 @@
+<style>{{ source(style_certificate_edit_form) }}</style>
+<article{{ attributes }}>
+
+  <div{{ content_attributes }}>
+    {{
+      content
+        | without('uid')
+        | without('created')
+        | without('label')
+    }}
+  </div>
+
+</article>

@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user.pm_thread_preview
+    - field.field.user.user.field_created_by
+    - field.field.user.user.field_first_name
+    - field.field.user.user.field_last_name
+    - field.field.user.user.field_private_profile
+    - field.field.user.user.user_picture
+  module:
+    - user
+id: user.user.pm_thread_preview
+targetEntityType: user
+bundle: user
+mode: pm_thread_preview
+content:
+  linked_username:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_created_by: true
+  field_first_name: true
+  field_last_name: true
+  field_private_profile: true
+  langcode: true
+  member_for: true
+  private_message_link: true
+  search_api_excerpt: true
+  user_picture: true

@@ -1,0 +1,17 @@
+uuid: 41334954-c521-4853-886c-464e34346a4d
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.opigno_class
+  enforced:
+    config:
+      - user.role.engineer
+id: opigno_class-b7c012e4f
+label: Engineer
+weight: 3
+internal: true
+audience: outsider
+group_type: opigno_class
+permissions_ui: false
+permissions: {  }

@@ -1,0 +1,20 @@
+uuid: 2bdd0705-0bb1-47a6-bd0c-11c6285d1c0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.learning_path
+_core:
+  default_config_hash: GWjQWHSWIvu1sQFKLYbDBmGeA-0ih0NBV5RvBkEr8Zw
+id: learning_path-member
+label: Member
+weight: -100
+internal: true
+audience: member
+group_type: learning_path
+permissions_ui: true
+permissions:
+  - 'leave group'
+  - 'update own group_membership content'
+  - 'view group'
+  - 'view own results'

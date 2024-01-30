@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Theme implementation for Opigno community entity (teaser display mode).
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div id="opigno-community-teaser-{{ id }}" class="community-teaser-item content-box">
+  <a class="community-teaser-item__link" href="{{ url }}">
+    <span class="community-teaser-item__image">
+      {{ picture }}
+    </span>
+
+    <span class="community-teaser-item__content">
+      <h2 class="content-box__title">{{ content.title }}</h2>
+      {{ content.description }}
+    </span>
+  </a>
+
+  <div class="community-teaser-item__action">{{ content.extra_field_community_user_actions }}</div>
+</div>

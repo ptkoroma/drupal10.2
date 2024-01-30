@@ -1,0 +1,78 @@
+.views-exposed-form.bef-exposed-form.contextual-region.block-views_exposed_filter_block.block-views_exposed_filter_block-opigno_training_catalog-training_catalogue#block-opigno-training-catalog-filter
+  form.views-exposed-form#views-exposed-form-opigno-training-catalog-training-catalogue(action="#")
+    .clearfix#catalog-filter-parent
+      .form-items-group
+        .js-form-item.form-item.js-form-type-textfield.form-item-label.js-form-item-label
+          input.form-search.form-text(type="search" placeholder="Search")
+        input.form-submit(type="submit")
+        button.show-filter
+          i.fi.fi-rr-filter
+          | Filter
+
+      #catalog-filter
+        .filter-section-title.d-lg-none
+          a.close-btn(href="#")
+            i.fi.fi-rr-angle-small-left
+            | Back
+
+          h2 Filters
+
+        fieldset#edit-opigno-group-membership--2--wrapper.fieldgroup.form-composite.required.js-form-item.form-item.js-form-wrapper.form-wrapper(required="required" aria-required="true")
+          legend
+            span.fieldset-legend.js-form-required.form-required Visibility
+
+          .fieldset-wrapper
+            #edit-opigno-group-membership--2
+              .js-form-item.form-item.js-form-type-checkbox.form-item-opigno-group-membership.js-form-item-opigno-group-membership.form-group
+                input.form-checkbox#edit-opigno-group-membership-0--2(type="checkbox" name="opigno_group_membership" value="0" checked="checked")
+                label(for="edit-opigno-group-membership-0--2") My training (3)
+
+        fieldset#edit-field-learning-path-category-target-id--2--wrapper.fieldgroup.form-composite.js-form-item.form-item.js-form-wrapper.form-wrapper
+          legend
+            span.fieldset-legend.js-form-required.form-required Categories
+
+          .fieldset-wrapper
+            #edit-field-learning-path-category-target-id--2
+              .form-checkboxes
+                .js-form-item.form-item.js-form-type-checkbox.form-item-field-learning-path-category-target-id.js-form-item-field-learning-path-category-target-id.form-group
+                  input.form-checkbox#edit-field-learning-path-category-target-id-all--2(type="checkbox" name="field_learning_path_category_target_id" value="All")
+                  label(for="edit-field-learning-path-category-target-id-all--2") Photography (10)
+
+                .js-form-item.form-item.js-form-type-checkbox.form-item-field-learning-path-category-target-id.js-form-item-field-learning-path-category-target-id.form-group
+                  input.form-checkbox#edit-field-learning-path-category-target-id-24--2(type="checkbox" name="field_learning_path_category_target_id" value="24")
+                  label(for="edit-field-learning-path-category-target-id-24--2") Technology (5)
+
+                .js-form-item.form-item.js-form-type-checkbox.form-item-field-learning-path-category-target-id.js-form-item-field-learning-path-category-target-id.form-group
+                  input.form-checkbox#edit-field-learning-path-category-target-id-85--2(type="checkbox" name="field_learning_path_category_target_id" value="85")
+                  label(for="edit-field-learning-path-category-target-id-85--2") Mechanical (12)
+
+        fieldset#edit-field-learning-path-stat-target-id--2--wrapper.fieldgroup.form-composite.js-form-item.form-item.js-form-wrapper.form-wrapper
+          legend
+            span.fieldset-legend.js-form-required.form-required Status
+
+          .fieldset-wrapper
+            #edit-field-learning-path-stat-target-id--2
+              .form-checkboxes
+                .js-form-item.form-item.js-form-type-checkbox.form-item-field-learning-path-category-target-id.js-form-item-field-learning-path-category-target-id.form-group
+                  input.form-checkbox#edit-field-learning-path-stat-target-id-all--2(disabled="disabled" type="checkbox" name="field_learning_path_category_target_id" value="All")
+                  label.option(for="edit-field-learning-path-stat-target-id-all--2") Finished (0)
+
+                .js-form-item.form-item.js-form-type-checkbox.form-item-field-learning-path-category-target-id.js-form-item-field-learning-path-category-target-id.form-group
+                  input.form-checkbox#edit-field-learning-path-stat-target-id-24--2(type="checkbox" name="field_learning_path_category_target_id" value="24")
+                  label.option(for="edit-field-learning-path-stat-target-id-24--2") In progress (x)
+
+                .js-form-item.form-item.js-form-type-checkbox.form-item-field-learning-path-category-target-id.js-form-item-field-learning-path-category-target-id.form-group
+                  input.form-checkbox#edit-field-learning-path-stat-target-id-85--2(type="checkbox" name="field_learning_path_category_target_id" value="85")
+                  label.option(for="edit-field-learning-path-stat-target-id-85--2") To start (x)
+
+                .js-form-item.form-item.js-form-type-checkbox.form-item-field-learning-path-category-target-id.js-form-item-field-learning-path-category-target-id.form-group
+                  input.form-checkbox#edit-field-learning-path-stat-target-id-85--3(type="checkbox" name="field_learning_path_category_target_id" value="85")
+                  label.option(for="edit-field-learning-path-stat-target-id-85--3") Success (x)
+
+                .js-form-item.form-item.js-form-type-checkbox.form-item-field-learning-path-category-target-id.js-form-item-field-learning-path-category-target-id.form-group
+                  input.form-checkbox#edit-field-learning-path-stat-target-id-85--4(type="checkbox" name="field_learning_path_category_target_id" value="85")
+                  label.option(for="edit-field-learning-path-stat-target-id-85--4") Failed (x)
+
+        .form-actions.js-form-wrapper.form-wrapper#edit-actions
+          a.btn.btn-rounded.btn-reset-filter Reset filter
+          input.button.js-form-submit.form-submit.btn.btn-bg.btn-rounded#edit-submit-opigno-training-catalog--2(value="Apply" type="submit")

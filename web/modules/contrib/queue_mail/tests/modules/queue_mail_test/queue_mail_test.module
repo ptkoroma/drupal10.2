@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Module for testing the Queue Mail module.
+ */
+
+use Drupal\queue_mail_test\Plugin\Mail\QueueMailTestMailCollector;
+
+/**
+ * Implements hook_mail().
+ */
+function queue_mail_test_mail($key, &$message, $params) {
+  $message['body'][] = $params['content'];
+  if ($key === 'skipped') {
+    $message['send'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_queue_mail_send_alter().
+ */
+function queue_mail_test_queue_mail_send_alter(&$message) {
+  if ($message['key'] === 'cancel_message') {
+    $message['send'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_mail_backend_info_alter().
+ */
+function queue_mail_test_mail_backend_info_alter(&$info) {
+  $info['test_mail_collector']['class'] = QueueMailTestMailCollector::class;
+}

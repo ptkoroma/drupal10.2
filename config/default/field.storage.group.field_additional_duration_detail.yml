@@ -1,0 +1,21 @@
+uuid: 0c3ac094-f50d-4445-9872-392d00218b59
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.field_additional_duration_detail
+field_name: field_additional_duration_detail
+entity_type: group
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

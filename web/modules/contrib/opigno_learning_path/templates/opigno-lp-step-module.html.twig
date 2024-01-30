@@ -1,0 +1,34 @@
+{#
+/**
+ * #state -
+ * #link -
+ * #locked -
+ * activity_counter -
+ * activities -
+ * step -
+ */
+#}
+{% set locked = elements['#locked'] %}
+{% set state = elements['#state'] ?? 'pending' %}
+{% set current = elements['#current'] == true ? 'current' : '' %}
+<div {{ attributes.addClass('opigno-lp-step-module', current) }}>
+  {% if locked %}
+    <i class="fi fi-rr-lock"></i>
+  {% endif %}
+  <h4 class="module-title {{ elements['#current'] == true ? 'open' : '' }}">
+    <span class="state {{ state }}"></span>
+    {%  if elements["#link"] %}
+      <a href="{{ elements["#link"] }}">
+        {{ elements.step.name }}
+      </a>
+    {% else %}
+      {{ elements.step.name }}
+    {%  endif %}
+  </h4>
+  <div class="passed-activities">{{ elements.activity_counter }}</div>
+  <div class="activities-list {{ locked ? 'locked' : '' }}">
+    {% for activity in elements.activities %}
+      {{ activity }}
+    {% endfor %}
+  </div>
+</div>

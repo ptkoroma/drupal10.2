@@ -1,0 +1,42 @@
+$file-icons: (
+  odp-file: 'file-ext-odp',
+  ods-file: 'file-ext-ods',
+  odt-file: 'file-ext-odt',
+  pps-file: 'file-ext-pps',
+  pptx-file: 'file-ext-pptx',
+  ppt-file: 'file-ext-ppt',
+  pdf-file: 'file-ext-pdf',
+  xlsx-file: 'file-ext-xlsx',
+  xls-file: 'file-ext-xls',
+  docx-file: 'file-ext-docx',
+  doc-file: 'file-ext-doc',
+  txt-file: 'file-ext-txt',
+);
+
+#folder-content-container {
+  .media-with-icon {
+    .tft-file a {
+      display: flex;
+      align-items: center;
+      margin-left: -20px;
+
+      &:before {
+        @include icon-base();
+        @include font-size(28px);
+        color: $black;
+        opacity: .9;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  @each $icon, $class in $file-icons {
+    .#{$class} {
+      .tft-file a {
+        &:before {
+          content: icon($icon);
+        }
+      }
+    }
+  }
+}

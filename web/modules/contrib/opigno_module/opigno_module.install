@@ -1,0 +1,472 @@
+<?php
+
+/**
+ * @file
+ * Opigno module app install/update functionality.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+use Drupal\opigno_module\Form\ModuleH5PAdminSettingsForm;
+use Drupal\opigno_module\Traits\FileSecurity;
+
+/**
+ * Implements hook_schema().
+ */
+function opigno_module_schema() {
+  // Create the opigno module relationship table.
+  $schema['opigno_module_relationship'] = [
+    'description' => 'Table storing what activities belong to what modules',
+    'fields' => [
+      'omr_id' => [
+        'type' => 'serial',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The primary identifier of this relationship.',
+      ],
+      'omr_pid' => [
+        'type' => 'int',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => 'The parent relationship of this relationship.',
+      ],
+      'parent_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The Module that this activity belongs to.',
+      ],
+      'parent_vid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The Module version that this activity belongs to.',
+      ],
+      'child_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The Activity ID.',
+      ],
+      'child_vid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The Activity version ID.',
+      ],
+      'activity_status' => [
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+        'description' => 'The status of the Activity in this Module. 0=random, 1=always',
+      ],
+      'weight' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The weight of this Activity in the Module.',
+      ],
+      'max_score' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The max score of the Activity in this Module.',
+      ],
+      'auto_update_max_score' => [
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Boolean indicating whether updates to the Activity will update the max score of the Activity in the Module.',
+      ],
+      'group_id' => [
+        'type' => 'int',
+        'size' => 'normal',
+        'description' => "Training ID",
+      ],
+    ],
+    'primary key' => ['omr_id'],
+    'unique keys' => [
+      'parent_child' => [
+        'parent_id',
+        'parent_vid',
+        'child_id',
+        'child_vid',
+      ],
+    ],
+    'indexes' => [
+      'parent_vid' => ['parent_vid'],
+      'child_vid' => ['child_vid'],
+      'parent_id' => ['parent_id'],
+      'child_id' => ['child_id'],
+      'group_id' => ['group_id'],
+    ],
+  ];
+
+  $schema['opigno_module_result_options'] = [
+    'description' => 'Table storing result options for module.',
+    'fields' => [
+      'option_id' => [
+        'type' => 'serial',
+        'size' => 'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The primary identifier for the range.',
+      ],
+      'module_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Module identifier.',
+      ],
+      'module_vid' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Module revision identifier.',
+      ],
+      'option_start' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0,
+        'description' => 'Score range low value.',
+      ],
+      'option_end' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 0,
+        'description' => 'Score range high value.',
+      ],
+      'option_name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'The name of this range.',
+      ],
+      'option_summary' => [
+        'type' => 'text',
+        'description' => 'The text to show when this range is met.',
+      ],
+      'option_summary_format' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'Text format of the range text.',
+      ],
+    ],
+    'primary key' => ['option_id'],
+    'indexes' => [
+      'module_id' => ['module_id', 'module_vid'],
+    ],
+  ];
+
+  $schema['opigno_module_badges'] = [
+    'description' => 'Opigno Module Badges',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'description' => 'User ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'gid' => [
+        'description' => 'Training ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'entity_id' => [
+        'description' => 'Entity ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'typology' => [
+        'description' => 'Typology',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'badges' => [
+        'description' => 'Badges count',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'uid' => ['uid'],
+      'gid' => ['gid'],
+      'entity_id' => ['entity_id'],
+      'typology' => ['typology'],
+    ],
+    'foreign keys' => [
+      'users' => ['uid' => 'uid'],
+      'entity_id' => ['entity_id'],
+      'typology' => ['typology'],
+    ],
+  ];
+
+  // Create table for skills statistic.
+  $schema['opigno_skills_statistic'] = [
+    'description' => 'Opigno Skills Statistic',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+      ],
+      'tid' => [
+        'description' => 'Term ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'description' => 'User ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'score' => [
+        'description' => 'Score',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'progress' => [
+        'description' => 'Progress',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'stage' => [
+        'description' => 'Stage',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function opigno_module_install() {
+  // Give an access to specific Opigno module permissions.
+  $issueAccessPermissions = [
+    RoleInterface::AUTHENTICATED_ID => [
+      'view published module entities',
+      'access editor',
+    ],
+    'content_manager' => [
+      'access media_entity_browser_badge_images entity browser pages',
+    ],
+  ];
+
+  foreach ($issueAccessPermissions as $role => $permissions) {
+    $role = Role::load($role);
+    if (!$role instanceof RoleInterface) {
+      continue;
+    }
+
+    foreach ($permissions as $permission) {
+      $role->grantPermission($permission);
+    }
+
+    try {
+      $role->save();
+    }
+    catch (EntityStorageException $e) {
+      watchdog_exception('opigno_module_exception', $e);
+    }
+  }
+
+  $not_recommended = ModuleH5PAdminSettingsForm::disabledByDefault();
+  $config = \Drupal::service('config.factory')->getEditable('opigno_module.settings');
+  $config->set('disabled_h5p', array_values($not_recommended));
+  $config->save();
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function opigno_module_requirements($phase) {
+  $requirements = [];
+  $message = t('pdf.js library is not installed. Please install it from <a href="@library">here</a> and place in <em>libraries/</em> folder', ['@library' => 'http://mozilla.github.io/pdf.js/getting_started/']);
+  $pdf_js_library = file_exists('libraries/pdf.js/build/pdf.js') && file_exists('libraries/pdf.js/build/pdf.worker.js');
+
+  if ($phase == 'runtime') {
+    if (!$pdf_js_library) {
+      $requirements += [
+        'opigno_module' => [
+          'title' => t('Slide activity'),
+          'value' => $message,
+          'severity' => REQUIREMENT_ERROR,
+        ],
+      ];
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Update views 'groups list'.
+ */
+function opigno_module_update_9001() {
+  _opigno_module_apply_update('opigno_module', 'config/optional', ['views.view.groups_list']);
+  _opigno_module_apply_update('opigno_module', 'config/rewrite', ['views.view.user_admin_people']);
+}
+
+/**
+ * Configs update helper function.
+ */
+function _opigno_module_apply_update($name, $path, $ymls) {
+  $theme_path = sprintf("%s/%s/", \Drupal::service('extension.list.module')->getPath($name), $path);
+  $config_factory = \Drupal::configFactory();
+  $config_storage = \Drupal::service('config.storage');
+  $configs = [];
+  foreach ($ymls as $yml) {
+    $configs[$yml] = $theme_path;
+  }
+  foreach ($configs as $config => $config_path) {
+    $source = new FileStorage($config_path);
+    $data = $source->read($config);
+    if (is_array($data)) {
+      $config_factory->getEditable($config)->setData($data)->save(TRUE);
+      $config_storage->write($config, $data);
+    }
+    else {
+      \Drupal::messenger()->addWarning(t('Incorrect data of @config', ['@config' => $config]));
+    }
+  }
+}
+
+/**
+ * Added htaccess to Opigno folders.
+ */
+function opigno_module_update_9002() {
+  // Get all list of exising opigno folders.
+  if ($files = \Drupal::service('file_system')
+    ->scanDirectory('public://', '/(opigno.*)|(external_package_extracted)/', ['recurse' => FALSE])) {
+    foreach ($files as $file) {
+      if (is_dir($file->uri)) {
+        // Check if for some reason htaccess already exists,
+        // could be a potential risk of script execution.
+        $subfiles = @scandir($file->uri, SCANDIR_SORT_NONE);
+        if (is_array($subfiles)) {
+          foreach ($subfiles as $subfile) {
+            if ($subfile === '.htaccess') {
+              $file_path = $file->uri . '/' . $subfile;
+              // Delete existing htaccess.
+              \Drupal::service('file_system')->unlink($file_path);
+            }
+          }
+        }
+
+        // Apply a new htaccess that blocks all execution.
+        FileSecurity::writeHtaccess($file->uri, TRUE);
+      }
+    }
+  }
+}
+
+/**
+ * Add a reference between user module status and LP status.
+ */
+function opigno_module_update_9003() {
+  // Add the field to count the number of activities that had been restarted in
+  // the module attempt.
+  $schema = \Drupal::database()->schema();
+  $table = 'user_module_status';
+  $field = 'lp_status';
+  if ($schema->fieldExists($table, $field)) {
+    return;
+  }
+
+  $schema->addField($table, $field, [
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => FALSE,
+    'default' => NULL,
+    'description' => 'The learning path status entity the current module attempt belongs to',
+  ]);
+
+  $definition = BaseFieldDefinition::create('entity_reference')
+    ->setLabel(t('Learning path status'))
+    ->setDescription(t('The learning path status entity the current module attempt belongs to'))
+    ->setSetting('target_type', 'user_lp_status')
+    ->setSetting('target_bundles', ['user_lp_status' => 'user_lp_status']);
+
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $update_manager->installFieldStorageDefinition('lp_status', 'user_module_status', 'opigno_module', $definition);
+}
+
+/**
+ * Set the latest user LP attempt to module status entities.
+ */
+function opigno_module_update_9004(&$sandbox) {
+  // Get the list of users who have at least one LP status entity.
+  $db = \Drupal::database();
+  $uids = $db->select('user_lp_status', 'uls')
+    ->fields('uls', ['uid'])
+    ->condition('uls.uid', 0, '!=')
+    ->distinct()
+    ->execute()
+    ->fetchCol();
+  if (!$uids) {
+    return;
+  }
+
+  // For every user get the latest LP status for every training group.
+  foreach ($uids as $uid) {
+    $lp_statuses_query = $db->select('user_lp_status', 'uls');
+    $lp_statuses_query->addExpression('MAX(uls.id)', 'latest_lp_attempt_id');
+    $lp_statuses = $lp_statuses_query->fields('uls', ['gid'])
+      ->condition('uls.uid', $uid)
+      ->groupBy('uls.gid')
+      ->execute()
+      ->fetchAllKeyed();
+
+    // Update user module status entities, fill the reference between module
+    // attempt and the latest LP attempt.
+    foreach ($lp_statuses as $gid => $lp_status_id) {
+      $db->update('user_module_status')
+        ->fields(['lp_status' => $lp_status_id])
+        ->condition('user_id', $uid)
+        ->condition('learning_path', $gid)
+        ->isNull('lp_status')
+        ->execute();
+    }
+  }
+}
+
+/**
+ * Update dependencies.
+ */
+function opigno_module_update_dependencies() {
+  $dependencies['opigno_module'][9003] = [
+    'opigno_module' => 9004,
+  ];
+
+  return $dependencies;
+}

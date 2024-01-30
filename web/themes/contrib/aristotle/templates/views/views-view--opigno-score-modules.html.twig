@@ -1,0 +1,6 @@
+{% extends "views-view.html.twig" %}
+{% block title %}
+  {% if view.title and display_id != 'opigno_not_evaluated' %}
+    <h2 class="content-box__title">{{ view.title|raw }}</h2>
+  {% endif %}
+{% endblock %}

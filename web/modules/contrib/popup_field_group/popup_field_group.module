@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Adds ability to display field group children in a popup.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function popup_field_group_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+
+    case 'help.page.popup_field_group':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Adds ability to display field group children in a popup.') . '</p>';
+      $output .= '<h3>' . t('Features') . '</h3>';
+      $output .= '<p>' . t('"Open popup" link:');
+      $output .= '<ul>';
+      $output .= '<li>' . t('Show or hide link') . '</li>';
+      $output .= '<li>' . t('Set link text and CSS classes') . '</li>';
+      $output .= '</ul></p>';
+      $output .= '<p>' . t('Set Popup title and close button caption') . '</p>';
+      $output .= '<p>' . t('Setup popup:');
+      $output .= '<ul>';
+      $output .= '<li>' . t('Is it modal') . '</li>';
+      $output .= '<li>' . t('Set dialog holder CSS class') . '</li>';
+      $output .= '<li>' . t('Set height and width of a popup') . '</li>';
+      $output .= '<li>' . t('Set popup position') . '</li>';
+      $output .= '<li>' . t('Choose to which dom element append a popup') . '</li>';
+      $output .= '</ul></p>';
+      $output .= '<h3>' . t('How to use') . '</h3>';
+      $output .= '<ol>';
+      $output .= '<li>' . t('Go to entity "Manage display" or "Manage form display" page') . '</li>';
+      $output .= '<li>' . t('Click "+ Add group" button') . '</li>';
+      $output .= '<li>' . t('In a "Add a new group" dropdown choose "Popup" value, add some label and click "Save and continue" button') . '</li>';
+      $output .= '<li>' . t('Setup your popup and click "Create group" button') . '</li>';
+      $output .= '<li>' . t('Move added field group to needed position (among fields)') . '</li>';
+      $output .= '<li>' . t('Move fields to added field group') . '</li>';
+      $output .= '<li>' . t('Click "Save" button') . '</li>';
+      $output .= '</ol>';
+
+      return $output;
+  }
+
+}

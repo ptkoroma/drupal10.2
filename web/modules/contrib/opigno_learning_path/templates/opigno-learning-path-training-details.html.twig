@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the training details.
+ *
+ * Available variables:
+ * - group_id: The Group id.
+ */
+#}
+<div id="{{ 'training_steps_' ~ group_id }}" class="lp_details"></div>
+<div class="lp_details_show" data-training="{{ group_id }}">
+  <span class="lp_details_show_text">{{ 'Show details'|t }}</span>
+</div>
+<div class="lp_details_hide">
+  <span class="lp_details_hide_text">{{ 'Hide details'|t }}</span>
+</div>

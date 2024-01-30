@@ -1,0 +1,22 @@
+uuid: d0ea9ddc-c0a2-410b-96e5-ee341e756e4a
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - user
+_core:
+  default_config_hash: ICM3p3s3SOLuWXDojkq677hCa7fRcSWm1r-Q95U85XU
+id: media.tft_members
+field_name: tft_members
+entity_type: media
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

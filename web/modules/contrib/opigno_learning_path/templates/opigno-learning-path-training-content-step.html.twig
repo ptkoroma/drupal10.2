@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the training content elements.step.
+ *
+ * Available variables:
+ * - elements.step: The elements.step object with all the data.
+ * - group: The Group object which the elements.steps is part of.
+ */
+#}
+{{ elements.step.summary_details_table }}
+{% if elements.step.course_steps %}
+<tr>
+  <td colspan="{{ elements.step.colspan }}">
+    <div class="inner-table">
+      <table class="statistics-table table-striped responsive-enabled table table-hover" data-striping="1">
+        {{ elements.step.course_steps }}
+      </table>
+    </div>
+  </td>
+</tr>
+{% endif %}

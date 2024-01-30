@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: community_main_image
+label: 'Community main image (388x221)'
+effects:
+  1cbf6d87-3d5f-40c4-a5bc-91ed0093d3a3:
+    uuid: 1cbf6d87-3d5f-40c4-a5bc-91ed0093d3a3
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 388
+      height: 221
+      anchor: center-center

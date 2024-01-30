@@ -1,0 +1,49 @@
+{% set value = status.class %}
+{% set classes = { passed: 'icon_state_passed', pending: 'icon_state_pending', failed: 'icon_state_failed' } %}
+{% set icons = { passed: 'check', pending: 'menu-dots', failed: 'cross' } %}
+<tr>
+  <td class="mandatory">
+    <i class="fi {{ mandatory ? 'fi-rr-star' : ''}}"></i>
+  </td>
+  <td class="type">
+    <span>{{ type }}</span>
+  </td>
+  <td class="steps">
+    <h4>{{ steps }}</h4>
+  </td>
+  <td class="status">
+    <span class="{{ ['icon_state',classes[value]]|join(' ') }}">
+      <i class="{{ ['fi','fi-rr-' ~ icons[value]]|join(' ') }}"></i>
+      <span>{{ value | title }}</span>
+    </span>
+  </td>
+  <td class="progress">
+    <div class="learning-path-progress d-flex flex-column progress-bar-mini">
+      <div class="progress-content">
+        <div class="progress-value">
+          {{ progress }}
+        </div>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-progress" style="width: {{ progress }};"></div>
+      </div>
+    </div>
+  </td>
+
+  {% if display_action or action %}
+    <td class="action">
+      <span>{{ action }}</span>
+    </td>
+  {% endif %}
+
+  <td>
+    {% if substeps %}
+      <div class="details-wrapper">
+        <a href="#" class="details-btn">
+          <i class="fi fi-rr-angle-small-down"></i>
+        </a>
+      </div>
+    {% endif %}
+  </td>
+</tr>

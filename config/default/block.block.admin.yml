@@ -1,0 +1,29 @@
+uuid: a36ad61a-dc1d-4fd1-862b-1488ee6ffb50
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.system-administration
+  module:
+    - system
+  theme:
+    - aristotle
+id: admin
+theme: aristotle
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:system-administration'
+settings:
+  id: 'system_menu_block:system-administration'
+  label: Admin
+  label_display: visible
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: "/admin\r\n/admin/*"

@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present user data ("Compact" view mode).
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'. Fields attached to a user
+ *   such as 'user_picture' are available as 'content.user_picture'.
+ * - attributes: HTML attributes for the container element.
+ * - user: A Drupal User entity.
+ *
+ * @see template_preprocess_user()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<a {{ attributes.addClass('btn') }} href="{{ url }}">
+  <span class="profile-pic">{{ user_picture }}</span>
+  <span class="body">
+    <span class="name">{{ user.getDisplayName }}</span>
+    {% if user_role is not empty %}
+      <span class="type">{{ user_role }}</span>
+    {% endif %}
+  </span>
+</a>

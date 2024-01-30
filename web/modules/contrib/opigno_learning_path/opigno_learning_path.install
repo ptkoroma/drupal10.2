@@ -1,0 +1,648 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the module.
+ */
+
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\group\Entity\GroupInterface;
+use Drupal\opigno_learning_path\LearningPathAccess;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ */
+function opigno_learning_path_install() {
+  // Create database tables for Learning Path.
+  LearningPathAccess::createUserStatusTable();
+  _opigno_learning_path_create_achievements_table();
+  _opigno_learning_path_create_step_achievements_table();
+  _opigno_learning_path_create_lp_module_availability_table();
+  _opigno_learning_path_create_user_lp_status_table();
+  _opigno_learning_path_create_user_lp_status_expire_table();
+
+  // Grant additional users permissions.
+  $roles = [
+    'content_manager' => ['access contextual links', 'bypass group access'],
+    'user_manager' => ['access contextual links'],
+    RoleInterface::AUTHENTICATED_ID => ['dropzone upload files'],
+  ];
+
+  foreach ($roles as $role => $permissions) {
+    $role = Role::load($role);
+    if (!$role instanceof RoleInterface) {
+      continue;
+    }
+
+    foreach ($permissions as $permission) {
+      $role->grantPermission($permission);
+    }
+
+    try {
+      $role->save();
+    }
+    catch (EntityStorageException $e) {
+      watchdog_exception('opigno_learning_path_exception', $e);
+    }
+  }
+
+  // Checking if the lp_status fields definition is not exist.
+  // In case of the fresh install, according to order of the modules
+  // installation, the opigno_module can be enabled before this one.
+  $definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+  if (!($definition_update_manager->getFieldStorageDefinition('lp_status', 'user_module_status'))) {
+    // Add a reference to LP status entity.
+    $definition = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Learning path status'))
+      ->setDescription(t('The learning path status entity the current module attempt belongs to'))
+      ->setSetting('target_type', 'user_lp_status')
+      ->setSetting('target_bundles', ['user_lp_status' => 'user_lp_status']);
+
+    $definition_update_manager->installFieldStorageDefinition('lp_status', 'user_module_status', 'opigno_module', $definition);
+  }
+}
+
+/**
+ * Creates achievements table.
+ */
+function _opigno_learning_path_create_achievements_table() {
+  $schema = \Drupal::database()->schema();
+  $table_name = 'opigno_learning_path_achievements';
+  if (!$schema->tableExists($table_name)) {
+    $table = [
+      'description' => 'Training Achievements',
+      'fields' => [
+        'id' => [
+          'type' => 'serial',
+          'not null' => TRUE,
+        ],
+        'uid' => [
+          'description' => 'User ID',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'gid' => [
+          'description' => 'Training ID',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'name' => [
+          'description' => 'Training Name',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ],
+        'status' => [
+          'description' => 'Training Status',
+          'type' => 'varchar',
+          'length' => 20,
+          'not null' => TRUE,
+        ],
+        'score' => [
+          'description' => 'Training Score',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'progress' => [
+          'description' => 'Training Progress',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'time' => [
+          'description' => 'Time spent',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'registered' => [
+          'description' => 'Date of registration',
+          'type' => 'varchar',
+          'mysql_type' => 'datetime',
+          'not null' => TRUE,
+        ],
+        'completed' => [
+          'description' => 'Date of completion',
+          'type' => 'varchar',
+          'length' => 20,
+          'mysql_type' => 'datetime',
+          'not null' => FALSE,
+        ],
+      ],
+      'primary key' => ['id'],
+      'indexes' => [
+        'uid' => ['uid'],
+        'gid' => ['gid'],
+      ],
+      'foreign keys' => [
+        'users' => ['uid' => 'uid'],
+        'groups' => ['gid' => 'id'],
+      ],
+    ];
+    $schema->createTable($table_name, $table);
+  }
+}
+
+/**
+ * Creates step achievements table.
+ */
+function _opigno_learning_path_create_step_achievements_table() {
+  $schema = \Drupal::database()->schema();
+  $table_name = 'opigno_learning_path_step_achievements';
+  if (!$schema->tableExists($table_name)) {
+    $table = [
+      'description' => 'Training Step Achievements',
+      'fields' => [
+        'id' => [
+          'type' => 'serial',
+          'not null' => TRUE,
+        ],
+        'uid' => [
+          'description' => 'User ID',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'entity_id' => [
+          'description' => 'Step Entity ID',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'name' => [
+          'description' => 'Step Name',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ],
+        'typology' => [
+          'description' => 'Step Typology',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ],
+        'gid' => [
+          'description' => 'Parent Training Group ID',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'parent_id' => [
+          'description' => 'Step Parent ID',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+        ],
+        'position' => [
+          'description' => 'Position under the parent step or the training',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'status' => [
+          'description' => 'Step Status',
+          'type' => 'varchar',
+          'length' => 20,
+          'not null' => TRUE,
+        ],
+        'score' => [
+          'description' => 'Step Score',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'time' => [
+          'description' => 'Time spent',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'completed' => [
+          'description' => 'Date of completion',
+          'type' => 'varchar',
+          'length' => 20,
+          'mysql_type' => 'datetime',
+          'not null' => FALSE,
+        ],
+        'mandatory' => [
+          'description' => 'Is Mandatory',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+      ],
+      'primary key' => ['id'],
+      'indexes' => [
+        'uid' => ['uid'],
+        'gid' => ['gid'],
+      ],
+      'foreign keys' => [
+        'users' => ['uid' => 'uid'],
+        'groups' => ['gid' => 'id'],
+        'opigno_learning_path_step_achievements' => ['parent_id' => 'id'],
+      ],
+    ];
+    $schema->createTable($table_name, $table);
+  }
+}
+
+/**
+ * Creates the LP module availability table.
+ */
+function _opigno_learning_path_create_lp_module_availability_table() {
+  $database = \Drupal::database();
+  if (!$database->schema()->tableExists('lp_module_availability')) {
+    $entityTypeManager = \Drupal::entityTypeManager();
+    $entityTypeManager->clearCachedDefinitions();
+    $definition = $entityTypeManager->getDefinition('lp_module_availability');
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($definition);
+  }
+}
+
+/**
+ * Creates User Learning Path Status database table.
+ */
+function _opigno_learning_path_create_user_lp_status_table() {
+  $database = \Drupal::database();
+  if (!$database->schema()->tableExists('user_lp_status')) {
+    $entityTypeManager = \Drupal::entityTypeManager();
+    $entityTypeManager->clearCachedDefinitions();
+    $definition = $entityTypeManager->getDefinition('user_lp_status');
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($definition);
+  }
+}
+
+/**
+ * Creates User Learning Path Status expire database table.
+ */
+function _opigno_learning_path_create_user_lp_status_expire_table() {
+  $schema = \Drupal::database()->schema();
+  $table_name = 'user_lp_status_expire';
+  if (!$schema->tableExists($table_name)) {
+    $table = [
+      'description' => 'User Learning Path Status expire',
+      'fields' => [
+        'id' => [
+          'type' => 'serial',
+          'not null' => TRUE,
+        ],
+        'uid' => [
+          'description' => 'User ID',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'gid' => [
+          'description' => 'Training ID',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'latest_cert_date' => [
+          'description' => 'Latest re-certification timestamp',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'expire' => [
+          'description' => 'Expire timestamp',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'notified' => [
+          'description' => 'If user was notified',
+          'type' => 'int',
+          'size' => 'tiny',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'default' => 0,
+        ],
+      ],
+      'primary key' => ['id'],
+      'indexes' => [
+        'uid' => ['uid'],
+        'gid' => ['gid'],
+        'latest_cert_date' => ['latest_cert_date'],
+        'expire' => ['expire'],
+      ],
+    ];
+    $schema->createTable($table_name, $table);
+  }
+}
+
+/**
+ * Install additional modules.
+ */
+function opigno_learning_path_update_9001() {
+  \Drupal::service('module_installer')->install([
+    'opigno_user_selection',
+    'twig_field_value',
+  ]);
+}
+
+/**
+ * Create a step lp block for aristotle theme.
+ */
+function opigno_learning_path_update_9002() {
+  $config_path = \Drupal::service('extension.list.module')->getPath('opigno_learning_path') . '/config/optional';
+  /** @var Drupal\Core\Config\CachedStorage $config_storage */
+  $storage = new FileStorage($config_path);
+  $config_storage = \Drupal::service('config.storage');
+  $data = $storage->read('core.entity_view_display.group.learning_path.default');
+  $config_storage->write('core.entity_view_display.group.learning_path.default', $data);
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('core.entity_view_display.group.learning_path.default');
+  $config->setData($data);
+  $config->save(TRUE);
+}
+
+/**
+ * Replace the LP duration field with the taxonomy terms reference.
+ */
+function opigno_learning_path_update_9003() {
+  // Create duration terms from current duration values.
+  $durations = _opigno_learning_path_duration_terms_create();
+
+  // Remove the old "duration" field.
+  $instance = FieldConfig::loadByName('group', 'learning_path', 'field_learning_path_duration');
+  if (!empty($instance)) {
+    $instance->delete();
+  }
+  if ($storage = FieldStorageConfig::loadByName('group', 'field_learning_path_duration')) {
+    $storage->delete();
+  }
+
+  // Add taxonomy duration field.
+  $config_path = \Drupal::service('extension.list.module')->getPath('opigno_learning_path') . '/config/optional';
+  $storage = new FileStorage($config_path);
+
+  $data = $storage->read('field.storage.group.field_learning_path_duration');
+  if (!FieldStorageConfig::loadByName($data['entity_type'], $data['field_name'])) {
+    FieldStorageConfig::create($data)->save();
+  }
+
+  $data = $storage->read('field.field.group.learning_path.field_learning_path_duration');
+  if (!FieldConfig::loadByName($data['entity_type'], $data['bundle'], $data['field_name'])) {
+    FieldConfig::create($data)->save();
+  }
+
+  // Set the new field value.
+  if (!$durations) {
+    return;
+  }
+
+  drupal_flush_all_caches();
+  foreach ($durations as $item) {
+    $tid = $item['tid'];
+
+    /** @var \Drupal\group\Entity\GroupInterface $lp */
+    foreach ($item['lps'] as $lp) {
+      if (!$lp->hasField('field_learning_path_duration')) {
+        continue;
+      }
+
+      // For some reason $lp->set('field_learning_path_duration', $tid) doesn't
+      // work properly.
+      $lp->field_learning_path_duration->target_id = $tid;
+      try {
+        $lp->save();
+      }
+      catch (EntityStorageException $e) {
+        watchdog_exception('opigno_learning_path_exception', $e);
+      }
+    }
+  }
+}
+
+/**
+ * Create duration terms based on existing field values.
+ *
+ * @return array
+ *   The list of duration terms with related LPs.
+ */
+function _opigno_learning_path_duration_terms_create(): array {
+  try {
+    $storage = \Drupal::entityTypeManager()->getStorage('group');
+  }
+  catch (PluginNotFoundException | InvalidPluginDefinitionException $e) {
+    watchdog_exception('opigno_learning_path_exception', $e);
+    return [];
+  }
+
+  $lp_ids = $storage->getQuery()
+    ->condition('type', 'learning_path')
+    ->exists('field_learning_path_duration')
+    ->execute();
+
+  if (!$lp_ids) {
+    return [];
+  }
+
+  // Prepare the list of existing durations.
+  $durations = [];
+  $lps = $storage->loadMultiple($lp_ids);
+  foreach ($lps as $lp) {
+    if (!$lp instanceof GroupInterface) {
+      continue;
+    }
+
+    $duration = $lp->get('field_learning_path_duration')->getString();
+    if (!array_key_exists($duration, $durations)) {
+      $durations[$duration] = [];
+      $term = Term::create([
+        'vid' => 'duration',
+        'name' => $duration,
+      ]);
+
+      try {
+        $term->save();
+        $durations[$duration]['tid'] = $term->id();
+      }
+      catch (EntityStorageException $e) {
+        watchdog_exception('opigno_learning_path_exception', $e);
+        continue;
+      }
+    }
+
+    $durations[$duration]['lps'][] = $lp;
+  }
+
+  return $durations;
+}
+
+/**
+ * Import optional configs.
+ */
+function opigno_learning_path_update_9004() {
+  $config_path = \Drupal::service('extension.list.module')->getPath('opigno_learning_path') . '/config/optional';
+  $files = \Drupal::service('file_system')
+    ->scanDirectory($config_path, '/\.yml$/');
+
+  // Import arbitrary config from a variable.
+  $source = new FileStorage($config_path);
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = \Drupal::service('config.storage');
+  foreach ($files as $config) {
+    $config_storage->delete($config->name);
+    $config_storage->write($config->name, $source->read($config->name));
+  }
+  /** @var \Drupal\Core\Config\ConfigInstaller $installer */
+  $installer = \Drupal::service('config.installer');
+  $installer->installOptionalConfig($source);
+
+}
+
+/**
+ * Import updated LP configs.
+ */
+function opigno_learning_path_update_9005() {
+  module_load_include('install', 'opigno_module');
+  _opigno_module_apply_update('opigno_learning_path', 'config/install', [
+    'core.entity_view_display.group.learning_path.default',
+    'taxonomy.vocabulary.duration',
+    'field.storage.group.field_learning_path_duration',
+    'field.field.group.learning_path.field_learning_path_duration',
+    'views.view.opigno_group_members',
+    'views.view.latest_active_trainings',
+  ]);
+}
+
+/**
+ * Import LP steps block.
+ */
+function opigno_learning_path_update_9006() {
+  module_load_include('install', 'opigno_module');
+  _opigno_module_apply_update('opigno_learning_path', 'config/optional', ['block.block.lp_steps_block']);
+}
+
+/**
+ * Import LP steps block.
+ */
+function opigno_learning_path_update_9007() {
+  module_load_include('install', 'opigno_module');
+  _opigno_module_apply_update('opigno_learning_path', 'config/optional', ['block.block.lp_steps_block']);
+}
+
+/**
+ * Import user view block on lp member edit page.
+ */
+function opigno_learning_path_update_9008() {
+  module_load_include('install', 'opigno_module');
+  _opigno_module_apply_update('opigno_learning_path', 'config/install', ['views.view.opigno_group_members_table']);
+}
+
+/**
+ * Apply an image styles config.
+ */
+function opigno_learning_path_update_9009() {
+  module_load_include('install', 'opigno_module');
+  _opigno_module_apply_update('opigno_learning_path', 'config/install', [
+    'core.entity_view_display.group.learning_path.default',
+    'image.style.learning_path_thumbnail',
+  ]);
+  _opigno_module_apply_update('opigno_learning_path', 'config/optional', [
+    'image.style.learning_path_thumbnail',
+  ]);
+}
+
+/**
+ * Remove database records related to deleted groups.
+ */
+function opigno_learning_path_update_9011() {
+  // Add a new "finalized" field to the LPStatus entity.
+  $definition = BaseFieldDefinition::create('boolean')
+    ->setLabel(t('Finalizing status'))
+    ->setDescription(t('The LP attempt finalizing status.'))
+    ->setDefaultValue(FALSE);
+
+  \Drupal::entityDefinitionUpdateManager()->installFieldStorageDefinition(
+    'finalized',
+    'user_lp_status',
+    'opigno_learning_path',
+    $definition
+  );
+
+  // Set the "finalized" field value.
+  $db = \Drupal::database();
+  $db->update('user_lp_status')
+    ->fields(['finalized' => 1])
+    ->condition('finished', 0, '>')
+    ->execute();
+
+  $db->update('user_lp_status')
+    ->fields(['finalized' => 0])
+    ->condition('finished', 0)
+    ->execute();
+
+  // Remove database records related to deleted groups.
+  $database = \Drupal::database();
+
+  // Get existing group IDs.
+  $gids = $database->select('groups', 'g')
+    ->fields('g', ['id'])
+    ->execute()
+    ->fetchCol();
+
+  if (!$gids) {
+    return;
+  }
+
+  $tables = [
+    'opigno_learning_path_achievements' => 'gid',
+    'opigno_learning_path_step_achievements' => 'gid',
+    'user_lp_status_expire' => 'gid',
+    'opigno_learning_path_group_user_status' => 'gid',
+  ];
+
+  foreach ($tables as $table => $field) {
+    $database->delete($table)
+      ->condition($field, $gids, 'NOT IN')
+      ->execute();
+  }
+
+  // Remove related entities.
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_types = [
+    'user_lp_status' => 'gid',
+    'learning_path_content' => 'learning_path_id',
+    'learning_path_link' => 'learning_path_id',
+    'opigno_group_content' => 'group_id',
+    'opigno_group_link' => 'group_id',
+  ];
+
+  foreach ($entity_types as $entity_type => $field) {
+    // Get IDs of entities related to the deleted groups.
+    $ids = $database->select($entity_type, 'table')
+      ->fields('table', ['id'])
+      ->condition("table.$field", $gids, 'NOT IN')
+      ->execute()
+      ->fetchCol();
+
+    if (!$ids) {
+      continue;
+    }
+
+    // Delete entities.
+    $storage = $entity_type_manager->getStorage($entity_type);
+    $entities = $storage->loadMultiple($ids);
+    if ($entities) {
+      $storage->delete($entities);
+    }
+  }
+}

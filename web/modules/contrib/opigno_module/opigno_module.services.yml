@@ -1,0 +1,34 @@
+services:
+  opigno_module.opigno_module:
+    class: Drupal\opigno_module\Controller\OpignoModuleController
+    arguments:
+      - '@current_user'
+      - '@database'
+      - '@entity_type.manager'
+      - '@messenger'
+      - '@module_handler'
+      - '@opigno_group_manager.content_types.manager'
+      - '@request_stack'
+      - '@group.membership_loader'
+      - '@datetime.time'
+  plugin.manager.activity_answer:
+    class: Drupal\opigno_module\ActivityAnswerManager
+    parent: default_plugin_manager
+
+  opigno_module.route_subscriber:
+    class: Drupal\opigno_module\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  opigno_module.event_subscriber:
+    class: Drupal\opigno_module\EventSubscriber\QueryPathEventSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  opigno_module.expert_access_checker:
+    class: Drupal\opigno_module\Access\ExpertAccessCheck
+    arguments:
+      - '@current_user'
+      - '@database'
+    tags:
+      - { name: access_check, applies_to: _opigno_expert_access_check }

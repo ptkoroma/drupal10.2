@@ -1,0 +1,14 @@
+uuid: 73c6cb4f-8788-4f40-b06f-e2f19a27b5fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.engineer_sub_permission_1
+  module:
+    - user
+id: user_add_role_action.engineer_sub_permission_1
+label: 'Add the Engineer Sub Permission 1 role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: engineer_sub_permission_1

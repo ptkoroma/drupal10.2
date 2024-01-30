@@ -1,0 +1,200 @@
+# Send the user invitation.
+opigno_social.send_user_invitation:
+  path: '/ajax/opigno-user-invitation/send/{invitee}'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\UserConnectionsController::send'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Accept the user invitation.
+opigno_social.accept_user_invitation:
+  path: '/ajax/opigno-user-invitation/{owner}/accept'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\UserConnectionsController::accept'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Decline the user invitation.
+opigno_social.decline_user_invitation:
+  path: '/opigno-user-invitation/{owner}/decline/{invitee}'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\UserConnectionsController::decline'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Manage connections page.
+opigno_social.manage_connections:
+  path: '/manage-connections'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\UserConnectionsController::manageConnections'
+    _title: 'Manage connections'
+  requirements:
+    _role: 'authenticated'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Remove all social entities confirmation form.
+opigno_social.confirm_social_entities_removal:
+  path: '/admin/config/opigno/socialsettings/delete-connections'
+  defaults:
+    _form: '\Drupal\opigno_social\Form\RemoveSocialEntitiesConfirmForm'
+    _title: 'Remove social entities'
+  requirements:
+    _role: 'administrator'
+  options:
+    _admin_route: 'TRUE'
+
+# Render the comment form.
+opigno_social.show_comment_form:
+  path: '/ajax/opigno-social/post/{pid}/comment-form'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::getCommentForm'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Hide the post comments.
+opigno_social.hide_post_comments:
+  path: '/ajax/opigno-social/post/{pid}/hide-post-comments'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::hidePostComments'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+
+# Create the post comment.
+opigno_social.create_comment:
+  path: '/ajax/opigno-social/post/{pid}/comment'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::createComment'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Get the post comments block.
+opigno_social.get_post_comments:
+  path: '/ajax/opigno-social/post/{pid}/get-comments/{amount}'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::getPostComments'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Delete the comment.
+opigno_social.delete_post:
+  path: '/ajax/opigno-social/post/{post}/delete'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::deletePost'
+  options:
+    parameters:
+      post:
+        type: entity:opigno_post
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+    _entity_access: 'post.delete'
+
+# Hide the post for the current user.
+opigno_social.hide_post:
+  path: '/ajax/opigno-social/post/{pid}/hide'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::hidePost'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Pin/unpin the post for the current user.
+opigno_social.pin_post:
+  path: '/ajax/opigno-social/post/{post}/pin'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::pinPost'
+  options:
+    parameters:
+      post:
+        type: entity:opigno_post
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Ajax route to load more post comments.
+opigno_social.load_more_comments:
+  path: '/ajax/opigno-social/post/{pid}/load-more/{from}/{amount}'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::loadMoreComments'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Share the additional post content.
+opigno_social.share_post_content:
+  path: '/ajax/opigno-social/share-post-content'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::sharePostContent'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _opigno_social_features_enabled: 'TRUE'
+    _opigno_social_can_share_content: 'TRUE'
+
+# Get the shareable content of the given type.
+opigno_social.get_shareable_content:
+  path: '/ajax/opigno-social/get-shareable-content/{type}'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::getShareableContent'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Ajax route to create the post.
+opigno_social.create_post:
+  path: '/ajax/opigno-social/create/post'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::createPost'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _csrf_token: 'TRUE'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Ajax route to check if new posts were created after the last social wall access.
+opigno_social.check_new_posts:
+  path: '/ajax/opigno-social/check-new-posts'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::checkNewPosts'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _opigno_social_features_enabled: 'TRUE'
+
+# Ajax route to display posts that were created after the last social wall access.
+opigno_social.display_new_posts:
+  path: '/ajax/opigno-social/display-new-posts'
+  defaults:
+    _controller: '\Drupal\opigno_social\Controller\PostsController::displayNewPosts'
+  methods: ['POST']
+  requirements:
+    _role: 'authenticated'
+    _opigno_social_features_enabled: 'TRUE'

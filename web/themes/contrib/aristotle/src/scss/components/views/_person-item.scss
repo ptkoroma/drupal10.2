@@ -1,0 +1,218 @@
+.person-item {
+  background: $clr-gray-light;
+  border-radius: rem(10);
+
+  &:not(:last-child) {
+    margin-bottom: rem(20);
+  }
+
+  &__content {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: rem(7) rem(20);
+
+    .view-display-id-network & {
+      @include media-breakpoint-down(xs) {
+        .person-item__info {
+          max-width: calc(100% - 30px);
+        }
+      }
+    }
+
+    .view-user-connections & {
+      .person-item__info {
+        + div {
+          flex: 1 0 auto;
+        }
+      }
+
+      @include media-breakpoint-down(xs) {
+        align-items: normal;
+        flex-direction: column;
+
+        .person-item__info {
+          margin-bottom: rem(10);
+        }
+      }
+
+      .btn-connection {
+        flex: 0 0 auto;
+        min-width: rem(114);
+
+        &.accept {
+          background: $clr-desktop-button-color;
+
+          &:hover {
+            background: $clr-desktop-button-color-hover-primary;
+          }
+        }
+
+        &.decline {
+          border: 1px solid $clr-desktop-button-color;
+        }
+      }
+    }
+
+    .view-display-id-suggested & {
+      @include media-breakpoint-between(lg, lg) {
+        align-items: normal;
+        flex-direction: column;
+      }
+
+      @include media-breakpoint-down(xs) {
+        align-items: normal;
+        flex-direction: column;
+
+        .person-item__info {
+          margin-bottom: rem(10);
+        }
+      }
+    }
+  }
+
+  &__info {
+    align-items: center;
+    display: flex;
+
+    .profile-pic {
+      height: rem(60);
+      margin-right: rem(30);
+      min-width: rem(60);
+      width: rem(60);
+
+      @include media-breakpoint-down(xs) {
+        height: rem(45);
+        margin-right: rem(20);
+        min-width: rem(45);
+        width: rem(45);
+      }
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .name {
+      color: inherit;
+      font-size: rem(16);
+      font-weight: $font-weight-bold;
+      margin-bottom: 3px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+  }
+
+  &__actions {
+    align-items: center;
+    display: flex;
+
+    .btn-connection {
+      max-width: rem(148);
+    }
+
+    a:not([class]) {
+      align-items: center;
+      display: flex;
+      color: inherit;
+      text-decoration: none;
+
+      > .fi {
+        font-size: rem(24);
+        margin-right: rem(30);
+
+        @include media-breakpoint-down(xs) {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .ajax-progress {
+      display: none;
+    }
+  }
+
+  &__actions-invitations {
+    @include media-breakpoint-down(xs) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__actions-pending {
+    justify-content: flex-end;
+
+    @include media-breakpoint-between(lg, xl) {
+      align-items: flex-end;
+      flex-direction: column;
+    }
+
+    @include media-breakpoint-between(sm, sm) {
+      align-items: flex-end;
+      flex-direction: column;
+    }
+
+    .btn-connection {
+      flex: 1 0 auto;
+      margin-left: rem(20);
+
+      @include media-breakpoint-between(lg, xl) {
+        width: 100%;
+
+        + .btn-connection {
+          margin-top: rem(10);
+        }
+      }
+
+      @include media-breakpoint-between(sm, sm) {
+        width: 100%;
+
+        + .btn-connection {
+          margin-top: rem(10);
+        }
+      }
+    }
+  }
+
+  &__actions-invite {
+    flex: 1 0 auto;
+    justify-content: flex-end;
+
+    .btn-connection {
+      margin-left: rem(20);
+      min-width: rem(114);
+
+      &.accept {
+        background: $clr-desktop-button-color;
+
+        &:hover {
+          background: $clr-desktop-button-color-hover-primary;
+        }
+      }
+
+      &.decline {
+        border: 1px solid $clr-desktop-button-color;
+      }
+
+      @include media-breakpoint-between(lg, xl) {
+        width: 100%;
+
+        + .btn-connection {
+          margin-top: rem(10);
+        }
+      }
+
+      @include media-breakpoint-between(sm, sm) {
+        width: 100%;
+
+        + .btn-connection {
+          margin-top: rem(10);
+        }
+      }
+    }
+  }
+}

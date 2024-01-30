@@ -1,0 +1,48 @@
+uuid: 3d21ff32-3987-48d2-bfc5-89253a67842e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.cpd_reflection_non_catalogued_.field_activity_
+    - field.field.node.cpd_reflection_non_catalogued_.field_completed
+    - field.field.node.cpd_reflection_non_catalogued_.field_discussion_outcome_if_any_
+    - field.field.node.cpd_reflection_non_catalogued_.field_how_does_this_learning_act
+    - field.field.node.cpd_reflection_non_catalogued_.field_i_am_able_to_apply_this_le
+    - field.field.node.cpd_reflection_non_catalogued_.field_i_have_disucussed_this_lea
+    - field.field.node.cpd_reflection_non_catalogued_.field_i_will_need_the_following_
+    - field.field.node.cpd_reflection_non_catalogued_.field_reasons_i_am_unable_to_app
+    - field.field.node.cpd_reflection_non_catalogued_.field_upload_supporting_document
+    - field.field.node.cpd_reflection_non_catalogued_.field_user_id
+    - field.field.node.cpd_reflection_non_catalogued_.field_what_did_i_learn_from_this
+    - node.type.cpd_reflection_non_catalogued_
+  module:
+    - user
+id: node.cpd_reflection_non_catalogued_.teaser
+targetEntityType: node
+bundle: cpd_reflection_non_catalogued_
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_activity_: true
+  field_completed: true
+  field_discussion_outcome_if_any_: true
+  field_how_does_this_learning_act: true
+  field_i_am_able_to_apply_this_le: true
+  field_i_have_disucussed_this_lea: true
+  field_i_will_need_the_following_: true
+  field_reasons_i_am_unable_to_app: true
+  field_upload_supporting_document: true
+  field_user_id: true
+  field_what_did_i_learn_from_this: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

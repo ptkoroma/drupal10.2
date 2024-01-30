@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function opigno_like_uninstall() {
+  $schema = \Drupal::database()->schema();
+  $table = 'opigno_like';
+  if ($schema->tableExists($table)) {
+    $schema->dropTable($table);
+  }
+}

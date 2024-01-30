@@ -1,0 +1,35 @@
+uuid: 164604fc-d4c8-4a67-ba03-9feafb6a3f5f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_categorys
+    - node.type.planned_action
+    - taxonomy.vocabulary.category
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.planned_action.field_categorys
+field_name: field_categorys
+entity_type: node
+bundle: planned_action
+label: Category
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      category: category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

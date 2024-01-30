@@ -1,0 +1,32 @@
+uuid: 8032c944-2a2d-4643-a8b4-ac378c5a1761
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.members_forum.field_members_forum_body
+    - field.field.node.members_forum.field_members_forum_comments
+    - field.field.node.members_forum.field_members_forum_tags
+    - node.type.members_forum
+  module:
+    - user
+id: node.members_forum.teaser
+targetEntityType: node
+bundle: members_forum
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_members_forum_body: true
+  field_members_forum_comments: true
+  field_members_forum_tags: true
+  langcode: true
+  private_message_link: true
+  search_api_excerpt: true

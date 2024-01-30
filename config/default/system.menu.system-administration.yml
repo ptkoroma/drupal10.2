@@ -1,0 +1,8 @@
+uuid: 8f5420ee-56df-4131-9a69-a8fb259cd97c
+langcode: en
+status: true
+dependencies: {  }
+id: system-administration
+label: Admin
+description: ''
+locked: false

@@ -1,0 +1,22 @@
+.user-login-forms {
+  .form-control {
+    background-color: transparent;
+    border-width: 0 0 1px;
+  }
+
+  .form-item {
+    + p {
+     font-size: rem($font-size-sm);
+      text-align: center;
+    }
+  }
+
+  .form-actions {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .form-submit {
+    min-width: rem(150);
+  }
+}

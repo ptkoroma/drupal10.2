@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the confirmation popup.
+ *
+ * Available varaibles:
+ * - body: the popup body.
+ */
+#}
+
+<div class="modal modal-ajax fade" tabindex="-1" role="dialog" aria-label="{{ 'Confirmation'|t }}">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">{{ 'Confirmation'|t }}</h2>
+      </div>
+
+      <div class="modal-body">{{ body }}</div>
+    </div>
+  </div>
+</div>

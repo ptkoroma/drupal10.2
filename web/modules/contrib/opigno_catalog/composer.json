@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_catalog",
+    "type": "drupal-module",
+    "description": "Opigno catalog.",
+    "homepage": "http://drupal.org/project/opigno_catalog",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

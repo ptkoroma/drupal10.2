@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - private_message
+    - text
+id: private_message.private_message.default
+targetEntityType: private_message
+bundle: private_message
+mode: default
+content:
+  message:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  owner:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: private_message_author
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  timestamp:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  search_api_excerpt: true

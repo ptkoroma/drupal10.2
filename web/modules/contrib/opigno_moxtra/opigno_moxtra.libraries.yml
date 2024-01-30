@@ -1,0 +1,47 @@
+moxtra.js:
+  version: VERSION
+  header: true
+  js:
+    https://opigno-dev.moxtra.com/web/websdk/dist/mepsdk.js: { type: external, attributes: { id: opignomoxtrajs2 } }
+
+meeting_form:
+  version: VERSION
+  js:
+    js/meeting_form.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+
+meeting_scheduled:
+  version: VERSION
+  js:
+    js/meeting_scheduled.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupalSettings
+
+meeting_started:
+  version: VERSION
+  js:
+    js/meeting_started.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupalSettings
+    - opigno_moxtra/moxtra.js
+
+settings_form:
+  version: VERSION
+  css:
+    theme:
+      css/settings_form.css: {}
+
+workspace:
+  version: VERSION
+  js:
+    js/workspace.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupalSettings

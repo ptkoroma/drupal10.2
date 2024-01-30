@@ -1,0 +1,37 @@
+body.section-group {
+  #delete-lp-form-overlay,
+  #join-group-form-overlay {
+    #delete-lp-form-wrapper,
+    #join-group-form-wrapper {
+      button.close-overlay {
+        font-size: 0;
+        padding: 0;
+        background-color: transparent;
+
+        &:before {
+          @include icon-base();
+          content: icon(close);
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  #delete-lp-form-overlay #delete-lp-form-wrapper {
+    .form-actions {
+      margin: 2rem 0 0;
+      display: flex;
+
+      input[type="submit"] {
+        background-color: $red !important;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      input[type="submit"],
+      a.button {
+        flex: 1 0 auto;
+      }
+    }
+  }
+}

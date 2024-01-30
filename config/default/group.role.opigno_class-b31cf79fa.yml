@@ -1,0 +1,17 @@
+uuid: 8fd9b1c7-c5ba-417b-8cdd-00052b095855
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.opigno_class
+  enforced:
+    config:
+      - user.role.mentor
+id: opigno_class-b31cf79fa
+label: Mentor
+weight: 6
+internal: true
+audience: outsider
+group_type: opigno_class
+permissions_ui: false
+permissions: {  }

@@ -1,0 +1,10 @@
+
+section(class="group-list")
+  GroupView(
+    v-for="entity in getFilteredUsers"
+    :key="entity.key"
+    :entity="entity"
+    @viewGroup="(entity) => $emit('viewGroup', entity)"
+    @onGroupClicked="(entity, selected) => $emit('onGroupClicked', entity, selected)"
+  )
+

@@ -1,0 +1,8 @@
+uuid: 47fcbd16-f39a-4476-b48c-0b8fc9aae3e8
+langcode: en
+status: true
+dependencies: {  }
+id: auditor-menu
+label: 'Auditor Menu'
+description: 'Menu path to support auditor navigation'
+locked: false

@@ -1,0 +1,29 @@
+opigno_module_restart.restart_module:
+  path: '/module/{opigno_module}/group/{group}/restart'
+  defaults:
+    _controller: '\Drupal\opigno_module_restart\Controller\ModuleRestartController::restartModule'
+  requirements:
+    _permission: 'take modules'
+    _entity_access: 'group.take'
+  options:
+    parameters:
+      opigno_module:
+        type: entity:opigno_module
+      group:
+        type: entity:group
+
+opigno_module_restart.restart_activity:
+  path: 'group/{group}/module/{opigno_module}/restart-activity/{opigno_activity}'
+  defaults:
+    _controller: '\Drupal\opigno_module_restart\Controller\ModuleRestartController::restartActivity'
+  requirements:
+    _permission: 'take modules'
+    _entity_access: 'group.take'
+  options:
+    parameters:
+      group:
+        type: entity:group
+      opigno_module:
+        type: entity:opigno_module
+      opigno_activity:
+        type: entity:opigno_activity

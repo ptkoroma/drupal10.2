@@ -1,0 +1,34 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/object1639489227.json",
+  "title": "Root",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "activityID"
+  ],
+  "properties": {
+    "checked": {
+      "$id": "#root/checked",
+      "title": "Checked",
+      "type": "string",
+      "default": "",
+      "pattern": "^.*$"
+    },
+    "unchecked": {
+      "$id": "#root/unchecked",
+      "title": "Unchecked",
+      "type": "string",
+      "default": "",
+      "pattern": "^.*$"
+    },
+    "activityID": {
+      "$id": "#root/activityID",
+      "title": "Activityid",
+      "type": "string",
+      "default": "",
+      "pattern": "^.*$"
+    }
+  }
+}

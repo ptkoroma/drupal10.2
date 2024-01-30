@@ -1,0 +1,30 @@
+uuid: 1ea36f60-6f51-4ca7-bae9-8ea41e239114
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.opigno_activity.opigno_evaluation_method
+    - opigno_module.opigno_activity_type.opigno_long_answer
+  module:
+    - custom_add_another
+    - opigno_file_upload
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: uU8hyCKrDJexn5pCNgN5o74D3mhAPulXCZv0Dme3Wj0
+id: opigno_activity.opigno_long_answer.opigno_evaluation_method
+field_name: opigno_evaluation_method
+entity_type: opigno_activity
+bundle: opigno_long_answer
+label: 'Evaluation method'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '0'
+default_value_callback: ''
+settings: {  }
+field_type: opigno_evaluation_method

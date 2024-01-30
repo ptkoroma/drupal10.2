@@ -1,0 +1,30 @@
+uuid: ab53a18d-517e-40b8-adf1-cd2e5a51929f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_certificate_expire_results
+    - group.type.learning_path
+  module:
+    - custom_add_another
+    - options
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+_core:
+  default_config_hash: Pvozyq5orW36ED7AwA7tFn6bND2mwSU1VFuTIiIYeXI
+id: group.learning_path.field_certificate_expire_results
+field_name: field_certificate_expire_results
+entity_type: group
+bundle: learning_path
+label: 'Expire results after:'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: '1'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

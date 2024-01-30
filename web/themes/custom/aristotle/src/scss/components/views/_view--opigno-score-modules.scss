@@ -1,0 +1,30 @@
+.view-opigno-score-modules {
+  &.view-display-id-dashboard_notavaluated_modules {
+   font-size: rem($font-size-sm);
+
+    .item-list {
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        text-align: center;
+        margin: 0 0 rem($view-item-list-mb);
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      a {
+        color: inherit;
+
+        &:hover {
+          color: $clr-header-link-active;
+        }
+      }
+    }
+  }
+}

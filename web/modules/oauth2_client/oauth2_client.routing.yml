@@ -1,0 +1,39 @@
+oauth2_client.code:
+  path: '/oauth2-client/{plugin}/code'
+  defaults:
+    _title: 'Capture Oauth2 Authorization Code'
+    _controller: '\Drupal\oauth2_client\Controller\OauthResponse::code'
+  requirements:
+    _oauth2_client_route_access: 'TRUE'
+
+entity.oauth2_client.collection:
+  path: '/admin/config/system/oauth2-client'
+  defaults:
+    _entity_list: 'oauth2_client'
+    _title: 'OAuth2 Client configuration'
+  requirements:
+    _permission: 'administer oauth2 clients'
+
+entity.oauth2_client.edit_form:
+  path: '/admin/config/system/oauth2-client/{oauth2_client}/edit'
+  defaults:
+    _entity_form: 'oauth2_client.edit'
+    _title: 'Edit an oauth2 client'
+  requirements:
+    _permission: 'administer oauth2 clients'
+
+entity.oauth2_client.disable:
+  path: '/admin/config/system/oauth2-client/{oauth2_client}/disable'
+  defaults:
+    _entity_form: 'oauth2_client.disable'
+    _title: 'Disable an oauth2 client'
+  requirements:
+    _permission: 'administer oauth2 clients'
+
+entity.oauth2_client.enable:
+  path: '/admin/config/system/oauth2-client/{oauth2_client}/enable'
+  defaults:
+    _controller: '\Drupal\oauth2_client\Controller\OauthResponse::enable'
+    _title: 'Disable an oauth2 client'
+  requirements:
+    _permission: 'administer oauth2 clients'

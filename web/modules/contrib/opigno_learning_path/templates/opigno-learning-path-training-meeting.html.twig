@@ -1,0 +1,58 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display learnign path module.
+ *
+ * - status
+ * - group_id
+ * - step
+ * - approved
+ * - completed
+ * - badges
+ * - time_spent
+ */
+#}
+
+{% set process = (step['best score'])|round %}
+<div class="ilt">
+  <div class="ilt__container">
+    <h3 class="ilt__title">
+      {% if step.mandatory %}
+        <i class="fi fi-rr-star"></i>
+      {% endif %}
+      {{ 'LIVE MEETING - @label'|t({'@label': step.name}) }}
+    </h3>
+
+    <div class="ilt__content">
+      <div class="ilt__attended">
+        <div class="label">{{ 'Attended'|t }}</div>
+        <div class="value">{{ attended }}</div>
+      </div>
+      <div class="ilt__status">
+        <div class="ilt__status-content">
+          <div class="label">{{ 'Status'|t }}</div>
+          <div class="status">
+            {% include 'lp-status.html.twig' with {state_class: status.class} %}
+            {{ status.class | title }}
+          </div>
+        </div>
+      </div>
+      <div class="ilt__progress">
+        <div class="inner">
+          <div class="label">{{ 'Score'|t }}</div>
+          <span class="value">{{ process }}%</span></div>
+      </div>
+      <div class="ilt__completed-on">
+        <div class="inner">
+          <div class="label">{{ 'Date'|t }}</div>
+          <time class="value">{{ date }}</time>
+        </div>
+      </div>
+      <div class="ilt__address">
+        <div class="inner">
+          <div class="label">{{ 'Address'|t }}</div>
+          <span class="value">{{ place }}</span></div>
+      </div>
+    </div>
+  </div>
+</div>

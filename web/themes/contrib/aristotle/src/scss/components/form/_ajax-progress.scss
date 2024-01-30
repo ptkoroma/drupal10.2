@@ -1,0 +1,86 @@
+.ajax-progress {
+  display: inline-block;
+  padding: 1px 5px 2px;
+}
+
+[dir="rtl"] .ajax-progress {
+  float: right;
+}
+
+.ajax-progress {
+  padding: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  .throbber {
+    animation: scale 3s ease infinite;
+    background: url(../images/design/Logo_opigno_circle.svg) center no-repeat;
+    display: block;
+    height: rem(30);
+    padding: 0;
+    width: rem(30);
+  }
+}
+
+.ajax-progress-throbber .message {
+  display: none;
+}
+
+tr .ajax-progress-throbber .throbber {
+  margin: 0 2px;
+}
+
+.ajax-progress-bar {
+  width: 16em;
+}
+
+.btn {
+  &.ajax--progress {
+    color: transparent !important;
+    //background-image: url('../../img/system/loader-white.svg');
+    background-position: center;
+    background-size: rem(42);
+    background-repeat: no-repeat;
+
+    &:before {
+      opacity: 0;
+    }
+
+    + .ajax-progress {
+      @include sr-only;
+    }
+  }
+}
+
+.dropdown-toggle {
+  will-change: auto;
+}
+
+select.ajax--progress {
+  + .ajax-progress {
+    @include sr-only;
+  }
+
+  ~ .dropdown-toggle {
+    //background-image: url('../../img/system/loader.svg');
+    background-position: right center;
+    background-size: rem(32);
+    background-repeat: no-repeat;
+  }
+}
+
+// Full screen throbber
+.ajax-progress-fullscreen {
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  //background: url('../../img/system/loader.svg') no-repeat center;
+  background-size: contain;
+}

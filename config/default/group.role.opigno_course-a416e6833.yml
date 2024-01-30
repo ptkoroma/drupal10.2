@@ -1,0 +1,19 @@
+uuid: 7030877e-e0ab-44ed-954d-c3b293ff803f
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.opigno_course
+  enforced:
+    config:
+      - user.role.administrator
+_core:
+  default_config_hash: 0GDSoUktI5WPiOGbvJ1Y9CZet9qfeXRdoD52Hbcijt4
+id: opigno_course-a416e6833
+label: 'Super administrator'
+weight: 2
+internal: true
+audience: outsider
+group_type: opigno_course
+permissions_ui: false
+permissions: {  }

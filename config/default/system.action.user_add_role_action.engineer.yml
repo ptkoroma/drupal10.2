@@ -1,0 +1,14 @@
+uuid: a3c6e6c8-34a7-47c0-a2ad-5814e4ceb61d
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.engineer
+  module:
+    - user
+id: user_add_role_action.engineer
+label: 'Add the Engineer role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: engineer

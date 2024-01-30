@@ -1,0 +1,47 @@
+.status-message {
+  display: block;
+  margin: rem(20) 0;
+  padding: rem(26) rem(50) rem(26) rem(95);
+  position: relative;
+
+  &.status {
+    background: $clr-green-light;
+  }
+
+  &.warning {
+    background: $clr-yellow;
+  }
+
+  &.error {
+    background: $clr-red-light;
+    color: $clr-red-dark;
+  }
+
+  .fi {
+    font-size: rem(24);
+    position: absolute;
+    left: rem(50);
+    top: rem(23);
+
+    &.check-circle {
+      background: url(../images/svg/fi-rr-check-circle.svg) center/cover no-repeat;
+      height: rem(24);
+      width: rem(24);
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: rem(5);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}

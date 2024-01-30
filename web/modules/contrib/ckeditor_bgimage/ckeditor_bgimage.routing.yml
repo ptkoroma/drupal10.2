@@ -1,0 +1,9 @@
+ckeditor_bgimage.file_dialog:
+  path: '/ckeditor_bgimage/dialog/file/{filter_format}'
+  defaults:
+    _form: '\Drupal\ckeditor_bgimage\Form\EditorFileDialog'
+    _title: 'Insert Background Image'
+  options:
+    _theme: ajax_base_page
+  requirements:
+    _entity_access: 'filter_format.use'

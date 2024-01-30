@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: day_month_year
+label: 'Day month year'
+locked: false
+pattern: d/m/Y

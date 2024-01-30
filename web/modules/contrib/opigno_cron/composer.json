@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_cron",
+    "type": "drupal-module",
+    "description": "Opigno cron.",
+    "homepage": "http://drupal.org/project/opigno_cron",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

@@ -1,0 +1,8 @@
+uuid: 869990aa-b6d7-4cd3-94ab-6f5236af7d89
+langcode: en
+status: true
+dependencies: {  }
+id: ipd
+label: IPD
+description: 'Allows engineers access to the Initial Professional Development menu items'
+locked: false

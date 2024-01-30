@@ -1,0 +1,13 @@
+name: Go Back History
+description: 'Add go back history block'
+package: Go Back History
+core_version_requirement: ^8 || ^9 || ^10
+type: module
+core: 8.x
+dependencies:
+  - drupal:block
+
+# Information added by Drupal.org packaging script on 2023-10-28
+version: '8.x-1.2'
+project: 'go_back_history'
+datestamp: 1698527668

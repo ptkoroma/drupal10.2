@@ -1,0 +1,71 @@
+.block--opigno-search-form {
+  margin-left: auto;
+
+  @include media-breakpoint-up(sm) {
+    max-width: rem(280);
+  }
+
+  @include media-breakpoint-up(md) {
+    max-width: rem(350);
+  }
+
+  @include media-breakpoint-up(lg) {
+    max-width: rem(400);
+  }
+
+  .form-row {
+    display: flex;
+    width: 100%;
+  }
+
+  form {
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+
+    .form-item {
+      margin: 0;
+      width: calc(100% - #{rem($btn-mini-width + $grid-gutter-width)});
+
+      @include media-breakpoint-up(md) {
+        display: none;
+      }
+
+      input {
+       font-size: rem($font-size-sm);
+        width: 100%;
+        padding: rem($btn-padding-y - 4) 0;
+        color: $clr-theme-primary;
+        border-bottom: rem(3) solid;
+
+        &::placeholder {
+          color: inherit;
+        }
+      }
+    }
+
+    .btn-icon {
+
+      @include media-breakpoint-down(sm) {
+        @include btn-icon-mini;
+      }
+    }
+
+    .form-submit {
+      width: rem($btn-mini-width);
+
+      @include media-breakpoint-up(md) {
+        width: auto;
+      }
+    }
+
+    &.form-open {
+      .form-item {
+        display: block;
+      }
+
+      .form-submit {
+        width: rem($btn-mini-width);
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - opigno_social_community
+id: opigno_community.info_block
+label: 'Info block'
+targetEntityType: opigno_community
+cache: true

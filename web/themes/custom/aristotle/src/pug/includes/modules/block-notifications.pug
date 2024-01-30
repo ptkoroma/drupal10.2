@@ -1,0 +1,12 @@
+.block-notifications
+  .block-notifications__item.block-notifications__item--notifications
+    include ./dropdown/dropdown-notifications
+
+  .block-notifications__item.block-notifications__item--messages
+    .dropdown
+      a(href="#")
+        i.fi.fi-rr-envelope
+          span.marker
+
+  .block-notifications__item.block-notifications__item--user-menu
+    include ./dropdown/dropdown-user-menu

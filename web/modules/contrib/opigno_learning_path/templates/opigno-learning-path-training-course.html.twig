@@ -1,0 +1,61 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display learnign path course.
+ *
+ * Available variables:
+ * - passed
+ * - score
+ * - step
+ * - completed
+ * - badges
+ * - time_spent
+ */
+#}
+
+{% set is_passed = passed.percent == 100 %}
+{% set process = (100 * step.progress)|round %}
+<div class="course">
+  <div class="course__container">
+    <h2 class="course__title">
+      {% if step.mandatory %}
+        <i class="fi fi-rr-star"></i>
+      {% endif %}
+      {{ 'Course - @label'|t({'@label': step.name}) }}
+    </h2>
+    <div class="course__content">
+      <div class="course__status">
+        <div class="course__status-content">
+          <div class="label">{{ 'Status' | t }}</div>
+          <div class="state">{{ 'passed' | t }}</div>
+          <div class="status">{{ passed.value }}</div>
+        </div>
+      </div>
+      <div class="course__progress">
+        <div class="label">{{ 'Completion' | t }}</div>
+        {% include 'lp-circle-progress.html.twig' with {radius: 40, progress: passed.percent} %}
+      </div>
+      <div class="course__score">
+        <div class="label">{{ 'Score' }}</div>
+        {% include 'lp-circle-progress.html.twig' with {radius: 40, progress: score} %}
+      </div>
+      <div class="course__time-spent">
+        <div class="inner">
+          <div class="label">{{ 'Time spent' }}</div>
+          <time class="value">{{ time_spent }}</time>
+        </div>
+      </div>
+      <div class="course__completed-on">
+        <div class="inner">
+          <div class="label">{{ 'Completed on' }}</div>
+          <time class="value">{{ completed }}</time>
+        </div>
+      </div>
+      <div class="course__badges-earned">
+        <div class="inner">
+          <div class="label">{{ 'Badges earned' | t }}</div>
+          <span class="value">{{ badges }}</span></div>
+      </div>
+    </div>
+  </div>
+</div>

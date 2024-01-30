@@ -1,0 +1,11 @@
+entity.opigno_community.add_form:
+  route_name: entity.opigno_community.add_form
+  title: 'Create a community'
+  appears_on:
+    - view.communities.collection
+
+opigno_social_community.admin_form:
+  route_name: opigno_social_community.admin_form
+  title: 'Community settings'
+  appears_on:
+    - opigno_class.social_settings_form

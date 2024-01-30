@@ -1,0 +1,131 @@
+.view-private-message {
+  .view-header {
+    align-items: center;
+    border-radius: rem(10) rem(10) 0 0;
+    box-shadow: 0 0 6px rgba($clr-black, .3);
+    display: flex;
+    justify-content: space-between;
+    padding: rem(20) rem(20) rem(10);
+    position: relative;
+
+    &:last-of-type {
+      border-radius: rem(10);
+      margin-bottom: rem(20);
+      padding-bottom: rem(20);
+
+      &:before {
+        content: none;
+      }
+    }
+
+    &:before {
+      background: $clr-white;
+      content: '';
+      height: rem(15);
+      position: absolute;
+      left: 0;
+      bottom: rem(-5);
+      width: 100%;
+    }
+
+    h2 {
+      margin: 0;
+    }
+
+    .ajax-progress {
+      display: block;
+      padding: 0;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+
+      .throbber {
+        animation: scale 3s ease infinite;
+        background: url(../images/design/Logo_opigno_circle.svg) center no-repeat;
+        display: block;
+        height: rem(30);
+        padding: 0;
+        width: rem(30);
+      }
+
+      .message {
+        display: none;
+      }
+    }
+  }
+
+  .views-infinite-scroll-content-wrapper {
+    border-radius: 0 0 rem(10) rem(10);
+    box-shadow: 0 0 6px rgba($clr-black, .3);
+    margin-bottom: rem(20);
+    padding: 0 rem(20) rem(20) rem(20);
+
+    @include media-breakpoint-down(sm) {
+      height: calc(100vh - 360px);
+      overflow-y: auto;
+    }
+  }
+
+  .views-row {
+    margin-bottom: rem(10);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .private-message {
+    background: $clr-gray-light;
+    border-radius: rem(10);
+    color: $clr-navy;
+    display: flex;
+    padding: rem(10);
+    position: relative;
+    text-decoration: none;
+
+    .profile-pic {
+      margin-right: rem(10);
+      min-width: rem(50);
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .username {
+      font-size: rem(16);
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+    }
+
+    .created {
+      font-size: rem(12);
+      font-style: italic;
+    }
+
+    .field-pm-subject {
+      padding-right: rem(30);
+    }
+
+    .unread-count {
+      align-items: center;
+      background: $clr-green;
+      border-radius: 50%;
+      display: flex;
+      font-weight: $font-weight-semibold;
+      justify-content: center;
+      height: rem(28);
+      position: absolute;
+      right: rem(10);
+      bottom: rem(10);
+      width: rem(28);
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}

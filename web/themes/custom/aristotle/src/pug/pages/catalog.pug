@@ -1,0 +1,66 @@
+extends ../layout/main
+
+block variables
+  - var title = 'Training catalogue';
+  - var description = '';
+  - var pageClass = 'catalog-page';
+  - var pageID = 'catalog';
+
+block content
+  .block-page-title-block
+    h1= title
+
+  .row
+    .col-left.col-lg-3.col-md-12#sidebar-first
+      .region.region-sidebar_first
+        include ../includes/modules/exposed-form
+
+    .col-right.col-lg-9.col-md-12
+      .content-wrapper
+        .region.region-content
+          .block-system_main_block
+            .views-element-container.contextual-region
+              .contextual-region.style-block.view.view-opigno-training-catalog.view-id-opigno_training_catalog.view-display-id-training_catalogue
+                .view-header
+                  .view-style
+                    select.form-select.selectpicker#sort(name="sort")
+                      option(value="atoz") Newest
+                      option(value="atoz") Oldest
+                      option(value="atoz") Shortest
+                      option(value="atoz") Longest
+                      option(value="atoz") A to Z
+                      option(value="atoz") Z to A
+
+                    button.btn.btn-bg.btn-rounded Create new training
+
+                    ul.list-unstyled.d-flex.justify-content-end
+                      li
+                        a.btn.style-btn.line
+                          i.fi.fi-rr-align-justify
+                      li
+                        a.btn.style-btn.block
+                          i.fi.fi-rr-apps
+
+                .view-content
+                  .views-infinite-scroll-content-wrapper
+                    include ../includes/modules/learning-path/learning-path-item
+
+                    - var progressNumber = '0'
+                    include ../includes/modules/learning-path/learning-path-item
+
+                    - var progressNumber = '50'
+                    include ../includes/modules/learning-path/learning-path-item
+
+                    - var progressNumber = '100'
+                    include ../includes/modules/learning-path/learning-path-item
+
+                    - var progressNumber = '100'
+                    - var status = 'passed'
+                    include ../includes/modules/learning-path/learning-path-item
+
+                    - var progressNumber = '100'
+                    - var status = 'failed'
+                    include ../includes/modules/learning-path/learning-path-item
+
+                .actions-wrapper
+                  a.btn.btn-rounded.btn-load-more(href="#") Load more

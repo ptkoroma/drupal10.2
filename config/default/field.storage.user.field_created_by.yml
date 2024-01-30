@@ -1,0 +1,21 @@
+uuid: 323abedb-fd07-4928-a9a0-d86accb64d8b
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: ZtShU4S4tnoaKLtUfRpqIHnlsg5nQ7fyjrZ_hfZDiXw
+id: user.field_created_by
+field_name: field_created_by
+entity_type: user
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

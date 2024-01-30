@@ -1,0 +1,25 @@
+uuid: d3df3d83-e043-4d43-9464-c9909d908708
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_additional_duration_detail
+    - node.type.non_catalogued_activity
+  module:
+    - custom_add_another
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.non_catalogued_activity.field_additional_duration_detail
+field_name: field_additional_duration_detail
+entity_type: node
+bundle: non_catalogued_activity
+label: 'Additional Duration Details'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

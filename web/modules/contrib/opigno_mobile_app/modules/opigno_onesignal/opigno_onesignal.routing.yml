@@ -1,0 +1,17 @@
+opigno_onesignal.one_signal_config_form:
+  path: '/admin/config/services/onesignal'
+  defaults:
+    _form: '\Drupal\opigno_onesignal\Form\OneSignalConfigForm'
+    _title: 'OneSignal Configurations'
+  requirements:
+    _permission: 'administer onesignal'
+  options:
+    _admin_route: TRUE
+#
+#opigno_onesignal.store_player_id:
+#  path: '/opigno_onesignal/store-player-id'
+#  defaults:
+#    _controller: '\Drupal\opigno_onesignal\Controller\OneSignalController::storePlayerId'
+#  requirements:
+#    _access: 'TRUE'
+#  methods: [POST]

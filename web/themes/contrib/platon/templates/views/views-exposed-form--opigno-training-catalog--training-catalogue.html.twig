@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Default theme implementation of a views exposed form.
+ *
+ * Available variables:
+ * - form: A render element representing the form.
+ *
+ * @ingroup templates
+ *
+ * @see template_preprocess_views_exposed_form()
+ */
+#}
+{% if q is not empty %}
+  {#
+    This ensures that, if clean URLs are off, the 'q' is added first,
+    as a hidden form element, so that it shows up first in the POST URL.
+  #}
+  {{ q }}
+{% endif %}
+<div class="form--inline form-inline clearfix" id="catalog-filter-parent">
+  {{ form.sort_by }}
+
+  <button class="btn-collapse collapsed" type="button" data-toggle="collapse" data-target="#catalog-filter" aria-expanded="false">
+   {{ form.opigno_group_membership['#title'] }}
+     <i class="icon-chevron-right"></i>
+  </button>
+
+  <div id="catalog-filter" class="collapse" data-parent="#catalog-filter-parent">
+    {{ form|without('sort_by') }}
+  </div>
+</div>

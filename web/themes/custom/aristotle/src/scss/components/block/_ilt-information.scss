@@ -1,0 +1,106 @@
+.ilt {
+  &:not(:last-child) {
+    margin-bottom: rem(40);
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: rem(20);
+    }
+  }
+
+  &__title {
+    display: flex;
+    font-weight: $font-weight-bold;
+    margin-bottom: rem(20);
+
+    .fi {
+      margin-right: rem(10);
+      margin-top: 2px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 rem(20);
+
+    @include media-breakpoint-down(xs) {
+      justify-content: center;
+      padding: 0;
+    }
+
+    > div {
+      flex: 1 0 auto;
+      padding-right: rem(20);
+
+      @include media-breakpoint-down(sm) {
+        flex: 0 1 33.333%;
+        margin-bottom: rem(40);
+        padding: 0;
+
+        &:nth-last-child(2),
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      @include media-breakpoint-down(xs) {
+        flex: 0 1 50%;
+        text-align: center;
+      }
+    }
+  }
+
+  &__progress {
+    .label {
+      margin-bottom: rem(10);
+    }
+  }
+
+  &__status {
+    .label {
+      margin-bottom: rem(17);
+    }
+
+    .status {
+      display: inline-flex;
+      font-size: rem(16);
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+
+      &__icon {
+        font-size: rem(16);
+        height: rem(25);
+        min-width: rem(25);
+        width: rem(25);
+      }
+    }
+
+    .in-progress,
+    .pending {
+      color: $clr-white;
+    }
+
+    .in-progress {
+      font-size: rem(13);
+    }
+
+    .failed {
+      font-size: rem(26);
+    }
+  }
+
+  &__attended,
+  &__progress,
+  &__completed-on,
+  &__address {
+    .label {
+      margin-bottom: rem(20);
+    }
+
+    .value {
+      font-size: rem(16);
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+    }
+  }
+}

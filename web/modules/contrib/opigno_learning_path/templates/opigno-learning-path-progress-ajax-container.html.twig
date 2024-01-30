@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display the progress-ajax-container.
+ *
+ */
+#}
+<div id="progress-ajax-container-{{ group_id }}-{{ account_id }}-{{ latest_cert_date }}-{{ class }}"
+    class="content-box progress-ajax-container learning-path-progress d-flex flex-column {{ 'progress-bar-' ~ class|clean_class }}"
+    data-group-id="{{ group_id }}"
+    data-account-id="{{ account_id }}"
+    data-latest-cert-date="{{ latest_cert_date }}"
+    data-class="{{ class }}">
+    <div class="progress-value">
+      {{ 'Loading...'|t }}
+    </div>
+    <div class="progress-bar">
+      <div class="progress-progress process-trobbler"></div>
+    </div>
+</div>

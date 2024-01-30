@@ -1,0 +1,88 @@
+#site-header {
+    /*display: none !important;*/
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas {
+  background-color: #fff;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas #drupal-off-canvas .module-preview-form,
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas #drupal-off-canvas iframe,
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas #drupal-off-canvas .module-preview-form .activities-count {
+  background-color: #fff;
+  color: #212529;
+  text-align: center;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas #drupal-off-canvas iframe {
+  min-height: 300px;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas #drupal-off-canvas .module-preview-form .activities-navigation {
+  display: inline-flex;
+  background-color: #fff;
+  color: #212529;
+  margin-top: 20px;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas #drupal-off-canvas .module-preview-form .activities-count {
+  margin: 0 20px;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 3rem;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas #drupal-off-canvas .module-preview-form .ajax-progress.ajax-progress-throbber {
+  display: none;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-widget-content .ui-dialog-titlebar {
+  color: #000;
+  font-size: 1rem;
+  font-weight: 900;
+  background-color: #fff;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-widget-content .ui-dialog-titlebar .ui-dialog-title:before {
+  display: none;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-widget-content .ui-dialog-titlebar .ui-dialog-titlebar-close,
+.page-admin-structure-opigno-modules .ui-dialog.ui-widget-content .ui-dialog-titlebar .ui-dialog-titlebar-close:hover {
+  background-color: #fff !important;
+  border: none !important;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-widget-content .ui-dialog-titlebar .ui-dialog-titlebar-close:focus {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  background-image: url(/core/misc/icons/bebebe/ex.svg);
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas .ui-dialog-titlebar-close:hover {
+  background-image: url(/core/misc/icons/000000/ex.svg);
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas #drupal-off-canvas .module-preview-form .form-submit {
+  background-color: #c2e76b;
+  margin: 0;
+  padding: 14px 25px;
+  color: #fff;
+  text-transform: uppercase;
+  border: none;
+  font-weight: 400;
+  font-size: 1rem;
+  border-radius: unset;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas #drupal-off-canvas .module-preview-form .form-submit:hover {
+  background-color: #9faf5b;
+}
+
+.page-admin-structure-opigno-modules .ui-dialog.ui-dialog-off-canvas #drupal-off-canvas .module-preview-form .form-submit:focus {
+  box-shadow: none;
+}
+
+.page-admin-structure-opigno-modules .dialog-off-canvas-main-canvas {
+  padding-right: 0 !important
+}

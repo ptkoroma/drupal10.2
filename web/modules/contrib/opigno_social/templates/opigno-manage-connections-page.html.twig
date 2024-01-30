@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the "Manage connections" page.
+ *
+ * Available variables:
+ * - suggested: the block with the suggested contacts;
+ * - pending: the block with invitations that aren't accepted/declined yet;
+ * - network: the block with user contacts.
+ */
+#}
+
+<div class="row">
+  <div class="col-left col-lg-6 col-md-12">
+    {{ network }}
+  </div>
+
+  <div class="col-right col-lg-6 col-md-12">
+    {{ pending }}
+    {{ suggested }}
+  </div>
+</div>

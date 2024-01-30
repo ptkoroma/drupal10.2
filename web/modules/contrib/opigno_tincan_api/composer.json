@@ -1,0 +1,11 @@
+{
+    "name": "drupal/opigno_tincan_api",
+    "type": "drupal-module",
+    "description": "Opigno tincan api.",
+    "homepage": "http://drupal.org/project/opigno_tincan_api",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
+}
+

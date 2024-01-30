@@ -1,0 +1,9 @@
+color.theme.*:
+  type: config_object
+  label: 'Color theme settings'
+  mapping:
+    palette:
+      type: sequence
+      label: 'Palette settings'
+      sequence:
+        type: color_hex

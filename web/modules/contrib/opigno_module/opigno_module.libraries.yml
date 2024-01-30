@@ -1,0 +1,71 @@
+ajax_form:
+  version: VERSION
+  js:
+    js/opigno_module_iframe.js: {}
+
+activity:
+  version: VERSION
+  js:
+    js/opigno_module_activity.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - core/drupalSettings
+    - core/js-cookie
+
+activity_validate:
+  version: VERSION
+  js:
+    js/activity_validate.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+  css:
+    theme:
+      css/activity_validate.css: {}
+
+module_results_form:
+  version: VERSION
+  css:
+    theme:
+      css/module_results_form.css: {}
+
+opigno_badges:
+  version: VERSION
+  js:
+    js/opigno_badges.js: {}
+
+module_results_page:
+  version: VERSION
+  css:
+    theme:
+      css/module_results_page.css: {}
+
+activities_bank:
+  version: VERSION
+  js:
+    js/jquery-cookie.js: {}
+    js/opigno_module_activities_bank.js: {}
+
+activities_bank_admin:
+  version: VERSION
+  js:
+    js/opigno_module_activities_bank_admin.js: {}
+
+menu_icon:
+  version: VERSION
+  css:
+    theme:
+      css/opigno_module.css: {}
+
+opigno_module_preview:
+  version: VERSION
+  css:
+    theme:
+      css/opigno_module_preview.css: {}
+
+opigno_module_results_view:
+  version: VERSION
+  js:
+    js/opigno_module_results_view.js: {}

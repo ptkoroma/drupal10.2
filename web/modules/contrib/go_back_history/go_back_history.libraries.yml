@@ -1,0 +1,10 @@
+go_back_history:
+  css:
+    theme:
+      css/go_back_history.css: {}
+  js:
+    js/go_back_history.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once

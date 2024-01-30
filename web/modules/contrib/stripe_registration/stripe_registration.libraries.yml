@@ -1,0 +1,12 @@
+checkout:
+  js:
+    js/checkout.js: {}
+  dependencies:
+    - core/jquery
+stripe.stripejs:
+  remote: https://js.stripe.com/v3
+  version: 3
+  js:
+    https://js.stripe.com/v3: { type: external, minified: true }
+  license:
+    name: Unknown

@@ -1,0 +1,377 @@
+<?php
+
+
+ //namespaces for hook_node_insert and hook_node_update
+ use Drupal\Core\Entity\EntityInterface;
+ use Drupal\Core\Form\FormStateInterface;
+ use Symfony\Component\HttpFoundation\RedirectResponse;
+
+//namespace for email part
+ use Drupal\Core\Routing\RouteMatchInterface;
+ use Drupal\Component\Utility\SafeMarkup;  //to render safe email html
+ use Drupal\Core\Render\Markup;  //to render safe email html
+use Drupal\Core\Url;
+use Drupal\Core\Access\AccessResult;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\user\Entity\User;
+
+
+/**
+ * {@inheritdoc}
+ * Implements hook_node_insert
+ */
+
+//this is for the node add form
+function cpd_con_node_insert(Drupal\Core\Entity\EntityInterface $node) {
+   // cpd_con_send_mail($node);
+
+$base_path = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
+   if ($node->getType() == 'audit') {
+      $emailrequested = $node->get('field_engineer')->target_id;
+
+      if ($emailrequested) {
+              $uid = $node->getOwnerId();
+              $conclusion = $node->get('field_audit_conclusion')->value;
+              $comment = $node->get('field_comment')->value;
+              $date = $node->getCreatedTime();
+              //$ndate = \Drupal::service('date.formatter')->format($date, 'd/m/Y');
+              $ndate = date('d/m/Y', $date);
+              $account = \Drupal\user\Entity\User::load($uid);
+              $name = $account->get('field_name')->value;
+
+              $termreference = $account->get('field_membership__level')->target_id;
+              if(!empty($termreference)){
+                $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($termreference);
+                $levelname = $term->getName();
+              }
+              else{
+                $levelname = " ";
+              }
+
+              //$from = \Drupal::config('system.site')->get('mail');
+              $engineer = \Drupal\user\Entity\User::load($emailrequested);
+              $e_name = $engineer->get('field_name')->value;
+              $e_mail = $engineer->getEmail();
+              $from = 'slie.cpd01@gmail.com';
+              $to = $e_mail;
+
+              $mailManager = \Drupal::service('plugin.manager.mail');
+              $module = 'cpd_cron';
+              $key = 'engineer_audited';
+              $to = $e_mail;
+              
+               $message = "<p>Hi ".$e_name."</p>
+                         <p>You were audited on <a href='".$base_path."get-profile'>SLIE - CPD</a>. Here are the audit detail:</p>
+                         <p><b>Auditor: </b>".$name."</p>
+                         <p><b>Level: </b>".$levelname."</p>
+                         <p><b>Audit Date: </b>".$ndate."</p>
+                         <p><b>Audit Conclusion: </b><br>".$conclusion."</p>
+                         <p><b>Comment: </b><br>".$comment."</p><p></p><p>Thank You</p>";
+              $params['message'] = $message;   
+              $params['subject'] = "Audit - ".$name;        
+              $langcode = \Drupal::currentUser()->getPreferredLangcode();
+              $send = true;
+
+              $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+              if ($result['result'] !== true) {
+                \Drupal::messenger()->addMessage(t('There was a problem sending your message and it was not sent.'), 'error');
+              }
+              else {
+              \Drupal::messenger()->addMessage(t('The mail has been sent to '.$e_name.'.'));
+              }   
+             /* $subject = "Audit - ".$name;
+              $message = "<p>Hi ".$e_name."</p>
+                         <p>You were audited on <a href='".$base_path."get-profile'>SLIE - CPD</a>. Here are the audit detail:</p>
+                         <p><b>Auditor: </b>".$name."</p>
+                         <p><b>Level: </b>".$levelname."</p>
+                         <p><b>Audit Date: </b>".$ndate."</p>
+                         <p><b>Audit Conclusion: </b><br>".$conclusion."</p>
+                         <p><b>Comment: </b><br>".$comment."</p><p></p><p>Thank You</p>";
+              // $headers = "From:" . $from . "\r\n";
+              // $headers  .= 'MIME-Version: 1.0' . "\r\n";
+              // $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+              $headers = 'From:' . $from . "\r\n" ;
+              $headers .='Reply-To: '. $to . "\r\n" ;
+              $headers .='X-Mailer: PHP/' . phpversion();
+              $headers .= "MIME-Version: 1.0\r\n";
+              $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";  
+              if(mail($to,$subject,$message, $headers)) {
+               \Drupal::messenger()->addMessage(t('The mail has been sent to '.$e_name.'.'));
+              } else {
+                \Drupal::messenger()->addMessage(t('There was a problem sending mail and it was not sent.'), 'error');
+              }*/
+       }
+    } 
+
+   else if($node->getType() == 'catalogued_activities_status') { 
+       $activity_id = $node->get('field_activity')->target_id;   
+       $a_status = $node->get('field_activity__status')->value; 
+       $a_user = $node->get('field_user_id')->value;
+      if($a_status == 'Done'){
+          $group = Drupal\group\Entity\Group::load($activity_id);
+          $pdu = $group->get('field_pd_units')->value;
+
+          $userdata = \Drupal\user\Entity\User::load($a_user);
+          $totalpdu = $userdata->get('field_pdu_total')->value;
+
+          $new_pdu = $totalpdu + $pdu;
+          $userdata->set('field_pdu_total', $new_pdu); //set my custom field = 38 !!!
+          $userdata->save();
+       }
+          $redirectToActivity = new RedirectResponse('/my-activities');
+          $redirectToActivity->send(); 
+
+       
+    }
+    
+    else if ($node->getType() == 'non_catalogued_activity') {
+     // add notification if new activity created, Use opigno notification function
+    $uid = \Drupal::currentUser()->id();
+    $message = 'Created a new non catalogued activity '. $node->label();
+     opigno_set_message($uid, $message, $url = $node->toUrl()->toString());
+   }
+   else if ($node->getType() == 'planned_action') {
+     // add notification if new action planed created, Use opigno notification function
+    $uid = \Drupal::currentUser()->id();
+    $message = 'Created a new action planed '. $node->label();
+     opigno_set_message($uid, $message, $url = $node->toUrl()->toString());
+   } 
+
+}
+function cpd_con_node_update(EntityInterface $node) {
+
+  if ($node->getType() == 'catalogued_activities_status') {
+       // $activity_id = $node->get('field_activity')->target_id;   
+       // $a_status = $node->get('field_activity__status')->value; 
+        $a_user = $node->get('field_user_id')->value;
+        $userdata = \Drupal\user\Entity\User::load($a_user);
+       //  $totalpdu = $userdata->get('field_pdu_total')->value;
+
+       //  $new_pdu = $totalpdu + $pdu;
+       //  $userdata->set('field_pdu_total', $new_pdu); //set my custom field = 38 !!!
+       //  $userdata->save();   
+       // }
+    $q = \Drupal::database()->query("select * FROM node__field_user_id where bundle = 'catalogued_activities_status' AND field_user_id_value =".$a_user);
+    $pdu = array();
+    foreach ($q as $key => $value) {
+     $status = \Drupal::database()->query("select astatus.entity_id, uactivity.field_activity_target_id, astatus.field_activity__status_value FROM node__field_activity__status as astatus LEFT JOIN node__field_activity as uactivity on astatus.entity_id = uactivity.entity_id where astatus.bundle = 'catalogued_activities_status' AND astatus.entity_id =".$value->entity_id);
+       foreach ($status as $key => $statuss) {
+            $activity_s = $statuss->field_activity__status_value;
+            if($activity_s == 'Done'){
+                $gid = $statuss->field_activity_target_id;
+                $group = Drupal\group\Entity\Group::load($gid);
+                $pdu[] = $group->get('field_pd_units')->value;
+             }
+       }
+
+
+    }
+    $new_pdu = array_sum($pdu);
+  $userdata->set('field_pdu_total', $new_pdu); //set my custom field = 38 !!!
+  $userdata->save(); 
+ // print_r();
+    //die();
+
+   $redirectToActivity = new RedirectResponse('/my-activities');
+   $redirectToActivity->send(); 
+
+   }
+   
+      else if ($node->getType() == 'non_catalogued_activity') {
+    // add notification if new activity created, Use opigno notification function
+       $uid = \Drupal::currentUser()->id();
+       $message = 'Updated non catalogued activity'. $node->label();
+     opigno_set_message($uid, $message, $url = $node->toUrl()->toString());
+
+   }
+   else if ($node->getType() == 'planned_action') {
+     // add notification if new action planed created, Use opigno notification function
+     $uid = \Drupal::currentUser()->id();
+    $message = 'Updated action plan '. $node->label();
+     opigno_set_message($uid, $message, $url = $node->toUrl()->toString());
+   }
+      
+       
+}
+
+function cpd_con_views_query_alter(\Drupal\views\ViewExecutable $view, \Drupal\views\Plugin\views\query\QueryPluginBase $query) {
+
+    if($view->id() == 'my_activity' && $view->current_display =='block_1'){
+       if(isset($_SESSION['cat_status'])){
+        unset($_SESSION['cat_status']);
+       }
+       
+       foreach ($query->where as &$condition_group) {
+        foreach ($condition_group['conditions'] as &$condition) {
+          // \Drupal::logger('module_name')->notice('<pre><code>' . print_r($condition, TRUE) . '</code></pre>' );
+          if ($condition['field'] == 'groups_field_data.label') {
+           $_SESSION['cat_status']= $view->exposed_raw_input['label'];
+           // \Drupal::logger('module_name4')->notice('<pre><code>' . print_r('jj', TRUE) . '</code></pre>' );
+          /*  $condition = [
+              'field' => 'groups_field_data.label',
+              'value' => '',
+              'operator' => 'LIKE',
+            ]; */
+            //  \Drupal::logger('module_name6')->notice('<pre><code>' . print_r($condition_group['conditions'][3], TRUE) . '</code></pre>' );
+           unset($condition_group['conditions'][3]);
+          } 
+        }
+      } 
+    }
+}
+function cpd_con_views_pre_render(\Drupal\views\ViewExecutable $view){
+  
+  if($view->id() == 'my_activity' && $view->current_display =='block_1' ){
+       $current_uid =  \Drupal::currentUser()->id();
+         // \Drupal::logger('module_name6')->notice('<pre><code>' . print_r($condition_group['conditions'][3], TRUE) . '</code></pre>' );
+        if(isset($_SESSION['cat_status'])){
+          foreach($view->result as $key2 => $values ){
+           $q = \Drupal::database()->query("select * FROM node__field_activity as nactivity LEFT JOIN  node__field_user_id as userid on nactivity.entity_id =  userid.entity_id where nactivity.field_activity_target_id =".$values->id." AND nactivity.bundle = 'catalogued_activities_status' AND userid.field_user_id_value =".$current_uid);
+
+              foreach ($q as $key => $value) {
+                if ($value) {
+                   $snid = $value->entity_id;
+                   $nstatus = \Drupal::database()->query("select * FROM node__field_activity__status where entity_id = ".$value->entity_id);
+                   foreach ($nstatus as $key => $nstatuss) {
+                     if($nstatuss){
+                       $status = $nstatuss->field_activity__status_value;
+                      \Drupal::logger('module_name6')->notice('<pre><code>' . print_r($status, TRUE) . '</code></pre>' );
+                       if($status == $_SESSION['cat_status'] ){
+                       
+                       }else{
+                         if($_SESSION['cat_status'] != 'all'){
+                            unset($view->result[$key2]);
+                         }
+                        
+                       }
+                     }
+                   }      
+
+               }
+     
+             }
+          } 
+          
+        }   
+
+  
+
+         unset($_SESSION['cat_status']);
+
+  }
+}
+
+function cpd_con_form_taxonomy_overview_terms_alter(&$form, FormStateInterface $formState) {
+    $path = \Drupal::request()->getpathInfo();
+    $arg = explode('/', $path);
+    //manage/vocabulary_name/overview
+    if ($arg[5] == "engineer_category"){
+   
+     $form['terms']['#header'] = array_merge(array_slice($form['terms']['#header'], 0, 1, TRUE),
+     [t('PDU Yearly Target')],
+     array_slice($form['terms']['#header'], 1, NULL, TRUE));
+
+    foreach ($form['terms'] as &$term) {
+      if (is_array($term) && !empty($term['#term'])) {
+        $status['field_pdu_yearly_target'] = [
+          '#markup' => $term['#term']->field_pdu_yearly_target->value ,
+          '#type' => 'item',
+        ];
+
+        $term = array_slice($term, 0, 1, TRUE) +
+          $status +
+          array_slice($term, 1, NULL, TRUE);
+      }
+    } 
+  }
+}
+
+function cpd_con_comment_insert(Drupal\Core\Entity\EntityInterface $entity) {
+ 
+  if ($entity->bundle() == 'comment_forum' && $entity->get('entity_type')->value == 'node') {
+    $forum_node_id = $entity->get('entity_id')->target_id;
+    $forum = \Drupal::entityTypeManager()->getStorage('node')->load($forum_node_id);
+    if ($forum) {
+      $forum_owner = $forum->getOwner();
+      $forum_owner_email = $forum_owner->getEmail();
+      
+      if ($forum_owner_email){
+         $owner_id = $forum->getOwnerId();
+        $account_for = \Drupal\user\Entity\User::load($owner_id);
+         // $forum_authors_Fname = $account_for->getUsername();
+        $address_forum_owner = $account_for->get('field_address_new')->getValue();
+        $forum_authors_Fname = $address_forum_owner[0]['given_name'] ;
+        $forum_title = $forum->title->value;
+        // get comment body and subject
+        $comment_body = $entity->get('comment_body')->value;
+        $comment_subject = $entity->get('subject')->value;
+      
+        $account_commentor = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+        $address_commentator = $account_commentor->get('field_address_new')->getValue();
+        $commented_author_fullname = $address_commentator[0]['given_name'].' '.$address_commentator[0]['family_name'] ;
+       
+        //$commented_author_fullname = $account_commentor->getUsername();;
+        
+       
+         $mailManager = \Drupal::service('plugin.manager.mail');
+         $module = 'cpd_cron';
+         $key = 'forum_notification_owner';
+         $to = $forum_owner_email;
+         //$to = 'raqimopigno@mailinator.com';
+              
+    
+              $message = "<p>Hi ".$forum_authors_Fname."</p>
+                          <p>".$commented_author_fullname." has commented on your topic ".$forum_title.". </p>
+                          <p>Thanks,</p><p>SLIE</p>";           
+              $params['message'] = $message;   
+              $params['subject'] = 'New comment added.';        
+              $langcode = \Drupal::currentUser()->getPreferredLangcode();
+              $send = true;
+
+              $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+              if ($result['result'] !== true) {
+                \Drupal::messenger()->addMessage(t('There was a problem sending your message and it was not sent.'), 'error');
+              }
+              else {
+              \Drupal::messenger()->addMessage(t('The mail has been sent to '.$to.'.'));
+              }   
+
+      }
+
+    }
+    
+    // \Drupal::logger('module_name')->notice('<pre><code> com type' . print_r($email, TRUE) . '</code></pre>' );
+  //\Drupal::logger('module_name')->notice('<pre><code> node type' . print_r($entity->get('entity_type')->value, TRUE) . '</code></pre>' )
+   
+  }
+} 
+function cpd_cron_mail($key, &$message, $params) {
+ $options = array(
+   'langcode' => $message['langcode'],
+ );
+ $from = 'slie.cpd01@gmail.com';
+ $message['headers'] = array(
+ 'content-type' => 'text/html',
+ 'MIME-Version' => '1.0',
+ 'reply-to' => $from,
+ 'from' => 'sender name <'.$from.'>'
+);
+
+ switch ($key) {
+   case 'engineer_audited':
+     $message['from'] = $from;
+     $message['subject'] = $params['subject'];
+     $message['body'][] = $params['message'];
+     break;
+     
+   case 'forum_notification_owner' :
+     $message['from'] = $from;
+     $message['subject'] = $params['subject'];
+     $message['body'][] = $params['message'];
+     break;      
+ }
+
+}
+
+

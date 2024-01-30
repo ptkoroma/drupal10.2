@@ -1,0 +1,70 @@
+field_group.field_group_formatter_plugin.popup:
+  type: field_group.field_group_formatter_plugin.base
+  label: 'Mapping for the popup formatter settings'
+  mapping:
+    popup_link:
+      type: mapping
+      label: 'Display popup link settings:'
+      mapping:
+        show:
+          type: boolean
+          label: 'Display open popup link.'
+        text:
+          type: label
+          label: 'Link text'
+        classes:
+          type: string
+          label: 'Link CSS classes'
+    popup_labels:
+      type: mapping
+      label: 'Popup labels:'
+      mapping:
+        title:
+          type: label
+          label: 'Title'
+        close_text:
+          type: label
+          label: 'Close button text'
+    popup_settings:
+      type: mapping
+      label: 'Popup settings:'
+      mapping:
+        modal:
+          type: boolean
+          label: 'Modal'
+        dialog_class:
+          type: string
+          label: 'Dialog holder CSS class'
+        close_on_escape:
+          type: boolean
+          label: 'Close dialog on press Escape keyboard button.'
+        height:
+          type: string
+          label: 'Height'
+        min_height:
+          type: string
+          label: 'Minimal height'
+        max_height:
+          type: string
+          label: 'Maximal height'
+        width:
+          type: string
+          label: 'Width'
+        min_width:
+          type: string
+          label: 'Minimal width'
+        max_width:
+          type: string
+          label: 'Maximal width'
+        position_horizontal:
+          type: string
+          label: 'Position horizontal'
+        position_vertical:
+          type: string
+          label: 'Position vertical'
+        append_to:
+          type: string
+          label: 'Append to'
+    extra_css:
+      type: string
+      label: 'Include custom CSS files'

@@ -1,0 +1,15 @@
+uuid: c8145538-42cb-4543-b2aa-fdf9656fe1e8
+langcode: en
+status: true
+dependencies: {  }
+name: resources_thumbs
+label: 'Resources Thumbs'
+effects:
+  67ebcc22-3695-44c8-84b1-cfe5c0a0b009:
+    uuid: 67ebcc22-3695-44c8-84b1-cfe5c0a0b009
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 140
+      height: 140
+      anchor: center-center

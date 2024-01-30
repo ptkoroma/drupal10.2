@@ -1,0 +1,26 @@
+uuid: 4b2ad153-1d5a-4e8d-a161-638fd41b1f2e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_i_am_able_to_apply_this_le
+    - node.type.cpd_reflection
+  module:
+    - custom_add_another
+    - text
+third_party_settings:
+  custom_add_another:
+    custom_add_another: ''
+    custom_remove: ''
+id: node.cpd_reflection.field_i_am_able_to_apply_this_le
+field_name: field_i_am_able_to_apply_this_le
+entity_type: node
+bundle: cpd_reflection
+label: 'I am able to apply this learning in my workplace as follows: '
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

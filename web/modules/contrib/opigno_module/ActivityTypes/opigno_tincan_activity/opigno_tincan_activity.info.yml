@@ -1,0 +1,13 @@
+name: Opigno Tincan Activity
+type: module
+description: Opigno Tincan activity type.
+package: Opigno
+core_version_requirement: ^9 || ^10
+dependencies:
+  - opigno_tincan_api:opigno_tincan_api
+  - opigno_module:opigno_module
+
+# Information added by Drupal.org packaging script on 2023-06-02
+version: '3.1.1'
+project: 'opigno_module'
+datestamp: 1685711919

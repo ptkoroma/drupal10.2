@@ -1,0 +1,46 @@
+uuid: 8ce535f8-a1ab-4bc3-877c-9fe9d234a0ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds.feed_type.import_products
+  module:
+    - feeds
+    - user
+id: feeds_feed.import_products.default
+targetEntityType: feeds_feed
+bundle: import_products
+mode: default
+content:
+  imported:
+    type: timestamp_ago
+    label: inline
+    settings:
+      future_format: '@interval hence'
+      past_format: '@interval ago'
+      granularity: 2
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  next:
+    type: timestamp
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  source:
+    type: feeds_uri_link
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: -3
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  search_api_excerpt: true

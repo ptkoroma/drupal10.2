@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: yXadRE77Va-G6dxhd2kPYapAvbnSvTF6hO4oXiOEynI
+langcode: en
+uuid: 25e2892a-b428-47cc-a553-630da6efe4d4
+name: 'SLIE Members'
+mail: info@slie-sl.org
+slogan: 'SLIE - Members Area'
+page:
+  403: ''
+  404: ''
+  front: /user/login
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: ''

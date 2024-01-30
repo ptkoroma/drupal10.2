@@ -1,0 +1,11 @@
+uuid: dffaf164-091f-43eb-a141-111e59cc3b06
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.resoures
+id: node.resoures
+target_entity_type_id: node
+target_bundle: resoures
+default_langcode: site_default
+language_alterable: false

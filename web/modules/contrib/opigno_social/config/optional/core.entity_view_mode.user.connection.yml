@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.connection
+label: Connection
+targetEntityType: user
+cache: true
