@@ -796,7 +796,7 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
 $databases['default']['default'] = array (
-  'database' => 'fbcalum1_slie_members_9',
+  'database' => 'fbcalum1_db',
   'username' => 'fbcalum1_drupalc',
   'password' => '2=~D9tw}Y-a07+{NPa',
   'prefix' => '',
