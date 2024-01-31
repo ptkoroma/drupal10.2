@@ -1601,6 +1601,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/rest_api_authentication' => array(
+            'pretty_version' => '2.0.13',
+            'version' => '2.0.13.0',
+            'reference' => '2.0.13',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/rest_api_authentication',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/restui' => array(
             'pretty_version' => '1.20.0',
             'version' => '1.20.0.0',
