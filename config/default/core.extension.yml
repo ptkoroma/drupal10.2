@@ -144,6 +144,7 @@ module:
   opigno_video: 0
   options: 0
   page_cache: 0
+  paragraphs_library: 0
   path: 0
   path_alias: 0
   pdf: 0
@@ -194,6 +195,7 @@ module:
   views_data_export: 0
   views_daterange_filters: 0
   views_infinite_scroll: 0
+  views_role_based_global_text: 0
   views_templates: 0
   views_ui: 0
   webform: 0
@@ -202,6 +204,7 @@ module:
   webform_devel: 0
   webform_example_element: 0
   webform_image_select: 0
+  webform_location_places: 0
   webform_node: 0
   webform_templates: 0
   webform_ui: 0

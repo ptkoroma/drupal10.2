@@ -11,7 +11,7 @@ archive: false
 id: mentee_registration_form
 title: 'mentee registration form'
 description: ''
-category: ''
+categories: {  }
 elements: |-
   first_name:
     '#type': textfield

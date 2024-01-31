@@ -392,8 +392,8 @@ interface WebformSubmissionInterface extends ContentEntityInterface, EntityOwner
   /**
    * Gets the webform submission's token.
    *
-   * @return string
-   *   The webform submission token.
+   * @return array
+   *   The webform submission data.
    */
   public function getToken();
 

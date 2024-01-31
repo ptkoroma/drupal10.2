@@ -115,7 +115,7 @@
         "drupal/views_conditional": "^1.4",
         "drupal/views_data_export": "^1.1",
         "drupal/views_daterange_filters": "^1.0@alpha",
-        "drupal/webform": "^6.1.4",
+        "drupal/webform": "^6.2",
         "drupal/xls_serialization": "^1.2",
         "drush/drush": "^11",
         "drupal/views_role_based_global_text": "^3.1",

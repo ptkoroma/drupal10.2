@@ -16,7 +16,8 @@ archive: false
 id: webform_example_element
 title: 'Example: Webform Element'
 description: 'An example of a custom Webform element.'
-category: Example
+categories:
+  - Example
 elements: |
   webform_example_element:
     '#type': webform_example_element
