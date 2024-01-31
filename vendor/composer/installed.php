@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'opigno/opigno-composer',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '71c1c279f968251a4fea3b55e446e73460151559',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -1509,6 +1509,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/paragraphs' => array(
+            'pretty_version' => '1.17.0',
+            'version' => '1.17.0.0',
+            'reference' => '8.x-1.17',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/paragraphs',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/pathauto' => array(
             'pretty_version' => '1.12.0',
             'version' => '1.12.0.0',
@@ -2213,9 +2222,9 @@
             'dev_requirement' => false,
         ),
         'opigno/opigno-composer' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '71c1c279f968251a4fea3b55e446e73460151559',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
