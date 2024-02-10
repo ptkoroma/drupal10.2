@@ -1,0 +1,21 @@
+uuid: 6b6414f4-55ea-4ce6-b926-a4411796646b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_year_attended_to
+    - paragraphs.paragraphs_type.educational_infomation
+  module:
+    - datetime
+id: paragraph.educational_infomation.field_year_attended_to
+field_name: field_year_attended_to
+entity_type: paragraph
+bundle: educational_infomation
+label: 'Year Attended To'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

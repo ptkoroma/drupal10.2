@@ -5,13 +5,16 @@ dependencies:
   config:
     - core.entity_view_mode.user.list_item
     - field.field.user.user.commerce_remote_id
-    - field.field.user.user.field_address
+    - field.field.user.user.field__i_agree
     - field.field.user.user.field_address_new
     - field.field.user.user.field_bio
     - field.field.user.user.field_correspondence
     - field.field.user.user.field_created_by
     - field.field.user.user.field_date_of_birth
+    - field.field.user.user.field_declaration_of_applicant
+    - field.field.user.user.field_details_of_sponsors
     - field.field.user.user.field_discipline
+    - field.field.user.user.field_educational_infomation
     - field.field.user.user.field_engineer_group
     - field.field.user.user.field_field_of_engineering_user
     - field.field.user.user.field_first_name
@@ -19,6 +22,7 @@ dependencies:
     - field.field.user.user.field_membership__level
     - field.field.user.user.field_membership_level
     - field.field.user.user.field_membership_number
+    - field.field.user.user.field_membership_of_other_profes
     - field.field.user.user.field_membership_status_
     - field.field.user.user.field_name
     - field.field.user.user.field_nationality
@@ -28,6 +32,7 @@ dependencies:
     - field.field.user.user.field_place_of_birth
     - field.field.user.user.field_present_employer
     - field.field.user.user.field_private_profile
+    - field.field.user.user.field_professional_experience
     - field.field.user.user.field_telephone
     - field.field.user.user.field_yearly_pdu_target
     - field.field.user.user.stripe_customer_id
@@ -58,13 +63,18 @@ hidden:
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  field__i_agree: true
   field_address: true
   field_address_new: true
   field_bio: true
   field_correspondence: true
   field_created_by: true
   field_date_of_birth: true
+  field_declaration: true
+  field_declaration_of_applicant: true
+  field_details_of_sponsors: true
   field_discipline: true
+  field_educational_infomation: true
   field_engineer_group: true
   field_field_of_engineering_user: true
   field_first_name: true
@@ -72,6 +82,7 @@ hidden:
   field_membership__level: true
   field_membership_level: true
   field_membership_number: true
+  field_membership_of_other_profes: true
   field_membership_status_: true
   field_name: true
   field_nationality: true
@@ -81,6 +92,7 @@ hidden:
   field_place_of_birth: true
   field_present_employer: true
   field_private_profile: true
+  field_professional_experience: true
   field_telephone: true
   field_yearly_pdu_target: true
   langcode: true

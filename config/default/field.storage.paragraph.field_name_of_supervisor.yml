@@ -1,0 +1,21 @@
+uuid: c6b78e19-fadc-47f3-99b3-1839e05bb08b
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_name_of_supervisor
+field_name: field_name_of_supervisor
+entity_type: paragraph
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

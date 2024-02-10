@@ -4,13 +4,16 @@ status: true
 dependencies:
   config:
     - field.field.user.user.commerce_remote_id
-    - field.field.user.user.field_address
+    - field.field.user.user.field__i_agree
     - field.field.user.user.field_address_new
     - field.field.user.user.field_bio
     - field.field.user.user.field_correspondence
     - field.field.user.user.field_created_by
     - field.field.user.user.field_date_of_birth
+    - field.field.user.user.field_declaration_of_applicant
+    - field.field.user.user.field_details_of_sponsors
     - field.field.user.user.field_discipline
+    - field.field.user.user.field_educational_infomation
     - field.field.user.user.field_engineer_group
     - field.field.user.user.field_field_of_engineering_user
     - field.field.user.user.field_first_name
@@ -18,6 +21,7 @@ dependencies:
     - field.field.user.user.field_membership__level
     - field.field.user.user.field_membership_level
     - field.field.user.user.field_membership_number
+    - field.field.user.user.field_membership_of_other_profes
     - field.field.user.user.field_membership_status_
     - field.field.user.user.field_name
     - field.field.user.user.field_nationality
@@ -27,19 +31,80 @@ dependencies:
     - field.field.user.user.field_place_of_birth
     - field.field.user.user.field_present_employer
     - field.field.user.user.field_private_profile
+    - field.field.user.user.field_professional_experience
     - field.field.user.user.field_telephone
     - field.field.user.user.field_yearly_pdu_target
     - field.field.user.user.stripe_customer_id
     - field.field.user.user.user_picture
     - image.style.user_compact_image
   module:
+    - entity_reference_revisions
+    - field_group
     - image
+    - text
     - user
+third_party_settings:
+  field_group:
+    group_test:
+      children: {  }
+      label: Test
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        formatter: closed
+        description: ''
 id: user.user.default
 targetEntityType: user
 bundle: user
 mode: default
 content:
+  field__i_agree:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_declaration:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_declaration_of_applicant:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_details_of_sponsors:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_educational_infomation:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_first_name:
     type: string
     label: above
@@ -56,6 +121,13 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  field_membership_of_other_profes:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
   field_private_profile:
     type: boolean
     label: above
@@ -65,6 +137,15 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_professional_experience:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 6
     region: content
   user_picture:
     type: image

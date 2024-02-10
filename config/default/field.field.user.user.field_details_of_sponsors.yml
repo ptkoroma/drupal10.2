@@ -1,0 +1,40 @@
+uuid: 5c49428d-e6ae-4aa6-b08c-1f9bb8244b46
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_details_of_sponsors
+    - paragraphs.paragraphs_type.sponsors
+  module:
+    - entity_reference_revisions
+    - user
+id: user.user.field_details_of_sponsors
+field_name: field_details_of_sponsors
+entity_type: user
+bundle: user
+label: 'Details of Sponsors'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      sponsors: sponsors
+    negate: 0
+    target_bundles_drag_drop:
+      educational_infomation:
+        weight: 5
+        enabled: false
+      from_library:
+        weight: 6
+        enabled: false
+      professional_experience:
+        weight: 7
+        enabled: false
+      sponsors:
+        weight: 8
+        enabled: true
+field_type: entity_reference_revisions

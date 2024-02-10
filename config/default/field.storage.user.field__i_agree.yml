@@ -1,0 +1,18 @@
+uuid: 7aa12565-040e-4745-9d38-a1283cf63d8b
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field__i_agree
+field_name: field__i_agree
+entity_type: user
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

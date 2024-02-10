@@ -1,0 +1,57 @@
+uuid: 31a5f555-a36b-427a-aad3-d1ad6856fa8c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.educational_infomation.field_degree_diploma
+    - field.field.paragraph.educational_infomation.field_discipline
+    - field.field.paragraph.educational_infomation.field_name_and_address_of_instit
+    - field.field.paragraph.educational_infomation.field_year_attended_from
+    - field.field.paragraph.educational_infomation.field_year_attended_to
+    - paragraphs.paragraphs_type.educational_infomation
+  module:
+    - datetime
+id: paragraph.educational_infomation.default
+targetEntityType: paragraph
+bundle: educational_infomation
+mode: default
+content:
+  field_degree_diploma:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_discipline:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_name_and_address_of_instit:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_year_attended_from:
+    type: datetime_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_year_attended_to:
+    type: datetime_default
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

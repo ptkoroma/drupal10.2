@@ -1,0 +1,65 @@
+uuid: bb591b04-b8bb-457e-9ea3-ae9372e5cec5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.educational_infomation.field_degree_diploma
+    - field.field.paragraph.educational_infomation.field_discipline
+    - field.field.paragraph.educational_infomation.field_name_and_address_of_instit
+    - field.field.paragraph.educational_infomation.field_year_attended_from
+    - field.field.paragraph.educational_infomation.field_year_attended_to
+    - paragraphs.paragraphs_type.educational_infomation
+  module:
+    - datetime
+id: paragraph.educational_infomation.default
+targetEntityType: paragraph
+bundle: educational_infomation
+mode: default
+content:
+  field_degree_diploma:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_discipline:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_name_and_address_of_instit:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_year_attended_from:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_year_attended_to:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  search_api_excerpt: true

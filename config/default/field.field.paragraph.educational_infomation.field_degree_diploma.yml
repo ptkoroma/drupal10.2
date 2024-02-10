@@ -1,0 +1,19 @@
+uuid: 3dad4a24-4ff7-4a20-b332-a41ab6f61333
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_degree_diploma
+    - paragraphs.paragraphs_type.educational_infomation
+id: paragraph.educational_infomation.field_degree_diploma
+field_name: field_degree_diploma
+entity_type: paragraph
+bundle: educational_infomation
+label: Degree/Diploma
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

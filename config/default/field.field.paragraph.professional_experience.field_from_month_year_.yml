@@ -1,0 +1,21 @@
+uuid: 17d4dc33-672f-41b1-b391-bb854616518e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_from_month_year_
+    - paragraphs.paragraphs_type.professional_experience
+  module:
+    - datetime
+id: paragraph.professional_experience.field_from_month_year_
+field_name: field_from_month_year_
+entity_type: paragraph
+bundle: professional_experience
+label: 'From (month/year)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

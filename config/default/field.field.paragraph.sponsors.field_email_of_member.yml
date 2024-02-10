@@ -1,0 +1,19 @@
+uuid: be530dff-6edd-4a62-b519-12dc763befc9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_email_of_member
+    - paragraphs.paragraphs_type.sponsors
+id: paragraph.sponsors.field_email_of_member
+field_name: field_email_of_member
+entity_type: paragraph
+bundle: sponsors
+label: 'EMAIL OF MEMBER'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

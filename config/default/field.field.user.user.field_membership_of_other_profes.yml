@@ -1,0 +1,20 @@
+uuid: 74541510-49e4-4294-b1e6-3d648591581d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_membership_of_other_profes
+  module:
+    - user
+id: user.user.field_membership_of_other_profes
+field_name: field_membership_of_other_profes
+entity_type: user
+bundle: user
+label: 'Membership of other Professional Bodies'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

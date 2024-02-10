@@ -452,15 +452,6 @@ blocks:
   'views_block:custom_forum_-block_1':
     available: 0
     mandatory: 0
-  'views_block:engineer_audit_search-block_1':
-    available: 0
-    mandatory: 0
-  'views_block:engineer_audit_search-block_2':
-    available: 0
-    mandatory: 0
-  'views_block:engineer_audit_search-block_4':
-    available: 0
-    mandatory: 0
   'views_block:faq_view_list-block_1':
     available: 0
     mandatory: 0

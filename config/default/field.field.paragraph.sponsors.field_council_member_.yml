@@ -1,0 +1,23 @@
+uuid: d75ba398-e59d-4d94-8842-2daeca391690
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_council_member_
+    - paragraphs.paragraphs_type.sponsors
+id: paragraph.sponsors.field_council_member_
+field_name: field_council_member_
+entity_type: paragraph
+bundle: sponsors
+label: 'COUNCIL/MEMBER '
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes '
+  off_label: 'No'
+field_type: boolean

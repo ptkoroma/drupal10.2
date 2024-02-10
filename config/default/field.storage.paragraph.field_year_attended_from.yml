@@ -1,0 +1,20 @@
+uuid: 13a1a230-f52b-4a2c-990f-726477ff6a47
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - paragraphs
+id: paragraph.field_year_attended_from
+field_name: field_year_attended_from
+entity_type: paragraph
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

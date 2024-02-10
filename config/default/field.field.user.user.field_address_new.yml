@@ -32,9 +32,9 @@ default_value:
     address_line1: ''
     address_line2: ''
     organization: ''
-    given_name: null
+    given_name: ''
     additional_name: null
-    family_name: null
+    family_name: ''
 default_value_callback: ''
 settings:
   available_countries: {  }
@@ -53,13 +53,13 @@ settings:
     addressLine2:
       override: optional
     postalCode:
-      override: required
+      override: optional
     sortingCode:
       override: hidden
     dependentLocality:
       override: hidden
     locality:
-      override: required
+      override: optional
     administrativeArea:
       override: optional
   fields: {  }

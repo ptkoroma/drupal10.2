@@ -1,0 +1,23 @@
+uuid: 63f3dba4-fe25-4d68-958e-2c1491fed883
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_period_months_
+    - paragraphs.paragraphs_type.professional_experience
+id: paragraph.professional_experience.field_period_months_
+field_name: field_period_months_
+entity_type: paragraph
+bundle: professional_experience
+label: 'Period (Months)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

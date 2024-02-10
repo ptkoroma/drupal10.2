@@ -1,0 +1,19 @@
+uuid: b9798f3d-0724-4ff8-835a-58b7a0b8548e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_discipline
+    - paragraphs.paragraphs_type.educational_infomation
+id: paragraph.educational_infomation.field_discipline
+field_name: field_discipline
+entity_type: paragraph
+bundle: educational_infomation
+label: Discipline
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

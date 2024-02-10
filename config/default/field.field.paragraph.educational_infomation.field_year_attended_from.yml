@@ -1,0 +1,21 @@
+uuid: 8eac8006-5d84-4dfc-b328-ec8738c2a20d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_year_attended_from
+    - paragraphs.paragraphs_type.educational_infomation
+  module:
+    - datetime
+id: paragraph.educational_infomation.field_year_attended_from
+field_name: field_year_attended_from
+entity_type: paragraph
+bundle: educational_infomation
+label: 'Year Attended From'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

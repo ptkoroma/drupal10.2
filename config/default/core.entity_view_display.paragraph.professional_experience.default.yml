@@ -1,0 +1,82 @@
+uuid: 4d815a69-588e-4b8c-ae66-9152a4967aa4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.professional_experience.field_details_of_work_experience
+    - field.field.paragraph.professional_experience.field_email_of_supervisor
+    - field.field.paragraph.professional_experience.field_from_month_year_
+    - field.field.paragraph.professional_experience.field_name_of_employer
+    - field.field.paragraph.professional_experience.field_name_of_supervisor
+    - field.field.paragraph.professional_experience.field_period_months_
+    - field.field.paragraph.professional_experience.field_to_month_year_
+    - paragraphs.paragraphs_type.professional_experience
+  module:
+    - datetime
+id: paragraph.professional_experience.default
+targetEntityType: paragraph
+bundle: professional_experience
+mode: default
+content:
+  field_details_of_work_experience:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_email_of_supervisor:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_from_month_year_:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_name_of_employer:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_name_of_supervisor:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_period_months_:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_to_month_year_:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  search_api_excerpt: true

@@ -1,0 +1,74 @@
+uuid: a265af84-f4dc-46fd-b75c-93d65c11780d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.professional_experience.field_details_of_work_experience
+    - field.field.paragraph.professional_experience.field_email_of_supervisor
+    - field.field.paragraph.professional_experience.field_from_month_year_
+    - field.field.paragraph.professional_experience.field_name_of_employer
+    - field.field.paragraph.professional_experience.field_name_of_supervisor
+    - field.field.paragraph.professional_experience.field_period_months_
+    - field.field.paragraph.professional_experience.field_to_month_year_
+    - paragraphs.paragraphs_type.professional_experience
+  module:
+    - datetime
+id: paragraph.professional_experience.default
+targetEntityType: paragraph
+bundle: professional_experience
+mode: default
+content:
+  field_details_of_work_experience:
+    type: string_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_email_of_supervisor:
+    type: email_default
+    weight: 6
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_from_month_year_:
+    type: datetime_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_name_of_employer:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_name_of_supervisor:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_period_months_:
+    type: number
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_to_month_year_:
+    type: datetime_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

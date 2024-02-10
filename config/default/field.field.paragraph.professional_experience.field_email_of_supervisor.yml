@@ -1,0 +1,19 @@
+uuid: d5e21dc5-57ac-4fee-bfa4-fb0d20edec31
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_email_of_supervisor
+    - paragraphs.paragraphs_type.professional_experience
+id: paragraph.professional_experience.field_email_of_supervisor
+field_name: field_email_of_supervisor
+entity_type: paragraph
+bundle: professional_experience
+label: 'Email of Supervisor'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

@@ -1,0 +1,19 @@
+uuid: a4d2c8c9-36cf-483f-816b-7ee101989e89
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_name_of_employer
+    - paragraphs.paragraphs_type.sponsors
+id: paragraph.sponsors.field_name_of_employer
+field_name: field_name_of_employer
+entity_type: paragraph
+bundle: sponsors
+label: 'CATEGORY OF MEMBERSHIP'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,53 @@
+uuid: 33ce4efd-aaf3-4f97-8b7c-9f9345d2719e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.sponsors.field_council_member_
+    - field.field.paragraph.sponsors.field_discipline
+    - field.field.paragraph.sponsors.field_email_of_member
+    - field.field.paragraph.sponsors.field_name_of_employer
+    - paragraphs.paragraphs_type.sponsors
+id: paragraph.sponsors.default
+targetEntityType: paragraph
+bundle: sponsors
+mode: default
+content:
+  field_council_member_:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_discipline:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_email_of_member:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_name_of_employer:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  search_api_excerpt: true
